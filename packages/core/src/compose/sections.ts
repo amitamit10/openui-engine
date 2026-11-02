@@ -1,0 +1,272 @@
+import type { DesignTokens } from "../design/types.js";
+
+export type SectionType =
+  | "navbar-glass" | "hero-centered-product" | "hero-split" | "hero-editorial"
+  | "logo-cloud" | "feature-bento" | "feature-rows" | "metrics" | "steps"
+  | "testimonials" | "pricing" | "faq" | "cta-band" | "footer-columns";
+
+export interface Cta { label: string; href: string }
+export interface SectionSpec { id: string; type: SectionType; props: Record<string, any> }
+
+export interface PageSpec {
+  title: string;
+  description: string;
+  brand: { name: string };
+  lang?: string;
+  sections: SectionSpec[];
+}
+
+export const esc = (s: unknown): string =>
+  String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+/** Allow *emphasis* in headlines → <em>, everything else escaped. */
+export const rich = (s: unknown): string => esc(s).replace(/\*([^*]+)\*/g, "<em>$1</em>");
+
+const ICON = {
+  arrow: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>`,
+  check: `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg>`,
+  plus: `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg>`,
+  menu: `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg>`,
+  mark: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l3-6 3 4 4-6"/></svg>`,
+};
+
+const btn = (c: Cta | undefined, kind: "primary" | "ghost" | "link", id: string, large = false, arrow = false) =>
+  c ? `<a class="btn btn--${kind}${large ? " btn--lg" : ""}" href="${esc(c.href)}" data-openui-id="${id}">${esc(c.label)}${arrow ? ICON.arrow : ""}</a>` : "";
+
+function ctaRow(p: any, id: string, hierarchy: DesignTokens["composition"]["ctaHierarchy"]): string {
+  if (hierarchy === "single") return `<div class="cta-row">${btn(p.primaryCta, "primary", `${id}.cta`, true, true)}</div>`;
+  const second = hierarchy === "primary-secondary-link" ? btn(p.secondaryCta, "link", `${id}.cta2`, true, true) : btn(p.secondaryCta, "ghost", `${id}.cta2`, true);
+  return `<div class="cta-row">${btn(p.primaryCta, "primary", `${id}.cta`, true, true)}${second}</div>`;
+}
+
+/** Deterministic smooth chart path so mockups look real and stay stable between builds. */
+function chartPaths(): { line: string; area: string; line2: string } {
+  const pts = [62, 58, 66, 52, 60, 44, 50, 38, 46, 30, 36, 22, 28, 14];
+  const pts2 = [80, 78, 82, 72, 76, 68, 70, 62, 66, 58, 60, 52, 56, 46];
+  const W = 560, H = 150, step = W / (pts.length - 1);
+  const mk = (arr: number[]) => arr.map((y, i) => `${i === 0 ? "M" : "L"}${(i * step).toFixed(1)} ${(y * H / 100).toFixed(1)}`).join(" ");
+  const smooth = (arr: number[]) => {
+    const p = arr.map((y, i) => [i * step, y * H / 100] as const);
+    let d = `M${p[0]![0]} ${p[0]![1].toFixed(1)}`;
+    for (let i = 1; i < p.length; i++) {
+      const [x0, y0] = p[i - 1]!, [x1, y1] = p[i]!, cx = (x0 + x1) / 2;
+      d += ` C${cx.toFixed(1)} ${y0.toFixed(1)}, ${cx.toFixed(1)} ${y1.toFixed(1)}, ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+    }
+    return d;
+  };
+  void mk;
+  const line = smooth(pts);
+  return { line, area: `${line} L${W} ${H} L0 ${H} Z`, line2: smooth(pts2) };
+}
+
+function dashboardMock(id: string, brand: string): string {
+  const c = chartPaths();
+  return `<div class="frame frame--float" data-openui-id="${id}.frame" role="img" aria-label="Product dashboard preview showing revenue growth chart and key metrics">
+  <div class="frame__bar"><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__url">app.${esc(brand.toLowerCase().replace(/[^a-z0-9]/g, ""))}.com/overview</span></div>
+  <div class="dash" aria-hidden="true">
+    <div class="dash__side">
+      <div class="item is-active"><i></i>Overview</div><div class="item"><i></i>Pipelines</div><div class="item"><i></i>Insights</div><div class="item"><i></i>Automations</div><div class="item"><i></i>Team</div><div class="item"><i></i>Settings</div>
+    </div>
+    <div class="dash__main">
+      <div class="dash__top"><span class="title">Revenue overview</span><span class="pill">Last 30 days</span></div>
+      <div class="kpis">
+        <div class="kpi"><small>Net revenue</small><strong>$482.6k</strong><em>▲ 18.2%</em></div>
+        <div class="kpi"><small>Active accounts</small><strong>12,840</strong><em>▲ 6.4%</em></div>
+        <div class="kpi"><small>Churn</small><strong>1.9%</strong><em>▲ 0.4% better</em></div>
+      </div>
+      <div class="chart"><svg viewBox="0 0 560 150" preserveAspectRatio="none">
+        <defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-accent)" stop-opacity=".35"/><stop offset="1" stop-color="var(--c-accent)" stop-opacity="0"/></linearGradient></defs>
+        <g class="grid"><line x1="0" x2="560" y1="37" y2="37"/><line x1="0" x2="560" y1="75" y2="75"/><line x1="0" x2="560" y1="112" y2="112"/></g>
+        <path class="area" d="${c.area}"/><path class="line2" d="${c.line2}"/><path class="line" d="${c.line}"/></svg></div>
+    </div>
+  </div>
+</div>`;
+}
+
+function viz(kind: string): string {
+  switch (kind) {
+    case "bars": return `<div class="viz viz--bars" aria-hidden="true">${[38, 52, 44, 70, 58, 86, 74, 96].map((h) => `<span style="height:${h}%"></span>`).join("")}</div>`;
+    case "list": return `<div class="viz viz--list" aria-hidden="true"><div class="row"><b></b><span>Deploy to production</span><span>2m ago</span></div><div class="row"><b></b><span>Review required</span><span>14m ago</span></div><div class="row"><b></b><span>Sync completed</span><span>1h ago</span></div></div>`;
+    case "code": return `<div class="viz viz--code" aria-hidden="true"><code><span class="c">// one call, typed end to end</span>\n<span class="k">const</span> run = <span class="k">await</span> client.flows.<span class="k">start</span>({\n  name: <span class="s">"onboarding"</span>,\n  retries: <span class="s">3</span>,\n});</code></div>`;
+    case "toggle": return `<div class="viz viz--toggle" aria-hidden="true"><div class="t"><span>Auto-approve under $500</span><i class="sw on"></i></div><div class="t"><span>Notify finance</span><i class="sw on"></i></div><div class="t"><span>Require 2nd reviewer</span><i class="sw"></i></div></div>`;
+    case "avatars": return `<div class="viz viz--avatars" aria-hidden="true"><span>AK</span><span>MJ</span><span>SL</span><span>RD</span><em>+24 teammates online</em></div>`;
+    default: return "";
+  }
+}
+
+type Ctx = { tokens: DesignTokens; spec: PageSpec };
+type Renderer = (s: SectionSpec, ctx: Ctx) => string;
+
+const head = (id: string, p: any, left = false) => `<div class="section-head${left ? " section-head--left" : ""} reveal">
+    ${p.eyebrow ? `<span class="eyebrow" data-openui-id="${id}.eyebrow">${esc(p.eyebrow)}</span>` : ""}
+    <h2 class="h2" data-openui-id="${id}.title">${rich(p.title)}</h2>
+    ${p.subtitle ? `<p class="lead" data-openui-id="${id}.subtitle">${esc(p.subtitle)}</p>` : ""}
+  </div>`;
+
+const wrap = (s: SectionSpec, inner: string, cls = "", tint = false) =>
+  `<section class="section ${cls}${tint ? " section--tint" : ""}" id="${esc(s.props.anchor ?? s.id)}" data-openui-section="${esc(s.id)}" data-openui-variant="${s.type}" data-openui-id="${esc(s.id)}">
+  <div class="container">${inner}</div>
+</section>`;
+
+export const RENDERERS: Record<SectionType, Renderer> = {
+  "navbar-glass": (s, { spec }) => {
+    const p = s.props, id = s.id;
+    const links = (p.links ?? []) as Array<{ label: string; href: string }>;
+    return `<header class="nav" data-openui-section="${id}" data-openui-variant="navbar-glass" data-openui-id="${id}">
+  <div class="container nav__row">
+    <a class="brand" href="#top" aria-label="${esc(spec.brand.name)} home" data-openui-id="${id}.brand"><span class="brand__mark">${ICON.mark}</span>${esc(spec.brand.name)}</a>
+    <nav class="nav__links" aria-label="Primary">${links.map((l, i) => `<a href="${esc(l.href)}" data-openui-id="${id}.link${i}">${esc(l.label)}</a>`).join("")}</nav>
+    <div class="nav__actions">${p.signIn ? `<a class="btn btn--ghost" href="${esc(p.signIn.href)}" data-openui-id="${id}.signin">${esc(p.signIn.label)}</a>` : ""}${btn(p.cta, "primary", `${id}.cta`)}
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="${id}-sheet" aria-label="Open menu" data-nav-toggle>${ICON.menu}</button></div>
+  </div>
+  <div class="nav__sheet" id="${id}-sheet" hidden>${links.map((l) => `<a href="${esc(l.href)}">${esc(l.label)}</a>`).join("")}${p.signIn ? `<a href="${esc(p.signIn.href)}">${esc(p.signIn.label)}</a>` : ""}</div>
+</header>`;
+  },
+
+  "hero-centered-product": (s, { tokens, spec }) => {
+    const p = s.props, id = s.id;
+    return `<section class="hero hero--centered" data-openui-section="${id}" data-openui-variant="hero-centered-product" data-openui-id="${id}" id="top">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero__copy">
+      ${p.badge ? `<a class="badge" href="${esc(p.badge.href ?? "#")}" data-openui-id="${id}.badge"><b>${esc(p.badge.tag)}</b>${esc(p.badge.text)}</a>` : ""}
+      <h1 class="h-display" data-openui-id="${id}.title">${rich(p.title)}</h1>
+      <p class="lead" data-openui-id="${id}.subtitle">${esc(p.subtitle)}</p>
+      ${ctaRow(p, id, tokens.composition.ctaHierarchy)}
+      ${p.note ? `<p class="hero__note" data-openui-id="${id}.note">${esc(p.note)}</p>` : ""}
+    </div>
+    <div class="hero__visual">${dashboardMock(id, spec.brand.name)}</div>
+  </div>
+</section>`;
+  },
+
+  "hero-split": (s, { tokens, spec }) => {
+    const p = s.props, id = s.id;
+    return `<section class="hero hero--split" data-openui-section="${id}" data-openui-variant="hero-split" data-openui-id="${id}" id="top">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="container hero__row">
+    <div class="hero__copy">
+      ${p.badge ? `<a class="badge" href="${esc(p.badge.href ?? "#")}" data-openui-id="${id}.badge"><b>${esc(p.badge.tag)}</b>${esc(p.badge.text)}</a>` : ""}
+      <h1 class="h1" data-openui-id="${id}.title">${rich(p.title)}</h1>
+      <p class="lead" data-openui-id="${id}.subtitle">${esc(p.subtitle)}</p>
+      ${ctaRow(p, id, tokens.composition.ctaHierarchy)}
+      ${p.note ? `<p class="hero__note" data-openui-id="${id}.note">${esc(p.note)}</p>` : ""}
+    </div>
+    <div class="hero__visual">${dashboardMock(id, spec.brand.name)}</div>
+  </div>
+</section>`;
+  },
+
+  "hero-editorial": (s, { tokens }) => {
+    const p = s.props, id = s.id;
+    const stats = (p.stats ?? []) as Array<{ value: string; label: string }>;
+    return `<section class="hero hero--editorial" data-openui-section="${id}" data-openui-variant="hero-editorial" data-openui-id="${id}" id="top">
+  <div class="container">
+    <div class="hero__copy">
+      ${p.eyebrow ? `<span class="eyebrow" data-openui-id="${id}.eyebrow">${esc(p.eyebrow)}</span>` : ""}
+      <h1 class="h-display" data-openui-id="${id}.title">${rich(p.title)}</h1>
+      <p class="lead" data-openui-id="${id}.subtitle" style="max-width:56ch">${esc(p.subtitle)}</p>
+      ${ctaRow(p, id, tokens.composition.ctaHierarchy)}
+    </div>
+    ${stats.length ? `<div class="hero__foot">${stats.map((x, i) => `<div class="metric" style="border:0;padding:0"><strong data-openui-id="${id}.stat${i}">${esc(x.value)}</strong><span>${esc(x.label)}</span></div>`).join("")}</div>` : ""}
+  </div>
+</section>`;
+  },
+
+  "logo-cloud": (s) => {
+    const p = s.props, id = s.id;
+    return `<section class="logos" data-openui-section="${id}" data-openui-variant="logo-cloud" data-openui-id="${id}" aria-label="Customers">
+  <div class="container reveal"><p class="logos__label" data-openui-id="${id}.label">${esc(p.label)}</p>
+  <div class="logos__row">${((p.logos ?? []) as string[]).map((n) => `<span class="logo-word"><i></i>${esc(n)}</span>`).join("")}</div></div>
+</section>`;
+  },
+
+  "feature-bento": (s) => {
+    const p = s.props, id = s.id;
+    const items = (p.items ?? []) as Array<{ title: string; body: string; visual: string; span?: number }>;
+    return wrap(s, `${head(id, p)}
+  <div class="bento">${items.map((it, i) => `<article class="card span-${it.span ?? 2} reveal" data-openui-id="${id}.card${i}">
+    ${viz(it.visual)}
+    <div class="card__text"><h3 class="h4" data-openui-id="${id}.card${i}.title">${esc(it.title)}</h3><p data-openui-id="${id}.card${i}.body">${esc(it.body)}</p></div></article>`).join("")}</div>`, "", false);
+  },
+
+  "feature-rows": (s) => {
+    const p = s.props, id = s.id;
+    const items = (p.items ?? []) as Array<{ eyebrow?: string; title: string; body: string; bullets?: string[]; visual: string }>;
+    return wrap(s, `${p.title ? head(id, p) : ""}
+  <div class="rows">${items.map((it, i) => `<div class="frow reveal" data-openui-id="${id}.row${i}">
+    <div class="frow__copy">
+      ${it.eyebrow ? `<span class="eyebrow">${esc(it.eyebrow)}</span>` : ""}
+      <h3 class="h2" data-openui-id="${id}.row${i}.title">${rich(it.title)}</h3>
+      <p class="lead" data-openui-id="${id}.row${i}.body">${esc(it.body)}</p>
+      ${it.bullets ? `<ul class="ticks">${it.bullets.map((b) => `<li>${ICON.check}<span>${esc(b)}</span></li>`).join("")}</ul>` : ""}
+    </div>
+    <div class="card" style="padding:var(--s-5)">${viz(it.visual)}</div></div>`).join("")}</div>`, "", !!p.tint);
+  },
+
+  metrics: (s) => {
+    const p = s.props, id = s.id;
+    const items = (p.items ?? []) as Array<{ value: string; label: string }>;
+    return wrap(s, `${p.title ? head(id, p) : ""}<div class="metrics reveal">${items.map((m, i) => `<div class="metric"><strong data-openui-id="${id}.m${i}">${esc(m.value)}</strong><span>${esc(m.label)}</span></div>`).join("")}</div>`, "", !!p.tint);
+  },
+
+  steps: (s) => {
+    const p = s.props, id = s.id;
+    const items = (p.items ?? []) as Array<{ title: string; body: string }>;
+    return wrap(s, `${head(id, p)}<div class="steps">${items.map((st, i) => `<div class="step card reveal" data-openui-id="${id}.step${i}"><h3 class="h3">${esc(st.title)}</h3><p>${esc(st.body)}</p></div>`).join("")}</div>`, "", true);
+  },
+
+  testimonials: (s) => {
+    const p = s.props, id = s.id;
+    const items = (p.items ?? []) as Array<{ quote: string; name: string; role: string }>;
+    return wrap(s, `${head(id, p)}<div class="quotes">${items.map((q, i) => `<figure class="card quote reveal" data-openui-id="${id}.q${i}"><blockquote>“${esc(q.quote)}”</blockquote><figcaption><span class="avatar" aria-hidden="true">${esc(q.name.split(" ").map((w) => w[0]).join("").slice(0, 2))}</span><span class="who"><strong>${esc(q.name)}</strong><span>${esc(q.role)}</span></span></figcaption></figure>`).join("")}</div>`);
+  },
+
+  pricing: (s) => {
+    const p = s.props, id = s.id;
+    const tiers = (p.tiers ?? []) as Array<{ name: string; monthly: number | string; yearly: number | string; desc: string; features: string[]; cta: Cta; featured?: boolean; unit?: string }>;
+    return wrap(s, `${head(id, p)}
+  <div class="reveal" style="display:flex;justify-content:center;margin-bottom:var(--s-7)">
+    <div class="billing" role="group" aria-label="Billing period">
+      <button type="button" aria-pressed="true" data-billing="monthly">Monthly</button>
+      <button type="button" aria-pressed="false" data-billing="yearly">Yearly <span class="save">Save 20%</span></button>
+    </div></div>
+  <div class="tiers">${tiers.map((t, i) => `<article class="card tier reveal${t.featured ? " tier--featured" : ""}" data-openui-id="${id}.tier${i}">
+    ${t.featured ? `<span class="tier__tag">Most popular</span>` : ""}
+    <div class="stack"><h3 class="h3">${esc(t.name)}</h3><p class="muted small">${esc(t.desc)}</p></div>
+    <div class="price"><strong data-price data-monthly="${esc(t.monthly)}" data-yearly="${esc(t.yearly)}">${typeof t.monthly === "number" ? "$" : ""}${esc(t.monthly)}</strong><span>${typeof t.monthly === "number" ? esc(t.unit ?? "/ seat / month") : ""}</span></div>
+    ${btn(t.cta, t.featured ? "primary" : "ghost", `${id}.tier${i}.cta`, false)}
+    <ul class="ticks">${t.features.map((f) => `<li>${ICON.check}<span>${esc(f)}</span></li>`).join("")}</ul></article>`).join("")}</div>`, "", true);
+  },
+
+  faq: (s) => {
+    const p = s.props, id = s.id;
+    const items = (p.items ?? []) as Array<{ q: string; a: string }>;
+    return wrap(s, `${head(id, p)}<div class="faq reveal">${items.map((f, i) => `<details${i === 0 ? " open" : ""} data-openui-id="${id}.item${i}"><summary>${esc(f.q)}${ICON.plus}</summary><div class="ans">${esc(f.a)}</div></details>`).join("")}</div>`);
+  },
+
+  "cta-band": (s, { tokens }) => {
+    const p = s.props, id = s.id;
+    return wrap(s, `<div class="cta-band reveal" data-openui-id="${id}.band">
+    <h2 class="h1" data-openui-id="${id}.title">${rich(p.title)}</h2>
+    <p class="lead" data-openui-id="${id}.subtitle" style="max-width:52ch">${esc(p.subtitle)}</p>
+    ${ctaRow(p, id, tokens.composition.ctaHierarchy)}
+  </div>`);
+  },
+
+  "footer-columns": (s, { spec }) => {
+    const p = s.props, id = s.id;
+    const cols = (p.columns ?? []) as Array<{ title: string; links: Array<{ label: string; href: string }> }>;
+    return `<footer class="footer" data-openui-section="${id}" data-openui-variant="footer-columns" data-openui-id="${id}">
+  <div class="container"><div class="footer__grid">
+    <div class="footer__brand"><a class="brand" href="#top"><span class="brand__mark">${ICON.mark}</span>${esc(spec.brand.name)}</a><p class="muted small" data-openui-id="${id}.tagline">${esc(p.tagline)}</p></div>
+    ${cols.map((c) => `<nav aria-label="${esc(c.title)}"><h3>${esc(c.title)}</h3><ul>${c.links.map((l) => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`).join("")}</ul></nav>`).join("")}
+  </div>
+  <div class="footer__legal"><span>${esc(p.legal)}</span><span>${esc(p.note ?? "")}</span></div></div>
+</footer>`;
+  },
+};
+
+export const SECTION_VARIANT_GROUPS: Record<string, SectionType[]> = {
+  hero: ["hero-centered-product", "hero-split", "hero-editorial"],
+};

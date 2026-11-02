@@ -1,0 +1,366 @@
+{
+  "title": "Lumen — Turn raw events into *decisions* your whole team trusts",
+  "description": "Lumen unifies your product data, automates the busywork and shows every team exactly what changed and why.",
+  "brand": {
+    "name": "Lumen"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "type": "navbar-glass",
+      "props": {
+        "links": [
+          {
+            "label": "Features",
+            "href": "#features"
+          },
+          {
+            "label": "How it works",
+            "href": "#how"
+          },
+          {
+            "label": "Pricing",
+            "href": "#pricing"
+          },
+          {
+            "label": "FAQ",
+            "href": "#faq"
+          }
+        ],
+        "signIn": {
+          "label": "Sign in",
+          "href": "#"
+        },
+        "cta": {
+          "label": "Start free",
+          "href": "#pricing"
+        }
+      }
+    },
+    {
+      "id": "hero",
+      "type": "hero-centered-product",
+      "props": {
+        "badge": {
+          "tag": "New",
+          "text": "AI copilot is now generally available"
+        },
+        "title": "Turn raw events into *decisions* your whole team trusts",
+        "subtitle": "Lumen unifies your product data, automates the busywork and shows every team exactly what changed and why.",
+        "primaryCta": {
+          "label": "Start free",
+          "href": "#pricing"
+        },
+        "secondaryCta": {
+          "label": "Book a demo",
+          "href": "#"
+        },
+        "note": "Free for 14 days · No credit card · Cancel anytime"
+      }
+    },
+    {
+      "id": "logo-cloud",
+      "type": "logo-cloud",
+      "props": {
+        "label": "Trusted by teams who ship weekly",
+        "logos": [
+          "Northwind",
+          "Lumen",
+          "Parallax",
+          "Helix",
+          "Orbital",
+          "Vantage"
+        ]
+      }
+    },
+    {
+      "id": "feature-bento",
+      "type": "feature-bento",
+      "props": {
+        "anchor": "features",
+        "eyebrow": "Platform",
+        "title": "Everything *Lumen* needs in one place",
+        "subtitle": "Fewer tools, fewer handoffs, and a single source of truth your whole team can trust.",
+        "items": [
+          {
+            "title": "See what changed, instantly",
+            "body": "Live dashboards surface the signals that matter, with no query writing required.",
+            "visual": "bars",
+            "span": 4
+          },
+          {
+            "title": "Automations that explain themselves",
+            "body": "Every run is logged with inputs, outputs and the rule that fired.",
+            "visual": "list",
+            "span": 2
+          },
+          {
+            "title": "Typed from end to end",
+            "body": "A small, predictable API with generated clients.",
+            "visual": "code",
+            "span": 2
+          },
+          {
+            "title": "Guardrails, not gatekeeping",
+            "body": "Approvals and limits that only appear when they should.",
+            "visual": "toggle",
+            "span": 2
+          },
+          {
+            "title": "Built for the whole team",
+            "body": "Roles, comments and shared views keep everyone on the same page.",
+            "visual": "avatars",
+            "span": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "feature-rows",
+      "type": "feature-rows",
+      "props": {
+        "title": "",
+        "items": [
+          {
+            "eyebrow": "Visibility",
+            "title": "Answers before the *stand-up*",
+            "body": "Pin the metrics that matter and see them update as events arrive.",
+            "bullets": [
+              "Real-time pipelines with sub-second refresh",
+              "Drill from any chart into the underlying records",
+              "Share a live view with a single link"
+            ],
+            "visual": "bars"
+          },
+          {
+            "eyebrow": "Control",
+            "title": "Automation you can *audit*",
+            "body": "Compose rules visually, ship them safely, and roll back in one click.",
+            "bullets": [
+              "Version history on every rule",
+              "Dry-run against last week's data",
+              "Approvals for sensitive actions"
+            ],
+            "visual": "list"
+          }
+        ],
+        "anchor": "how"
+      }
+    },
+    {
+      "id": "metrics",
+      "type": "metrics",
+      "props": {
+        "tint": true,
+        "items": [
+          {
+            "value": "99.99%",
+            "label": "Uptime, trailing 12 months"
+          },
+          {
+            "value": "3.2×",
+            "label": "Faster time to insight"
+          },
+          {
+            "value": "18 min",
+            "label": "Median onboarding"
+          },
+          {
+            "value": "4,200+",
+            "label": "Teams on the platform"
+          }
+        ]
+      }
+    },
+    {
+      "id": "testimonials",
+      "type": "testimonials",
+      "props": {
+        "eyebrow": "Customers",
+        "title": "Teams that moved faster",
+        "items": [
+          {
+            "quote": "We replaced four tools with Lumen and cut reporting time from two days to ten minutes.",
+            "name": "Priya Raman",
+            "role": "VP Operations, Northwind"
+          },
+          {
+            "quote": "The audit trail alone saved us during our SOC 2 review. Everything was already there.",
+            "name": "Marcus Lindqvist",
+            "role": "Head of Security, Helix"
+          },
+          {
+            "quote": "Our engineers actually enjoy the API. Onboarding a new service takes an afternoon.",
+            "name": "Sofia Alvarez",
+            "role": "CTO, Parallax"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pricing",
+      "type": "pricing",
+      "props": {
+        "anchor": "pricing",
+        "eyebrow": "Pricing",
+        "title": "Simple pricing that scales with you",
+        "subtitle": "Start free. Upgrade when your team is ready.",
+        "tiers": [
+          {
+            "name": "Starter",
+            "monthly": 0,
+            "yearly": 0,
+            "desc": "For individuals exploring the product.",
+            "features": [
+              "Up to 3 projects",
+              "7-day history",
+              "Community support"
+            ],
+            "cta": {
+              "label": "Start free",
+              "href": "#"
+            }
+          },
+          {
+            "name": "Team",
+            "monthly": 24,
+            "yearly": 19,
+            "desc": "For growing teams that need collaboration.",
+            "features": [
+              "Unlimited projects",
+              "1-year history",
+              "Roles and approvals",
+              "Priority support"
+            ],
+            "cta": {
+              "label": "Start 14-day trial",
+              "href": "#"
+            },
+            "featured": true
+          },
+          {
+            "name": "Enterprise",
+            "monthly": "Custom",
+            "yearly": "Custom",
+            "desc": "For organisations with advanced security needs.",
+            "features": [
+              "SSO and SCIM",
+              "Audit log export",
+              "Dedicated success manager",
+              "99.99% SLA"
+            ],
+            "cta": {
+              "label": "Talk to sales",
+              "href": "#"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faq",
+      "type": "faq",
+      "props": {
+        "anchor": "faq",
+        "eyebrow": "FAQ",
+        "title": "Questions, answered",
+        "items": [
+          {
+            "q": "How long does setup take?",
+            "a": "Most teams connect their first source and see live data within twenty minutes."
+          },
+          {
+            "q": "Is my data secure?",
+            "a": "Data is encrypted in transit and at rest. SOC 2 Type II and GDPR documentation are available on request."
+          },
+          {
+            "q": "Can I migrate from my current tool?",
+            "a": "Yes. Import wizards and a migration team are included on Team and Enterprise plans."
+          },
+          {
+            "q": "What happens if I exceed my plan?",
+            "a": "We never cut you off mid-month. We will email you before any change is applied."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cta-band",
+      "type": "cta-band",
+      "props": {
+        "title": "Ready to see *Lumen* in action?",
+        "subtitle": "Join thousands of teams. Free to start, no credit card required.",
+        "primaryCta": {
+          "label": "Start free",
+          "href": "#pricing"
+        },
+        "secondaryCta": {
+          "label": "Book a demo",
+          "href": "#"
+        }
+      }
+    },
+    {
+      "id": "footer",
+      "type": "footer-columns",
+      "props": {
+        "tagline": "Turn raw events into *decisions* your whole team trusts",
+        "columns": [
+          {
+            "title": "Product",
+            "links": [
+              {
+                "label": "Features",
+                "href": "#features"
+              },
+              {
+                "label": "Pricing",
+                "href": "#pricing"
+              },
+              {
+                "label": "Changelog",
+                "href": "#"
+              }
+            ]
+          },
+          {
+            "title": "Company",
+            "links": [
+              {
+                "label": "About",
+                "href": "#"
+              },
+              {
+                "label": "Careers",
+                "href": "#"
+              },
+              {
+                "label": "Contact",
+                "href": "#"
+              }
+            ]
+          },
+          {
+            "title": "Resources",
+            "links": [
+              {
+                "label": "Docs",
+                "href": "#"
+              },
+              {
+                "label": "Status",
+                "href": "#"
+              },
+              {
+                "label": "Security",
+                "href": "#"
+              }
+            ]
+          }
+        ],
+        "legal": "© 2026 Lumen. All rights reserved.",
+        "note": ""
+      }
+    }
+  ]
+}

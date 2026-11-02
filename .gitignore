@@ -1,0 +1,7 @@
+node_modules
+dist
+!examples/**/dist
+!docs/site
+.openui
+*.log
+.DS_Store

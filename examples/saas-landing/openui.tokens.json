@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "name": "Lumen",
+    "style": "aurora-dark",
+    "mode": "dark",
+    "category": "ai-product",
+    "description": "Aurora Dark art direction for Lumen. Deep ink canvas, soft violet/cyan light bleeding from behind a product shot. Calm, precise, premium."
+  },
+  "color": {
+    "bg": "#07070c",
+    "surface": "#0e0e16",
+    "surface2": "#151522",
+    "border": "#26263a",
+    "text": "#f4f4f8",
+    "muted": "#9a9ab2",
+    "accent": "#7c6cff",
+    "accentFg": "#06060a",
+    "accentSoft": "#1a1733",
+    "accent2": "#f3bc68",
+    "success": "#4ade80",
+    "warning": "#fbbf24",
+    "danger": "#f87171",
+    "accent2Fg": "#0b0b10",
+    "successFg": "#0b0b10",
+    "warningFg": "#0b0b10",
+    "accentText": "#8171ff"
+  },
+  "font": {
+    "display": "'Inter Tight', 'Inter', ui-sans-serif, system-ui, sans-serif",
+    "body": "'Inter', ui-sans-serif, system-ui, sans-serif",
+    "mono": "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace",
+    "googleFamilies": [
+      "Inter+Tight:wght@500;600;700",
+      "Inter:wght@400;500;600",
+      "JetBrains+Mono:wght@400;500"
+    ]
+  },
+  "type": {
+    "ratio": 1.25,
+    "scale": {
+      "display": {
+        "min": 40,
+        "max": 52,
+        "lineHeight": 1.04,
+        "weight": 600,
+        "tracking": "-0.03em"
+      },
+      "h1": {
+        "min": 34,
+        "max": 42,
+        "lineHeight": 1.08,
+        "weight": 600,
+        "tracking": "-0.03em"
+      },
+      "h2": {
+        "min": 28,
+        "max": 33,
+        "lineHeight": 1.12,
+        "weight": 600,
+        "tracking": "-0.03em"
+      },
+      "h3": {
+        "min": 20,
+        "max": 27,
+        "lineHeight": 1.25,
+        "weight": 500,
+        "tracking": "-0.01em"
+      },
+      "h4": {
+        "min": 17,
+        "max": 21,
+        "lineHeight": 1.35,
+        "weight": 600,
+        "tracking": "-0.005em"
+      },
+      "body-lg": {
+        "min": 17,
+        "max": 19,
+        "lineHeight": 1.6,
+        "weight": 400,
+        "tracking": "0em"
+      },
+      "body": {
+        "min": 15,
+        "max": 16,
+        "lineHeight": 1.6,
+        "weight": 400,
+        "tracking": "0em"
+      },
+      "small": {
+        "min": 13,
+        "max": 14,
+        "lineHeight": 1.5,
+        "weight": 400,
+        "tracking": "0em"
+      },
+      "caption": {
+        "min": 12,
+        "max": 12,
+        "lineHeight": 1.4,
+        "weight": 500,
+        "tracking": "0.06em"
+      }
+    }
+  },
+  "space": {
+    "unit": 4,
+    "scale": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      48,
+      64,
+      96,
+      128
+    ]
+  },
+  "radius": {
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "pill": 999
+  },
+  "shadow": {
+    "sm": "0 1px 2px rgba(0,0,0,.4)",
+    "md": "0 8px 24px -8px rgba(0,0,0,.6)",
+    "lg": "0 32px 80px -24px rgba(0,0,0,.8)",
+    "glow": "0 0 0 1px rgba(255,255,255,.04), 0 24px 80px -20px var(--accent-glow)"
+  },
+  "border": {
+    "width": 1
+  },
+  "motion": {
+    "intensity": 2,
+    "fast": "140ms",
+    "base": "240ms",
+    "slow": "520ms",
+    "easing": "cubic-bezier(.2,.7,.2,1)"
+  },
+  "layout": {
+    "container": 1200,
+    "gutter": 24,
+    "sectionY": {
+      "min": 72,
+      "max": 128
+    },
+    "grid": 12
+  },
+  "composition": {
+    "heroVariant": "centered-product",
+    "ctaHierarchy": "one-primary-one-ghost",
+    "imageTreatment": "Product UI framed in a 1px hairline card with a soft accent glow behind; no stock photography.",
+    "sectionTransition": "Hairline dividers and radial accent glows; surfaces step up one elevation per layer."
+  }
+}

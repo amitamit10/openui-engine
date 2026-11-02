@@ -1,0 +1,13 @@
+OpenUI Engine
+Copyright 2026 Amit Elgabsi (https://github.com/amitamit10)
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+Third-party material
+- docs/diagrams/ were produced with the "stack-diagram" skill by caru-ini (MIT, https://github.com/caru-ini/stack-diagram);
+  its licence is reproduced in docs/diagrams/STACK-DIAGRAM-LICENSE. Icons: svgl, Lucide (ISC), Devicon (MIT) — see the diagram footers.
+  Bundled diagram fonts: Geist and JetBrains Mono (SIL OFL 1.1).
+- Generated sites link Google Fonts (Inter, Inter Tight, Instrument Serif, Bricolage Grotesque, Space Grotesk, JetBrains Mono — SIL OFL 1.1).
+- Third-party component registries (shadcn/ui, Fluid Functionalism, Magic UI, Aceternity UI, React Bits) are NOT redistributed.
+  Their source is fetched on demand from each project's own registry; see docs/SOURCES.md for licence status.
+- Design guidance was informed by the author's private skill collection (claude-design, design-md, web-ui-verification, ...); see docs/SKILLS_AUDIT.md.

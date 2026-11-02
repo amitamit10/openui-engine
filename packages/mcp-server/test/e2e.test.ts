@@ -1,0 +1,173 @@
+import { mkdtempSync, readFileSync, existsSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { chromium } from "playwright-core";
+import { findChromium, closeBrowser } from "@openui-engine/verify";
+
+import { request as httpRequest } from "node:http";
+const statusWithHost = (url: string, host: string) => new Promise<number>((ok, bad) => { const u = new URL(url); const r = httpRequest({ hostname: u.hostname, port: u.port, path: u.pathname, headers: { host } }, (res) => { res.resume(); ok(res.statusCode ?? 0); }); r.on("error", bad); r.end(); });
+const here = dirname(fileURLToPath(import.meta.url));
+const cli = join(here, "../dist/cli.js");
+let client: Client; let work: string;
+const call = async (name: string, args: Record<string, unknown> = {}) => {
+  const r: any = await client.callTool({ name, arguments: args }, undefined, { timeout: 170_000 });
+  const t = r.content.find((c: any) => c.type === "text")?.text ?? "";
+  return { isError: !!r.isError, text: t, json: (() => { try { return JSON.parse(t); } catch { return undefined; } })(), content: r.content };
+};
+
+beforeAll(async () => {
+  work = mkdtempSync(join(tmpdir(), "openui-e2e-"));
+  client = new Client({ name: "e2e", version: "0" });
+  await client.connect(new StdioClientTransport({ command: process.execPath, args: [cli, "--workdir", work], stderr: "ignore", env: { ...process.env } as Record<string, string> }));
+});
+afterAll(async () => { await client.close(); await closeBrowser(); });
+
+describe("MCP tool surface", () => {
+  it("lists every documented tool with descriptions and schemas", async () => {
+    const { tools } = await client.listTools();
+    const names = tools.map((t) => t.name);
+    for (const n of ["discover_components", "get_component", "search_design_references", "generate_design_system", "compose_page", "suggest_layout", "validate_design", "capture_preview", "analyze_visual_quality", "create_review_session", "get_visual_feedback", "apply_visual_tweaks"]) expect(names).toContain(n);
+    for (const t of tools) { expect(t.description!.length).toBeGreaterThan(40); expect(t.inputSchema.type).toBe("object"); }
+  });
+
+  it("discover_components returns a short ranked list, never the full registry", async () => {
+    const r = await call("discover_components", { slot: "pricing", style: "aurora-dark", limit: 3 });
+    expect(r.json.results.length).toBeLessThanOrEqual(3);
+    expect(r.json.results[0].id).toBe("openui/pricing");
+    expect(r.text.length).toBeLessThan(2500);
+  });
+
+  it("get_component returns real metadata and example HTML for an OpenUI section", async () => {
+    const r = await call("get_component", { id: "openui/pricing", detail: "source" });
+    expect(r.json.license.spdx).toBe("Apache-2.0");
+    expect(r.json.example_html).toContain("data-openui-id");
+  });
+
+  it("rejects paths outside the workdir", async () => {
+    const r = await call("generate_design_system", { name: "X", outDir: "../escape" });
+    expect(r.isError).toBe(true);
+    expect(r.text).toMatch(/outside the allowed working directory/);
+  });
+
+  it("search_design_references returns patterns and the source audit", async () => {
+    const r = await call("search_design_references", { slot: "hero", style: "aurora-dark", includeSources: true });
+    expect(r.json.patterns[0].principles.length).toBeGreaterThan(1);
+    expect(r.json.sources.find((s: any) => s.id === "devault").access).toBe("blocked");
+  });
+});
+
+describe("design → compose → verify → review loop", () => {
+  it("generates a WCAG-clean design system and a page that passes the browser QA gate", async () => {
+    const ds = await call("generate_design_system", { name: "Acme", description: "Dark premium AI platform", category: "ai-product", outDir: "site" });
+    expect(ds.json.style.id).toBe("aurora-dark");
+    expect(ds.json.lint.filter((i: any) => i.severity === "error")).toHaveLength(0);
+    expect(readFileSync(join(work, "site/DESIGN.md"), "utf8")).toMatch(/^---\nversion: alpha/);
+    const c = await call("compose_page", { projectDir: "site", brief: { name: "Acme", tagline: "Ship *faster* with Acme", description: "Acme helps teams ship product faster." } });
+    expect(c.json.style).toBe("aurora-dark"); // existing design system must be respected
+    expect(existsSync(join(work, "site/dist/index.html"))).toBe(true);
+    const v = await call("validate_design", { target: "site", viewports: ["desktop", "mobile"] });
+    expect(v.json.issues, JSON.stringify(v.json.issues)).toEqual([]);
+    expect(v.json.passed).toBe(true);
+    expect(v.json.token_compliance.color).toBe("100%");
+  });
+
+  it("copy edits via sectionProps rebuild the site", async () => {
+    await call("compose_page", { projectDir: "site", sectionProps: { hero: { title: "A *new* headline" } } });
+    expect(readFileSync(join(work, "site/dist/index.html"), "utf8")).toContain("A <em>new</em> headline");
+  });
+
+  it("capture_preview returns real JPEG image content", async () => {
+    const r = await call("capture_preview", { target: "site", viewports: ["mobile"], inline: "fold" });
+    const img = r.content.find((c: any) => c.type === "image");
+    expect(img.mimeType).toBe("image/jpeg");
+    expect(Buffer.from(img.data, "base64").subarray(0, 2).toString("hex")).toBe("ffd8");
+  });
+
+  it("analyze_visual_quality returns evidence-backed dimensions", async () => {
+    const r = await call("analyze_visual_quality", { target: "site" });
+    expect(r.json.dimensions.map((d: any) => d.id)).toContain("whitespace");
+    expect(r.json.overall).toBeGreaterThan(80);
+    expect(r.json.note).toMatch(/not taste|cannot judge taste|not taste/i);
+  });
+
+  it("validate_design catches a seeded defect (horizontal overflow) with a fix hint", async () => {
+    await call("compose_page", { projectDir: "site", addSections: [{ id: "broken", type: "metrics", afterId: "hero", props: { items: [{ value: "1", label: "x" }] } }] });
+    // seed an overflow through a persisted tweak (width wider than any phone)
+    await call("apply_visual_tweaks", { projectDir: "site", tweaks: [{ openuiId: "broken.m0", props: { width: "900px" } }] });
+    const v = await call("validate_design", { target: "site", viewports: ["mobile"] });
+    expect(v.json.passed).toBe(false);
+    expect(v.json.issues.some((i: any) => i.cat === "overflow" && i.fix)).toBe(true);
+    // undo
+    await call("compose_page", { projectDir: "site", removeSections: ["broken"] });
+  });
+
+  it("visual editor: select → tweak → comment → ask → agent receives feedback → apply persists to source", async () => {
+    const s = await call("create_review_session", { target: "site" });
+    const { sessionId, editorUrl } = s.json;
+    expect(editorUrl).toMatch(/\/s\/[a-f0-9]{10}\/\?t=/);
+
+    // access control: no token → 401; wrong token → 401; bad Host header → 421
+    const base = new URL(editorUrl).origin; const path = new URL(editorUrl).pathname;
+    expect((await fetch(base + path)).status).toBe(401);
+    expect((await fetch(base + path + "?t=wrong")).status).toBe(401);
+    expect(await statusWithHost(base + path, "evil.example")).toBe(421);
+
+    const browser = await chromium.launch({ executablePath: findChromium(), args: ["--no-sandbox"] });
+    const page = await browser.newPage({ viewport: { width: 1500, height: 900 } });
+    await page.goto(editorUrl);
+    const frame = page.frameLocator("#pv");
+    await frame.locator('[data-openui-id="hero.title"]').waitFor();
+    await frame.locator('[data-openui-id="hero.title"]').click();
+    await expect.poll(async () => page.locator("#inspector").isVisible()).toBe(true);
+    expect(await page.locator("#inspector code").first().textContent()).toBe("hero.title");
+
+    // live tweak: font-size 60 → preview updates instantly
+    await page.locator('input[data-p="font-size"]').fill("61");
+    await expect.poll(async () => frame.locator('[data-openui-id="hero.title"]').evaluate((e) => getComputedStyle(e).fontSize)).toBe("61px");
+    // change radius on the CTA through the Style tab and a comment + a natural-language request
+    await frame.locator('[data-openui-id="hero.cta"]').click();
+    await page.locator('input[data-p="border-radius"]').fill("6");
+    await page.locator('[data-tab="comments"]').click();
+    await page.locator("#ctext").fill("CTA feels too round for the brand");
+    await page.locator("#cadd").click();
+    await page.locator('[data-tab="ask"]').click();
+    await page.locator("#rtext").fill("Make the hero subtitle a little shorter");
+    await page.locator("#radd").click();
+    await expect.poll(async () => (await page.locator("#pending").textContent())).toMatch(/2 pending/);
+
+    // the agent receives it through MCP
+    const fb = await call("get_visual_feedback", { sessionId, waitSeconds: 5 });
+    expect(fb.json.comments[0].text).toMatch(/too round/);
+    expect(fb.json.comments[0].on).toBe("hero.cta");
+    expect(fb.json.requests[0].text).toMatch(/subtitle/);
+    expect(fb.json.pending_tweaks.map((t: any) => t.target).sort()).toEqual(["hero.cta", "hero.title"]);
+
+    // approve → written to real source
+    await page.locator("#apply").click();
+    await expect.poll(() => readFileSync(join(work, "site/dist/overrides.css"), "utf8").includes('[data-openui-id="hero.title"]')).toBe(true);
+    const ov = JSON.parse(readFileSync(join(work, "site/openui.overrides.json"), "utf8"));
+    expect(ov["hero.title"]["font-size"]).toBe("61px");
+    expect(ov["hero.cta"]["border-radius"]).toBe("6px");
+    expect(readFileSync(join(work, "site/dist/overrides.css"), "utf8")).toContain('[data-openui-id="hero.title"]');
+    const done = await call("apply_visual_tweaks", { sessionId, resolveCommentIds: [fb.json.comments[0].id], handledRequestIds: [fb.json.requests[0].id] });
+    expect(done.isError).toBe(false);
+
+    // variant switching rebuilds a different hero
+    await frame.locator('[data-openui-id="hero.title"]').click();
+    await page.locator('[data-tab="style"]').click();
+    await page.locator("#variant").selectOption("hero-split");
+    await expect.poll(async () => frame.locator('[data-openui-variant="hero-split"]').count()).toBe(1);
+    expect(JSON.parse(readFileSync(join(work, "site/openui.page.json"), "utf8")).sections.find((x: any) => x.id === "hero").type).toBe("hero-split");
+    await browser.close();
+  });
+
+  it("rejects unsafe tweak values (injection attempt) and unknown properties", async () => {
+    const r = await call("apply_visual_tweaks", { projectDir: "site", tweaks: [{ openuiId: "hero.title", props: { "background-color": "url(javascript:alert(1))", "position": "fixed", color: "red" } }] });
+    expect(r.json.explicit.rejected.map((x: any) => x.prop).sort()).toEqual(["background-color", "position"]);
+    expect(r.json.explicit.applied).toBe(1);
+  });
+});

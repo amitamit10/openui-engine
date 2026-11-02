@@ -1,0 +1,303 @@
+import type { DesignTokens, SiteCategory, StyleId, TypeStep } from "./types.js";
+import { STYLES, STYLE_IDS, getStyle } from "./styles.js";
+import { contrast, ensureContrast, hexToHsl, hslToHex, mix, readableOn } from "./color.js";
+
+export interface DesignBrief {
+  name: string;
+  /** Free text: what the product is, audience, tone. */
+  description?: string;
+  category?: SiteCategory;
+  style?: StyleId;
+  /** Brand accent override (hex). */
+  accent?: string;
+  motion?: 0 | 1 | 2 | 3;
+}
+
+export interface StyleMatch { style: StyleId; score: number; reasons: string[] }
+
+/** Rank art directions against a brief using category fit, keyword overlap and explicit tone words. */
+export function matchStyles(brief: Pick<DesignBrief, "description" | "category" | "name">): StyleMatch[] {
+  const text = `${brief.name} ${brief.description ?? ""}`.toLowerCase();
+  return STYLE_IDS.map((id) => {
+    const s = STYLES[id];
+    let score = 0;
+    const reasons: string[] = [];
+    if (brief.category && s.categories.includes(brief.category)) {
+      score += 3;
+      reasons.push(`fits category "${brief.category}"`);
+    }
+    for (const k of s.keywords) {
+      if (text.includes(k)) {
+        score += 1.5;
+        reasons.push(`brief mentions "${k}"`);
+      }
+    }
+    if (/\b(dark|night|midnight)\b/.test(text) && s.mode === "dark") { score += 2; reasons.push("brief asks for dark"); }
+    if (/\b(light|bright|clean)\b/.test(text) && s.mode === "light") { score += 1; reasons.push("brief asks for light/clean"); }
+    return { style: id, score, reasons };
+  }).sort((a, b) => b.score - a.score);
+}
+
+function typeScale(ratio: number, displayWeight: number, tracking: string): Record<string, TypeStep> {
+  const r = (n: number, base: number) => Math.round(base * Math.pow(ratio, n));
+  // Desktop = base 17, mobile = base 16, with display steps compressed on mobile so headlines never overflow.
+  return {
+    display: { min: r(4, 16) - 4 < 40 ? 40 : r(4, 16) - 4, max: Math.round(17 * Math.pow(ratio, 5)), lineHeight: 1.04, weight: displayWeight, tracking },
+    h1: { min: 34, max: Math.round(17 * Math.pow(ratio, 4)), lineHeight: 1.08, weight: displayWeight, tracking },
+    h2: { min: 28, max: Math.round(17 * Math.pow(ratio, 3)), lineHeight: 1.12, weight: displayWeight, tracking },
+    h3: { min: 20, max: Math.round(17 * Math.pow(ratio, 2)), lineHeight: 1.25, weight: Math.max(500, displayWeight - 100), tracking: "-0.01em" },
+    h4: { min: 17, max: Math.round(17 * ratio), lineHeight: 1.35, weight: 600, tracking: "-0.005em" },
+    "body-lg": { min: 17, max: 19, lineHeight: 1.6, weight: 400, tracking: "0em" },
+    body: { min: 15, max: 16, lineHeight: 1.6, weight: 400, tracking: "0em" },
+    small: { min: 13, max: 14, lineHeight: 1.5, weight: 400, tracking: "0em" },
+    caption: { min: 12, max: 12, lineHeight: 1.4, weight: 500, tracking: "0.06em" },
+  };
+}
+
+/** Deterministically derive a complete token set from an art direction + brief. */
+export function generateTokens(brief: DesignBrief): DesignTokens {
+  const category: SiteCategory = brief.category ?? "saas";
+  const styleId = brief.style ?? matchStyles({ ...brief, category })[0]!.style;
+  const s = getStyle(styleId);
+  const accentRequested = brief.accent ?? s.defaultAccent;
+  const p = s.palette;
+
+  // Accent must be usable as a button fill: choose foreground by contrast, then guarantee text-grade accent for links.
+  const accentFg = readableOn(accentRequested, "#ffffff", p.text === "#ffffff" ? "#0b0b10" : s.mode === "dark" ? "#06060a" : p.text);
+  // A button fill must reach 4.5:1 with its label. If the brand colour cannot, keep its hue and nudge lightness minimally.
+  const accentIn = ensureContrast(accentRequested, accentFg, 4.5);
+  const accentSoft = mix(p.bg, accentIn, s.mode === "dark" ? 0.16 : 0.1);
+  // accent-coloured text appears on bg, surfaces and the tinted accent-soft pill: it must pass AA on all of them
+  let accentText = accentIn;
+  for (const bgc of [p.bg, p.surface, p.surface2, accentSoft]) accentText = ensureContrast(accentText, bgc, 4.5);
+  const h = hexToHsl(accentIn);
+  const accent2 = hslToHex({ h: h.h + s.secondaryHueShift, s: Math.min(0.85, h.s), l: s.mode === "dark" ? 0.68 : 0.5 });
+  const motion = (brief.motion ?? s.defaultMotion);
+
+  const onBoth = (c: string) => { let x = c; for (const b of [p.bg, p.surface, p.surface2]) x = ensureContrast(x, b, 4.5); return x; };
+  const success = onBoth(s.mode === "dark" ? "#4ade80" : "#15803d");
+  const warning = onBoth(s.mode === "dark" ? "#fbbf24" : "#b45309");
+  const danger = onBoth(s.mode === "dark" ? "#f87171" : "#b91c1c");
+  const space = [0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128];
+  const tokens: DesignTokens = {
+    meta: {
+      name: brief.name,
+      style: styleId,
+      mode: s.mode,
+      category,
+      description: `${s.name} art direction for ${brief.name}. ${s.summary}`,
+    },
+    color: {
+      bg: p.bg, surface: p.surface, surface2: p.surface2, border: p.border,
+      text: p.text,
+      muted: ensureContrast(p.muted, p.bg, 4.5),
+      accent: accentIn,
+      accentFg,
+      accentSoft,
+      accent2,
+      success, warning, danger,
+      accent2Fg: readableOn(accent2), successFg: readableOn(success), warningFg: readableOn(warning),
+    },
+    font: { display: s.fonts.display, body: s.fonts.body, mono: s.fonts.mono, googleFamilies: s.fonts.google },
+    type: { ratio: s.ratio, scale: typeScale(s.ratio, s.fonts.displayWeight, s.fonts.displayTracking) },
+    space: { unit: 4, scale: space },
+    radius: s.radius,
+    shadow: s.shadows,
+    border: { width: s.borderWidth },
+    motion: {
+      intensity: Math.min(motion, s.maxMotion) as 0 | 1 | 2 | 3,
+      fast: "140ms", base: "240ms", slow: "520ms",
+      easing: "cubic-bezier(.2,.7,.2,1)",
+    },
+    layout: { container: 1200, gutter: 24, sectionY: { min: 72, max: 128 }, grid: 12 },
+    composition: s.composition,
+  };
+  // keep a derived text-safe accent available for links on bg
+  (tokens.color as Record<string, string>)["accentText"] = accentText;
+  return tokens;
+}
+
+export interface TokenIssue { severity: "error" | "warning" | "info"; rule: string; message: string }
+
+/** Validate contrast and structure of a token set. */
+export function lintTokens(t: DesignTokens): TokenIssue[] {
+  const out: TokenIssue[] = [];
+  const pairs: Array<[string, string, string, number]> = [
+    ["text", t.color.text, t.color.bg, 7],
+    ["text on surface", t.color.text, t.color.surface, 7],
+    ["muted", t.color.muted, t.color.bg, 4.5],
+    ["muted on surface", t.color.muted, t.color.surface, 4.5],
+    ["accentFg on accent", t.color.accentFg, t.color.accent, 4.5],
+  ];
+  for (const [label, fg, bg, min] of pairs) {
+    const c = contrast(fg, bg);
+    if (c < min) out.push({ severity: min >= 7 ? "warning" : "error", rule: "contrast-ratio", message: `${label}: ${c.toFixed(2)}:1 < ${min}:1 (${fg} on ${bg})` });
+  }
+  const at = (t.color as Record<string, string>)["accentText"];
+  if (at) for (const [n, bgc] of [["bg", t.color.bg], ["surface", t.color.surface], ["surface2", t.color.surface2], ["accentSoft", t.color.accentSoft]] as const) if (contrast(at, bgc) < 4.5) out.push({ severity: "error", rule: "contrast-ratio", message: `accent text on ${n} is ${contrast(at, bgc).toFixed(2)}:1 (< 4.5:1)` });
+  if (t.motion.intensity > getStyle(t.meta.style).maxMotion) out.push({ severity: "warning", rule: "motion-budget", message: "motion intensity exceeds the style's budget" });
+  out.push({ severity: "info", rule: "token-summary", message: `${Object.keys(t.color).length} colors, ${Object.keys(t.type.scale).length} type steps, ${t.space.scale.length} spacing steps` });
+  return out;
+}
+
+const px = (n: number) => `${n}px`;
+const fluid = (min: number, max: number, vwMin = 375, vwMax = 1280) => {
+  if (min === max) return px(min);
+  const slope = (max - min) / (vwMax - vwMin);
+  const intercept = min - slope * vwMin;
+  return `clamp(${px(min)}, ${intercept.toFixed(3)}px + ${(slope * 100).toFixed(4)}vw, ${px(max)})`;
+};
+
+/** tokens.css — the single source of visual truth consumed by every section and by the verifier. */
+export function renderTokensCss(t: DesignTokens): string {
+  const c = t.color as Record<string, string>;
+  const lines: string[] = [":root {", "  color-scheme: " + t.meta.mode + ";"];
+  const add = (k: string, v: string) => lines.push(`  --${k}: ${v};`);
+  for (const [k, v] of Object.entries(c)) add(`c-${k.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase())}`, v);
+  add("accent-glow", t.meta.mode === "dark" ? hexA(t.color.accent, 0.35) : hexA(t.color.accent, 0.3));
+  add("f-display", t.font.display); add("f-body", t.font.body); add("f-mono", t.font.mono);
+  for (const [k, st] of Object.entries(t.type.scale)) {
+    add(`t-${k}`, fluid(st.min, st.max));
+    add(`lh-${k}`, String(st.lineHeight));
+    add(`fw-${k}`, String(st.weight));
+    add(`tr-${k}`, st.tracking);
+  }
+  t.space.scale.forEach((v, i) => add(`s-${i}`, px(v)));
+  for (const [k, v] of Object.entries(t.radius)) add(`r-${k}`, px(v));
+  for (const [k, v] of Object.entries(t.shadow)) add(`sh-${k}`, v);
+  add("bw", px(t.border.width));
+  add("dur-fast", t.motion.fast); add("dur-base", t.motion.base); add("dur-slow", t.motion.slow); add("ease", t.motion.easing);
+  add("container", px(t.layout.container)); add("gutter", px(t.layout.gutter));
+  add("section-y", fluid(t.layout.sectionY.min, t.layout.sectionY.max));
+  add("motion", String(t.motion.intensity));
+  lines.push("}");
+  return lines.join("\n") + "\n";
+}
+
+function hexA(hex: string, a: number): string {
+  const n = parseInt(hex.replace("#", ""), 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${a})`;
+}
+
+/** W3C DTCG-flavoured token export. */
+export function renderTokensJson(t: DesignTokens): string {
+  const wrap = (type: string, v: Record<string, unknown>) =>
+    Object.fromEntries(Object.entries(v).map(([k, value]) => [k, { $type: type, $value: value }]));
+  const doc = {
+    $description: t.meta.description,
+    color: wrap("color", t.color),
+    fontFamily: wrap("fontFamily", { display: t.font.display, body: t.font.body, mono: t.font.mono }),
+    typography: Object.fromEntries(Object.entries(t.type.scale).map(([k, v]) => [k, { $type: "typography", $value: { fontSize: `${v.max}px`, mobileFontSize: `${v.min}px`, lineHeight: v.lineHeight, fontWeight: v.weight, letterSpacing: v.tracking } }])),
+    spacing: wrap("dimension", Object.fromEntries(t.space.scale.map((v, i) => [String(i), `${v}px`]))),
+    radius: wrap("dimension", Object.fromEntries(Object.entries(t.radius).map(([k, v]) => [k, `${v}px`]))),
+    shadow: wrap("shadow", t.shadow),
+    motion: wrap("duration", { fast: t.motion.fast, base: t.motion.base, slow: t.motion.slow }),
+  };
+  return JSON.stringify(doc, null, 2) + "\n";
+}
+
+/** DESIGN.md in Google's alpha spec shape: YAML tokens + ordered prose sections. */
+export function renderDesignMd(t: DesignTokens): string {
+  const s = getStyle(t.meta.style);
+  const q = (v: string) => JSON.stringify(v);
+  const typo = (k: string, fam: string) => {
+    const st = t.type.scale[k]!;
+    return `  ${k}:\n    fontFamily: ${q(fam.split(",")[0]!.replace(/'/g, "").trim())}\n    fontSize: ${st.max}px\n    fontWeight: ${st.weight}\n    lineHeight: ${st.lineHeight}\n    letterSpacing: ${q(st.tracking)}`;
+  };
+  const yaml = [
+    "---",
+    "version: alpha",
+    `name: ${q(t.meta.name)}`,
+    `description: ${q(t.meta.description)}`,
+    "colors:",
+    `  primary: ${q(t.color.accent)}`,
+    `  on-primary: ${q(t.color.accentFg)}`,
+    `  secondary: ${q(t.color.accent2)}`,
+    `  neutral: ${q(t.color.bg)}`,
+    `  surface: ${q(t.color.surface)}`,
+    `  surface-raised: ${q(t.color.surface2)}`,
+    `  border: ${q(t.color.border)}`,
+    `  text: ${q(t.color.text)}`,
+    `  text-muted: ${q(t.color.muted)}`,
+    "typography:",
+    typo("display", t.font.display), typo("h1", t.font.display), typo("h2", t.font.display), typo("h3", t.font.display),
+    typo("body-lg", t.font.body), typo("body", t.font.body), typo("small", t.font.body),
+    "rounded:",
+    ...Object.entries(t.radius).map(([k, v]) => `  ${k}: ${v}px`),
+    "spacing:",
+    ...t.space.scale.map((v, i) => `  s${i}: ${v}px`),
+    "components:",
+    "  button-primary:",
+    `    backgroundColor: "{colors.primary}"`,
+    `    textColor: "{colors.on-primary}"`,
+    `    rounded: "{rounded.pill}"`,
+    "    padding: 14px",
+    "  button-primary-hover:",
+    `    backgroundColor: "{colors.secondary}"`,
+    "  page:",
+    `    backgroundColor: "{colors.neutral}"`,
+    `    textColor: "{colors.text}"`,
+    "  card-raised:",
+    `    backgroundColor: "{colors.surface-raised}"`,
+    `    textColor: "{colors.text}"`,
+    "  divider:",
+    `    backgroundColor: "{colors.border}"`,
+    "  caption:",
+    `    textColor: "{colors.text-muted}"`,
+    `    backgroundColor: "{colors.neutral}"`,
+    "  card:",
+    `    backgroundColor: "{colors.surface}"`,
+    `    textColor: "{colors.text}"`,
+    `    rounded: "{rounded.lg}"`,
+    "    padding: 24px",
+    "---",
+  ].join("\n");
+  const body = `
+## Overview
+
+${s.summary}
+
+**Art direction — ${s.name}.** ${t.composition.imageTreatment}
+
+Signatures:
+${s.signatures.map((x) => `- ${x}`).join("\n")}
+
+## Colors
+
+- **Primary (${t.color.accent}):** the only call-to-action fill. Foreground on it is ${t.color.accentFg}.
+- **Secondary (${t.color.accent2}):** a derived accent for data and illustrations only, never for buttons.
+- **Neutral (${t.color.bg}) / Surface (${t.color.surface}) / Surface-raised (${t.color.surface2}):** the elevation ladder; each nested layer steps up one surface.
+- **Text (${t.color.text}) / Text-muted (${t.color.muted}):** both meet WCAG AA on every surface.
+
+## Typography
+
+Display: ${t.font.display.split(",")[0]!.replace(/'/g, "")}. Body: ${t.font.body.split(",")[0]!.replace(/'/g, "")}. Mono: ${t.font.mono.split(",")[0]!.replace(/'/g, "")}.
+Modular scale ratio ${t.type.ratio}; sizes are fluid between a 375px and a 1280px viewport. Only the steps defined in the front matter may be used.
+
+## Layout
+
+Container ${t.layout.container}px, ${t.layout.grid}-column grid, ${t.layout.gutter}px gutters. Spacing is a 4px base unit; section padding is fluid ${t.layout.sectionY.min}–${t.layout.sectionY.max}px.
+Section transitions: ${t.composition.sectionTransition}
+
+## Elevation & Depth
+
+- sm: \`${t.shadow.sm}\`
+- md: \`${t.shadow.md}\`
+- lg: \`${t.shadow.lg}\`
+
+## Shapes
+
+Radii: ${Object.entries(t.radius).map(([k, v]) => `${k} ${v}px`).join(", ")}. Border width ${t.border.width}px.
+
+## Components
+
+\`button-primary\` is the single highest-emphasis action per viewport. Hero composition: **${t.composition.heroVariant}**. CTA hierarchy: **${t.composition.ctaHierarchy}**. Motion intensity ${t.motion.intensity}/3 (all motion respects \`prefers-reduced-motion\`).
+
+## Do's and Don'ts
+
+${s.doNot.map((x) => `- ❌ ${x}`).join("\n")}
+- ✅ Reference tokens by variable (\`var(--c-accent)\`), never by literal value.
+- ✅ Keep one primary CTA per viewport.
+`;
+  return yaml + "\n" + body;
+}
