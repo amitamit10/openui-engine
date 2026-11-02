@@ -1,0 +1,250 @@
+[
+ {
+  "pair": "ironbark-baseline-vs-engine-r1",
+  "brief": "ironbark",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "Y",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 5
+  },
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 7
+  },
+  "rationale": "Y has a more editorial, bookish identity with a high-contrast display serif and italic accent, a warm brown/cream palette, and richer feature illustrations. Its hero book visual is a little cropped and the proof strip wraps awkwardly. X is clean and well built with a clear bookshelf hero, but its green-and-cream card grid reads as a more standard SaaS layout."
+ },
+ {
+  "pair": "ironbark-baseline-vs-engine-r2",
+  "brief": "ironbark",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "engine": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 8
+  },
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a more distinctive editorial display serif with an italic accent, a warm brown/cream palette and a bookseller's slip over stacked books that feels specific and bookish, though its hero book covers are cropped and the social-proof names wrap awkwardly. Y is clean and competent, with a shelf illustration, green band and card grids, but it follows the standard SaaS section pattern more closely and its heavier headline type is less refined."
+ },
+ {
+  "pair": "loomhouse-baseline-vs-engine-r1",
+  "brief": "loomhouse",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "Y",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y has a more specific loom illustration with a live-work caption, warp-stripe texture, a varied bento feature grid, distinctive tabular metrics and a dark footer, giving it a more crafted identity. X is clean and competent but uses a uniform 3x2 card grid, standard centred components and a plainer hero loom, so it reads more template-like."
+ },
+ {
+  "pair": "loomhouse-baseline-vs-engine-r2",
+  "brief": "loomhouse",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a specific, crafted loom illustration with a live 'Now on loom 4' card, a bento-style feature grid with distinct illustrations, and a more specific voice (draft library, pick counts, Foundations intake), so it feels designed for this studio. Y is clean and competent but follows the standard SaaS layout (framed hero mockup, uniform 3x2 card grid, dark highlighted middle pricing card), and its feature visuals and loom drawing are simpler. Both share a similar palette and serif type, but X is the more distinctive and shippable."
+ },
+ {
+  "pair": "quartermaster-baseline-vs-engine-r1",
+  "brief": "quartermaster",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 8
+  },
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 6
+  },
+  "rationale": "X has a distinctive warm paper palette, a tight display headline and a specific phone-count UI with a draft-order card and a food-cost tag, so it reads as deliberate and ownable. Y is competent, with a dark hero and layered cards, but it follows the familiar dark-hero, card-grid, three-tier SaaS pattern, and the overlapping hero cards clip content and show a chart-label typo ('Pad see ew'). X is the one a design director would ship."
+ },
+ {
+  "pair": "quartermaster-baseline-vs-engine-r2",
+  "brief": "quartermaster",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 7
+  },
+  "rationale": "X has a strong dark hero with layered, specific product cards (count list, variance chart), a consistent green/amber palette and a well-structured full page. Y has a charming phone mockup and warm terracotta palette but a cramped hero CTA/microcopy gap, a huge headline that crowds the fold, sparse mid-page sections and a looser layout. Y reads slightly more like a standard warm-cream SaaS template, though both are fairly competent; X is the one to ship."
+ },
+ {
+  "pair": "tidewater-baseline-vs-engine-r1",
+  "brief": "tidewater",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a stronger product visual (tide board card with live availability, tide curve, bespoke feature illustrations in a bento layout) and a more distinctive, specific voice. Y is clean with an elegant italic headline, but its six-card feature grid, centred pricing and orange CTA band follow the familiar SaaS template more closely, and its hero visual is a generic illustration."
+ },
+ {
+  "pair": "tidewater-baseline-vs-engine-r2",
+  "brief": "tidewater",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "Y",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y has richer, more specific product visuals (tide board, tide curve chart, berth pontoon diagram, compass dial) and a bento features layout with a featured testimonial, which feels more distinct and deliberate. X is elegant with a nice serif and a hero card with conditions, but its six-card feature grid, three-column steps, and uniform testimonials follow a familiar SaaS template. Both have solid type and palette; Y is more polished and varied."
+ }
+]
