@@ -190,11 +190,14 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
   pricing: (s) => {
     const p = s.props, id = s.id;
     const tiers = (p.tiers ?? []) as Array<{ name: string; monthly: number | string; yearly: number | string; desc: string; features: string[]; cta: Cta; featured?: boolean; unit?: string }>;
+    // Savings badge: use the brief's own text, else derive it from the real monthly vs yearly prices (never a made-up number).
+    const cuts = tiers.map((t) => (typeof t.monthly === "number" && typeof t.yearly === "number" && t.monthly > 0 && t.yearly < t.monthly ? Math.round((1 - t.yearly / t.monthly) * 100) : 0)).filter((n) => n > 0);
+    const saveText: string = p.savings ?? (cuts.length ? `Save up to ${Math.max(...cuts)}%` : "");
     return wrap(s, `${head(id, p)}
   <div class="reveal" style="display:flex;justify-content:center;margin-bottom:var(--s-7)">
     <div class="billing" role="group" aria-label="Billing period">
       <button type="button" aria-pressed="true" data-billing="monthly">Monthly</button>
-      <button type="button" aria-pressed="false" data-billing="yearly">Yearly <span class="save">${esc(p.savings ?? "Save 20%")}</span></button>
+      <button type="button" aria-pressed="false" data-billing="yearly">Yearly${saveText ? ` <span class="save">${esc(saveText)}</span>` : ""}</button>
     </div></div>
   <div class="tiers">${tiers.map((t, i) => `<article class="card tier reveal${t.featured ? " tier--featured" : ""}" data-openui-id="${id}.tier${i}">
     ${t.featured ? `<span class="tier__tag">Most popular</span>` : ""}

@@ -158,7 +158,10 @@ export function briefTemplate(category: SiteCategory = "saas"): SiteBrief {
     how: { title: "Live in an afternoon", steps: [{ title: "Connect", body: "Specific first step." }, { title: "Configure", body: "Specific second step." }, { title: "Ship", body: "Specific result." }] },
     metrics: [{ value: "19 min", label: "median time to resolve", delta: "▼ 63%" }, { value: "4,200+", label: "teams", delta: "▲ 12%" }],
     testimonials: [{ quote: "A concrete outcome with a number, in the customer's own words.", name: "Distinctive Name", role: "Role, Company" }],
-    pricing: { tiers: [{ name: "Starter", monthly: 0, yearly: 0, desc: "who it is for", features: ["feature"], cta: "Start free" }, { name: "Team", monthly: 24, yearly: 19, desc: "who it is for", features: ["feature"], cta: "Start trial", featured: true }, { name: "Enterprise", monthly: "Custom", yearly: "Custom", desc: "who it is for", features: ["feature"], cta: "Talk to sales" }] },
+    // currency: symbol for the prices. unit: per-tier suffix, e.g. "/ month", "/ seat / month", "/ visit". The savings badge is computed from monthly vs yearly (or set savings:"..." yourself).
+    featuresTitle: "A specific heading for the features section (not \"What it does\")",
+    nav: { links: [{ label: "Product", href: "#features" }, { label: "How it works", href: "#how" }, { label: "Pricing", href: "#pricing" }, { label: "FAQ", href: "#faq" }] },
+    pricing: { currency: "$", tiers: [{ name: "Starter", monthly: 0, yearly: 0, unit: "/ month", desc: "who it is for", features: ["feature"], cta: "Start free" }, { name: "Team", monthly: 24, yearly: 19, unit: "/ seat / month", desc: "who it is for", features: ["feature"], cta: "Start trial", featured: true }, { name: "Enterprise", monthly: "Custom", yearly: "Custom", desc: "who it is for", features: ["feature"], cta: "Talk to sales" }] },
     faq: [{ q: "A real objection?", a: "A direct answer." }, { q: "Another?", a: "Answer." }, { q: "Another?", a: "Answer." }, { q: "Another?", a: "Answer." }],
     closing: { title: "Run your next *thing* with Acme", subtitle: "Free for 14 days.", bullets: ["No credit card"], form: true, button: "Start free trial", note: "We email a setup link." },
   };

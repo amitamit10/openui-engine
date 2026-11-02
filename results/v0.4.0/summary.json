@@ -1,0 +1,103 @@
+{
+  "release": "v0.4.0",
+  "note": "FRESH run on four never-seen domains (reedlaw employment-law firm, crumbco artisan bakery, helio rooftop solar, codewell coding bootcamp): new Haiku 5.5 builders for both arms, original builder prompts verbatim, engine frozen at v0.4.0 (art-direction variety, layered hero floats, dark metrics band, feature-rows, chart and rebuild fixes), then blind pairwise judging. No engine-arm agent needed a hand edit this time. CAVEATS: the style keywords added for v0.4.0 were informed by the PREVIOUS held-out briefs' domains (pets, climbing, freight, tutoring), not these four; three agents independently reported that the hero float chips partly cover other hero content (a defect, fixed after this run); the reedlaw agent reported duplicate section ids, a hardcoded 'Save 20%' badge and no per-tier pricing unit (all fixed after this run); baseline agents shared a scratchpad directory and several had their check scripts overwritten by other agents' (they re-verified with unique names).",
+  "briefs": [
+    "codewell",
+    "crumbco",
+    "helio",
+    "reedlaw"
+  ],
+  "judgements": 8,
+  "wins": {
+    "baseline": 7,
+    "engine": 1
+  },
+  "engineWinRatePct": 13,
+  "engineJudgedMoreTemplateLike": 7,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 7.9,
+      "typography": 8.3,
+      "spacing": 7.4,
+      "colour": 7.9,
+      "product_visual": 7.1,
+      "mobile": 6.9,
+      "polish": 7.6,
+      "originality": 7.4
+    },
+    "engine": {
+      "hierarchy": 6.5,
+      "typography": 6.3,
+      "spacing": 6.1,
+      "colour": 6.3,
+      "product_visual": 7.4,
+      "mobile": 6.4,
+      "polish": 5.9,
+      "originality": 5.5
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.6,
+    "engine": 6.3
+  },
+  "automated": {
+    "baseline": {
+      "sites": 4,
+      "quality": 81.8,
+      "originalityScore": 91.5,
+      "slopScore": 91.5,
+      "slopFindings": 1,
+      "auditErrors": 6.3,
+      "auditWarnings": 7.8,
+      "neutralChecksPassed": "9/12",
+      "svgs": 5.5,
+      "fontFamilies": 2.5,
+      "distinctColors": 18.5,
+      "spacingOn4px": 86.1,
+      "sourceKB": 53.7
+    },
+    "engine": {
+      "sites": 4,
+      "quality": 95,
+      "originalityScore": 100,
+      "slopScore": 100,
+      "slopFindings": 0,
+      "auditErrors": 0,
+      "auditWarnings": 0,
+      "neutralChecksPassed": "11/12",
+      "svgs": 33,
+      "fontFamilies": 3,
+      "distinctColors": 14.3,
+      "spacingOn4px": 86.9,
+      "sourceKB": 86.2
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 4,
+    "tokens": "77,598-95,242",
+    "toolCalls": "14-30",
+    "seconds": "175-346",
+    "perAgent": {
+      "crumbco": {
+        "tokens": 77598,
+        "toolCalls": 14,
+        "seconds": 175
+      },
+      "helio": {
+        "tokens": 85276,
+        "toolCalls": 24,
+        "seconds": 218
+      },
+      "codewell": {
+        "tokens": 94685,
+        "toolCalls": 22,
+        "seconds": 217
+      },
+      "reedlaw": {
+        "tokens": 95242,
+        "toolCalls": 30,
+        "seconds": 346
+      }
+    }
+  }
+}

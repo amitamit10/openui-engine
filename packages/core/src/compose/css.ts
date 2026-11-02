@@ -24,15 +24,16 @@ ul,ol{padding:0;list-style:none}
 .section--ink .metric span{color:color-mix(in srgb,var(--c-bg) 82%,var(--c-text))}
 .section--ink .h2,.section--ink .h3,.section--ink .eyebrow{color:var(--c-bg)}
 .hero__visual{position:relative}
-.hfloat{position:absolute;display:grid;gap:2px;padding:var(--s-3) var(--s-4);background:var(--c-bg);color:var(--c-text);border:var(--bw) solid var(--c-border);border-radius:var(--r-lg);box-shadow:var(--sh-md);font-size:var(--t-small);line-height:1.3;z-index:2}
+.hfloat{display:grid;gap:2px;padding:var(--s-3) var(--s-4);background:var(--c-bg);color:var(--c-text);border:var(--bw) solid var(--c-border);border-radius:var(--r-lg);box-shadow:var(--sh-md);font-size:var(--t-small);line-height:1.3;z-index:2}
 .hfloat span{color:var(--c-muted);font-size:var(--t-caption)}
 .hfloat strong{font-family:var(--f-display);font-weight:var(--fw-h1);font-size:var(--t-h4);display:flex;align-items:center;gap:var(--s-2)}
 .hfloat strong::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c-accent);flex:none}
 .hfloat--good strong::before{background:var(--c-success)}.hfloat--warn strong::before{background:var(--c-warning)}
-.hero__floats .hfloat:nth-child(1){left:-5%;bottom:10%;transform:rotate(-2deg)}
-.hero__floats .hfloat:nth-child(2){right:-2%;top:-5%;transform:rotate(1.5deg)}
-.hero__floats .hfloat:nth-child(3){right:6%;bottom:-6%;transform:rotate(-1deg)}
-@media (max-width:940px){.hero__floats{display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:var(--s-4)}.hfloat{position:static!important;transform:none!important}}
+.hero__visual:has(.hero__floats){margin-bottom:72px}
+.hero__floats{position:absolute;left:var(--s-5);right:var(--s-5);bottom:-60px;display:flex;justify-content:space-between;gap:var(--s-3);pointer-events:none}
+.hero__floats .hfloat{position:relative;pointer-events:auto}
+.hero__floats .hfloat:nth-child(odd){transform:rotate(-1.5deg)}.hero__floats .hfloat:nth-child(even){transform:rotate(1.2deg)}
+@media (max-width:940px){.hero__visual:has(.hero__floats){margin-bottom:0}.hero__floats{position:static;flex-wrap:wrap;margin-top:var(--s-4)}.hero__floats .hfloat{transform:none}}
 .stack>*+*{margin-top:var(--s-4)}
 
 .eyebrow{display:inline-flex;align-items:center;gap:var(--s-2);font-size:var(--t-caption);line-height:var(--lh-caption);font-weight:var(--fw-caption);letter-spacing:var(--tr-caption);text-transform:uppercase;color:var(--c-accent-text)}

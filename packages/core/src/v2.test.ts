@@ -207,3 +207,20 @@ describe("v0.4.0: composed hero and ink metrics band", () => {
     expect(html).toContain("section--ink");
   });
 });
+
+describe("v0.4.1: pricing badge and template guidance", () => {
+  const mk = (pricing: any): SiteBrief => ({ ...briefTemplate("saas"), pricing }) as SiteBrief;
+  const html = (b: SiteBrief) => { const pl = planSite(b); return buildSite(pl.spec, pl.tokens, {}, {}).files["index.html"]!; };
+  it("derives the savings badge from real prices, never a made-up number", () => {
+    const tiers = (m: number, y: number) => [{ name: "A", monthly: m, yearly: y, desc: "d", features: ["f"], cta: "Go" }];
+    expect(html(mk({ tiers: tiers(100, 85) }))).toContain("Save up to 15%");
+    expect(html(mk({ tiers: tiers(100, 100) }))).not.toContain('class="save"');
+    expect(html(mk({ tiers: [{ name: "A", monthly: "Custom", yearly: "Custom", desc: "d", features: ["f"], cta: "Go" }] }))).not.toContain('class="save"');
+    expect(html(mk({ savings: "2 months free", tiers: tiers(100, 85) }))).toContain("2 months free");
+  });
+  it("brief_template exposes the fields agents could not find (currency, unit, featuresTitle, nav)", () => {
+    const t: any = briefTemplate("saas");
+    expect(t.featuresTitle).toBeTruthy(); expect(t.nav.links.length).toBe(4);
+    expect(t.pricing.currency).toBeTruthy(); expect(t.pricing.tiers[0].unit).toBeTruthy();
+  });
+});
