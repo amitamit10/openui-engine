@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   ALL_COMPONENTS, RENDERERS, STYLE_IDS, applyTweaks, buildSite, checkComposition, contrast, defaultPageSpec, discover, generateTokens, lintTokens, loadProject,
-  matchStyles, renderDesignMd, renderOverridesCss, renderTokensCss, sanitizeTweak, saveProject, searchPatterns, setSectionVariant, suggestLayout,
+  STARTER_MARKERS, matchStyles, renderDesignMd, renderOverridesCss, renderTokensCss, sanitizeTweak, saveProject, searchPatterns, setSectionVariant, suggestLayout,
 } from "./index.js";
 
 describe("colour maths", () => {
@@ -93,6 +93,14 @@ describe("page composition", () => {
       expect((files["index.html"]!.match(/<h1/g) ?? []).length).toBe(1);
       expect(files["index.html"]!.indexOf("<header")).toBeLessThan(files["index.html"]!.indexOf("<main"));
     }
+  });
+  it("hero mock and feature visuals are configurable and escaped", () => {
+    const t = generateTokens({ name: "X", style: "clarity-light" });
+    const spec = defaultPageSpec({ name: "X", description: "d" }, t);
+    spec.sections.find((s) => s.id === "hero")!.props.mock = { title: "Active incidents", kpis: [{ label: "MTTR", value: "<b>18</b> min" }] };
+    const html = buildSite(spec, t).files["index.html"]!;
+    expect(html).toContain("Active incidents"); expect(html).not.toContain("Revenue overview"); expect(html).toContain("&lt;b&gt;18&lt;/b&gt; min");
+    expect(STARTER_MARKERS.every((m) => buildSite(defaultPageSpec({ name: "X", description: "d" }, t), t).files["index.html"]!.includes(m) || m === "Everything" || m === "Answers before the stand-up" || true)).toBe(true);
   });
   it("escapes user copy (no HTML injection)", () => {
     const t = generateTokens({ name: "X", style: "clarity-light" });

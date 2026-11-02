@@ -1,4 +1,4 @@
-import { mkdtempSync, readFileSync, existsSync } from "node:fs";
+import { mkdtempSync, readFileSync, existsSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -70,7 +70,9 @@ describe("design → compose → verify → review loop", () => {
     expect(c.json.style).toBe("aurora-dark"); // existing design system must be respected
     expect(existsSync(join(work, "site/dist/index.html"))).toBe(true);
     const v = await call("validate_design", { target: "site", viewports: ["desktop", "mobile"] });
-    expect(v.json.issues, JSON.stringify(v.json.issues)).toEqual([]);
+    // starter copy is intentionally flagged: a page must not ship the engine's placeholder content
+    expect(v.json.issues.filter((i: any) => i.sev === "error"), JSON.stringify(v.json.issues)).toEqual([]);
+    expect(v.json.issues.some((i: any) => i.cat === "content" && /Starter placeholder copy/.test(i.msg))).toBe(true);
     expect(v.json.passed).toBe(true);
     expect(v.json.token_compliance.color).toBe("100%");
   });
@@ -78,6 +80,31 @@ describe("design → compose → verify → review loop", () => {
   it("copy edits via sectionProps rebuild the site", async () => {
     await call("compose_page", { projectDir: "site", sectionProps: { hero: { title: "A *new* headline" } } });
     expect(readFileSync(join(work, "site/dist/index.html"), "utf8")).toContain("A <em>new</em> headline");
+  });
+
+  it("rewriting every starter section (incl. the hero mock) clears the placeholder warning", async () => {
+    await call("compose_page", { projectDir: "site", sectionProps: {
+      hero: { mock: { title: "Active incidents", period: "Last 24 hours", url: "app.acme.com/incidents", sidebar: ["Incidents", "On-call", "SLOs"], kpis: [{ label: "Open", value: "2", delta: "1 SEV-2" }, { label: "MTTR", value: "18 min" }, { label: "SLO burn", value: "0.6x" }] } },
+      "logo-cloud": { logos: ["Quillstone", "Harbor & Pine", "Lattice Works"] },
+      "feature-bento": { title: "What Acme does", items: [
+        { title: "Signals", body: "Correlated alerts.", visual: "list", span: 4, data: { rows: [{ label: "p99 latency high", time: "now" }] } },
+        { title: "Policies", body: "Escalation rules.", visual: "toggle", span: 2, data: { toggles: [{ label: "Page on-call", on: true }] } },
+        { title: "Code", body: "API.", visual: "code", span: 2, data: { code: "acme.page(incident)" } },
+        { title: "Team", body: "Roles.", visual: "avatars", span: 2, data: { people: "+9 on call" } } ] },
+      "feature-rows": { items: [{ title: "Timeline *built for you*", body: "Auto-drafted.", bullets: ["One"], visual: "bars" }] },
+      testimonials: { items: [{ quote: "Great.", name: "Ana Ruiz", role: "SRE, Quillstone" }] },
+    } });
+    expect(readFileSync(join(work, "site/dist/index.html"), "utf8")).toContain("Active incidents");
+    const v = await call("validate_design", { target: "site", viewports: ["desktop"] });
+    expect(v.json.issues.some((i: any) => /Starter placeholder/.test(i.msg)), JSON.stringify(v.json.issues)).toBe(false);
+  });
+
+  it("validate_design never overwrites hand-edited dist output", async () => {
+    const f = join(work, "site/dist/index.html"); const html = readFileSync(f, "utf8");
+    writeFileSync(f, html.replace("</body>", "<!-- hand edit --></body>"));
+    await call("validate_design", { target: "site", viewports: ["desktop"] });
+    expect(readFileSync(f, "utf8")).toContain("<!-- hand edit -->");
+    await call("rebuild_project", { projectDir: "site" });
   });
 
   it("capture_preview returns real JPEG image content", async () => {

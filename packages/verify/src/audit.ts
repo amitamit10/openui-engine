@@ -19,6 +19,8 @@ export interface AuditOptions {
   /** Run axe-core (default true). */
   axe?: boolean;
   label?: string;
+  /** Strings that signal unreplaced starter copy; each hit becomes a content warning. */
+  starterMarkers?: string[];
 }
 
 /** Instant scroll through the page so IntersectionObserver reveals fire, then return to top. */
@@ -341,6 +343,11 @@ export async function auditViewport(url: string, vp: Viewport, opts: AuditOption
     await page.screenshot({ path: `${base}-full.png`, fullPage: true }); shots.full = `${base}-full.png`;
   }
 
+  if (opts.starterMarkers?.length) {
+    const body = await page.evaluate(() => document.body.innerText);
+    const hit = opts.starterMarkers.filter((m) => body.includes(m));
+    if (hit.length) issues.push({ severity: "warning", category: "content", message: `Starter placeholder copy is still on the page: ${hit.slice(0, 6).map((h) => `"${h}"`).join(", ")}${hit.length > 6 ? ` (+${hit.length - 6})` : ""}.`, fix: "Rewrite those sections via compose_page sectionProps (mock/visual data are configurable) so no unrelated demo content ships." });
+  }
   const interactions = await interactionTests(page, !!vp.mobile, vp.height);
   for (const i of interactions) if (!i.passed) issues.push({ severity: "error", category: "interaction", message: `Interaction failed — ${i.name}: ${i.detail}` });
 

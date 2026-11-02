@@ -55,7 +55,35 @@
           "label": "View on GitHub",
           "href": "https://github.com/amitamit10/openui-engine"
         },
-        "note": "Open source · local-first · no API keys"
+        "note": "Open source · local-first · no API keys",
+        "mock": {
+          "title": "validate_design",
+          "period": "desktop · mobile",
+          "url": "mcp://openui-engine/validate_design",
+          "sidebar": [
+            "Tools",
+            "Registry",
+            "Tokens",
+            "Editor",
+            "Reports"
+          ],
+          "kpis": [
+            {
+              "label": "Errors",
+              "value": "0",
+              "delta": "passed"
+            },
+            {
+              "label": "Token compliance",
+              "value": "100%"
+            },
+            {
+              "label": "Interactions",
+              "value": "11/11"
+            }
+          ],
+          "ariaLabel": "Preview of a validate_design result with zero errors and full token compliance"
+        }
       }
     },
     {

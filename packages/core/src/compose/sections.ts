@@ -59,21 +59,23 @@ function chartPaths(): { line: string; area: string; line2: string } {
   return { line, area: `${line} L${W} ${H} L0 ${H} Z`, line2: smooth(pts2) };
 }
 
-function dashboardMock(id: string, brand: string): string {
+export interface MockSpec {
+  title?: string; period?: string; sidebar?: string[]; url?: string;
+  kpis?: Array<{ label: string; value: string; delta?: string }>;
+  ariaLabel?: string;
+}
+
+function dashboardMock(id: string, brand: string, mock: MockSpec = {}): string {
   const c = chartPaths();
-  return `<div class="frame frame--float" data-openui-id="${id}.frame" role="img" aria-label="Product dashboard preview showing revenue growth chart and key metrics">
-  <div class="frame__bar"><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__url">app.${esc(brand.toLowerCase().replace(/[^a-z0-9]/g, ""))}.com/overview</span></div>
+  const side = mock.sidebar ?? ["Overview", "Pipelines", "Insights", "Automations", "Team", "Settings"];
+  const kpis = mock.kpis ?? [{ label: "Net revenue", value: "$482.6k", delta: "▲ 18.2%" }, { label: "Active accounts", value: "12,840", delta: "▲ 6.4%" }, { label: "Churn", value: "1.9%", delta: "▲ 0.4% better" }];
+  return `<div class="frame frame--float" data-openui-id="${id}.frame" role="img" aria-label="${esc(mock.ariaLabel ?? "Product dashboard preview showing a trend chart and key metrics")}">
+  <div class="frame__bar"><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__url">${esc(mock.url ?? `app.${brand.toLowerCase().replace(/[^a-z0-9]/g, "")}.com/overview`)}</span></div>
   <div class="dash" aria-hidden="true">
-    <div class="dash__side">
-      <div class="item is-active"><i></i>Overview</div><div class="item"><i></i>Pipelines</div><div class="item"><i></i>Insights</div><div class="item"><i></i>Automations</div><div class="item"><i></i>Team</div><div class="item"><i></i>Settings</div>
-    </div>
+    <div class="dash__side">${side.map((x, i) => `<div class="item${i === 0 ? " is-active" : ""}"><i></i>${esc(x)}</div>`).join("")}</div>
     <div class="dash__main">
-      <div class="dash__top"><span class="title">Revenue overview</span><span class="pill">Last 30 days</span></div>
-      <div class="kpis">
-        <div class="kpi"><small>Net revenue</small><strong>$482.6k</strong><em>▲ 18.2%</em></div>
-        <div class="kpi"><small>Active accounts</small><strong>12,840</strong><em>▲ 6.4%</em></div>
-        <div class="kpi"><small>Churn</small><strong>1.9%</strong><em>▲ 0.4% better</em></div>
-      </div>
+      <div class="dash__top"><span class="title">${esc(mock.title ?? "Revenue overview")}</span><span class="pill">${esc(mock.period ?? "Last 30 days")}</span></div>
+      <div class="kpis">${kpis.slice(0, 3).map((k) => `<div class="kpi"><small>${esc(k.label)}</small><strong>${esc(k.value)}</strong>${k.delta ? `<em>${esc(k.delta)}</em>` : ""}</div>`).join("")}</div>
       <div class="chart"><svg viewBox="0 0 560 150" preserveAspectRatio="none">
         <defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-accent)" stop-opacity=".35"/><stop offset="1" stop-color="var(--c-accent)" stop-opacity="0"/></linearGradient></defs>
         <g class="grid"><line x1="0" x2="560" y1="37" y2="37"/><line x1="0" x2="560" y1="75" y2="75"/><line x1="0" x2="560" y1="112" y2="112"/></g>
@@ -83,13 +85,19 @@ function dashboardMock(id: string, brand: string): string {
 </div>`;
 }
 
-function viz(kind: string): string {
+export interface VizData { rows?: Array<{ label: string; time?: string }>; toggles?: Array<{ label: string; on?: boolean }>; code?: string; people?: string; bars?: number[] }
+
+function viz(kind: string, d: VizData = {}): string {
   switch (kind) {
-    case "bars": return `<div class="viz viz--bars" aria-hidden="true">${[38, 52, 44, 70, 58, 86, 74, 96].map((h) => `<span style="height:${h}%"></span>`).join("")}</div>`;
-    case "list": return `<div class="viz viz--list" aria-hidden="true"><div class="row"><b></b><span>Deploy to production</span><span>2m ago</span></div><div class="row"><b></b><span>Review required</span><span>14m ago</span></div><div class="row"><b></b><span>Sync completed</span><span>1h ago</span></div></div>`;
-    case "code": return `<div class="viz viz--code" aria-hidden="true"><code><span class="c">// one call, typed end to end</span>\n<span class="k">const</span> run = <span class="k">await</span> client.flows.<span class="k">start</span>({\n  name: <span class="s">"onboarding"</span>,\n  retries: <span class="s">3</span>,\n});</code></div>`;
-    case "toggle": return `<div class="viz viz--toggle" aria-hidden="true"><div class="t"><span>Auto-approve under $500</span><i class="sw on"></i></div><div class="t"><span>Notify finance</span><i class="sw on"></i></div><div class="t"><span>Require 2nd reviewer</span><i class="sw"></i></div></div>`;
-    case "avatars": return `<div class="viz viz--avatars" aria-hidden="true"><span>AK</span><span>MJ</span><span>SL</span><span>RD</span><em>+24 teammates online</em></div>`;
+    case "bars": return `<div class="viz viz--bars" aria-hidden="true">${(d.bars ?? [38, 52, 44, 70, 58, 86, 74, 96]).map((h) => `<span style="height:${h}%"></span>`).join("")}</div>`;
+    case "list": return `<div class="viz viz--list" aria-hidden="true">${(d.rows ?? [{ label: "Deploy to production", time: "2m ago" }, { label: "Review required", time: "14m ago" }, { label: "Sync completed", time: "1h ago" }]).slice(0, 4).map((r) => `<div class="row"><b></b><span>${esc(r.label)}</span><span>${esc(r.time ?? "")}</span></div>`).join("")}</div>`;
+    case "code": return `<div class="viz viz--code" aria-hidden="true"><code>${d.code ? esc(d.code) : `<span class="c">// one call, typed end to end</span>
+<span class="k">const</span> run = <span class="k">await</span> client.flows.<span class="k">start</span>({
+  name: <span class="s">"onboarding"</span>,
+  retries: <span class="s">3</span>,
+});`}</code></div>`;
+    case "toggle": return `<div class="viz viz--toggle" aria-hidden="true">${(d.toggles ?? [{ label: "Auto-approve under $500", on: true }, { label: "Notify finance", on: true }, { label: "Require 2nd reviewer", on: false }]).slice(0, 4).map((t) => `<div class="t"><span>${esc(t.label)}</span><i class="sw${t.on ? " on" : ""}"></i></div>`).join("")}</div>`;
+    case "avatars": return `<div class="viz viz--avatars" aria-hidden="true"><span>AK</span><span>MJ</span><span>SL</span><span>RD</span><em>${esc(d.people ?? "+24 teammates online")}</em></div>`;
     default: return "";
   }
 }
@@ -135,7 +143,7 @@ export const RENDERERS: Record<SectionType, Renderer> = {
       ${ctaRow(p, id, tokens.composition.ctaHierarchy)}
       ${p.note ? `<p class="hero__note" data-openui-id="${id}.note">${esc(p.note)}</p>` : ""}
     </div>
-    <div class="hero__visual">${dashboardMock(id, spec.brand.name)}</div>
+    <div class="hero__visual">${dashboardMock(id, spec.brand.name, p.mock)}</div>
   </div>
 </section>`;
   },
@@ -152,7 +160,7 @@ export const RENDERERS: Record<SectionType, Renderer> = {
       ${ctaRow(p, id, tokens.composition.ctaHierarchy)}
       ${p.note ? `<p class="hero__note" data-openui-id="${id}.note">${esc(p.note)}</p>` : ""}
     </div>
-    <div class="hero__visual">${dashboardMock(id, spec.brand.name)}</div>
+    <div class="hero__visual">${dashboardMock(id, spec.brand.name, p.mock)}</div>
   </div>
 </section>`;
   },
@@ -186,7 +194,7 @@ export const RENDERERS: Record<SectionType, Renderer> = {
     const items = (p.items ?? []) as Array<{ title: string; body: string; visual: string; span?: number }>;
     return wrap(s, `${head(id, p)}
   <div class="bento">${items.map((it, i) => `<article class="card span-${it.span ?? 2} reveal" data-openui-id="${id}.card${i}">
-    ${viz(it.visual)}
+    ${viz(it.visual, (it as any).data)}
     <div class="card__text"><h3 class="h4" data-openui-id="${id}.card${i}.title">${esc(it.title)}</h3><p data-openui-id="${id}.card${i}.body">${esc(it.body)}</p></div></article>`).join("")}</div>`, "", false);
   },
 
@@ -201,7 +209,7 @@ export const RENDERERS: Record<SectionType, Renderer> = {
       <p class="lead" data-openui-id="${id}.row${i}.body">${esc(it.body)}</p>
       ${it.bullets ? `<ul class="ticks">${it.bullets.map((b) => `<li>${ICON.check}<span>${esc(b)}</span></li>`).join("")}</ul>` : ""}
     </div>
-    <div class="card" style="padding:var(--s-5)">${viz(it.visual)}</div></div>`).join("")}</div>`, "", !!p.tint);
+    <div class="card" style="padding:var(--s-5)">${viz(it.visual, (it as any).data)}</div></div>`).join("")}</div>`, "", !!p.tint);
   },
 
   metrics: (s) => {

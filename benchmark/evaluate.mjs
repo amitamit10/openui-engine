@@ -1,10 +1,10 @@
 // Applies identical measurements to both benchmark outputs.
-// usage: node benchmark/evaluate.mjs <baselineSiteDir> <enhancedSiteDir> <outDir>
-import { mkdirSync, writeFileSync, readFileSync, readdirSync, statSync, existsSync } from "node:fs";
+// usage: node benchmark/evaluate.mjs <outDir> label=siteDir [label=siteDir ...]
+import { mkdirSync, writeFileSync, readFileSync, readdirSync, statSync, existsSync, cpSync, rmSync } from "node:fs";
 import { join, resolve, extname } from "node:path";
 import { auditTarget, serveDir, getBrowser, closeBrowser, scrollThrough, analyzePng } from "../packages/verify/dist/index.js";
 
-const [, , aDir, bDir, outArg] = process.argv;
+const [, , outArg, ...arms] = process.argv;
 const out = resolve(outArg); mkdirSync(out, { recursive: true });
 
 function walk(d) { return readdirSync(d, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]); }
@@ -35,22 +35,50 @@ async function discipline(url) {
   await page.close(); return r;
 }
 
+
+/** Markup-agnostic behavioural checks (no engine selectors). */
+async function neutralChecks(url) {
+  const b = await getBrowser(); const out = [];
+  const run = async (name, vp, fn) => { const ctx = await b.newContext({ viewport: vp, isMobile: vp.width < 500, hasTouch: vp.width < 500 }); const p = await ctx.newPage(); p.setDefaultTimeout(4000);
+    try { await p.goto(url, { waitUntil: "networkidle" }); const d = await fn(p); out.push({ name, viewport: vp.width, passed: true, detail: d }); } catch (e) { out.push({ name, viewport: vp.width, passed: false, detail: String(e.message).split("\n")[0] }); } await ctx.close(); };
+  const prices = (p) => p.evaluate(() => (document.body.innerText.match(/\$\s?\d[\d,]*/g) || []).join(","));
+  await run("pricing toggle changes displayed prices", { width: 1440, height: 900 }, async (p) => {
+    const find = (re) => { const btn = p.getByRole("button", { name: re }).first(); return btn.count().then((n) => (n ? btn : p.locator("label,[role=tab],[role=switch]").filter({ hasText: re }).first())); };
+    const y = await find(/year|annual/i), m = await find(/month/i);
+    await y.scrollIntoViewIfNeeded(); const seen = [];
+    for (const el of [m, y, m]) { await el.click(); await p.waitForTimeout(250); seen.push(await prices(p)); }
+    if (new Set(seen).size < 2) throw new Error("prices identical in monthly and yearly modes"); return seen.map((x) => x.slice(0, 28)).join(" | "); });
+  await run("FAQ accordion toggles", { width: 1440, height: 900 }, async (p) => {
+    const q = p.locator("details:not([open]) > summary, button[aria-expanded=false]").filter({ hasText: /\?/ }).first(); const h = await q.elementHandle();
+    await h.scrollIntoViewIfNeeded(); await h.click(); await p.waitForTimeout(250);
+    const ok = await h.evaluate((e) => (e.tagName === "SUMMARY" ? e.parentElement.open : e.getAttribute("aria-expanded") === "true")); if (!ok) throw new Error("did not open"); });
+  await run("mobile menu opens", { width: 390, height: 844 }, async (p) => {
+    const m = p.locator("button[aria-expanded], button:has-text('Menu'), [aria-label*='menu' i]").first(); const h = await m.elementHandle();
+    const visBefore = await p.evaluate(() => [...document.querySelectorAll("header a, nav a")].filter((a) => a.getBoundingClientRect().height > 0 && a.getBoundingClientRect().width > 0).length);
+    await h.click(); await p.waitForTimeout(350);
+    const visAfter = await p.evaluate(() => [...document.querySelectorAll("header a, nav a")].filter((a) => a.getBoundingClientRect().height > 0 && a.getBoundingClientRect().width > 0).length);
+    if (visAfter <= visBefore) throw new Error("no additional nav links visible after click"); return visBefore + " -> " + visAfter + " visible nav links"; });
+  return out;
+}
+
 const results = {};
-for (const [label, dir] of [["baseline", aDir], ["enhanced", bDir]]) {
-  const root = resolve(dir);
+for (const [label, dir] of arms.map((a) => a.split("="))) {
+  // Evaluate exactly what was delivered: site/index.html at the root, excluding engine project files and tool output.
+  const root = resolve(out, "_staged", label); rmSync(root, { recursive: true, force: true }); mkdirSync(root, { recursive: true });
+  cpSync(resolve(dir), root, { recursive: true, filter: (f) => !/\/(dist|\.openui|node_modules)(\/|$)/.test(f) && !/\/(openui\.[a-z.]+\.json|DESIGN\.md|tokens\.json)$/.test(f) });
   if (!existsSync(join(root, "index.html"))) { results[label] = { error: "no index.html" }; continue; }
   const shots = join(out, label);
   const t0 = Date.now();
   const r = await auditTarget(root, { outDir: shots, label });
   const srv = await serveDir(root);
-  const disc = await discipline(srv.url + "/"); await srv.close();
+  const disc = await discipline(srv.url + "/"); const neutral = await neutralChecks(srv.url + "/"); await srv.close();
   const wsp = {};
   for (const v of r.audit.viewports) if (v.screenshots.full) wsp[v.viewport.name] = analyzePng(v.screenshots.full);
   results[label] = {
     source: sourceStats(root),
     audit: { passed: r.audit.passed, totals: r.audit.totals, perViewport: r.audit.viewports.map((v) => ({ vp: v.viewport.name, errors: v.issues.filter((i) => i.severity === "error").length, warnings: v.issues.filter((i) => i.severity === "warning").length, interactions: `${v.interactions.filter((i) => i.passed).length}/${v.interactions.length}`, pageHeight: v.metrics.docHeight })), issues: r.audit.viewports.flatMap((v) => v.issues.filter((i) => i.severity !== "info").map((i) => ({ vp: v.viewport.name, sev: i.severity, cat: i.category, msg: i.message.slice(0, 220) }))) },
     quality: { overall: r.quality.overall, dimensions: Object.fromEntries(r.quality.dimensions.map((d) => [d.id, d.score])), deadZones: r.quality.deadZones },
-    discipline: disc, deadZonesByViewport: Object.fromEntries(Object.entries(wsp).map(([k, v]) => [k, v.deadZones.length])),
+    neutral, discipline: disc, deadZonesByViewport: Object.fromEntries(Object.entries(wsp).map(([k, v]) => [k, v.deadZones.length])),
     evalSeconds: +((Date.now() - t0) / 1000).toFixed(1),
   };
 }

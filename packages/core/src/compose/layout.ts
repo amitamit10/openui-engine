@@ -136,3 +136,13 @@ function heroProps(b: ProductBrief) {
     note: "Free for 14 days · No credit card · Cancel anytime",
   };
 }
+
+/**
+ * Strings that only exist in the engine's starter copy. If any survive into a finished page the copy was
+ * never rewritten (and, for the hero mock, would show revenue metrics inside an unrelated product).
+ */
+export const STARTER_MARKERS = [
+  "Revenue overview", "Net revenue", "Active accounts", "Northwind", "Parallax", "Orbital", "Vantage",
+  "Priya Raman", "Marcus Lindqvist", "Sofia Alvarez", "Deploy to production", "teammates online",
+  "Auto-approve under $500", "one call, typed end to end", "Answers before the stand-up", "Everything",
+];

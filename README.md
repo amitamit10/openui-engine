@@ -76,9 +76,14 @@ Security: loopback only by default, 192-bit per-session secret exchanged for an 
 
 Component and inspiration sources were audited with real HTTP probes — **including the ones that turned out to be blocked, paid or moved** — in [docs/SOURCES.md](docs/SOURCES.md). Third-party component source is never vendored; it's fetched from each project's own registry on demand. The author's private skill collection audit is in [docs/SKILLS_AUDIT.md](docs/SKILLS_AUDIT.md). Component inventory: [docs/COMPONENTS.md](docs/COMPONENTS.md).
 
-## Benchmark
+## Benchmark (read before quoting it)
 
-See [`benchmark/REPORT.md`](benchmark/REPORT.md) for the controlled experiment (**with its limitations stated first**).
+A controlled experiment was run with a **substitute model** (`claude-haiku-5-5`; GPT-6 Luna is unavailable here). Headline findings, in order of importance:
+
+* The "engine available" agent **made zero MCP calls**, so it was effectively a second baseline; a third arm with *required* engine use was added.
+* In a **blind design review the engine-built page ranked last**; measured token discipline (12 vs ~30 colours, 9 vs 14–17 font sizes) and zero sub-12 px text *were* better. Accessibility/overflow/function were indistinguishable.
+* **No Vercel deployment was possible** (no credentials in the session); no live URLs are claimed.
+* n = 1 per arm. This is **not** evidence that the engine improves a cheap model's design — see [`benchmark/REPORT.md`](benchmark/REPORT.md) for confounds, the three flaws it exposed (all fixed) and the open gap (generic composition). Interactive side-by-side: [`benchmark/site`](benchmark/site/index.html).
 
 ## Status & honest limitations
 
