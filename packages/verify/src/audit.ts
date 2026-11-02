@@ -169,7 +169,19 @@ function collectInPage(isMobile: boolean): Collected {
     const r = el.getBoundingClientRect();
     if (r.top < foldH) visualArea += Math.max(0, Math.min(r.bottom, foldH) - Math.max(r.top, 0)) * r.width;
   }
-  const primaryCtas = vis.filter((e) => e.matches(".btn--primary,button[type=submit],[data-cta=primary]") && e.getBoundingClientRect().top < vh && e.getBoundingClientRect().top >= 0 && !e.closest(".nav")).length;
+  // Markup-agnostic: engine markers count, and so does any visible, solid-filled link/button above the fold outside nav/header/footer
+  // (hand-written pages style <a> elements as buttons, so requiring a <button> or an engine class was a false positive).
+  const isFilledAction = (e: Element) => {
+    const r = e.getBoundingClientRect(); const cs = getComputedStyle(e);
+    const m = cs.backgroundColor.match(/rgba?\(([^)]+)\)/); const parts = m ? m[1]!.split(",").map((x) => parseFloat(x)) : [];
+    const solid = parts.length >= 3 && (parts.length < 4 || (parts[3] ?? 1) > 0.5) && !(parts[0] === 0 && parts[1] === 0 && parts[2] === 0 && parts.length === 4 && parts[3] === 0);
+    return solid && r.height >= 36 && r.width >= 80;
+  };
+  const primaryCtas = vis.filter((e) => {
+    const r = e.getBoundingClientRect();
+    if (!(r.top < vh && r.top >= 0) || e.closest(".nav,nav,footer") || (e.closest("header") && !e.closest("header")!.querySelector("h1"))) return false;
+    return e.matches(".btn--primary,button[type=submit],[data-cta=primary]") || (e.matches("a[href],button") && isFilledAction(e));
+  }).length;
   if (primaryCtas === 0) issues.push({ severity: "warning", category: "layout", message: "No primary call-to-action visible in the first viewport.", fix: "Place one primary CTA (button) above the fold in the hero." });
   if (primaryCtas > 2) issues.push({ severity: "warning", category: "layout", message: `${primaryCtas} primary CTAs compete in the first viewport.`, fix: "Keep one primary and demote the rest to ghost/link style." });
 
