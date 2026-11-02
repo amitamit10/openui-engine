@@ -105,7 +105,12 @@ export function generateTokens(brief: DesignBrief): DesignTokens {
   const accent2 = hslToHex({ h: h.h + s.secondaryHueShift, s: Math.min(0.85, h.s), l: s.mode === "dark" ? 0.68 : 0.5 });
   const motion = (brief.motion ?? s.defaultMotion);
 
-  const onBoth = (c: string) => { let x = c; for (const b of [p.bg, p.surface, p.surface2]) x = ensureContrast(x, b, 4.5); return x; };
+  // semantic colours (success/warning/danger) are used as text on plain surfaces AND on their own ~14% tint (status pills)
+  const onBoth = (c: string) => {
+    let x = c;
+    for (let pass = 0; pass < 3; pass++) for (const b of [p.bg, p.surface, p.surface2]) { x = ensureContrast(x, b, 4.6); x = ensureContrast(x, mix(b, x, 0.14), 4.6); }
+    return x;
+  };
   const success = onBoth(s.mode === "dark" ? "#4ade80" : "#15803d");
   const warning = onBoth(s.mode === "dark" ? "#fbbf24" : "#b45309");
   const danger = onBoth(s.mode === "dark" ? "#f87171" : "#b91c1c");

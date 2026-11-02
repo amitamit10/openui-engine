@@ -157,6 +157,8 @@ describe("design → compose → verify → review loop", () => {
     await expect.poll(async () => frame.locator('[data-openui-id="hero.title"]').evaluate((e) => getComputedStyle(e).fontSize)).toBe("61px");
     // change radius on the CTA through the Style tab and a comment + a natural-language request
     await frame.locator('[data-openui-id="hero.cta"]').click();
+    // wait until the inspector has actually switched to the CTA, otherwise the edit lands on the previous element
+    await expect.poll(async () => page.locator("#inspector code").first().textContent(), { timeout: 10_000 }).toBe("hero.cta");
     await page.locator('input[data-p="border-radius"]').fill("6");
     await page.locator('[data-tab="comments"]').click();
     await page.locator("#ctext").fill("CTA feels too round for the brand");
@@ -164,7 +166,7 @@ describe("design → compose → verify → review loop", () => {
     await page.locator('[data-tab="ask"]').click();
     await page.locator("#rtext").fill("Make the hero subtitle a little shorter");
     await page.locator("#radd").click();
-    await expect.poll(async () => (await page.locator("#pending").textContent())).toMatch(/2 pending/);
+    await expect.poll(async () => (await page.locator("#pending").textContent()), { timeout: 10_000 }).toMatch(/2 pending/);
 
     // the agent receives it through MCP
     const fb = await call("get_visual_feedback", { sessionId, waitSeconds: 5 });

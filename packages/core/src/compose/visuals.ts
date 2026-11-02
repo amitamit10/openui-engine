@@ -125,13 +125,13 @@ export function renderVisual(input: VisualSpec | undefined, id = "v"): string {
     case "table": {
       const cols: string[] = v.columns ?? []; const rows: any[][] = (v.rows ?? []).slice(0, 7);
       const cell = (c: any) => (c && typeof c === "object" ? pill(c.text, c.tone) : esc(c));
-      return `<div class="vz vz-table" role="img" aria-label="${esc(v.title ?? "Table")}">${bar(v.title ?? "Records", v.right)}<table><thead><tr>${cols.map((c) => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${cell(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+      return `<div class="vz vz-table" role="group" aria-label="${esc(v.title ?? "Table")}">${bar(v.title ?? "Records", v.right)}<div class="vz-scroll" tabindex="0" role="region" aria-label="${esc(v.title ?? "Table")} (scrollable)"><table><thead><tr>${cols.map((c) => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${cell(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>`;
     }
     case "chart":
       return `<div class="vz vz-chart" role="img" aria-label="${esc(v.title ?? "Chart")}">${bar(v.title ?? "Overview", v.right)}<div class="vz-pad">${v.headline ? `<div class="vz-head"><strong>${esc(v.headline)}</strong>${v.delta ? `<em>${esc(v.delta)}</em>` : ""}</div>` : ""}${chartSvg(v, uid)}</div></div>`;
     case "invoice": {
       const items: any[] = (v.items ?? []).slice(0, 5);
-      return `<div class="vz vz-invoice" role="img" aria-label="${esc(v.title ?? "Invoice")}">${bar(v.title ?? "Invoice", v.right)}<div class="vz-pad"><div class="vz-inv-head"><div><small>${esc(v.number ?? "INV-0001")}</small><strong>${esc(v.to ?? "Customer")}</strong><small>${esc(v.from ?? "")}</small></div>${v.status ? pill(v.status, v.statusTone ?? "ok") : ""}</div><table><thead><tr><th>Item</th><th>Qty</th><th>Amount</th></tr></thead><tbody>${items.map((i) => `<tr><td>${esc(i.desc)}</td><td>${esc(i.qty ?? 1)}</td><td>${esc(i.price)}</td></tr>`).join("")}</tbody><tfoot><tr><td colspan="2">Total</td><td>${esc(v.total ?? "")}</td></tr></tfoot></table></div></div>`;
+      return `<div class="vz vz-invoice" role="group" aria-label="${esc(v.title ?? "Invoice")}">${bar(v.title ?? "Invoice", v.right)}<div class="vz-pad vz-scroll" tabindex="0" role="region" aria-label="${esc(v.title ?? "Invoice")} (scrollable)"><div class="vz-inv-head"><div><small>${esc(v.number ?? "INV-0001")}</small><strong>${esc(v.to ?? "Customer")}</strong><small>${esc(v.from ?? "")}</small></div>${v.status ? pill(v.status, v.statusTone ?? "ok") : ""}</div><table><thead><tr><th>Item</th><th>Qty</th><th>Amount</th></tr></thead><tbody>${items.map((i) => `<tr><td>${esc(i.desc)}</td><td>${esc(i.qty ?? 1)}</td><td>${esc(i.price)}</td></tr>`).join("")}</tbody><tfoot><tr><td colspan="2">Total</td><td>${esc(v.total ?? "")}</td></tr></tfoot></table></div></div>`;
     }
     case "schedule": {
       const days: string[] = v.days ?? ["Mon", "Tue", "Wed", "Thu", "Fri"]; const rows: any[] = (v.rows ?? []).slice(0, 5);

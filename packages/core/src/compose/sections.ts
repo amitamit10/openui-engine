@@ -194,12 +194,12 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
   <div class="reveal" style="display:flex;justify-content:center;margin-bottom:var(--s-7)">
     <div class="billing" role="group" aria-label="Billing period">
       <button type="button" aria-pressed="true" data-billing="monthly">Monthly</button>
-      <button type="button" aria-pressed="false" data-billing="yearly">Yearly <span class="save">Save 20%</span></button>
+      <button type="button" aria-pressed="false" data-billing="yearly">Yearly <span class="save">${esc(p.savings ?? "Save 20%")}</span></button>
     </div></div>
   <div class="tiers">${tiers.map((t, i) => `<article class="card tier reveal${t.featured ? " tier--featured" : ""}" data-openui-id="${id}.tier${i}">
     ${t.featured ? `<span class="tier__tag">Most popular</span>` : ""}
     <div class="stack"><h3 class="h3">${esc(t.name)}</h3><p class="muted small">${esc(t.desc)}</p></div>
-    <div class="price"><strong data-price data-monthly="${esc(t.monthly)}" data-yearly="${esc(t.yearly)}">${typeof t.monthly === "number" ? "$" : ""}${esc(t.monthly)}</strong><span>${typeof t.monthly === "number" ? esc(t.unit ?? "/ seat / month") : ""}</span></div>
+    <div class="price"><strong data-price data-monthly="${esc(t.monthly)}" data-yearly="${esc(t.yearly)}" data-cur="${esc(p.currency ?? "$")}">${typeof t.monthly === "number" ? esc(p.currency ?? "$") : ""}${esc(t.monthly)}</strong><span>${typeof t.monthly === "number" ? esc(t.unit ?? "/ month") : ""}</span></div>
     ${btn(t.cta, t.featured ? "primary" : "ghost", `${id}.tier${i}.cta`, false)}
     <ul class="ticks">${t.features.map((f) => `<li>${ICON.check}<span>${esc(f)}</span></li>`).join("")}</ul></article>`).join("")}</div>`, "", true);
   },

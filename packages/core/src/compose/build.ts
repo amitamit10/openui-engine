@@ -32,7 +32,10 @@ export interface SiteBrief {
   integrations?: { title: string; items: Array<{ name: string; icon?: string; desc?: string }> };
   metrics?: Array<{ value: string; label: string; delta?: string; spark?: number[] }>;
   testimonials?: Array<{ quote: string; name: string; role: string; stats?: Array<{ value: string; label: string }> }>;
-  pricing?: { title?: string; subtitle?: string; tiers: Array<{ name: string; monthly: number | string; yearly: number | string; desc: string; features: string[]; cta: string; featured?: boolean }> };
+  /** currency symbol (default "$"), savings badge text (default "Save 20%"), per-tier unit (default "/ seat / month"; use "/ month" for individual plans). */
+  pricing?: { title?: string; subtitle?: string; currency?: string; savings?: string; tiers: Array<{ name: string; monthly: number | string; yearly: number | string; desc: string; features: string[]; cta: string; featured?: boolean; unit?: string }> };
+  /** Override the generated nav. signIn:false removes the sign-in link. */
+  nav?: { links?: Array<{ label: string; href: string }>; signIn?: { label: string; href: string } | false };
   faq?: Array<{ q: string; a: string }>;
   closing?: { title: string; subtitle: string; bullets?: string[]; form?: boolean; button?: string; note?: string };
   footer?: { tagline?: string; columns?: Array<{ title: string; links: Array<{ label: string; href: string }> }>; legal?: string };
@@ -83,7 +86,7 @@ export function planSite(input: SiteBrief): PlannedSite {
   const has = { features: brief.features.length > 0, pricing: !!brief.pricing?.tiers?.length, faq: (brief.faq?.length ?? 0) > 0, how: !!brief.how };
   const links = [has.features && { label: "Product", href: "#features" }, has.how && { label: "How it works", href: "#how" }, has.pricing && { label: "Pricing", href: "#pricing" }, has.faq && { label: "FAQ", href: "#faq" }].filter(Boolean) as Array<{ label: string; href: string }>;
   const primaryHref = has.pricing ? "#pricing" : "#cta";
-  add("nav", "navbar-glass", { links, signIn: { label: "Sign in", href: "#" }, cta: cta(brief.primaryCta, primaryHref) }, "wayfinding + primary CTA");
+  add("nav", "navbar-glass", { links: brief.nav?.links ?? links, signIn: brief.nav?.signIn === false ? undefined : (brief.nav?.signIn ?? { label: "Sign in", href: primaryHref }), cta: cta(brief.primaryCta, primaryHref) }, "wayfinding + primary CTA");
 
   const hv = brief.heroVisual;
   const heroType = !hv && comp.heroVariant === "editorial" ? "hero-editorial" : hv && WIDE.includes(hv.kind) ? "hero-centered-product" : hv ? "hero-split" : comp.heroVariant === "split" ? "hero-split" : "hero-centered-product";
@@ -108,7 +111,7 @@ export function planSite(input: SiteBrief): PlannedSite {
   const t = brief.testimonials ?? [];
   if (t.length === 1 || (t.length >= 1 && t.length < 3)) add("testimonials", "quote-feature", { quote: t[0]!.quote, name: t[0]!.name, role: t[0]!.role, stats: t[0]!.stats ?? [], tint: !brief.metrics?.length }, "one strong quote beats three vague ones");
   else if (t.length >= 3) add("testimonials", "testimonial-wall", { title: "What customers say", items: t.slice(0, 5).map((q, i) => ({ ...q, big: i === 0 })) }, "varied masonry wall");
-  if (has.pricing) add("pricing", "pricing", { anchor: "pricing", eyebrow: "Pricing", title: brief.pricing!.title ?? "Simple pricing", subtitle: brief.pricing!.subtitle, tiers: brief.pricing!.tiers.map((x) => ({ name: x.name, monthly: x.monthly, yearly: x.yearly, desc: x.desc, features: x.features, cta: cta(x.cta, "#cta"), featured: x.featured })) }, "cost made legible");
+  if (has.pricing) add("pricing", "pricing", { anchor: "pricing", eyebrow: "Pricing", title: brief.pricing!.title ?? "Simple pricing", subtitle: brief.pricing!.subtitle, currency: brief.pricing!.currency, savings: brief.pricing!.savings, tiers: brief.pricing!.tiers.map((x) => ({ name: x.name, monthly: x.monthly, yearly: x.yearly, desc: x.desc, features: x.features, cta: cta(x.cta, "#cta"), featured: x.featured, unit: x.unit })) }, "cost made legible");
   if (has.faq) add("faq", (brief.faq!.length >= 4 ? "faq-split" : "faq"), { anchor: "faq", eyebrow: "FAQ", title: "Questions, answered", items: brief.faq }, "objection handling");
   const c = brief.closing ?? { title: `Try *${brief.name}*`, subtitle: brief.subheadline };
   add("cta", c.form ? "cta-split" : "cta-band", c.form ? { anchor: "cta", title: c.title, subtitle: c.subtitle, bullets: c.bullets, form: { button: c.button ?? brief.primaryCta, note: c.note ?? "", label: "Work email" } } : { anchor: "cta", title: c.title, subtitle: c.subtitle, primaryCta: cta(brief.primaryCta, "#top"), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined }, "single closing ask");

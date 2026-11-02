@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-  ALL_COMPONENTS, BUZZWORDS, RENDERERS, STYLE_IDS, VISUAL_KINDS, briefTemplate, buildSite, collectIconRefs, discover, generateTokens, hexToHsl, indexedComponents, lintCopy,
+  ALL_COMPONENTS, BUZZWORDS, contrast as contrastRatio, RENDERERS, STYLE_IDS, VISUAL_KINDS, briefTemplate, buildSite, collectIconRefs, discover, generateTokens, hexToHsl, indexedComponents, lintCopy,
   findComponent, lintVisuals, normalizeCategory, normalizeVisual, suggestComponentIds, pickAccent, planSite, renderVisual, sanitizeSvg, searchIcons, searchableComponents, type PageSpec, type SiteBrief, type SiteCategory,
 } from "./index.js";
 
@@ -132,5 +132,21 @@ describe("v0.2.1 regressions (found by agents using the engine)", () => {
   it("uses minmax(0,1fr) tracks so long content cannot widen a grid", () => {
     const css = buildSite(planSite(briefTemplate("saas")).spec, planSite(briefTemplate("saas")).tokens, {}, {}).files["styles.css"]!;
     expect(css).not.toMatch(/grid-template-columns:\s*repeat\(\d+,1fr\)/); expect(css).toContain(".tabs{display:grid;grid-template-columns:minmax(0,1fr)");
+  });
+  it("v0.2.2: pricing currency/unit/savings and nav overrides are honoured", () => {
+    const b = briefTemplate("saas"); b.pricing!.currency = "€"; b.pricing!.savings = "Save 15%"; b.pricing!.tiers[1]!.unit = "/ person / month"; b.nav = { links: [{ label: "Work", href: "#features" }], signIn: false };
+    const p = planSite(b); const html = buildSite(p.spec, p.tokens, {}, {}).files["index.html"]!;
+    expect(html).toContain("€24"); expect(html).toContain("Save 15%"); expect(html).toContain("/ person / month"); expect(html).not.toContain("Sign in"); expect(html).toContain(">Work<");
+    expect(buildSite(p.spec, p.tokens, {}, {}).files["app.js"]).toContain("data-cur");
+  });
+  it("v0.2.2: scrollable table regions are focusable and not role=img (axe)", () => {
+    const html = renderVisual({ kind: "table", title: "Deals", columns: ["a"], rows: [["x"]] } as any, "t");
+    expect(html).toContain('role="region"'); expect(html).toContain('tabindex="0"'); expect(html).not.toMatch(/vz-table" role="img"/);
+  });
+  it("v0.2.2: semantic colours pass AA on their own tinted pill background in every style", () => {
+    for (const style of STYLE_IDS) {
+      const t = generateTokens({ name: "T", style }); const tint = (c: string, b: string) => { const x = parseInt(c.slice(1), 16), y = parseInt(b.slice(1), 16); const m = (sh: number) => Math.round(((x >> sh) & 255) * 0.14 + ((y >> sh) & 255) * 0.86); return "#" + [16, 8, 0].map((sh) => m(sh).toString(16).padStart(2, "0")).join(""); };
+      for (const k of ["success", "warning", "danger"] as const) for (const bg of [t.color.surface, t.color.surface2]) expect(contrastRatio(t.color[k], tint(t.color[k], bg)), `${style} ${k} on ${bg}`).toBeGreaterThanOrEqual(4.5);
+    }
   });
 });

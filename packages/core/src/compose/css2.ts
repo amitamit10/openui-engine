@@ -92,7 +92,7 @@ export const EXTRA_CSS = String.raw`
 .tabs__panel{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(24px,5vw,64px);align-items:center}
 .tabs__panel[hidden]{display:none}
 .tabs__panel>*,.tabs__copy,.showcase>*,.stl>*,.frow>*{min-width:0}
-.vz{max-width:100%}.vz-table,.vz-invoice{overflow-x:auto}
+.vz{max-width:100%}.vz-scroll{overflow-x:auto}.vz-scroll:focus-visible{outline-offset:-3px}
 .tabs__copy{display:grid;gap:var(--s-4);justify-items:start}
 @media(max-width:860px){.tabs__panel{grid-template-columns:minmax(0,1fr)}.tabs__list{border-radius:var(--r-lg);width:100%}.tabs__tab{flex:1 1 auto;justify-content:center}}
 /* showcase */
