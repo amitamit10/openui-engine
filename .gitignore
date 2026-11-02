@@ -5,3 +5,5 @@ dist
 .openui
 *.log
 .DS_Store
+_staged
+results/**/_staged

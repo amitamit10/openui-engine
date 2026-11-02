@@ -1,7 +1,0 @@
-{
-  "model": "claude-haiku-5-5 (substitute for GPT-6 Luna, which is unavailable)",
-  "baseline":  { "tokens": 105031, "toolUses": 15, "seconds": 184, "mcpCalls": 0 },
-  "enhanced":  { "tokens": 109669, "toolUses": 28, "seconds": 229, "mcpCalls": 0 },
-  "enhanced2": { "tokens": 140858, "toolUses": 51, "seconds": 377, "mcpCalls": 11 },
-  "blindJudge": { "model": "claude-sonnet", "mapping": { "baseline": "Y", "enhanced": "X", "enhanced2": "Z" }, "ranking": ["X", "Y", "Z"] }
-}

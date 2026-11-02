@@ -11,7 +11,7 @@ const spec = {
   description: "An open-source MCP server that gives inexpensive coding models curated components, design systems, a visual editor and real-browser QA.",
   brand: { name: "OpenUI Engine" },
   sections: [
-    { id: "nav", type: "navbar-glass", props: { links: [{ label: "Tools", href: "#features" }, { label: "Architecture", href: "#architecture" }, { label: "Benchmark", href: "benchmark/" }, { label: "Install", href: "#install" }], signIn: { label: "Docs", href: `${REPO}/tree/main/docs` }, cta: { label: "GitHub", href: REPO } } },
+    { id: "nav", type: "navbar-glass", props: { links: [{ label: "Tools", href: "#features" }, { label: "Architecture", href: "#architecture" }, { label: "Results", href: "results/" }, { label: "Install", href: "#install" }], signIn: { label: "Docs", href: `${REPO}/tree/main/docs` }, cta: { label: "GitHub", href: REPO } } },
     { id: "hero", type: "hero-centered-product", props: { badge: { tag: "MCP", text: "13 tools · stdio + Streamable HTTP · Apache-2.0" }, title: "Stop making cheap models *invent* UI design", subtitle: "OpenUI Engine hands your coding agent curated components, a WCAG-checked design system, a visual editor and a real-browser QA loop — so it composes and verifies instead of improvising.", primaryCta: { label: "Install the MCP", href: "#install" }, secondaryCta: { label: "View on GitHub", href: REPO }, note: "Open source · local-first · no API keys", mock: { title: "validate_design", period: "desktop · mobile", url: "mcp://openui-engine/validate_design", sidebar: ["Tools", "Registry", "Tokens", "Editor", "Reports"], kpis: [{ label: "Errors", value: "0", delta: "passed" }, { label: "Token compliance", value: "100%" }, { label: "Interactions", value: "11/11" }], ariaLabel: "Preview of a validate_design result with zero errors and full token compliance" } } },
     { id: "logos", type: "logo-cloud", props: { label: "Works with any MCP client", logos: ["Claude Code", "Codex", "Cursor", "Windsurf", "VS Code", "Zed"] } },
     { id: "features", type: "feature-bento", props: { anchor: "features", eyebrow: "Tools", title: "Everything an agent needs to ship a *designed* page", subtitle: "Short ranked answers, not registry dumps. Source is fetched only when asked for.", items: [
@@ -53,5 +53,5 @@ writeFileSync(`${out}/styles.css`, readFileSync(`${out}/styles.css`, "utf8") + `
 mkdirSync(`${out}/diagrams`, { recursive: true });
 for (const f of ["architecture", "architecture-dark", "quality-loop", "quality-loop-dark"]) cpSync(`${root}docs/diagrams/${f}.png`, `${out}/diagrams/${f}.png`);
 for (const f of ["architecture", "quality-loop"]) cpSync(`${root}docs/diagrams/${f}.html`, `${out}/diagrams/${f}.html`);
-if (existsSync(`${root}benchmark/site`)) cpSync(`${root}benchmark/site`, `${out}/benchmark`, { recursive: true });
+if (existsSync(`${root}results`)) cpSync(`${root}results`, `${out}/results`, { recursive: true, filter: (f) => !/\/(REPORT\.md|SPEC\.md|raw)$/.test(f) && !f.endsWith(".md") });
 console.log("docs site built →", out);

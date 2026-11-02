@@ -83,7 +83,7 @@ A controlled experiment was run with a **substitute model** (`claude-haiku-5-5`;
 * The "engine available" agent **made zero MCP calls**, so it was effectively a second baseline; a third arm with *required* engine use was added.
 * In a **blind design review the engine-built page ranked last**; measured token discipline (12 vs ~30 colours, 9 vs 14–17 font sizes) and zero sub-12 px text *were* better. Accessibility/overflow/function were indistinguishable.
 * **No Vercel deployment was possible** (no credentials in the session); no live URLs are claimed.
-* n = 1 per arm. This is **not** evidence that the engine improves a cheap model's design — see [`benchmark/REPORT.md`](benchmark/REPORT.md) for confounds, the three flaws it exposed (all fixed) and the open gap (generic composition). Interactive side-by-side: [`benchmark/site`](benchmark/site/index.html).
+* n = 1 per arm. This is **not** evidence that the engine improves a cheap model's design — see [`results/v0.1.0/REPORT.md`](results/v0.1.0/REPORT.md) for confounds, the three flaws it exposed (all fixed) and the open gap (generic composition). Interactive side-by-side: [`results/v0.1.0/site`](results/v0.1.0/site/index.html).
 
 ## Status & honest limitations
 

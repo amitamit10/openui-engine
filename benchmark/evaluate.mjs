@@ -78,6 +78,7 @@ for (const [label, dir] of arms.map((a) => a.split("="))) {
     source: sourceStats(root),
     audit: { passed: r.audit.passed, totals: r.audit.totals, perViewport: r.audit.viewports.map((v) => ({ vp: v.viewport.name, errors: v.issues.filter((i) => i.severity === "error").length, warnings: v.issues.filter((i) => i.severity === "warning").length, interactions: `${v.interactions.filter((i) => i.passed).length}/${v.interactions.length}`, pageHeight: v.metrics.docHeight })), issues: r.audit.viewports.flatMap((v) => v.issues.filter((i) => i.severity !== "info").map((i) => ({ vp: v.viewport.name, sev: i.severity, cat: i.category, msg: i.message.slice(0, 220) }))) },
     quality: { overall: r.quality.overall, dimensions: Object.fromEntries(r.quality.dimensions.map((d) => [d.id, d.score])), deadZones: r.quality.deadZones },
+    slop: r.audit.viewports.find((v) => v.slop)?.slop ?? null,
     neutral, discipline: disc, deadZonesByViewport: Object.fromEntries(Object.entries(wsp).map(([k, v]) => [k, v.deadZones.length])),
     evalSeconds: +((Date.now() - t0) / 1000).toFixed(1),
   };

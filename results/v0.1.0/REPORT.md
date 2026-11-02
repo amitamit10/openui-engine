@@ -8,8 +8,8 @@
 |---|---|
 | Two **GPT-6 Luna** subagents | **GPT-6 Luna is not available** in this environment (the subagent tool offers only Claude models). I used the cheapest available model, **`claude-haiku-5-5`** — confirmed from each agent's own transcript — for all arms. This is a *substitute*; the results say nothing about Luna. |
 | Exactly two agents, identical conditions except engine access | Arm B had the engine available but **made zero MCP calls** (it says so itself). Arm B was therefore effectively a second baseline. I added a **third arm B2** with one extra sentence in the prompt *requiring* engine use. B2's protocol differs from A/B, so B2 is **not** a like-for-like replication; all three arms are reported. |
-| Deploy both sites to **Vercel** | **Not done.** No Vercel credential or connector exists in this session and `api.vercel.com` returns 403 from the sandbox. No deployment URLs are claimed. The generated sites are plain static folders (`benchmark/site/<arm>/`) and a ready workflow exists (`.github/workflows/vercel-deploy.yml`, needs `VERCEL_TOKEN`). Screenshots and the comparison page were produced from locally served builds in real Chromium, not from deployed URLs. |
-| Publish interactive comparison | `benchmark/site/index.html` (embeds all three sites; also copied into the docs site). Publishing it needs GitHub Pages or Vercel enabled by the repo owner. |
+| Deploy both sites to **Vercel** | **Not done.** No Vercel credential or connector exists in this session and `api.vercel.com` returns 403 from the sandbox. No deployment URLs are claimed. The generated sites are plain static folders (`results/v0.1.0/site/<arm>/`) and a ready workflow exists (`.github/workflows/vercel-deploy.yml`, needs `VERCEL_TOKEN`). Screenshots and the comparison page were produced from locally served builds in real Chromium, not from deployed URLs. |
+| Publish interactive comparison | `results/v0.1.0/site/index.html` (embeds all three sites; also copied into the docs site). Publishing it needs GitHub Pages or Vercel enabled by the repo owner. |
 
 ## 2. Setup and fairness
 
@@ -30,7 +30,7 @@ Token counts come from the harness's per-agent usage; "tool calls" include file 
 
 ## 4. Measurable results (identical measurement for every arm)
 
-Measured on exactly what each agent delivered (`site/index.html` at the root, engine project files excluded), in Chromium at 1440 / 820 / 390 px. Raw data: `raw/results.json`.
+Measured on exactly what each agent delivered (`site/index.html` at the root, engine project files excluded), in Chromium at 1440 / 820 / 390 px. Raw data: [`raw/results.json`](raw/results.json); screenshots in [`screenshots/`](screenshots/).
 
 | Metric | A | B | B2 |
 |---|---|---|---|
