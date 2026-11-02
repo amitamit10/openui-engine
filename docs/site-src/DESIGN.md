@@ -18,19 +18,19 @@ typography:
     fontSize: 52px
     fontWeight: 600
     lineHeight: 1.04
-    letterSpacing: "-0.03em"
+    letterSpacing: "-0.02em"
   h1:
     fontFamily: "Inter Tight"
     fontSize: 42px
     fontWeight: 600
     lineHeight: 1.08
-    letterSpacing: "-0.03em"
+    letterSpacing: "-0.02em"
   h2:
     fontFamily: "Inter Tight"
     fontSize: 33px
     fontWeight: 600
     lineHeight: 1.12
-    letterSpacing: "-0.03em"
+    letterSpacing: "-0.02em"
   h3:
     fontFamily: "Inter Tight"
     fontSize: 27px

@@ -106,7 +106,7 @@ export function planSite(input: SiteBrief): PlannedSite {
   if (brief.comparison) add("comparison", "comparison", { align: "left", ...brief.comparison }, "makes the pain and the payoff explicit");
   if (brief.how) add("how", brief.how.visual ? "steps-timeline" : "steps", { anchor: "how", eyebrow: "How it works", ...brief.how, items: brief.how.steps }, brief.how.visual ? "steps with a sticky product visual" : "three simple steps");
   if (brief.integrations) add("integrations", "integrations", brief.integrations, "shows fit with the stack");
-  const sparkish = (brief.metrics ?? []).some((m) => m.spark || m.delta);
+  const sparkish = (brief.metrics ?? []).some((m) => Array.isArray(m.spark) && m.spark.length > 2);
   if (brief.metrics?.length) add("metrics", sparkish ? "metrics-spark" : "metrics", { tint: true, items: brief.metrics.slice(0, 4) }, sparkish ? "metric cards with sparklines" : "plain stat band");
   const t = brief.testimonials ?? [];
   if (t.length === 1 || (t.length >= 1 && t.length < 3)) add("testimonials", "quote-feature", { quote: t[0]!.quote, name: t[0]!.name, role: t[0]!.role, stats: t[0]!.stats ?? [], tint: !brief.metrics?.length }, "one strong quote beats three vague ones");
@@ -121,8 +121,8 @@ export function planSite(input: SiteBrief): PlannedSite {
 }
 
 export const VISUAL_SUGGESTIONS: Record<SiteCategory, VisualKind[]> = {
-  saas: ["dashboard", "table", "chart", "kanban"], "ai-product": ["chat", "code", "timeline", "checklist"], devtool: ["code", "terminal", "timeline", "table"], fintech: ["invoice", "chart", "table", "metrics"],
-  agency: ["gallery", "metrics", "timeline"], portfolio: ["gallery", "timeline"], ecommerce: ["product-cards", "chart", "checklist"], "consumer-app": ["checklist", "chart", "schedule", "chat"],
+  saas: ["ui", "table", "chart", "kanban"], "ai-product": ["ui", "chat", "code", "timeline"], devtool: ["code", "terminal", "timeline", "table"], fintech: ["invoice", "chart", "table", "ui"],
+  agency: ["gallery", "ui", "timeline"], portfolio: ["gallery", "timeline"], ecommerce: ["product-cards", "chart", "checklist"], "consumer-app": ["ui", "chart", "schedule", "checklist"],
 };
 
 /** A complete example brief to copy and rewrite (domain-neutral wording; the structure is the point). */
@@ -130,8 +130,19 @@ export function briefTemplate(category: SiteCategory = "saas"): SiteBrief {
   const kinds = VISUAL_SUGGESTIONS[category];
   return {
     name: "Acme", headline: "Replace with a specific outcome in 5–12 words, with *one emphasised phrase*", subheadline: "One or two sentences: what it does, for whom, and the measurable result. No buzzwords.",
-    category, audience: "who buys and who uses it", tone: ["calm", "precise"], primaryCta: "Start a free trial", secondaryCta: "See how it works", heroNote: "14-day trial · no card",
-    heroVisual: { kind: kinds[0]!, title: "Name of the screen", items: [{ time: "14:02", title: "Specific event", detail: "specific detail", status: "bad", tag: "detected" }, { time: "14:03", title: "Next event", status: "info" }] } as VisualSpec,
+    category, audience: "who buys and who uses it", tone: ["calm", "precise"],
+    // style is optional: leave it out and the engine picks from your tone words. Options: see styleGuide() — e.g. "field-notes" (warm paper, serif), "clarity-light", "editorial-paper", "warm-human", "terminal-dev", "aurora-dark", "neo-brutal".
+    primaryCta: "Start a free trial", secondaryCta: "See how it works", heroNote: "14-day trial · no card",
+    // Show YOUR product doing its job with specific data. kind:"ui" composes a bespoke screen from blocks (5-8 recommended):
+    heroVisual: { kind: "ui", title: "Name of the screen", blocks: [
+      { type: "text", label: "Prompt from your therapist", text: "A specific, in-character line the product shows", style: "italic" },
+      { type: "text", text: "A second line of realistic content the user wrote or sees." },
+      { type: "mood", label: "How are you feeling?", value: 6, max: 10 },
+      { type: "chips", items: ["tag one", { text: "status", tone: "ok" }] },
+      { type: "list", items: [{ title: "Specific item", meta: "detail", tag: "new", tone: "info" }, { title: "Another item", meta: "detail" }], side: true },
+      { type: "toggle", label: "A setting the user controls", on: true, side: true },
+      { type: "callout", text: "A reassuring or important state message", tone: "ok", side: true },
+    ] } as unknown as VisualSpec,
     logos: ["Customer One", "Customer Two", "Customer Three", "Customer Four", "Customer Five", "Customer Six"],
     features: [
       { title: "Capability one", body: "What it does and what changes for the user, in one sentence.", icon: "lucide:activity", bullets: ["Concrete proof point", "Another proof point"], visual: { kind: kinds[1] ?? "chart", title: "Screen name" } as VisualSpec },
@@ -145,4 +156,18 @@ export function briefTemplate(category: SiteCategory = "saas"): SiteBrief {
     faq: [{ q: "A real objection?", a: "A direct answer." }, { q: "Another?", a: "Answer." }, { q: "Another?", a: "Answer." }, { q: "Another?", a: "Answer." }],
     closing: { title: "Run your next *thing* with Acme", subtitle: "Free for 14 days.", bullets: ["No credit card"], form: true, button: "Start free trial", note: "We email a setup link." },
   };
+}
+
+/** One line per art direction, for the model to choose from consciously. */
+export function styleGuide(): Array<{ id: StyleId; use_for: string; look: string }> {
+  const use: Record<StyleId, string> = {
+    "field-notes": "calm, human, trustworthy, plain-spoken products (therapy, health, finance for people, education)",
+    "clarity-light": "crisp B2B SaaS and fintech with a confident, modern tone",
+    "editorial-paper": "studios, agencies, portfolios, premium and crafted brands",
+    "warm-human": "friendly consumer apps and ecommerce",
+    "terminal-dev": "developer tools, CLIs, infrastructure and data products",
+    "aurora-dark": "dark, premium AI and platform products (only when the brief wants dark)",
+    "neo-brutal": "loud, playful, creative brands",
+  };
+  return (Object.keys(use) as StyleId[]).map((id) => ({ id, use_for: use[id], look: getStyle(id).summary }));
 }

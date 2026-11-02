@@ -72,7 +72,7 @@ export function lintCopy(spec: PageSpec): LintFinding[] {
 }
 
 const NEEDS: Record<string, string[]> = {
-  dashboard: ["kpis"], table: ["columns", "rows"], timeline: ["items"], chart: ["series"], kanban: ["columns"], chat: ["messages"], code: ["code"], terminal: ["code"],
+  ui: ["blocks"], dashboard: ["kpis"], table: ["columns", "rows"], timeline: ["items"], chart: ["series"], kanban: ["columns"], chat: ["messages"], code: ["code"], terminal: ["code"],
   invoice: ["items"], schedule: ["rows"], checklist: ["items"], metrics: ["items"], gallery: ["items"], "product-cards": ["items"],
 };
 
@@ -90,5 +90,12 @@ export function lintVisuals(spec: PageSpec): LintFinding[] {
     for (const [k, x] of Object.entries(v)) if (x && typeof x === "object") visit(x, `${where}.${k}`);
   };
   for (const sec of spec.sections) visit(sec.props, sec.id);
+  // the hero visual is the product's first impression: a three-row list is not enough
+  const hero = spec.sections.find((x) => x.type.startsWith("hero"));
+  const hv: any = hero?.props.visual ? normalizeVisual(hero.props.visual) : undefined;
+  if (hv) {
+    const size = hv.kind === "ui" ? (hv.blocks ?? []).length : (hv.items ?? hv.messages ?? hv.rows ?? hv.columns ?? hv.kpis ?? []).length;
+    if (size > 0 && size < (hv.kind === "ui" ? 4 : 4)) out.push({ severity: "warning", rule: "thin-hero-visual", where: `${hero!.id}.visual`, message: `Hero ${hv.kind} visual has only ${size} element(s); it will look sparse.`, fix: hv.kind === "ui" ? "Use 5–8 blocks: a heading/text, chips, a mood or progress block, a toggle, a list/people block — show the product doing its job." : "Give it at least 4 rows/items of specific data, or use kind:\"ui\" to compose a richer screen." });
+  }
   return out;
 }

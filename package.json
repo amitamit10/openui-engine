@@ -1,7 +1,7 @@
 {
   "name": "openui-engine-monorepo",
   "private": true,
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "OpenUI Engine \u2014 design intelligence, component retrieval, visual editing and automated visual QA for AI coding agents, exposed over MCP.",
   "author": "Amit Elgabsi <https://github.com/amitamit10>",
   "license": "Apache-2.0",

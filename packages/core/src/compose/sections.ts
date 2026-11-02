@@ -79,7 +79,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
     const links = (p.links ?? []) as Array<{ label: string; href: string }>;
     return `<header class="nav" data-openui-section="${id}" data-openui-variant="navbar-glass" data-openui-id="${id}">
   <div class="container nav__row">
-    <a class="brand" href="#top" aria-label="${esc(spec.brand.name)} home" data-openui-id="${id}.brand"><span class="brand__mark">${ICON.mark}</span>${esc(spec.brand.name)}</a>
+    <a class="brand" href="#top" aria-label="${esc(spec.brand.name)} home" data-openui-id="${id}.brand"><span class="brand__mark" aria-hidden="true" data-i="${esc([...String(spec.brand.name).trim()][0]?.toUpperCase() ?? "•")}"></span>${esc(spec.brand.name)}</a>
     <nav class="nav__links" aria-label="Primary">${links.map((l, i) => `<a href="${esc(l.href)}" data-openui-id="${id}.link${i}">${esc(l.label)}</a>`).join("")}</nav>
     <div class="nav__actions">${p.signIn ? `<a class="btn btn--ghost" href="${esc(p.signIn.href)}" data-openui-id="${id}.signin">${esc(p.signIn.label)}</a>` : ""}${btn(p.cta, "primary", `${id}.cta`)}
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="${id}-sheet" aria-label="Open menu" data-nav-toggle>${ICON.menu}</button></div>
@@ -224,7 +224,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
     const cols = (p.columns ?? []) as Array<{ title: string; links: Array<{ label: string; href: string }> }>;
     return `<footer class="footer" data-openui-section="${id}" data-openui-variant="footer-columns" data-openui-id="${id}">
   <div class="container"><div class="footer__grid">
-    <div class="footer__brand"><a class="brand" href="#top"><span class="brand__mark">${ICON.mark}</span>${esc(spec.brand.name)}</a><p class="muted small" data-openui-id="${id}.tagline">${esc(p.tagline)}</p></div>
+    <div class="footer__brand"><a class="brand" href="#top"><span class="brand__mark" aria-hidden="true" data-i="${esc([...String(spec.brand.name).trim()][0]?.toUpperCase() ?? "•")}"></span>${esc(spec.brand.name)}</a><p class="muted small" data-openui-id="${id}.tagline">${esc(p.tagline)}</p></div>
     ${cols.map((c) => `<nav aria-label="${esc(c.title)}"><h3>${esc(c.title)}</h3><ul>${c.links.map((l) => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`).join("")}</ul></nav>`).join("")}
   </div>
   <div class="footer__legal"><span>${esc(p.legal)}</span><span>${esc(p.note ?? "")}</span></div></div>

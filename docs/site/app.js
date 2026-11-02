@@ -10,7 +10,7 @@ sheet.addEventListener('click',function(e){if(e.target.tagName==='A'){sheet.hidd
 d.querySelectorAll('[data-billing]').forEach(function(b){b.addEventListener('click',function(){
 var m=b.getAttribute('data-billing');
 d.querySelectorAll('[data-billing]').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
-d.querySelectorAll('[data-price]').forEach(function(p){var v=p.getAttribute('data-'+m);var n=Number(v);p.textContent=(isNaN(n)?'':'$')+v;});
+d.querySelectorAll('[data-price]').forEach(function(p){var v=p.getAttribute('data-'+m);var n=Number(v);p.textContent=(isNaN(n)?'':(p.getAttribute('data-cur')||'$'))+v;});
 });});
 d.querySelectorAll('[data-tabs]').forEach(function(root){var tabs=[].slice.call(root.querySelectorAll('[role=tab]')),panels=[].slice.call(root.querySelectorAll('[role=tabpanel]'));
 function sel(i,focus){tabs.forEach(function(t,j){var on=i===j;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;panels[j].hidden=!on;});if(focus)tabs[i].focus();}

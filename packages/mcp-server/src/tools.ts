@@ -3,7 +3,7 @@ import { join, relative } from "node:path";
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
-  ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, collectIconRefs, normalizeCategory, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
+  ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, styleGuide, collectIconRefs, normalizeCategory, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
   loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, getSources, setTokenPath, suggestLayout, applyTweaks,
   type DesignTokens, type PageSpec, type SectionSpec, type SectionType, type SiteCategory, type StyleId,
 } from "@openui-engine/core";
@@ -319,7 +319,7 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     title: "Site brief template",
     description: "Returns a complete example SiteBrief for a category with visual-kind suggestions. Copy it, REWRITE EVERY FIELD with specific copy for the real product, then pass it to build_site. Visual kinds: " + VISUAL_KINDS.join(", ") + ".",
     inputSchema: { category: z.string().default("saas").describe("any text; mapped to the nearest of: saas, ai-product, devtool, fintech, agency, portfolio, ecommerce, consumer-app") },
-  }, async (a0) => { const a = { category: normalizeCategory(a0.category) }; return text({ visualSuggestions: VISUAL_SUGGESTIONS[a.category as SiteCategory], rules: ["Headline 5–12 words with ONE *emphasised* phrase", "No buzzwords (seamless, unlock, supercharge, all-in-one…)", "Every feature gets a visual that shows THIS product's data", "Testimonials need a number; use distinctive fictional names", "Use real domain data inside visuals (times, names, amounts), never generic placeholders"], brief: briefTemplate(a.category as SiteCategory) }); });
+  }, async (a0) => { const a = { category: normalizeCategory(a0.category) }; return text({ visualSuggestions: VISUAL_SUGGESTIONS[a.category as SiteCategory], styleGuide: styleGuide(), rules: ["Choose or omit `style`: the engine picks from your tone words (warm/human/calm → field-notes; technical → terminal-dev; refined/crafted → editorial-paper). Dark only if asked for.", "Hero visual: use kind:\"ui\" with 5–8 blocks that show YOUR product doing its job (not a 3-row list)", "Headline 5–12 words with ONE *emphasised* phrase", "No buzzwords (seamless, unlock, supercharge, all-in-one…)", "Every feature gets a visual that shows THIS product's data", "Testimonials need a number; use distinctive fictional names", "Use real domain data inside visuals (times, names, amounts), never generic placeholders"], brief: briefTemplate(a.category as SiteCategory) }); });
 
   const deepMerge = (a: any, b: any): any => { if (Array.isArray(b) || b === null || typeof b !== "object") return b; const o = { ...(a && typeof a === "object" && !Array.isArray(a) ? a : {}) }; for (const [k, v] of Object.entries(b)) { if (v === null) delete o[k]; else o[k] = deepMerge(o[k], v); } return o; };
 
@@ -351,6 +351,7 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     let deployed: string | undefined;
     if (a.deployDir) { const dd = ctx.safePath(a.deployDir); mkdirSync(dd, { recursive: true }); cpSync(join(dir, "dist"), dd, { recursive: true }); deployed = relative(ctx.workdir, dd) || "."; }
     const out: Record<string, unknown> = {
+      style_choice: { used: planned.tokens.meta.style, alternatives: matchStyles({ name: brief.name, description: `${brief.subheadline} ${(brief.tone ?? []).join(" ")}`, category: planned.tokens.meta.category }).filter((m) => m.style !== planned.tokens.meta.style).slice(0, 2).map((m) => m.style), how_to_change: "build_site with patch {\"style\":\"<id>\"}; see brief_template.styleGuide" },
       project: relative(ctx.workdir, dir) || ".", notes: [...planned.notes, ...(a.deployDir ? [`${a.deployDir}/ is regenerated on every build_site call — hand edits there are lost; change the brief (patch) instead.`] : [])], style: planned.tokens.meta.style, accent: planned.tokens.color.accent, deployed,
       layout: planned.layout.map((l) => `${l.id}: ${l.type} — ${l.why}`),
       icons: `${Object.keys(icons).length}/${collectIconRefs(planned.spec).size} fetched${Object.keys(icons).length < collectIconRefs(planned.spec).size ? " (others use built-in fallbacks)" : ""}`,

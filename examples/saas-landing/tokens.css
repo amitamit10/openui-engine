@@ -24,15 +24,15 @@
   --t-display: clamp(40px, 35.028px + 1.3260vw, 52px);
   --lh-display: 1.04;
   --fw-display: 600;
-  --tr-display: -0.03em;
+  --tr-display: -0.02em;
   --t-h1: clamp(34px, 30.685px + 0.8840vw, 42px);
   --lh-h1: 1.08;
   --fw-h1: 600;
-  --tr-h1: -0.03em;
+  --tr-h1: -0.02em;
   --t-h2: clamp(28px, 25.928px + 0.5525vw, 33px);
   --lh-h2: 1.12;
   --fw-h2: 600;
-  --tr-h2: -0.03em;
+  --tr-h2: -0.02em;
   --t-h3: clamp(20px, 17.099px + 0.7735vw, 27px);
   --lh-h3: 1.25;
   --fw-h3: 500;

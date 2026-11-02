@@ -2,7 +2,7 @@ import type { ComponentMeta, Runtime, SourceId } from "./types.js";
 import { indexedComponents } from "./inferred.js";
 import type { SiteCategory, StyleId } from "../design/types.js";
 
-const ALL_STYLES: StyleId[] = ["aurora-dark", "clarity-light", "editorial-paper", "terminal-dev", "warm-human", "neo-brutal"];
+const ALL_STYLES: StyleId[] = ["aurora-dark", "clarity-light", "editorial-paper", "terminal-dev", "warm-human", "neo-brutal", "field-notes"];
 const APACHE = { spdx: "Apache-2.0", verified: true, note: "Original OpenUI Engine code (this repository)." };
 
 const a11yOk = { keyboard: true, reducedMotion: true, notes: "Semantic HTML, visible focus, motion gated by prefers-reduced-motion." };
@@ -86,6 +86,7 @@ export const OPENUI_SECTIONS: ComponentMeta[] = [
 
 /** Domain visuals (data-driven product screenshots). `visual:{kind:…}` is accepted by hero, bento, rows, tabs, showcase, steps-timeline. */
 const VIS: Array<[string, string, string]> = [
+  ["ui", "Composable product screen", "Build a bespoke screen from blocks (heading, italic text, chips, mood scale, toggle, progress, stat, list, people, quote, callout, waveform, buttons) with an optional side column — the way to show YOUR product specifically."],
   ["timeline", "Incident / activity timeline", "Dot-and-line feed with times, statuses and tags — incident response, audit logs, order tracking."],
   ["chat", "Chat / assistant conversation", "Bubbles with meta lines, suggestion chips and an input — AI assistants, support, messaging."],
   ["code", "Code editor", "Line-numbered, syntax-highlighted snippet — SDKs, APIs, config."],

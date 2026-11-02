@@ -139,8 +139,8 @@
       {
         "name": "pricing toggle changes displayed prices",
         "viewport": 1440,
-        "passed": false,
-        "detail": "locator.scrollIntoViewIfNeeded: Timeout 4000ms exceeded."
+        "passed": true,
+        "detail": "$0,$12,$80 | $0,$9,$108,$64,$768 | $0,$12,$80"
       },
       {
         "name": "FAQ accordion toggles",
@@ -175,7 +175,7 @@
       "tablet": 18,
       "mobile": 14
     },
-    "evalSeconds": 33.7
+    "evalSeconds": 31.4
   },
   "fieldnote-engine": {
     "source": {
@@ -281,7 +281,7 @@
       "tablet": 18,
       "mobile": 17
     },
-    "evalSeconds": 34.1
+    "evalSeconds": 33.3
   },
   "ledgerline-baseline": {
     "source": {
@@ -467,7 +467,7 @@
       "tablet": 25,
       "mobile": 20
     },
-    "evalSeconds": 45.4
+    "evalSeconds": 46.2
   },
   "ledgerline-engine": {
     "source": {
@@ -573,7 +573,7 @@
       "tablet": 20,
       "mobile": 17
     },
-    "evalSeconds": 32.6
+    "evalSeconds": 33.5
   },
   "minutewise-baseline": {
     "source": {
@@ -728,7 +728,7 @@
       "tablet": 24,
       "mobile": 21
     },
-    "evalSeconds": 45.8
+    "evalSeconds": 46.4
   },
   "minutewise-engine": {
     "source": {
@@ -834,6 +834,6 @@
       "tablet": 24,
       "mobile": 16
     },
-    "evalSeconds": 33.4
+    "evalSeconds": 38.4
   }
 }

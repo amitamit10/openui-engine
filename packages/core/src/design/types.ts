@@ -4,7 +4,8 @@ export type StyleId =
   | "editorial-paper"
   | "terminal-dev"
   | "warm-human"
-  | "neo-brutal";
+  | "neo-brutal"
+  | "field-notes";
 
 export type SiteCategory =
   | "saas"

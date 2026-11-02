@@ -43,21 +43,21 @@
         "max": 52,
         "lineHeight": 1.04,
         "weight": 600,
-        "tracking": "-0.03em"
+        "tracking": "-0.02em"
       },
       "h1": {
         "min": 34,
         "max": 42,
         "lineHeight": 1.08,
         "weight": 600,
-        "tracking": "-0.03em"
+        "tracking": "-0.02em"
       },
       "h2": {
         "min": 28,
         "max": 33,
         "lineHeight": 1.12,
         "weight": 600,
-        "tracking": "-0.03em"
+        "tracking": "-0.02em"
       },
       "h3": {
         "min": 20,

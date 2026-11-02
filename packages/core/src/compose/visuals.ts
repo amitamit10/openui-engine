@@ -4,8 +4,8 @@ import { esc } from "./util.js";
  * Domain visuals: original HTML/SVG "product screenshots" driven by the brief's own data, so a page about
  * incidents shows incidents and a page about invoicing shows an invoice. All values are escaped.
  */
-export type VisualKind = "dashboard" | "timeline" | "chat" | "code" | "terminal" | "kanban" | "table" | "chart" | "invoice" | "schedule" | "gallery" | "product-cards" | "checklist" | "metrics";
-export const VISUAL_KINDS: VisualKind[] = ["dashboard", "timeline", "chat", "code", "terminal", "kanban", "table", "chart", "invoice", "schedule", "gallery", "product-cards", "checklist", "metrics"];
+export type VisualKind = "ui" | "dashboard" | "timeline" | "chat" | "code" | "terminal" | "kanban" | "table" | "chart" | "invoice" | "schedule" | "gallery" | "product-cards" | "checklist" | "metrics";
+export const VISUAL_KINDS: VisualKind[] = ["ui", "dashboard", "timeline", "chat", "code", "terminal", "kanban", "table", "chart", "invoice", "schedule", "gallery", "product-cards", "checklist", "metrics"];
 
 export interface VisualSpec { kind: VisualKind; title?: string; [k: string]: any }
 type Tone = "ok" | "warn" | "bad" | "info" | "now" | "muted";
@@ -90,12 +90,40 @@ export function normalizeVisual(v: any): VisualSpec | undefined {
     o.columns = o.columns ?? o.headers ?? o.head;
     if (Array.isArray(o.rows) && o.rows.length && !Array.isArray(o.rows[0]) && typeof o.rows[0] === "object") { o.columns = o.columns ?? Object.keys(o.rows[0]); o.rows = o.rows.map((r: any) => (o.columns as string[]).map((c) => r[c])); }
   }
+  if (o.kind === "ui") o.blocks = o.blocks ?? o.items ?? o.content ?? o.elements;
   if (o.kind === "timeline") o.items = o.items ?? o.events ?? o.entries;
   if (o.kind === "kanban") o.columns = o.columns ?? o.lanes ?? o.boards;
   if (o.kind === "chat") o.messages = o.messages ?? o.items ?? o.conversation;
   if (o.kind === "checklist" || o.kind === "gallery" || o.kind === "metrics" || o.kind === "product-cards") o.items = o.items ?? o.rows ?? o.entries;
   if (o.kind === "code" || o.kind === "terminal") o.code = o.code ?? (Array.isArray(o.lines) ? o.lines.join("\n") : o.snippet ?? o.content);
   return o;
+}
+
+
+const wave = (seed: string, n = 36) => { const r = seeded(seed); return Array.from({ length: n }, (_, i) => `<i style="height:${Math.round(18 + Math.abs(Math.sin(i / 3.1 + r() * 2)) * 70)}%"></i>`).join(""); };
+const initials = (n: string) => String(n).split(/\s+/).map((w) => w[0] ?? "").join("").slice(0, 2).toUpperCase();
+
+/** One block of a composable product screen. Every field is escaped. */
+function uiBlock(b: any, i: number): string {
+  const t = String(b?.type ?? "text");
+  const cls = `vz-b vz-b-${t}${b?.side ? " side" : ""}`;
+  switch (t) {
+    case "heading": return `<h4 class="${cls}">${esc(b.text)}</h4>`;
+    case "text": return `<p class="${cls}${b.style === "italic" ? " it" : b.style === "muted" ? " mu" : b.style === "strong" ? " st" : ""}">${b.label ? `<small>${esc(b.label)}</small>` : ""}${esc(b.text)}</p>`;
+    case "chips": return `<div class="${cls}">${(b.items ?? []).slice(0, 8).map((c: any) => typeof c === "string" ? `<span class="vz-chip">${esc(c)}</span>` : `<span class="vz-chip vz-${tone(c.tone)}">${esc(c.text)}</span>`).join("")}</div>`;
+    case "mood": { const max = Math.min(10, Number(b.max ?? 10)); const val = Number(b.value ?? 0); return `<div class="${cls}"><small>${esc(b.label ?? "Mood")}</small><div class="dots" role="img" aria-label="${val} of ${max}">${Array.from({ length: max }, (_, k) => `<i class="${k < val ? "on" : ""}"></i>`).join("")}</div>${b.note ? `<small>${esc(b.note)}</small>` : ""}</div>`; }
+    case "toggle": return `<div class="${cls}"><span>${esc(b.label)}</span><i class="sw${b.on ? " on" : ""}"></i></div>`;
+    case "progress": return `<div class="${cls}"><div class="row"><span>${esc(b.label)}</span><small>${esc(b.meta ?? `${b.value ?? 0}%`)}</small></div><div class="bar"><i style="width:${Math.max(0, Math.min(100, Number(b.value ?? 0)))}%"></i></div></div>`;
+    case "stat": return `<div class="${cls}"><small>${esc(b.label)}</small><strong>${esc(b.value)}</strong>${b.delta ? `<em class="${/^[-−▼]/.test(String(b.delta)) ? "dn" : "up"}">${esc(b.delta)}</em>` : ""}</div>`;
+    case "list": return `<ul class="${cls}">${(b.items ?? []).slice(0, 6).map((it: any) => `<li><span class="lt"><b>${esc(it.title)}</b>${it.meta ? `<small>${esc(it.meta)}</small>` : ""}</span>${it.tag ? pill(it.tag, it.tone) : ""}</li>`).join("")}</ul>`;
+    case "people": return `<ul class="${cls}">${(b.items ?? []).slice(0, 5).map((p: any) => `<li><span class="av" aria-hidden="true">${esc(initials(p.name))}</span><span class="lt"><b>${esc(p.name)}</b>${p.role ? `<small>${esc(p.role)}</small>` : ""}</span>${p.status ? pill(p.status, p.tone) : ""}</li>`).join("")}</ul>`;
+    case "quote": return `<blockquote class="${cls}"><p>${esc(b.text)}</p>${b.by ? `<small>${esc(b.by)}</small>` : ""}</blockquote>`;
+    case "callout": return `<div class="${cls} vz-${tone(b.tone)}"><span>${esc(b.text)}</span></div>`;
+    case "wave": return `<div class="${cls}"><div class="wv" role="img" aria-label="${esc(b.label ?? "Audio waveform")}">${wave(String(b.label ?? i))}</div>${b.label ? `<small>${esc(b.label)}</small>` : ""}</div>`;
+    case "buttons": return `<div class="${cls}">${(b.items ?? []).slice(0, 3).map((x: string, k: number) => `<span class="vz-btn${k === 0 ? " pri" : ""}">${esc(x)}</span>`).join("")}</div>`;
+    case "divider": return `<hr class="${cls}">`;
+    default: return "";
+  }
 }
 
 /** Render a domain visual. `id` namespaces SVG gradient ids so several can share a page. */
@@ -152,6 +180,11 @@ export function renderVisual(input: VisualSpec | undefined, id = "v"): string {
     case "metrics": {
       const items: any[] = (v.items ?? []).slice(0, 4);
       return `<div class="vz vz-metrics" role="img" aria-label="${esc(v.title ?? "Key metrics")}">${items.map((m, i) => { const sp: number[] = m.spark ?? [4, 6, 5, 8, 7, 10, 9, 12]; const d = smooth(sp, 120, 36, Math.max(...sp) * 1.1, 3); return `<div class="vz-metric"><small>${esc(m.label)}</small><strong>${esc(m.value)}</strong>${m.delta ? `<em class="${/^[-−▼]/.test(String(m.delta)) ? "dn" : "up"}">${esc(m.delta)}</em>` : ""}<svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><path class="ln ln${i % 2}" d="${d}"/></svg></div>`; }).join("")}</div>`;
+    }
+    case "ui": {
+      const blocks: any[] = (v.blocks ?? []).slice(0, 14);
+      const main = blocks.filter((b) => !b.side), side = blocks.filter((b) => b.side);
+      return `<div class="vz vz-ui" role="img" aria-label="${esc(v.title ?? "Product screen")}">${bar(v.title ?? "Screen", v.right)}<div class="vz-uigrid${side.length ? " two" : ""}"><div class="vz-uimain">${main.map(uiBlock).join("")}</div>${side.length ? `<div class="vz-uiside">${side.map(uiBlock).join("")}</div>` : ""}</div></div>`;
     }
     case "dashboard": {
       const kpis: any[] = (v.kpis ?? v.items ?? []).slice(0, 3);

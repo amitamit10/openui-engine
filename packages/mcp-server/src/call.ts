@@ -18,7 +18,7 @@ const workdir = wi >= 0 ? rest[wi + 1]! : process.cwd();
 const serverJs = join(dirname(fileURLToPath(import.meta.url)), "cli.js");
 
 const transport = new StdioClientTransport({ command: process.execPath, args: [serverJs, "--workdir", workdir], stderr: "ignore", env: { ...process.env } as Record<string, string> });
-const client = new Client({ name: "openui-engine-call", version: "0.2.1" });
+const client = new Client({ name: "openui-engine-call", version: "0.3.0" });
 await client.connect(transport);
 try {
   if (cmd === "list") {

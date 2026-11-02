@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   ALL_COMPONENTS, BUZZWORDS, contrast as contrastRatio, RENDERERS, STYLE_IDS, VISUAL_KINDS, briefTemplate, buildSite, collectIconRefs, discover, generateTokens, hexToHsl, indexedComponents, lintCopy,
-  findComponent, lintVisuals, normalizeCategory, normalizeVisual, suggestComponentIds, pickAccent, planSite, renderVisual, sanitizeSvg, searchIcons, searchableComponents, type PageSpec, type SiteBrief, type SiteCategory,
+  styleGuide, findComponent, lintVisuals, normalizeCategory, normalizeVisual, suggestComponentIds, matchStyles, pickAccent, planSite, renderVisual, sanitizeSvg, searchIcons, searchableComponents, type PageSpec, type SiteBrief, type SiteCategory,
 } from "./index.js";
 
 const CATS: SiteCategory[] = ["saas", "ai-product", "devtool", "fintech", "agency", "portfolio", "ecommerce", "consumer-app"];
@@ -148,5 +148,32 @@ describe("v0.2.1 regressions (found by agents using the engine)", () => {
       const t = generateTokens({ name: "T", style }); const tint = (c: string, b: string) => { const x = parseInt(c.slice(1), 16), y = parseInt(b.slice(1), 16); const m = (sh: number) => Math.round(((x >> sh) & 255) * 0.14 + ((y >> sh) & 255) * 0.86); return "#" + [16, 8, 0].map((sh) => m(sh).toString(16).padStart(2, "0")).join(""); };
       for (const k of ["success", "warning", "danger"] as const) for (const bg of [t.color.surface, t.color.surface2]) expect(contrastRatio(t.color[k], tint(t.color[k], bg)), `${style} ${k} on ${bg}`).toBeGreaterThanOrEqual(4.5);
     }
+  });
+  it("v0.3.0: tone words pick the style; dark only when asked for or technical", () => {
+    const top = (name: string, description: string, category: SiteCategory) => matchStyles({ name, description, category })[0]!.style;
+    expect(top("Fieldnote", "private journaling app for therapy, warm, safe, human, unhurried", "consumer-app")).toBe("field-notes");
+    expect(top("Ledgerline", "invoicing for freelancers, trustworthy, plain-spoken, precise", "fintech")).toBe("field-notes");
+    expect(top("Gridwise", "observability for data pipelines, technical, honest, calm, data engineers", "devtool")).toBe("terminal-dev");
+    expect(top("Atelier", "architecture studio, refined, editorial, quietly confident", "agency")).toBe("editorial-paper");
+    expect(top("Nova", "a dark premium AI platform", "ai-product")).toBe("aurora-dark");
+    for (const c of ["saas", "fintech", "consumer-app"] as SiteCategory[]) expect(top("Acme", "a product for teams", c), c).not.toBe("aurora-dark");
+    expect(styleGuide().map((x) => x.id).sort()).toEqual([...STYLE_IDS].sort());
+  });
+  it("v0.3.0: composable ui visual renders every block type, escapes data, and has a thin-hero lint", () => {
+    const evil = "<img src=x onerror=alert(1)>";
+    const blocks = ["heading", "text", "chips", "mood", "toggle", "progress", "stat", "list", "people", "quote", "callout", "wave", "buttons", "divider"].map((type) => ({ type, text: evil, label: evil, items: [{ title: evil, name: evil, meta: evil }, evil], value: 5, on: true, by: evil, side: type === "toggle" }));
+    const html = renderVisual({ kind: "ui", title: evil, blocks } as any, "u");
+    expect(html).not.toMatch(/<img src=x/); expect(html).not.toMatch(/<script/i);
+    for (const t of ["heading", "text", "chips", "mood", "toggle", "progress", "stat", "list", "people", "quote", "callout", "wave", "buttons", "divider"]) expect(html, t).toContain(`vz-b-${t}`);
+    expect(html).toContain("vz-uiside");
+    const spec = (v: any): PageSpec => ({ title: "t", description: "d", brand: { name: "X" }, sections: [{ id: "hero", type: "hero-split", props: { visual: v } }] });
+    expect(lintVisuals(spec({ kind: "ui", blocks: [{ type: "text", text: "a" }] })).some((f) => f.rule === "thin-hero-visual")).toBe(true);
+    expect(lintVisuals(spec({ kind: "ui", blocks: Array.from({ length: 6 }, () => ({ type: "text", text: "a" })) })).some((f) => f.rule === "thin-hero-visual")).toBe(false);
+    expect(lintVisuals(spec({ kind: "ui" })).some((f) => f.rule === "visual-empty")).toBe(true);
+  });
+  it("v0.3.0: logo strip is typographic (no placeholder shapes) and display tracking is relaxed", () => {
+    const p = planSite(briefTemplate("saas")); const css = buildSite(p.spec, p.tokens, {}, {}).files["styles.css"]!;
+    expect(css).toContain(".logo-word i{display:none}");
+    for (const style of STYLE_IDS) expect(parseFloat(generateTokens({ name: "T", style }).type.scale.display!.tracking), style).toBeGreaterThanOrEqual(-0.03);
   });
 });

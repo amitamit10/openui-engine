@@ -45,25 +45,23 @@ export function pickAccent(brief: Pick<DesignBrief, "name" | "description" | "ca
 
 export interface StyleMatch { style: StyleId; score: number; reasons: string[] }
 
-/** Rank art directions against a brief using category fit, keyword overlap and explicit tone words. */
+/** Rank art directions against a brief. Tone words dominate; category is a weak prior; dark only when asked for or technical. */
 export function matchStyles(brief: Pick<DesignBrief, "description" | "category" | "name">): StyleMatch[] {
   const text = `${brief.name} ${brief.description ?? ""}`.toLowerCase();
+  const wantsDark = /\b(dark|night|midnight|neon)\b/.test(text);
+  const technical = /technical|developer|devtool|cli\b|api\b|sdk|infra|observab|pipeline|terminal|open.?source|engineer|lineage|schema/.test(text);
   return STYLE_IDS.map((id) => {
     const s = STYLES[id];
     let score = 0;
     const reasons: string[] = [];
-    if (brief.category && s.categories.includes(brief.category)) {
-      score += 3;
-      reasons.push(`fits category "${brief.category}"`);
-    }
+    if (brief.category && s.categories.includes(brief.category)) { score += 1.5; reasons.push(`fits category "${brief.category}"`); }
     for (const k of s.keywords) {
-      if (text.includes(k)) {
-        score += 1.5;
-        reasons.push(`brief mentions "${k}"`);
-      }
+      if (new RegExp(`(^|[^a-z])${k.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}([^a-z]|$)`).test(text)) { score += 2; reasons.push(`brief says "${k}"`); }
     }
-    if (/\b(dark|night|midnight)\b/.test(text) && s.mode === "dark") { score += 2; reasons.push("brief asks for dark"); }
-    if (/\b(light|bright|clean)\b/.test(text) && s.mode === "light") { score += 1; reasons.push("brief asks for light/clean"); }
+    if (wantsDark && s.mode === "dark") { score += 3; reasons.push("brief asks for dark"); }
+    if (!wantsDark && s.mode === "dark" && !technical) { score -= 2.5; reasons.push("dark theme only when asked for or technical"); }
+    if (technical && id === "terminal-dev") { score += 3; }
+    if (/\b(light|bright|clean|simple)\b/.test(text) && s.mode === "light") { score += 1; reasons.push("brief asks for light/clean"); }
     return { style: id, score, reasons };
   }).sort((a, b) => b.score - a.score);
 }
