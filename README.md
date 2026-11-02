@@ -85,6 +85,18 @@ A controlled experiment was run with a **substitute model** (`claude-haiku-5-5`;
 * **No Vercel deployment was possible** (no credentials in the session); no live URLs are claimed.
 * n = 1 per arm. This is **not** evidence that the engine improves a cheap model's design — see [`results/v0.1.0/REPORT.md`](results/v0.1.0/REPORT.md) for confounds, the three flaws it exposed (all fixed) and the open gap (generic composition). Interactive side-by-side: [`results/v0.1.0/site`](results/v0.1.0/site/index.html).
 
+## Results by release
+
+Each release is tested the same way (same spec, clean workspace, Haiku 5.5 builder with and without the engine, neutral measurements, blind pairwise judging of screenshots). Full tables, every unsealed verdict and raw data: [`results/`](results/README.md).
+
+| release | judged pairs | engine wins | judge mean (baseline / engine) | engine originality | engine product visual | engine tokens per agent | tool calls |
+|---|---|---|---|---|---|---|---|
+| [v0.2.0](results/v0.2.0/REPORT.md) | 6 | 0 | 7.9 / 5.6 | 3.5 | 5.2 | 118,871-145,517 | 42-62 |
+| [v0.2.1](results/v0.2.1/REPORT.md) | 12 | 0 | 7.9 / 5.6 | 3.3 | 4.5 | 75,739-96,362 | 17-36 |
+| [v0.3.0](results/v0.3.0/REPORT.md) | 12 | 0 | 7.8 / 5.8 | 5.1 | 6.0 | 88,456-104,393 | 23-40 |
+
+What the data says, plainly: the engine got cheaper and more reliable (v0.2.1), and judged originality and product-visual scores rose in v0.3.0, but an unguided Haiku still won **every** blind pair so far (36 of 36 across the three releases). Judges' recurring complaints about engine pages: a single-panel feature-tab section that feels sparse next to a baseline grid of illustrated cards, empty vertical gaps, and a software-dashboard hero even for non-software briefs (ceramics, architecture). v0.3.0 also exposed and fixed a real engine bug (split hero overlapped the headline at 390px; 5 of 6 agents hand-patched it, so those sites are measured as delivered). Regenerate with `node benchmark/summarize.mjs`.
+
 ## Status & honest limitations
 
 * Output target today is **static HTML/CSS/JS** with original sections (zero runtime deps). React/shadcn/Fluid components are *discoverable and installable* but not composed into generated pages yet.
