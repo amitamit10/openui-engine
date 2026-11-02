@@ -10,6 +10,14 @@ const DIMS = ["hierarchy", "typography", "spacing", "colour", "product_visual", 
 const USAGE = {
   "v0.2.0": { agents: 3, tokens: "118,871-145,517", toolCalls: "42-62", seconds: "321-519", perAgent: null },
   "v0.2.1": { agents: 6, tokens: "75,739-96,362", toolCalls: "17-36", seconds: "177-358", perAgent: null },
+  "v0.3.1-heldout": {
+    agents: 4, tokens: "80,420-95,448", toolCalls: "21-29", seconds: "263-488", perAgent: {
+      pawpath: { tokens: 80420, toolCalls: 21, seconds: 263 },
+      parlato: { tokens: 95448, toolCalls: 26, seconds: 279 },
+      freightly: { tokens: 91242, toolCalls: 29, seconds: 364 },
+      summitworks: { tokens: 87330, toolCalls: 29, seconds: 488 },
+    },
+  },
   "v0.3.1": { agents: 0, tokens: "0 (deterministic replay)", toolCalls: "0", seconds: "about 30 per build", perAgent: null },
   "v0.3.0": {
     agents: 6, tokens: "88,456-104,393", toolCalls: "23-40", seconds: "222-415",
@@ -25,6 +33,7 @@ const USAGE = {
 };
 
 const NOTES = {
+  "v0.3.1-heldout": "FRESH, HELD-OUT run: four briefs the engine was never tuned on (pawpath vet network, summitworks climbing gym, freightly freight tracking, parlato Italian tutoring), new Haiku 5.5 builders for both arms using the original builder prompts verbatim, the engine as of the feature-rows commit, then blind pairwise judging. This is the cleanest evidence in the repo. CONFOUNDS: (1) the parlato and freightly engine agents hit a real bug (feature-rows silently dropped the 5th feature, which the spec requires) and hand-added it (parlato in HTML; freightly via page.json plus rebuild_project and a manual copy of dist/ into site/; freightly also swapped one chart visual for a table after a renderer crash); parlato also hand-edited the features heading. (2) I rebuilt the engine dist while the summitworks engine agent was still running, so part of that run used a newer build. (3) The fixes for the dropped feature, the chart crash and rebuild_project deploy are in later commits and are NOT reflected in these sites. (4) The shared scratchpad let one baseline agent's check script be overwritten by another's.",
   "v0.3.1": "Deterministic REPLAY, not a new model run: the six briefs written by the v0.3.0 Haiku agents were rebuilt unchanged with the engine after two fixes (split hero respects its mobile breakpoint; feature section defaults to alternating rows so every product visual is on screen, instead of one-at-a-time tabs). No hand edits. It isolates the engine change but is NOT a fair estimate of a fresh agent run: the briefs were written while the agents looked at tab-based output, and the layout change was designed after reading the v0.3.0 judges' complaints about those same sites (tuning to the judged set).",
   "v0.2.0": "First engine-guided run with the 19-tool surface. Engine agents needed many calls to get a passing build.",
   "v0.2.1": "Reliability pass: fewer calls, fewer tokens, build_site one-shot. Design identity unchanged.",
@@ -55,7 +64,7 @@ function armMetrics(res, arm) {
   };
 }
 
-const releases = ["v0.2.0", "v0.2.1", "v0.3.0", "v0.3.1"];
+const releases = ["v0.2.0", "v0.2.1", "v0.3.0", "v0.3.1", "v0.3.1-heldout"];
 const summaries = {};
 for (const rel of releases) {
   const dir = join("results", rel);
@@ -153,7 +162,7 @@ ${releases.map(row).join("\n")}
 
 The v0.1.0 run (three arms, the original experiment) is in [v0.1.0/REPORT.md](v0.1.0/REPORT.md).
 
-**Reading it honestly:** reliability (tokens, calls, time) improved from v0.2.0 to v0.2.1; judged originality and product-visual scores rose in v0.3.0; and in v0.3.1 the engine won its first blind pairs (2 of 12). v0.3.1 is a replay of v0.3.0's briefs after a layout change made in response to the v0.3.0 judges, so it is tuned to the judged set and is not independent evidence. Across all releases the unguided Haiku baseline still wins the large majority of blind pairs (40 of 42 judgements).
+**Reading it honestly:** reliability (tokens, calls, time) improved from v0.2.0 to v0.2.1; judged originality and product-visual scores rose in v0.3.0; and in the v0.3.1 replay the engine won its first blind pairs (2 of 12) - but that replay reuses v0.3.0's briefs after a layout change made in response to those same judges, so it is tuned to the judged set. The fresh held-out run on four new briefs is the honest test: the engine won 1 of 8, and was judged more template-like in 5 of 8. Across all releases the unguided Haiku baseline wins the large majority of blind pairs (47 of 50 judgements).
 
 Per-release folders contain \`REPORT.md\`, \`summary.json\`, \`raw/\` (judge verdicts) and \`data/\` (screenshots and audits). Regenerate the reports with \`node benchmark/summarize.mjs\`.
 `;
