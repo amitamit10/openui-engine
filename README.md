@@ -96,7 +96,7 @@ A controlled experiment was run with a **substitute model** (`claude-haiku-5-5`;
 
 ```bash
 pnpm build && pnpm typecheck && pnpm lint && pnpm test   # unit + browser e2e (needs Chromium)
-pnpm docs && node scripts/build-site.mjs                  # regenerate inventories and the docs site (itself built with the engine)
+pnpm run docs:build && pnpm run site:build                  # regenerate inventories and the docs site (itself built with the engine)
 ```
 
 ## Attribution

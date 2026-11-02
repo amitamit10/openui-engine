@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "test": "pnpm -r run test",
     "example": "node scripts/build-example.mjs",
-    "docs": "node scripts/build-docs.mjs"
+    "docs:build": "node scripts/build-docs.mjs",
+    "site:build": "node scripts/build-site.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

@@ -19,7 +19,7 @@ jobs:
       - run: pnpm lint
       - run: pnpm test
       - name: Docs inventories are up to date
-        run: pnpm docs && git diff --exit-code docs/SOURCES.md docs/COMPONENTS.md
+        run: pnpm run docs:build && git diff --exit-code docs/SOURCES.md docs/COMPONENTS.md
       - name: Generated DESIGN.md files pass the official linter
         run: |
           node -e "
