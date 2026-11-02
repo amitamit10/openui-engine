@@ -10,6 +10,7 @@ const DIMS = ["hierarchy", "typography", "spacing", "colour", "product_visual", 
 const USAGE = {
   "v0.2.0": { agents: 3, tokens: "118,871-145,517", toolCalls: "42-62", seconds: "321-519", perAgent: null },
   "v0.2.1": { agents: 6, tokens: "75,739-96,362", toolCalls: "17-36", seconds: "177-358", perAgent: null },
+  "v0.3.1": { agents: 0, tokens: "0 (deterministic replay)", toolCalls: "0", seconds: "about 30 per build", perAgent: null },
   "v0.3.0": {
     agents: 6, tokens: "88,456-104,393", toolCalls: "23-40", seconds: "222-415",
     perAgent: {
@@ -24,6 +25,7 @@ const USAGE = {
 };
 
 const NOTES = {
+  "v0.3.1": "Deterministic REPLAY, not a new model run: the six briefs written by the v0.3.0 Haiku agents were rebuilt unchanged with the engine after two fixes (split hero respects its mobile breakpoint; feature section defaults to alternating rows so every product visual is on screen, instead of one-at-a-time tabs). No hand edits. It isolates the engine change but is NOT a fair estimate of a fresh agent run: the briefs were written while the agents looked at tab-based output, and the layout change was designed after reading the v0.3.0 judges' complaints about those same sites (tuning to the judged set).",
   "v0.2.0": "First engine-guided run with the 19-tool surface. Engine agents needed many calls to get a passing build.",
   "v0.2.1": "Reliability pass: fewer calls, fewer tokens, build_site one-shot. Design identity unchanged.",
   "v0.3.0": "Design-identity pass: tone-driven art direction (new field-notes style), composable product screens (`ui` visual), non-violet accents. " +
@@ -53,7 +55,7 @@ function armMetrics(res, arm) {
   };
 }
 
-const releases = ["v0.2.0", "v0.2.1", "v0.3.0"];
+const releases = ["v0.2.0", "v0.2.1", "v0.3.0", "v0.3.1"];
 const summaries = {};
 for (const rel of releases) {
   const dir = join("results", rel);
@@ -151,7 +153,7 @@ ${releases.map(row).join("\n")}
 
 The v0.1.0 run (three arms, the original experiment) is in [v0.1.0/REPORT.md](v0.1.0/REPORT.md).
 
-**Reading it honestly:** reliability (tokens, calls, time) improved from v0.2.0 to v0.2.1, and judged originality and product-visual scores rose again in v0.3.0, but the baseline still won every blind pair in every release so far. The engine does not yet beat an unguided Haiku on overall design quality as judged.
+**Reading it honestly:** reliability (tokens, calls, time) improved from v0.2.0 to v0.2.1; judged originality and product-visual scores rose in v0.3.0; and in v0.3.1 the engine won its first blind pairs (2 of 12). v0.3.1 is a replay of v0.3.0's briefs after a layout change made in response to the v0.3.0 judges, so it is tuned to the judged set and is not independent evidence. Across all releases the unguided Haiku baseline still wins the large majority of blind pairs (40 of 42 judgements).
 
 Per-release folders contain \`REPORT.md\`, \`summary.json\`, \`raw/\` (judge verdicts) and \`data/\` (screenshots and audits). Regenerate the reports with \`node benchmark/summarize.mjs\`.
 `;
