@@ -46,17 +46,37 @@ function firstSentence(t: string, max: number): string {
   return cut.replace(/[,;:]$/, "") + "…";
 }
 
+const CATEGORY_WORDS: Array<[RegExp, SiteCategory]> = [
+  [/ecommerce|e-commerce|shop|store|retail|marketplace|dtc|commerce|ceramic|fashion|food|subscription box/, "ecommerce"],
+  [/portfolio|photograph|artist|illustrat|freelance creative/, "portfolio"], [/agency|studio|architect|interior|design firm|consult|creative/, "agency"],
+  [/fintech|financ|bank|payment|invoic|account|bookkeep|lending|insur|crypto|ledger|payroll/, "fintech"],
+  [/ai\b|ml\b|llm|assistant|copilot|machine learning|agent|transcri|generative/, "ai-product"],
+  [/devtool|developer|devops|observab|infra|api\b|sdk|database|data pipeline|monitoring|security|cli\b|open.?source|data eng/, "devtool"],
+  [/consumer|wellness|health|journal|habit|meditat|fitness|therapy|mental|family|personal|lifestyle|education|learning|travel|game/, "consumer-app"],
+  [/saas|b2b|software|platform|crm|hr\b|productivity|collaborat|project|analytics|operations/, "saas"],
+];
+/** Free-text category → one of the 8 engine categories (small models write "wellness", "data observability"…). */
+export function normalizeCategory(input: unknown): SiteCategory {
+  const t = String(input ?? "").toLowerCase().trim();
+  const exact = (["saas", "ai-product", "devtool", "fintech", "agency", "portfolio", "ecommerce", "consumer-app"] as const).find((c) => c === t);
+  if (exact) return exact;
+  return CATEGORY_WORDS.find(([re]) => re.test(t))?.[1] ?? "saas";
+}
+
 const WIDE: VisualKind[] = ["dashboard", "chart", "table", "kanban", "schedule", "gallery", "product-cards", "metrics"];
 
-export interface PlannedSite { tokens: DesignTokens; spec: PageSpec; layout: Array<{ id: string; type: string; why: string }> }
+export interface PlannedSite { tokens: DesignTokens; spec: PageSpec; layout: Array<{ id: string; type: string; why: string }>; notes: string[] }
 
 /** Deterministic planner: brief → art direction, tokens and a varied, non-template section sequence. */
-export function planSite(brief: SiteBrief): PlannedSite {
+export function planSite(input: SiteBrief): PlannedSite {
+  const brief: SiteBrief = { ...input, category: normalizeCategory(input.category) };
   const desc = `${brief.subheadline} ${(brief.tone ?? []).join(" ")} ${brief.audience ?? ""}`;
   const style = brief.style ?? matchStyles({ name: brief.name, description: desc, category: brief.category })[0]!.style;
   const tokens = generateTokens({ name: brief.name, description: desc, category: brief.category, style, accent: brief.accent });
   const comp = getStyle(style).composition;
-  const sections: SectionSpec[] = []; const layout: PlannedSite["layout"] = [];
+  const sections: SectionSpec[] = []; const layout: PlannedSite["layout"] = []; const notes: string[] = [];
+  if (brief.features.length > 5) notes.push(`brief.features has ${brief.features.length} items; only the first 5 are shown. Merge or drop the rest.`);
+  if (!brief.footer?.columns) notes.push("footer uses generated placeholder columns; set brief.footer.columns with real links.");
   const add = (id: string, type: SectionSpec["type"], props: Record<string, any>, why: string) => { sections.push({ id, type, props }); layout.push({ id, type, why }); };
   const cta = (label: string, href: string) => ({ label, href });
 
@@ -75,12 +95,12 @@ export function planSite(brief: SiteBrief): PlannedSite {
   const withVis = brief.features.filter((f) => f.visual);
   if (has.features) {
     const title = brief.featuresTitle ?? "What it does";
-    if (withVis.length >= 3) add("features", "feature-tabs", { anchor: "features", eyebrow: "Product", title, tabs: brief.features.slice(0, 5).map((f) => ({ label: f.title, icon: f.icon, title: f.title, body: f.body, bullets: f.bullets, visual: f.visual })) }, "≥3 features have visuals → interactive tabs (depth without identical cards)");
-    else if (brief.showcase) { add("features", "feature-showcase", { anchor: "features", eyebrow: "Product", title: brief.showcase.title, subtitle: brief.showcase.subtitle, visual: brief.showcase.visual, callouts: brief.showcase.callouts }, "one large product visual with callouts"); }
-    else add("features", "feature-bento", { anchor: "features", eyebrow: "Product", title, items: brief.features.slice(0, 5).map((f, i) => ({ title: f.title, body: f.body, icon: f.icon, visual: f.visual ?? ["bars", "list", "code", "toggle", "avatars"][i % 5], span: i === 0 ? 4 : i === 1 ? 2 : 2 })) }, "few visuals → bento with mini-visuals");
+    if (withVis.length >= 3) add("features", "feature-tabs", { anchor: "features", align: "left", eyebrow: "Product", title, tabs: brief.features.slice(0, 5).map((f) => ({ label: f.title, icon: f.icon, title: f.title, body: f.body, bullets: f.bullets, visual: f.visual })) }, "≥3 features have visuals → interactive tabs (depth without identical cards)");
+    else if (brief.showcase) { add("features", "feature-showcase", { anchor: "features", align: "left", eyebrow: "Product", title: brief.showcase.title, subtitle: brief.showcase.subtitle, visual: brief.showcase.visual, callouts: brief.showcase.callouts }, "one large product visual with callouts"); }
+    else add("features", "feature-bento", { anchor: "features", align: "left", eyebrow: "Product", title, items: brief.features.slice(0, 5).map((f, i) => ({ title: f.title, body: f.body, icon: f.icon, visual: f.visual ?? ["bars", "list", "code", "toggle", "avatars"][i % 5], span: i === 0 ? 4 : i === 1 ? 2 : 2 })) }, "few visuals → bento with mini-visuals");
     if (brief.showcase && withVis.length >= 3) add("showcase", "feature-showcase", { eyebrow: "In depth", title: brief.showcase.title, subtitle: brief.showcase.subtitle, visual: brief.showcase.visual, callouts: brief.showcase.callouts, tint: true }, "extra depth section");
   }
-  if (brief.comparison) add("comparison", "comparison", brief.comparison, "makes the pain and the payoff explicit");
+  if (brief.comparison) add("comparison", "comparison", { align: "left", ...brief.comparison }, "makes the pain and the payoff explicit");
   if (brief.how) add("how", brief.how.visual ? "steps-timeline" : "steps", { anchor: "how", eyebrow: "How it works", ...brief.how, items: brief.how.steps }, brief.how.visual ? "steps with a sticky product visual" : "three simple steps");
   if (brief.integrations) add("integrations", "integrations", brief.integrations, "shows fit with the stack");
   const sparkish = (brief.metrics ?? []).some((m) => m.spark || m.delta);
@@ -92,9 +112,9 @@ export function planSite(brief: SiteBrief): PlannedSite {
   if (has.faq) add("faq", (brief.faq!.length >= 4 ? "faq-split" : "faq"), { anchor: "faq", eyebrow: "FAQ", title: "Questions, answered", items: brief.faq }, "objection handling");
   const c = brief.closing ?? { title: `Try *${brief.name}*`, subtitle: brief.subheadline };
   add("cta", c.form ? "cta-split" : "cta-band", c.form ? { anchor: "cta", title: c.title, subtitle: c.subtitle, bullets: c.bullets, form: { button: c.button ?? brief.primaryCta, note: c.note ?? "", label: "Work email" } } : { anchor: "cta", title: c.title, subtitle: c.subtitle, primaryCta: cta(brief.primaryCta, "#top"), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined }, "single closing ask");
-  add("footer", "footer-columns", { tagline: brief.footer?.tagline ?? firstSentence(brief.subheadline, 96), columns: brief.footer?.columns ?? [{ title: "Product", links: links.length ? links : [{ label: "Home", href: "#top" }] }], legal: brief.footer?.legal ?? `© ${new Date().getFullYear()} ${brief.name}`, note: "" }, "navigation and legal");
+  add("footer", "footer-columns", { tagline: brief.footer?.tagline ?? firstSentence(brief.subheadline, 96), columns: brief.footer?.columns ?? [{ title: "Product", links: links.length ? links : [{ label: "Home", href: "#top" }] }, { title: "Get started", links: [{ label: brief.primaryCta, href: has.pricing ? "#pricing" : "#cta" }, ...(brief.secondaryCta ? [{ label: brief.secondaryCta, href: "#features" }] : [])] }, { title: "Company", links: [{ label: "Back to top", href: "#top" }, ...(has.faq ? [{ label: "Questions", href: "#faq" }] : [])] }], legal: brief.footer?.legal ?? `© ${new Date().getFullYear()} ${brief.name}`, note: "" }, "navigation and legal");
 
-  return { tokens, spec: { title: `${brief.name} — ${brief.headline.replace(/\*/g, "").slice(0, 70)}`, description: brief.subheadline, brand: { name: brief.name }, sections }, layout };
+  return { tokens, spec: { title: `${brief.name} — ${brief.headline.replace(/\*/g, "").slice(0, 70)}`, description: brief.subheadline, brand: { name: brief.name }, sections }, layout, notes };
 }
 
 export const VISUAL_SUGGESTIONS: Record<SiteCategory, VisualKind[]> = {

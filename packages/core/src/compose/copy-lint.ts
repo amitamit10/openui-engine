@@ -1,4 +1,5 @@
 import type { PageSpec } from "./types.js";
+import { normalizeVisual } from "./visuals.js";
 
 export interface LintFinding { severity: "error" | "warning" | "info"; rule: string; where: string; message: string; fix?: string }
 
@@ -68,4 +69,26 @@ export function lintCopy(spec: PageSpec): LintFinding[] {
   const grams = new Map<string, string>();
   for (const t of texts) { const w = t.text.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(Boolean); for (let i = 0; i + 5 <= w.length; i++) { const g = w.slice(i, i + 5).join(" "); const prev = grams.get(g); if (prev && prev !== t.section) { f.push({ severity: "info", rule: "repeated-phrase", where: `${prev} / ${t.section}`, message: `Phrase repeated across sections: "${g}"`, fix: "Say it once." }); grams.set(g, t.section); } else if (!prev) grams.set(g, t.section); } }
   return f;
+}
+
+const NEEDS: Record<string, string[]> = {
+  dashboard: ["kpis"], table: ["columns", "rows"], timeline: ["items"], chart: ["series"], kanban: ["columns"], chat: ["messages"], code: ["code"], terminal: ["code"],
+  invoice: ["items"], schedule: ["rows"], checklist: ["items"], metrics: ["items"], gallery: ["items"], "product-cards": ["items"],
+};
+
+/** A domain visual with no data renders empty. Catch it before the model has to notice in a screenshot. */
+export function lintVisuals(spec: PageSpec): LintFinding[] {
+  const out: LintFinding[] = [];
+  const visit = (v: any, where: string) => {
+    if (!v || typeof v !== "object") return;
+    if (Array.isArray(v)) { v.forEach((x, i) => visit(x, `${where}[${i}]`)); return; }
+    if (typeof v.kind === "string" && NEEDS[v.kind]) {
+      v = normalizeVisual(v) ?? v;
+      const missing = NEEDS[v.kind]!.filter((k) => { const x = v[k]; return x === undefined || x === null || (Array.isArray(x) && x.length === 0) || (typeof x === "string" && !x.trim()); });
+      if (missing.length) out.push({ severity: "error", rule: "visual-empty", where, message: `${v.kind} visual has no ${missing.join(" / ")} — it will render empty.`, fix: `Give it real data, e.g. ${v.kind === "table" ? '{kind:"table", columns:["Invoice","Client","Amount","Status"], rows:[["INV-204","Quillstone","$4,800",{"text":"Paid","tone":"ok"}]]}' : `${missing.map((m) => m + ":[…]").join(", ")}`}` });
+    }
+    for (const [k, x] of Object.entries(v)) if (x && typeof x === "object") visit(x, `${where}.${k}`);
+  };
+  for (const sec of spec.sections) visit(sec.props, sec.id);
+  return out;
 }

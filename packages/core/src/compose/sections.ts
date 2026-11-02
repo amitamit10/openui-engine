@@ -84,7 +84,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
     <div class="nav__actions">${p.signIn ? `<a class="btn btn--ghost" href="${esc(p.signIn.href)}" data-openui-id="${id}.signin">${esc(p.signIn.label)}</a>` : ""}${btn(p.cta, "primary", `${id}.cta`)}
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="${id}-sheet" aria-label="Open menu" data-nav-toggle>${ICON.menu}</button></div>
   </div>
-  <div class="nav__sheet" id="${id}-sheet" hidden>${links.map((l) => `<a href="${esc(l.href)}">${esc(l.label)}</a>`).join("")}${p.signIn ? `<a href="${esc(p.signIn.href)}">${esc(p.signIn.label)}</a>` : ""}</div>
+  <div class="nav__sheet" id="${id}-sheet" hidden>${links.map((l) => `<a href="${esc(l.href)}">${esc(l.label)}</a>`).join("")}${p.signIn ? `<a href="${esc(p.signIn.href)}">${esc(p.signIn.label)}</a>` : ""}${btn(p.cta, "primary", `${id}.sheetcta`)}</div>
 </header>`;
   },
 

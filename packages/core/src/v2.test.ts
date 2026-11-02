@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   ALL_COMPONENTS, BUZZWORDS, RENDERERS, STYLE_IDS, VISUAL_KINDS, briefTemplate, buildSite, collectIconRefs, discover, generateTokens, hexToHsl, indexedComponents, lintCopy,
-  pickAccent, planSite, renderVisual, sanitizeSvg, searchIcons, searchableComponents, type PageSpec, type SiteBrief, type SiteCategory,
+  findComponent, lintVisuals, normalizeCategory, normalizeVisual, suggestComponentIds, pickAccent, planSite, renderVisual, sanitizeSvg, searchIcons, searchableComponents, type PageSpec, type SiteBrief, type SiteCategory,
 } from "./index.js";
 
 const CATS: SiteCategory[] = ["saas", "ai-product", "devtool", "fintech", "agency", "portfolio", "ecommerce", "consumer-app"];
@@ -97,5 +97,40 @@ describe("planner", () => {
     const p = planSite(brief());
     const q = p.spec.sections.find((s) => s.id === "testimonials")!;
     expect(q.type).toBe("quote-feature"); expect(q.props.stats).toEqual([]);
+  });
+});
+
+describe("v0.2.1 regressions (found by agents using the engine)", () => {
+  it("dashboard visual renders real content (it used to render nothing)", () => {
+    const html = renderVisual({ kind: "dashboard", title: "Deals at risk", period: "This quarter", sidebar: ["Calls", "Deals"], kpis: [{ label: "At risk", value: "7", delta: "▲ 2" }] } as any, "d");
+    expect(html).toContain("Deals at risk"); expect(html).toContain("At risk"); expect(html).toContain("vz-side");
+  });
+  it("normalises the data shapes small models write", () => {
+    expect(normalizeVisual({ kind: "chart", values: [1, 2, 3] } as any)!.series).toEqual([{ label: "Series", values: [1, 2, 3] }]);
+    expect((normalizeVisual({ kind: "chart", series: [[1, 2], [3, 4]] } as any) as any).series[1].values).toEqual([3, 4]);
+    const t: any = normalizeVisual({ kind: "table", rows: [{ a: 1, b: 2 }] } as any); expect(t.columns).toEqual(["a", "b"]); expect(t.rows).toEqual([[1, 2]]);
+    expect((normalizeVisual({ kind: "timeline", events: [{ title: "x" }] } as any) as any).items).toHaveLength(1);
+    expect(renderVisual({ kind: "chart", values: [3, 5, 4] } as any, "c")).toContain("<path");
+  });
+  it("lints visuals that would render empty", () => {
+    const spec: PageSpec = { title: "t", description: "d", brand: { name: "X" }, sections: [{ id: "features", type: "feature-tabs", props: { tabs: [{ label: "a", visual: { kind: "table" } }, { label: "b", visual: { kind: "table", columns: ["a"], rows: [["x"]] } }, { label: "c", visual: { kind: "dashboard" } }] } }] };
+    const f = lintVisuals(spec); expect(f.map((x) => x.where).sort()).toEqual(["features.tabs[0].visual", "features.tabs[2].visual"]);
+    expect(f.every((x) => x.severity === "error" && x.rule === "visual-empty")).toBe(true);
+  });
+  it("maps free-text categories and resolves bare component ids with suggestions", () => {
+    expect(normalizeCategory("wellness")).toBe("consumer-app"); expect(normalizeCategory("data observability")).toBe("devtool");
+    expect(normalizeCategory("B2B invoicing")).toBe("fintech"); expect(normalizeCategory("architecture studio")).toBe("agency"); expect(normalizeCategory("saas")).toBe("saas"); expect(normalizeCategory("???")).toBe("saas");
+    expect(findComponent("feature-tabs")?.id).toBe("openui/feature-tabs"); expect(findComponent("dashboard")?.id).toBe("openui/visual-dashboard"); expect(findComponent("visual-chart")?.id).toBe("openui/visual-chart");
+    expect(suggestComponentIds("kanban")[0]).toMatch(/kanban/);
+  });
+  it("default footer has three columns and the planner warns about >5 features", () => {
+    const b = briefTemplate("saas"); b.features = [...b.features, ...b.features];
+    const p = planSite(b);
+    expect((p.spec.sections.find((x) => x.id === "footer")!.props.columns as any[]).length).toBe(3);
+    expect(p.notes.join(" ")).toMatch(/only the first 5/);
+  });
+  it("uses minmax(0,1fr) tracks so long content cannot widen a grid", () => {
+    const css = buildSite(planSite(briefTemplate("saas")).spec, planSite(briefTemplate("saas")).tokens, {}, {}).files["styles.css"]!;
+    expect(css).not.toMatch(/grid-template-columns:\s*repeat\(\d+,1fr\)/); expect(css).toContain(".tabs{display:grid;grid-template-columns:minmax(0,1fr)");
   });
 });

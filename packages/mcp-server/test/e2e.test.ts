@@ -225,6 +225,22 @@ describe("design → compose → verify → review loop", () => {
     expect(readFileSync(join(work, "ns/openui.brief.json"), "utf8")).toContain("Supercharge");
   });
 
+  it("long real-world tab labels and bad visual data do not overflow or silently render empty", async () => {
+    const t = await call("brief_template", { category: "wellness journaling" }); // free-text category is accepted
+    const brief = { ...t.json.brief, name: "Fieldnote", category: "wellness", headline: "A journal your therapist can *actually* read with you", subheadline: "Fieldnote keeps weekly reflections private by default and shares only what you choose, with end-to-end encryption.",
+      features: ["Prompts your therapist assigns to you", "Mood tracking you can understand", "Weekly reflections you choose to share", "Encrypted on your device by default", "Works offline on the train or in the waiting room"].map((title, i) => ({ title, body: "One specific sentence about this capability.", icon: "lucide:notebook-pen", visual: i === 1 ? { kind: "table" } : { kind: "checklist", title: "Today", items: [{ text: "Write about the week", done: true }, { text: "Rate your mood" }] } })) };
+    const r = await call("build_site", { projectDir: "fn", brief, verify: true, images: false });
+    const out = JSON.parse(r.text);
+    expect(out.copy_lint.top.join(" ")).toMatch(/visual-empty/);        // the empty table is reported, not silently rendered
+    expect(out.gate.issues.join(" ")).not.toMatch(/overflow/i);          // long labels no longer widen the grid
+    const g = await call("get_component", { id: "feature-tabs" });       // bare ids resolve
+    expect(g.isError).toBe(false); expect(g.json.id).toBe("openui/feature-tabs");
+    const bad = await call("get_component", { id: "kanbann-board" });
+    expect(bad.isError).toBe(true); expect(bad.text).toMatch(/Did you mean/);
+    const slop = await call("detect_ai_slop", { url: "file://" + join(work, "fn/dist") }); // argument aliases accepted
+    expect(slop.isError).toBe(false);
+  });
+
   it("list_libraries, search_icons and discover across indexed registries", async () => {
     const l = await call("list_libraries");
     expect(l.json.searchableComponents).toBeGreaterThan(1000);

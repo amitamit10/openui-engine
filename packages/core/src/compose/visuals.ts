@@ -76,8 +76,31 @@ const GALLERY_SHAPES = (rnd: () => number, i: number) => {
   return Array.from({ length: 6 }, (_, j) => `<rect x="${j * 54}" y="0" width="50" height="160" class="s${(i + j) % 3}" opacity="${(0.35 + (j % 3) * 0.25).toFixed(2)}"/>`).join("");
 };
 
+/** Accept the shapes small models naturally write (aliases, bare arrays, row objects) and normalise them. */
+export function normalizeVisual(v: any): VisualSpec | undefined {
+  if (!v || typeof v !== "object" || !v.kind) return v;
+  const o: any = { ...v };
+  if (o.kind === "chart") {
+    if (!o.series) { const raw = o.values ?? o.data ?? o.points; if (Array.isArray(raw)) o.series = [{ label: o.label ?? o.title ?? "Series", values: raw.map(Number).filter((n: number) => !Number.isNaN(n)) }]; }
+    if (Array.isArray(o.series)) o.series = o.series.map((s: any, i: number) => Array.isArray(s) ? { label: `Series ${i + 1}`, values: s.map(Number) } : s && typeof s === "object" ? { label: s.label ?? s.name ?? `Series ${i + 1}`, values: (s.values ?? s.data ?? []).map(Number) } : { label: `Series ${i + 1}`, values: [Number(s)] });
+    if (o.type && !o.chart) o.chart = o.type;
+    if (o.chart === "line" && o.area) o.chart = "area";
+  }
+  if (o.kind === "table") {
+    o.columns = o.columns ?? o.headers ?? o.head;
+    if (Array.isArray(o.rows) && o.rows.length && !Array.isArray(o.rows[0]) && typeof o.rows[0] === "object") { o.columns = o.columns ?? Object.keys(o.rows[0]); o.rows = o.rows.map((r: any) => (o.columns as string[]).map((c) => r[c])); }
+  }
+  if (o.kind === "timeline") o.items = o.items ?? o.events ?? o.entries;
+  if (o.kind === "kanban") o.columns = o.columns ?? o.lanes ?? o.boards;
+  if (o.kind === "chat") o.messages = o.messages ?? o.items ?? o.conversation;
+  if (o.kind === "checklist" || o.kind === "gallery" || o.kind === "metrics" || o.kind === "product-cards") o.items = o.items ?? o.rows ?? o.entries;
+  if (o.kind === "code" || o.kind === "terminal") o.code = o.code ?? (Array.isArray(o.lines) ? o.lines.join("\n") : o.snippet ?? o.content);
+  return o;
+}
+
 /** Render a domain visual. `id` namespaces SVG gradient ids so several can share a page. */
-export function renderVisual(v: VisualSpec | undefined, id = "v"): string {
+export function renderVisual(input: VisualSpec | undefined, id = "v"): string {
+  const v = normalizeVisual(input);
   if (!v || !v.kind) return "";
   const uid = id.replace(/[^a-z0-9]/gi, "");
   switch (v.kind) {
@@ -129,6 +152,11 @@ export function renderVisual(v: VisualSpec | undefined, id = "v"): string {
     case "metrics": {
       const items: any[] = (v.items ?? []).slice(0, 4);
       return `<div class="vz vz-metrics" role="img" aria-label="${esc(v.title ?? "Key metrics")}">${items.map((m, i) => { const sp: number[] = m.spark ?? [4, 6, 5, 8, 7, 10, 9, 12]; const d = smooth(sp, 120, 36, Math.max(...sp) * 1.1, 3); return `<div class="vz-metric"><small>${esc(m.label)}</small><strong>${esc(m.value)}</strong>${m.delta ? `<em class="${/^[-−▼]/.test(String(m.delta)) ? "dn" : "up"}">${esc(m.delta)}</em>` : ""}<svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><path class="ln ln${i % 2}" d="${d}"/></svg></div>`; }).join("")}</div>`;
+    }
+    case "dashboard": {
+      const kpis: any[] = (v.kpis ?? v.items ?? []).slice(0, 3);
+      const side: string[] = v.sidebar ?? [];
+      return `<div class="vz vz-dash" role="img" aria-label="${esc(v.title ?? "Dashboard")}">${bar(v.url ?? v.title ?? "Dashboard", v.right)}<div class="vz-dashgrid${side.length ? "" : " nosb"}">${side.length ? `<div class="vz-side">${side.slice(0, 6).map((x, i) => `<span class="${i === 0 ? "on" : ""}">${esc(x)}</span>`).join("")}</div>` : ""}<div class="vz-main"><div class="vz-head"><strong>${esc(v.title ?? "Overview")}</strong>${v.period ? pill(v.period, "info") : ""}</div>${kpis.length ? `<div class="vz-kpis">${kpis.map((k) => `<div class="vz-kpi"><small>${esc(k.label)}</small><strong>${esc(k.value)}</strong>${k.delta ? `<em>${esc(k.delta)}</em>` : ""}</div>`).join("")}</div>` : ""}${chartSvg({ ...v, chart: v.chart ?? "area", series: v.series ?? [{ label: "Trend", values: [4, 6, 5, 8, 7, 10, 9, 13] }] }, uid)}</div></div></div>`;
     }
     default: return "";
   }

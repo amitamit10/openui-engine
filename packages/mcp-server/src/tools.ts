@@ -3,7 +3,7 @@ import { join, relative } from "node:path";
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
-  ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, collectIconRefs, fetchIcons, findComponent, lintCopy, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
+  ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, collectIconRefs, normalizeCategory, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
   loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, getSources, setTokenPath, suggestLayout, applyTweaks,
   type DesignTokens, type PageSpec, type SectionSpec, type SectionType, type SiteCategory, type StyleId,
 } from "@openui-engine/core";
@@ -13,6 +13,8 @@ import type { ServerContext } from "./context.js";
 
 const STYLE = z.enum(STYLE_IDS as [StyleId, ...StyleId[]]);
 const CATEGORY = z.enum(["saas", "ai-product", "devtool", "fintech", "agency", "portfolio", "ecommerce", "consumer-app"]);
+/** Small models guess argument names; accept the obvious aliases for `target`. */
+const tgt = (a: Record<string, any>): string => { const t = a.target ?? a.url ?? a.path ?? a.dir ?? a.projectDir ?? a.site; if (typeof t !== "string") throw new Error("target is required (project dir, built-site dir or http(s) URL)"); return t.replace(/^file:\/\//, ""); };
 const text = (obj: unknown) => ({ content: [{ type: "text" as const, text: typeof obj === "string" ? obj : JSON.stringify(obj, null, 1) }] });
 const fail = (msg: string) => ({ isError: true, content: [{ type: "text" as const, text: msg }] });
 
@@ -63,7 +65,7 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     inputSchema: { id: z.string().describe("e.g. openui/pricing or fluid/tabs"), detail: z.enum(["meta", "source"]).default("meta"), style: STYLE.optional() },
   }, async (a) => {
     const c = findComponent(a.id);
-    if (!c) return fail(`Unknown component "${a.id}". Use discover_components to find ids.`);
+    if (!c) return fail(`Unknown component "${a.id}". Did you mean: ${suggestComponentIds(a.id).join(", ") || "(none)"}? Use discover_components to search; OpenUI ids look like openui/feature-tabs or openui/visual-chart.`);
     const out: Record<string, unknown> = { ...c };
     if (a.detail === "source") {
       if (c.registry) {
@@ -185,9 +187,9 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("validate_design", {
     title: "Validate design",
     description: "Run the automated QA gate in a real Chromium: desktop/tablet/mobile overflow, axe accessibility, console + network errors, broken images/anchors, interaction tests (accordion, nav, toggles, keyboard focus), reduced-motion behaviour, invisible-content detection and design-token compliance. Returns pass/fail with prioritised, fix-oriented issues (with data-openui-id so you can target them).",
-    inputSchema: { target: z.string().describe("OpenUI project dir, a built-site dir, or http(s) URL"), viewports: z.array(z.enum(["desktop", "tablet", "mobile"])).default(["desktop", "mobile"]), maxIssues: z.number().int().default(15) },
+    inputSchema: { target: z.string().optional().describe("OpenUI project dir, a built-site dir, or http(s) URL (aliases accepted: url, path, dir)"), url: z.string().optional(), path: z.string().optional(), dir: z.string().optional(), viewports: z.array(z.enum(["desktop", "tablet", "mobile"])).default(["desktop", "mobile"]), maxIssues: z.number().int().default(15) },
   }, async (a) => {
-    const target = /^https?:/.test(a.target) ? a.target : ctx.safePath(a.target);
+    const t0 = tgt(a); const target = /^https?:/.test(t0) ? t0 : ctx.safePath(t0);
     const vps = VIEWPORTS.filter((v) => a.viewports.includes(v.name as "desktop"));
     const r = await auditTarget(target, { viewports: vps, rebuildFirst: true });
     const issues = r.audit.viewports.flatMap((v) => v.issues.map((i) => ({ viewport: v.viewport.name, ...i }))).filter((i) => i.severity !== "info");
@@ -206,12 +208,13 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("capture_preview", {
     title: "Capture preview",
     description: "Render the site in real Chromium (after scrolling through to trigger lazy/reveal content) and return JPEG screenshots as images so a multimodal model can LOOK at the result. Full-page images are saved to disk (paths returned); `inline` picks what to return as image content.",
-    inputSchema: { target: z.string(), viewports: z.array(z.enum(["desktop", "tablet", "mobile"])).default(["desktop", "mobile"]), inline: z.enum(["fold", "full", "none"]).default("fold") },
+    inputSchema: { target: z.string().optional(), url: z.string().optional(), path: z.string().optional(), dir: z.string().optional(), viewports: z.array(z.enum(["desktop", "tablet", "mobile"])).default(["desktop", "mobile"]), inline: z.enum(["fold", "full", "none"]).default("fold") },
   }, async (a) => {
-    const isUrl = /^https?:/.test(a.target);
-    let srv: Awaited<ReturnType<typeof serveDir>> | null = null; let url = a.target; let outBase: string;
+    const t0 = tgt(a);
+    const isUrl = /^https?:/.test(t0);
+    let srv: Awaited<ReturnType<typeof serveDir>> | null = null; let url = t0; let outBase: string;
     if (!isUrl) {
-      const dir = ctx.safePath(a.target);
+      const dir = ctx.safePath(t0);
       if (isProject(dir)) rebuild(dir);
       srv = await serveDir(existsSync(join(dir, "dist")) ? join(dir, "dist") : dir); url = srv.url + "/"; outBase = join(dir, ".openui", "shots");
     } else outBase = join(ctx.workdir, ".openui", "shots");
@@ -227,9 +230,9 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("analyze_visual_quality", {
     title: "Analyze visual quality",
     description: "Heuristic design-quality scoring from real measurements: typography hierarchy, 4px spacing rhythm, palette discipline, alignment/CTA hierarchy, whitespace balance (pixel scan for empty zones), responsiveness, accessibility and robustness. Returns per-dimension scores with evidence and concrete suggestions. IMPORTANT: this measures engineering quality, not taste — also LOOK at capture_preview images.",
-    inputSchema: { target: z.string() },
+    inputSchema: { target: z.string().optional(), url: z.string().optional(), path: z.string().optional(), dir: z.string().optional() },
   }, async (a) => {
-    const target = /^https?:/.test(a.target) ? a.target : ctx.safePath(a.target);
+    const t0 = tgt(a); const target = /^https?:/.test(t0) ? t0 : ctx.safePath(t0);
     const r = await auditTarget(target, { rebuildFirst: true });
     const q = r.quality;
     return text({ overall: q.overall, note: q.note, dimensions: q.dimensions.map((d) => ({ id: d.id, score: d.score, basis: d.basis, evidence: d.evidence, suggestions: d.suggestions })), deadZones: q.deadZones, review_screenshots: q.needsVisualReview.map((p) => relative(ctx.workdir, p)), summary: formatReport(r.audit).split("\n")[0] });
@@ -315,8 +318,8 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("brief_template", {
     title: "Site brief template",
     description: "Returns a complete example SiteBrief for a category with visual-kind suggestions. Copy it, REWRITE EVERY FIELD with specific copy for the real product, then pass it to build_site. Visual kinds: " + VISUAL_KINDS.join(", ") + ".",
-    inputSchema: { category: CATEGORY.default("saas") },
-  }, async (a) => text({ visualSuggestions: VISUAL_SUGGESTIONS[a.category as SiteCategory], rules: ["Headline 5–12 words with ONE *emphasised* phrase", "No buzzwords (seamless, unlock, supercharge, all-in-one…)", "Every feature gets a visual that shows THIS product's data", "Testimonials need a number; use distinctive fictional names", "Use real domain data inside visuals (times, names, amounts), never generic placeholders"], brief: briefTemplate(a.category as SiteCategory) }));
+    inputSchema: { category: z.string().default("saas").describe("any text; mapped to the nearest of: saas, ai-product, devtool, fintech, agency, portfolio, ecommerce, consumer-app") },
+  }, async (a0) => { const a = { category: normalizeCategory(a0.category) }; return text({ visualSuggestions: VISUAL_SUGGESTIONS[a.category as SiteCategory], rules: ["Headline 5–12 words with ONE *emphasised* phrase", "No buzzwords (seamless, unlock, supercharge, all-in-one…)", "Every feature gets a visual that shows THIS product's data", "Testimonials need a number; use distinctive fictional names", "Use real domain data inside visuals (times, names, amounts), never generic placeholders"], brief: briefTemplate(a.category as SiteCategory) }); });
 
   const deepMerge = (a: any, b: any): any => { if (Array.isArray(b) || b === null || typeof b !== "object") return b; const o = { ...(a && typeof a === "object" && !Array.isArray(a) ? a : {}) }; for (const [k, v] of Object.entries(b)) { if (v === null) delete o[k]; else o[k] = deepMerge(o[k], v); } return o; };
 
@@ -341,17 +344,17 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     if (!Array.isArray(brief.features)) return fail("brief.features must be an array of {title, body, icon?, visual?}.");
     let planned;
     try { planned = planSite(brief); } catch (e) { return fail(`Could not plan the site: ${(e as Error).message}. Check brief against brief_template.`); }
-    const copy = lintCopy(planned.spec);
+    const copy = [...lintVisuals(planned.spec), ...lintCopy(planned.spec)];
     const icons = await fetchIcons([...collectIconRefs(planned.spec)]);
     mkdirSync(dir, { recursive: true }); writeFileSync(briefFile, JSON.stringify(brief, null, 2) + "\n");
     saveProject({ dir, tokens: planned.tokens, spec: planned.spec, overrides: isProject(dir) ? loadProject(dir).overrides : {}, icons });
     let deployed: string | undefined;
     if (a.deployDir) { const dd = ctx.safePath(a.deployDir); mkdirSync(dd, { recursive: true }); cpSync(join(dir, "dist"), dd, { recursive: true }); deployed = relative(ctx.workdir, dd) || "."; }
     const out: Record<string, unknown> = {
-      project: relative(ctx.workdir, dir) || ".", style: planned.tokens.meta.style, accent: planned.tokens.color.accent, deployed,
+      project: relative(ctx.workdir, dir) || ".", notes: [...planned.notes, ...(a.deployDir ? [`${a.deployDir}/ is regenerated on every build_site call — hand edits there are lost; change the brief (patch) instead.`] : [])], style: planned.tokens.meta.style, accent: planned.tokens.color.accent, deployed,
       layout: planned.layout.map((l) => `${l.id}: ${l.type} — ${l.why}`),
       icons: `${Object.keys(icons).length}/${collectIconRefs(planned.spec).size} fetched${Object.keys(icons).length < collectIconRefs(planned.spec).size ? " (others use built-in fallbacks)" : ""}`,
-      copy_lint: { errors: copy.filter((c) => c.severity === "error").length, warnings: copy.filter((c) => c.severity === "warning").length, top: copy.filter((c) => c.severity !== "info").slice(0, 10).map((c) => `[${c.rule}] ${c.where}: ${c.message} → ${c.fix}`) },
+      copy_lint: { errors: copy.filter((c) => c.severity === "error").length, warnings: copy.filter((c) => c.severity === "warning").length, top: [...copy.filter((c) => c.severity === "error"), ...copy.filter((c) => c.severity === "warning")].slice(0, 12).map((c) => `[${c.rule}] ${c.where}: ${c.message} → ${c.fix}`) },
     };
     const content: any[] = [];
     if (a.verify) {
@@ -372,9 +375,9 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("detect_ai_slop", {
     title: "Detect AI slop",
     description: "Heuristic originality check of a built site (project dir, site dir or URL): default indigo/violet palette, repeated identical icon-card grids, gradient-text overuse, emoji icons, everything centered, missing product visuals, buzzwords, stock names. Returns a 0–100 score (higher = more original) and specific findings. A proxy for template-looking pages, not a judge of taste.",
-    inputSchema: { target: z.string() },
+    inputSchema: { target: z.string().optional(), url: z.string().optional(), path: z.string().optional(), dir: z.string().optional() },
   }, async (a) => {
-    const target = /^https?:/.test(a.target) ? a.target : ctx.safePath(a.target);
+    const t0 = tgt(a); const target = /^https?:/.test(t0) ? t0 : ctx.safePath(t0);
     const srv = /^https?:/.test(target) ? null : await serveDir(isProject(target) ? join(target, "dist") : target);
     try {
       const page = await (await getBrowser()).newPage({ viewport: { width: 1440, height: 900 } });

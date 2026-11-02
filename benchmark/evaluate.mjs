@@ -45,8 +45,14 @@ async function neutralChecks(url) {
   await run("pricing toggle changes displayed prices", { width: 1440, height: 900 }, async (p) => {
     const find = (re) => { const btn = p.getByRole("button", { name: re }).first(); return btn.count().then((n) => (n ? btn : p.locator("label,[role=tab],[role=switch]").filter({ hasText: re }).first())); };
     const y = await find(/year|annual/i), m = await find(/month/i);
-    await y.scrollIntoViewIfNeeded(); const seen = [];
-    for (const el of [m, y, m]) { await el.click(); await p.waitForTimeout(250); seen.push(await prices(p)); }
+    const seen = [];
+    if ((await y.count()) && (await m.count())) { await y.scrollIntoViewIfNeeded(); for (const el of [m, y, m]) { await el.click(); await p.waitForTimeout(250); seen.push(await prices(p)); } }
+    else { // a single switch / checkbox toggles between the two billing modes
+      const sw = p.locator("[role=switch], input[type=checkbox]").first();
+      if (!(await sw.count())) throw new Error("no billing toggle found");
+      await sw.scrollIntoViewIfNeeded().catch(() => {}); seen.push(await prices(p));
+      for (let i = 0; i < 2; i++) { await sw.click({ force: true }); await p.waitForTimeout(250); seen.push(await prices(p)); }
+    }
     if (new Set(seen).size < 2) throw new Error("prices identical in monthly and yearly modes"); return seen.map((x) => x.slice(0, 28)).join(" | "); });
   await run("FAQ accordion toggles", { width: 1440, height: 900 }, async (p) => {
     const q = p.locator("details:not([open]) > summary, button[aria-expanded=false]").filter({ hasText: /\?/ }).first(); const h = await q.elementHandle();

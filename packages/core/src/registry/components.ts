@@ -197,5 +197,15 @@ export function searchableComponents(): ComponentMeta[] {
 }
 /** Lookup across curated + indexed components. */
 export function findComponent(id: string): ComponentMeta | undefined {
-  return COMPONENT_INDEX.get(id) ?? searchableComponents().find((c) => c.id === id);
+  const raw = id.trim();
+  const direct = COMPONENT_INDEX.get(raw) ?? searchableComponents().find((c) => c.id === raw);
+  if (direct) return direct;
+  // bare names: "feature-tabs", "dashboard", "visual-chart" → the OpenUI entry
+  const bare = raw.replace(/^openui\//, "");
+  return COMPONENT_INDEX.get(`openui/${bare}`) ?? COMPONENT_INDEX.get(`openui/visual-${bare}`) ?? ALL_COMPONENTS.find((c) => c.source === "openui" && (c.sectionType === bare || c.id.endsWith(`-${bare}`)));
+}
+/** Closest ids for a "did you mean" message. */
+export function suggestComponentIds(id: string, limit = 5): string[] {
+  const t = id.toLowerCase().replace(/^.*\//, "");
+  return searchableComponents().map((c) => ({ id: c.id, s: c.id.toLowerCase().includes(t) ? 2 : t.split(/[-_ ]/).filter((w) => w.length > 2 && c.id.toLowerCase().includes(w)).length })).filter((x) => x.s > 0).sort((a, b) => b.s - a.s).slice(0, limit).map((x) => x.id);
 }

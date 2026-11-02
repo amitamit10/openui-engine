@@ -24,7 +24,7 @@ export function ctaRow(p: any, id: string, hierarchy: DesignTokens["composition"
   return `<div class="cta-row">${btn(p.primaryCta, "primary", `${id}.cta`, true, true)}${second}</div>`;
 }
 
-export const head = (id: string, p: any, left = false) => `<div class="section-head${left ? " section-head--left" : ""} reveal">
+export const head = (id: string, p: any, left = false) => `<div class="section-head${left || p.align === "left" ? " section-head--left" : ""} reveal">
     ${p.eyebrow ? `<span class="eyebrow" data-openui-id="${id}.eyebrow">${esc(p.eyebrow)}</span>` : ""}
     <h2 class="h2" data-openui-id="${id}.title">${rich(p.title)}</h2>
     ${p.subtitle ? `<p class="lead" data-openui-id="${id}.subtitle">${esc(p.subtitle)}</p>` : ""}

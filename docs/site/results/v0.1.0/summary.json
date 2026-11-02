@@ -1,0 +1,64 @@
+{
+  "release": "v0.1.0",
+  "date": "2026-11-02",
+  "engineCommit": "45c5a44",
+  "model": "claude-haiku-5-5 (substitute for GPT-6 Luna)",
+  "design": "1 brief (Northstar) \u00d7 3 arms, n=1",
+  "engineUsedByAgent": "only arm B2 (required)",
+  "blindJudge": {
+    "model": "claude-sonnet",
+    "ranking": [
+      "B (engine unused)",
+      "A (baseline)",
+      "B2 (engine required)"
+    ],
+    "engineArmRank": 3,
+    "of": 3
+  },
+  "headline": "Engine arm ranked LAST in the blind review; arm 'engine available' made 0 MCP calls. Engine pages were more token-disciplined (12 vs ~30 colours).",
+  "notes": "originalityScoreRetro = detect_ai_slop (v0.2 detector) applied retroactively to the v0.1.0 outputs; the v0.1.0 engine had no such detector.",
+  "arms": {
+    "baseline": {
+      "label": "A \u2014 baseline",
+      "mcpCalls": 0,
+      "tokens": 105031,
+      "toolCalls": 15,
+      "seconds": 184,
+      "axeA11yErrors": 0,
+      "overflowErrors": 0,
+      "distinctColors": 29,
+      "distinctFontSizes": 17,
+      "spacingOn4pxGrid": 0.871,
+      "originalityScoreRetro": 94,
+      "behaviourChecks": "3/3"
+    },
+    "enhanced": {
+      "label": "B \u2014 engine available, unused",
+      "mcpCalls": 0,
+      "tokens": 109669,
+      "toolCalls": 28,
+      "seconds": 229,
+      "axeA11yErrors": 0,
+      "overflowErrors": 0,
+      "distinctColors": 30,
+      "distinctFontSizes": 14,
+      "spacingOn4pxGrid": 0.91,
+      "originalityScoreRetro": 100,
+      "behaviourChecks": "3/3"
+    },
+    "enhanced2": {
+      "label": "B2 \u2014 engine required",
+      "mcpCalls": 11,
+      "tokens": 140858,
+      "toolCalls": 51,
+      "seconds": 377,
+      "axeA11yErrors": 0,
+      "overflowErrors": 0,
+      "distinctColors": 12,
+      "distinctFontSizes": 9,
+      "spacingOn4pxGrid": 0.912,
+      "originalityScoreRetro": 74,
+      "behaviourChecks": "3/3"
+    }
+  }
+}
