@@ -28,4 +28,6 @@ jobs:
             npx -y @google/design.md lint /tmp/dmd/$s/DESIGN.md | node -e "let d='';process.stdin.on('data',x=>d+=x).on('end',()=>{const r=JSON.parse(d);console.log('$s',r.summary);process.exit(r.summary.errors||r.summary.warnings?1:0)})"
           done
       - name: Example site passes the browser QA gate
-        run: node packages/mcp-server/dist/call.js validate_design '{"target":"examples/saas-landing"}' --workdir "$PWD" | tee /tmp/v.json && grep -q '"passed": true' /tmp/v.json
+        run: |
+          node packages/mcp-server/dist/call.js validate_design '{"target":"examples/saas-landing"}' --workdir "$PWD" | tee /tmp/v.json
+          grep -q '"passed": true' /tmp/v.json
