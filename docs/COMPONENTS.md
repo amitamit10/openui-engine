@@ -71,7 +71,7 @@
 | **Editorial Paper** (`editorial-paper`) | light | 1/3 | agency, portfolio, saas, ecommerce | Serif display at large optical size with an italic emphasis word |
 | **Terminal Dev** (`terminal-dev`) | dark | 1/3 | devtool, ai-product, saas | Monospace display type |
 | **Warm Human** (`warm-human`) | light | 3/3 | consumer-app, saas, ecommerce | Large corner radii |
-| **Field Notes** (`field-notes`) | light | 1/3 | consumer-app, saas, fintech, ecommerce, agency, ai-product | Serif display headline with one emphasised phrase |
+| **Field Notes** (`field-notes`) | light | 1/3 | consumer-app, saas, agency | Serif display headline with one emphasised phrase |
 | **Neo Brutal** (`neo-brutal`) | light | 3/3 | agency, portfolio, consumer-app, ecommerce | 3px black outlines |
 
 ## Composition patterns
