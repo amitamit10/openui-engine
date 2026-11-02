@@ -104,7 +104,7 @@ h4.vz-b{font-family:var(--f-display);font-size:var(--t-h4);font-weight:var(--fw-
 .hero__visual .vz.vz-timeline,.hero__visual .vz.vz-chat,.hero__visual .vz.vz-code,.hero__visual .vz.vz-table,.hero__visual .vz.vz-kanban,.hero__visual .vz.vz-invoice{max-width:760px;margin-inline:auto}
 .hero--split .hero__visual .vz{margin-inline:0;max-width:none}
 .hero__visual .vz{font-size:var(--t-body);min-height:320px}.hero__visual .vz-ui{min-height:0}
-.hero--split .hero__row{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+@media(min-width:941px){.hero--split .hero__row{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}}
 
 /* feature tabs */
 .tabs{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-6)}
