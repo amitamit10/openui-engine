@@ -180,8 +180,13 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     return text({ updated: Object.keys(a.set), lint: lintTokens(p.tokens).filter((i) => i.severity !== "info") });
   });
 
-  server.registerTool("rebuild_project", { title: "Rebuild project", description: "Re-render dist/ from openui.page.json, tokens and overrides (use after editing those files by hand).", inputSchema: { projectDir: z.string() } },
-    async (a) => { const dir = ctx.safePath(a.projectDir); if (!isProject(dir)) return fail("Not an OpenUI project."); return text(rebuild(dir)); });
+  server.registerTool("rebuild_project", { title: "Rebuild project", description: "Re-render dist/ from openui.page.json, tokens and overrides (use after editing those files by hand). Pass deployDir to also copy dist/ there (e.g. 'site').", inputSchema: { projectDir: z.string(), deployDir: z.string().optional().describe("also copy the rebuilt dist/ here, e.g. 'site'") } },
+    async (a) => {
+      const dir = ctx.safePath(a.projectDir); if (!isProject(dir)) return fail("Not an OpenUI project.");
+      const out = rebuild(dir);
+      if (a.deployDir) { const dd = ctx.safePath(a.deployDir); mkdirSync(dd, { recursive: true }); cpSync(join(dir, "dist"), dd, { recursive: true }); }
+      return text(out);
+    });
 
   // 8 ────────────────────────────────────────────────────────────────────────
   server.registerTool("validate_design", {

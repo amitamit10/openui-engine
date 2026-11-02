@@ -43,7 +43,10 @@ function smooth(values: number[], W: number, H: number, max: number, pad = 10): 
 }
 
 function chartSvg(v: VisualSpec, uid: string): string {
-  const series: Array<{ label: string; values: number[] }> = (v.series ?? [{ label: "Series", values: [12, 18, 15, 24, 22, 31, 29, 38] }]).slice(0, 3);
+  const given: Array<{ label: string; values: number[] }> = (Array.isArray(v.series) ? v.series : [])
+    .map((s: any) => ({ label: String(s?.label ?? "Series"), values: (Array.isArray(s?.values) ? s.values : []).map(Number).filter((n: number) => Number.isFinite(n)) }))
+    .filter((s: { values: number[] }) => s.values.length >= 2);
+  const series: Array<{ label: string; values: number[] }> = (given.length ? given : [{ label: "Series", values: [12, 18, 15, 24, 22, 31, 29, 38] }]).slice(0, 3);
   const labels: string[] = v.labels ?? [];
   const kind = v.chart ?? "line";
   const max = Math.max(1, ...series.flatMap((s) => s.values)) * 1.15;

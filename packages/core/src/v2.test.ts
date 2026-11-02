@@ -40,6 +40,12 @@ describe("domain visuals", () => {
       expect(html, kind).not.toMatch(/<script/i);
     }
   });
+  it("chart renders a sensible default instead of throwing on empty or malformed series", () => {
+    for (const series of [[], [{ label: "a", values: [] }], [{ label: "a" }], [{ label: "a", values: [5] }], "nope", null]) {
+      expect(() => renderVisual({ kind: "chart", chart: "area", series } as any, "c")).not.toThrow();
+      expect(renderVisual({ kind: "chart", chart: "bars", series } as any, "c")).toContain("<svg");
+    }
+  });
   it("renders real chart geometry from data", () => {
     const svg = renderVisual({ kind: "chart", chart: "bars", labels: ["a", "b"], series: [{ label: "s", values: [10, 20] }] } as any, "c");
     expect((svg.match(/<rect class="b b0"/g) ?? []).length).toBe(2);
