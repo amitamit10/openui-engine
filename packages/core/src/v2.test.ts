@@ -76,7 +76,7 @@ describe("planner", () => {
   });
   it("uses tabs when ≥3 features carry visuals, and varies hero layout by visual shape", () => {
     const p = planSite(brief());
-    expect(p.layout.find((l) => l.id === "features")!.type).toBe("feature-tabs");
+    expect(p.layout.find((l) => l.id === "features")!.type).toBe("feature-rows");
     expect(p.layout.find((l) => l.id === "hero")!.type).toBe("hero-split"); // timeline is narrow
     const wide = planSite(brief({ heroVisual: { kind: "table", columns: ["a"], rows: [["b"]] } as any }));
     expect(wide.layout.find((l) => l.id === "hero")!.type).toBe("hero-centered-product");

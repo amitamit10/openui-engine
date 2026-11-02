@@ -202,7 +202,7 @@ describe("design → compose → verify → review loop", () => {
     const r = await call("build_site", { projectDir: "ns", deployDir: "ns-out", brief });
     expect(r.isError).toBe(false);
     const out = JSON.parse(r.text);
-    expect(out.layout.join("\n")).toMatch(/feature-tabs/);
+    expect(out.layout.join("\n")).toMatch(/feature-rows/);
     expect(out.icons).toMatch(/^\d+\/\d+ fetched/);
     expect(out.gate.passed).toBe(true);
     expect(existsSync(join(work, "ns-out/index.html"))).toBe(true);
@@ -216,7 +216,10 @@ describe("design → compose → verify → review loop", () => {
     await expect.poll(() => pg.locator("[data-form] .form__note").textContent()).toMatch(/valid email/i);
     await pg.fill("#cta-email", "ana@quillstone.io"); await pg.click("[data-form] button");
     await expect.poll(() => pg.locator("[data-form] .form__note").textContent()).toMatch(/Thanks/);
-    // feature tabs: keyboard navigation
+    // feature tabs (opt-in via featureLayout): keyboard navigation
+    const rt = await call("build_site", { projectDir: "ns", deployDir: "ns-out", patch: { featureLayout: "tabs" }, verify: false, images: false });
+    expect(JSON.parse(rt.text).layout.join("\n")).toMatch(/feature-tabs/);
+    await pg.reload();
     await pg.locator("[role=tab]").first().focus(); await pg.keyboard.press("ArrowRight");
     await expect.poll(() => pg.locator("[role=tab][aria-selected=true]").textContent()).toMatch(/Respond/);
     await br.close();
