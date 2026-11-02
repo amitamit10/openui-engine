@@ -158,7 +158,16 @@ describe("v0.2.1 regressions (found by agents using the engine)", () => {
   it("v0.3.0: tone words pick the style; dark only when asked for or technical", () => {
     const top = (name: string, description: string, category: SiteCategory) => matchStyles({ name, description, category })[0]!.style;
     expect(top("Fieldnote", "private journaling app for therapy, warm, safe, human, unhurried", "consumer-app")).toBe("field-notes");
-    expect(top("Ledgerline", "invoicing for freelancers, trustworthy, plain-spoken, precise", "fintech")).toBe("field-notes");
+    expect(top("Ledgerline", "invoicing for freelancers, plain-spoken, grounded, unhurried", "fintech")).toBe("field-notes");
+    // v0.4.0: domain vocabulary spreads briefs across art directions instead of defaulting to one look
+    expect(top("Pawpath", "a neighbourhood network of veterinary clinics, reassuring, practical", "consumer-app")).toBe("warm-human");
+    expect(top("Summitworks", "a climbing gym with classes and memberships, energetic, welcoming", "consumer-app")).toBe("neo-brutal");
+    expect(top("Freightly", "shipment tracking for freight forwarders, precise, dependable", "saas")).toBe("clarity-light");
+    const picks = new Set([
+      top("Pawpath", "veterinary clinics, reassuring, practical", "consumer-app"), top("Summitworks", "climbing gym, energetic", "consumer-app"),
+      top("Freightly", "freight tracking, precise, dependable", "saas"), top("Fieldnote", "private journaling for therapy, unhurried", "consumer-app"),
+    ]);
+    expect(picks.size).toBeGreaterThanOrEqual(4);
     expect(top("Gridwise", "observability for data pipelines, technical, honest, calm, data engineers", "devtool")).toBe("terminal-dev");
     expect(top("Atelier", "architecture studio, refined, editorial, quietly confident", "agency")).toBe("editorial-paper");
     expect(top("Nova", "a dark premium AI platform", "ai-product")).toBe("aurora-dark");
@@ -181,5 +190,20 @@ describe("v0.2.1 regressions (found by agents using the engine)", () => {
     const p = planSite(briefTemplate("saas")); const css = buildSite(p.spec, p.tokens, {}, {}).files["styles.css"]!;
     expect(css).toContain(".logo-word i{display:none}");
     for (const style of STYLE_IDS) expect(parseFloat(generateTokens({ name: "T", style }).type.scale.display!.tracking), style).toBeGreaterThanOrEqual(-0.03);
+  });
+});
+
+describe("v0.4.0: composed hero and ink metrics band", () => {
+  it("renders hero floats (escaped, max 3) and an ink metrics band by default", () => {
+    const brief: any = { name: "Acme", headline: "Ship *faster*", subheadline: "Acme ships things quickly for teams.", category: "saas", primaryCta: "Start",
+      features: [{ title: "A", body: "a body", visual: { kind: "list", items: ["x"] } }, { title: "B", body: "b body", visual: { kind: "list", items: ["y"] } }, { title: "C", body: "c body", visual: { kind: "list", items: ["z"] } }],
+      heroVisual: { kind: "ui", title: "Screen", blocks: [{ type: "text", text: "hello" }] },
+      heroFloats: [{ label: "<b>x</b>", value: "9", tone: "good" }, { label: "two", value: "2" }, { label: "three", value: "3" }, { label: "four", value: "4" }],
+      metrics: [{ value: "1", label: "one" }, { value: "2", label: "two" }, { value: "3", label: "three" }, { value: "4", label: "four" }] };
+    const planned = planSite(brief);
+    const html = buildSite(planned.spec, planned.tokens, {}, {}).files["index.html"]!;
+    expect((html.match(/class="hfloat /g) ?? []).length).toBe(3);
+    expect(html).not.toContain("<b>x</b>");
+    expect(html).toContain("section--ink");
   });
 });

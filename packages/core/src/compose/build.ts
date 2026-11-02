@@ -23,6 +23,8 @@ export interface SiteBrief {
   heroNote?: string;
   /** Domain visual for the hero, e.g. {kind:"timeline", items:[…]}. */
   heroVisual?: VisualSpec;
+  /** 1-3 small stat chips layered over the hero visual, e.g. {label:"Next free slot",value:"Today 4:10pm",tone:"good"}. Makes the hero read as a composed product scene. */
+  heroFloats?: Array<{ label: string; value: string; tone?: "good" | "warn" | "info" }>;
   logos?: string[];
   logosLabel?: string;
   /** 3–6 capabilities. Give each a `visual` when possible: it becomes an interactive tab with a product screenshot. */
@@ -92,7 +94,7 @@ export function planSite(input: SiteBrief): PlannedSite {
 
   const hv = brief.heroVisual;
   const heroType = !hv && comp.heroVariant === "editorial" ? "hero-editorial" : hv && WIDE.includes(hv.kind) ? "hero-centered-product" : hv ? "hero-split" : comp.heroVariant === "split" ? "hero-split" : "hero-centered-product";
-  add("hero", heroType, { title: brief.headline, subtitle: brief.subheadline, primaryCta: cta(brief.primaryCta, primaryHref), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined, note: brief.heroNote, ...(hv ? { visual: hv } : {}), ...(heroType === "hero-editorial" ? { stats: (brief.metrics ?? []).slice(0, 3).map((m) => ({ value: m.value, label: m.label })) } : {}) },
+  add("hero", heroType, { title: brief.headline, subtitle: brief.subheadline, primaryCta: cta(brief.primaryCta, primaryHref), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined, note: brief.heroNote, floats: brief.heroFloats?.slice(0, 3), ...(hv ? { visual: hv } : {}), ...(heroType === "hero-editorial" ? { stats: (brief.metrics ?? []).slice(0, 3).map((m) => ({ value: m.value, label: m.label })) } : {}) },
     hv ? `hero shows the product itself (${hv.kind}); ${WIDE.includes(hv.kind) ? "wide visual → centered layout" : "narrow visual → split layout"}` : `no hero visual given → ${heroType}`);
 
   if (brief.logos?.length) add("logos", "logo-cloud", { label: brief.logosLabel ?? "Trusted by teams at", logos: brief.logos, marquee: brief.logos.length >= 7 }, "social proof directly under the hero");
@@ -110,7 +112,7 @@ export function planSite(input: SiteBrief): PlannedSite {
   if (brief.how) add("how", brief.how.visual ? "steps-timeline" : "steps", { anchor: "how", eyebrow: "How it works", ...brief.how, items: brief.how.steps }, brief.how.visual ? "steps with a sticky product visual" : "three simple steps");
   if (brief.integrations) add("integrations", "integrations", brief.integrations, "shows fit with the stack");
   const sparkish = (brief.metrics ?? []).some((m) => Array.isArray(m.spark) && m.spark.length > 2);
-  if (brief.metrics?.length) add("metrics", sparkish ? "metrics-spark" : "metrics", { tint: true, items: brief.metrics.slice(0, 4) }, sparkish ? "metric cards with sparklines" : "plain stat band");
+  if (brief.metrics?.length) add("metrics", sparkish ? "metrics-spark" : "metrics", { tint: true, ink: !sparkish, items: brief.metrics.slice(0, 4) }, sparkish ? "metric cards with sparklines" : "plain stat band");
   const t = brief.testimonials ?? [];
   if (t.length === 1 || (t.length >= 1 && t.length < 3)) add("testimonials", "quote-feature", { quote: t[0]!.quote, name: t[0]!.name, role: t[0]!.role, stats: t[0]!.stats ?? [], tint: !brief.metrics?.length }, "one strong quote beats three vague ones");
   else if (t.length >= 3) add("testimonials", "testimonial-wall", { title: "What customers say", items: t.slice(0, 5).map((q, i) => ({ ...q, big: i === 0 })) }, "varied masonry wall");
@@ -137,6 +139,7 @@ export function briefTemplate(category: SiteCategory = "saas"): SiteBrief {
     // style is optional: leave it out and the engine picks from your tone words. Options: see styleGuide() — e.g. "field-notes" (warm paper, serif), "clarity-light", "editorial-paper", "warm-human", "terminal-dev", "aurora-dark", "neo-brutal".
     primaryCta: "Start a free trial", secondaryCta: "See how it works", heroNote: "14-day trial · no card",
     // Show YOUR product doing its job with specific data. kind:"ui" composes a bespoke screen from blocks (5-8 recommended):
+    heroFloats: [{ label: "A specific number from the product", value: "e.g. 38 sec", tone: "good" }, { label: "A second proof point", value: "e.g. 2 flagged", tone: "warn" }],
     heroVisual: { kind: "ui", title: "Name of the screen", blocks: [
       { type: "text", label: "Prompt from your therapist", text: "A specific, in-character line the product shows", style: "italic" },
       { type: "text", text: "A second line of realistic content the user wrote or sees." },

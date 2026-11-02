@@ -15,9 +15,24 @@ ul,ol{padding:0;list-style:none}
 
 .container{width:100%;max-width:calc(var(--container) + var(--gutter)*2);margin-inline:auto;padding-inline:var(--gutter)}
 .section{padding-block:var(--section-y);position:relative}
-.section:not(.section--tint)+.section:not(.section--tint){padding-top:calc(var(--section-y)*.3)}
+.section:not(.section--tint):not(.section--ink)+.section:not(.section--tint):not(.section--ink){padding-top:calc(var(--section-y)*.3)}
 .hero+.section:not(.section--tint),.hero+.logos{margin-top:0}
 .section--tint{background:var(--c-surface)}
+.section--ink{background:var(--c-text);color:var(--c-bg)}
+.section--ink .metric{border-top-color:color-mix(in srgb,var(--c-bg) 30%,transparent)}
+.section--ink .metric strong{color:var(--c-bg)}
+.section--ink .metric span{color:color-mix(in srgb,var(--c-bg) 82%,var(--c-text))}
+.section--ink .h2,.section--ink .h3,.section--ink .eyebrow{color:var(--c-bg)}
+.hero__visual{position:relative}
+.hfloat{position:absolute;display:grid;gap:2px;padding:var(--s-3) var(--s-4);background:var(--c-bg);color:var(--c-text);border:var(--bw) solid var(--c-border);border-radius:var(--r-lg);box-shadow:var(--sh-md);font-size:var(--t-small);line-height:1.3;z-index:2}
+.hfloat span{color:var(--c-muted);font-size:var(--t-caption)}
+.hfloat strong{font-family:var(--f-display);font-weight:var(--fw-h1);font-size:var(--t-h4);display:flex;align-items:center;gap:var(--s-2)}
+.hfloat strong::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c-accent);flex:none}
+.hfloat--good strong::before{background:var(--c-success)}.hfloat--warn strong::before{background:var(--c-warning)}
+.hero__floats .hfloat:nth-child(1){left:-5%;bottom:10%;transform:rotate(-2deg)}
+.hero__floats .hfloat:nth-child(2){right:-2%;top:-5%;transform:rotate(1.5deg)}
+.hero__floats .hfloat:nth-child(3){right:6%;bottom:-6%;transform:rotate(-1deg)}
+@media (max-width:940px){.hero__floats{display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:var(--s-4)}.hfloat{position:static!important;transform:none!important}}
 .stack>*+*{margin-top:var(--s-4)}
 
 .eyebrow{display:inline-flex;align-items:center;gap:var(--s-2);font-size:var(--t-caption);line-height:var(--lh-caption);font-weight:var(--fw-caption);letter-spacing:var(--tr-caption);text-transform:uppercase;color:var(--c-accent-text)}

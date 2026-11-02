@@ -117,7 +117,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
       ${ctaRow(p, id, tokens.composition.ctaHierarchy)}
       ${p.note ? `<p class="hero__note" data-openui-id="${id}.note">${esc(p.note)}</p>` : ""}
     </div>
-    <div class="hero__visual">${p.visual ? renderVisual(p.visual, `${id}hv`) : dashboardMock(id, spec.brand.name, p.mock)}</div>
+    <div class="hero__visual">${p.visual ? renderVisual(p.visual, `${id}hv`) : dashboardMock(id, spec.brand.name, p.mock)}${Array.isArray(p.floats) && p.floats.length ? `<div class="hero__floats">${p.floats.map((f: any, i: number) => `<div class="hfloat hfloat--${esc(f.tone ?? "info")}" data-openui-id="${id}.float${i}"><span>${esc(f.label)}</span><strong>${esc(f.value)}</strong></div>`).join("")}</div>` : ""}</div>
   </div>
 </section>`;
   },
@@ -172,7 +172,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
   metrics: (s) => {
     const p = s.props, id = s.id;
     const items = (p.items ?? []) as Array<{ value: string; label: string }>;
-    return wrap(s, `${p.title ? head(id, p) : ""}<div class="metrics reveal">${items.map((m, i) => `<div class="metric"><strong data-openui-id="${id}.m${i}">${esc(m.value)}</strong><span>${esc(m.label)}</span></div>`).join("")}</div>`, "", !!p.tint);
+    return wrap(s, `${p.title ? head(id, p) : ""}<div class="metrics reveal">${items.map((m, i) => `<div class="metric"><strong data-openui-id="${id}.m${i}">${esc(m.value)}</strong><span>${esc(m.label)}</span></div>`).join("")}</div>`, p.ink ? "section--ink" : "", p.ink ? false : !!p.tint);
   },
 
   steps: (s, ctx) => {
