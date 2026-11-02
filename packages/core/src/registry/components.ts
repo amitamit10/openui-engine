@@ -1,4 +1,5 @@
 import type { ComponentMeta, Runtime, SourceId } from "./types.js";
+import { indexedComponents } from "./inferred.js";
 import type { SiteCategory, StyleId } from "../design/types.js";
 
 const ALL_STYLES: StyleId[] = ["aurora-dark", "clarity-light", "editorial-paper", "terminal-dev", "warm-human", "neo-brutal"];
@@ -6,7 +7,7 @@ const APACHE = { spdx: "Apache-2.0", verified: true, note: "Original OpenUI Engi
 
 const a11yOk = { keyboard: true, reducedMotion: true, notes: "Semantic HTML, visible focus, motion gated by prefers-reduced-motion." };
 
-function own(m: Partial<ComponentMeta> & Pick<ComponentMeta, "id" | "name" | "slot" | "summary" | "sectionType">): ComponentMeta {
+function own(m: Partial<ComponentMeta> & Pick<ComponentMeta, "id" | "name" | "slot" | "summary">): ComponentMeta {
   return {
     source: "openui",
     kind: "section",
@@ -58,9 +59,49 @@ export const OPENUI_SECTIONS: ComponentMeta[] = [
     summary: "Native <details> accordion: keyboard and screen-reader support with zero JS.", props: ["title", "subtitle", "items[{q,a}]"] }),
   own({ id: "openui/cta-band", name: "Closing CTA band", slot: "cta", sectionType: "cta-band", traits: { energy: 1, density: 1 },
     summary: "Rounded panel with a glow, a single clear ask and the same CTA hierarchy as the hero.", props: ["title", "subtitle", "primaryCta", "secondaryCta"] }),
+  own({ id: "openui/feature-tabs", name: "Interactive feature tabs", slot: "features", sectionType: "feature-tabs", traits: { energy: 1, density: 4 },
+    summary: "Accessible tablist (arrow/Home/End keys) where each tab pairs copy with a domain visual — depth without a wall of identical cards.", props: ["eyebrow", "title", "tabs[{label,icon,title,body,bullets,visual}]"], pairsWith: ["openui/hero-split"] }),
+  own({ id: "openui/feature-showcase", name: "Hero visual + callouts", slot: "features", sectionType: "feature-showcase", traits: { energy: 1, density: 3 },
+    summary: "One large domain visual with 3–4 icon callouts beneath; ideal for a data-heavy product.", props: ["title", "visual", "callouts[{icon,title,body}]"] }),
+  own({ id: "openui/comparison", name: "Before / with-us comparison", slot: "features", sectionType: "comparison", traits: { energy: 0, density: 2 },
+    summary: "Two cards: the painful old way versus the product, with cross/check lists.", props: ["title", "them{label,items}", "us{label,items}"] }),
+  own({ id: "openui/integrations", name: "Integration tiles", slot: "logos", sectionType: "integrations", traits: { energy: 0, density: 3 },
+    summary: "Grid of tool tiles with icons from the icon libraries.", props: ["title", "items[{name,icon,desc}]"] }),
+  own({ id: "openui/quote-feature", name: "Featured quote with stats", slot: "testimonials", sectionType: "quote-feature", traits: { energy: 0, density: 2 },
+    summary: "One large customer quote beside two outcome statistics — more credible than three vague cards.", props: ["quote", "name", "role", "stats[{value,label}]"] }),
+  own({ id: "openui/testimonial-wall", name: "Masonry testimonial wall", slot: "testimonials", sectionType: "testimonial-wall", traits: { energy: 0, density: 3 },
+    summary: "Varied-length quotes in columns; avoids the identical three-card row.", props: ["title", "items[{quote,name,role,big}]"] }),
+  own({ id: "openui/steps-timeline", name: "Vertical steps + sticky visual", slot: "steps", sectionType: "steps-timeline", traits: { energy: 1, density: 3 },
+    summary: "Numbered vertical timeline with a visual that stays in view; replaces the three equal step cards.", props: ["title", "steps[{title,body}]", "visual"] }),
+  own({ id: "openui/cta-split", name: "Split CTA with email capture", slot: "cta", sectionType: "cta-split", traits: { energy: 1, density: 2 },
+    summary: "Copy and tick list beside an accessible email form (validated, live-region feedback).", props: ["title", "subtitle", "bullets", "form{label,placeholder,button,note,success}"] }),
+  own({ id: "openui/metrics-spark", name: "Metric cards with sparklines", slot: "metrics", sectionType: "metrics-spark", traits: { energy: 0, density: 3 },
+    summary: "Stat cards with delta and sparkline; more informative than a bare number row.", props: ["title", "items[{label,value,delta,spark}]"] }),
+  own({ id: "openui/faq-split", name: "Split FAQ", slot: "faq", sectionType: "faq-split", traits: { energy: 0, density: 2 },
+    summary: "Sticky heading on the left, native accordion on the right.", props: ["title", "subtitle", "cta", "items[{q,a}]"] }),
   own({ id: "openui/footer-columns", name: "Columned footer", slot: "footer", sectionType: "footer-columns", traits: { energy: 0, density: 3 },
     summary: "Brand blurb plus three link columns, legal line.", props: ["tagline", "columns[{title,links}]", "legal", "note"] }),
 ];
+
+
+/** Domain visuals (data-driven product screenshots). `visual:{kind:…}` is accepted by hero, bento, rows, tabs, showcase, steps-timeline. */
+const VIS: Array<[string, string, string]> = [
+  ["timeline", "Incident / activity timeline", "Dot-and-line feed with times, statuses and tags — incident response, audit logs, order tracking."],
+  ["chat", "Chat / assistant conversation", "Bubbles with meta lines, suggestion chips and an input — AI assistants, support, messaging."],
+  ["code", "Code editor", "Line-numbered, syntax-highlighted snippet — SDKs, APIs, config."],
+  ["terminal", "Terminal session", "Prompt lines with highlighted output — CLIs and infrastructure."],
+  ["kanban", "Kanban board", "Columns with cards, tags and counts — project management, hiring, support queues."],
+  ["table", "Data table with status pills", "Headers, rows and tone-coloured pills — admin, CRM, inventory, reliability."],
+  ["chart", "Line / area / bar / donut chart", "Real scaled SVG from your series, axes and legend — analytics, finance, health."],
+  ["invoice", "Invoice document", "Header, line items, total and status — billing, accounting, procurement."],
+  ["schedule", "Week schedule grid", "Rotas, bookings and calendars — on-call, clinics, classes, staffing."],
+  ["gallery", "Generative art gallery", "Deterministic abstract tiles using the palette (no stock images) — studios, portfolios."],
+  ["product-cards", "Product cards", "Swatch images, price and badges — ecommerce and marketplaces."],
+  ["checklist", "Checklist", "Done/undone rows with meta — onboarding, compliance, habits."],
+  ["metrics", "Metric cards + sparklines", "KPI tiles with delta and sparkline."],
+  ["dashboard", "Dashboard window", "Sidebar, KPIs and area chart (hero `mock` props)."],
+];
+export const VISUAL_COMPONENTS: ComponentMeta[] = VIS.map(([kind, name, summary]) => own({ id: `openui/visual-${kind}`, name, slot: "primitive", kind: "block", sectionType: undefined as never, summary, traits: { energy: 0, density: 3 }, props: [`visual:{kind:"${kind}", …data}`] }));
 
 interface Ext {
   id: string; name: string; source: SourceId; slot: ComponentMeta["slot"]; summary: string; item: string;
@@ -140,5 +181,21 @@ export const EXTERNAL: ComponentMeta[] = [
   ext({ id: "reactbits/animated-content", name: "React Bits AnimatedContent", source: "reactbits", slot: "layout", item: "AnimatedContent-JS-CSS", runtimes: ["gsap"], deps: ["gsap"], energy: 2, weight: 28, summary: "Scroll-reveal wrapper (slide, blur, stagger) via GSAP — only worth it if the page already ships GSAP.", styles: ["warm-human", "neo-brutal", "aurora-dark"], reducedMotion: false }),
 ];
 
-export const ALL_COMPONENTS: ComponentMeta[] = [...OPENUI_SECTIONS, ...EXTERNAL];
+/** Hand-reviewed components only. Use `searchableComponents()` for curated + indexed. */
+export const ALL_COMPONENTS: ComponentMeta[] = [...OPENUI_SECTIONS, ...VISUAL_COMPONENTS, ...EXTERNAL].map((c) => ({ ...c, confidence: "curated" as const }));
 export const COMPONENT_INDEX = new Map(ALL_COMPONENTS.map((c) => [c.id, c]));
+
+let merged: ComponentMeta[] | null = null;
+/** Curated entries first; indexed entries with the same id are dropped so reviewed metadata always wins. */
+export function searchableComponents(): ComponentMeta[] {
+  if (!merged) {
+    const seen = new Set(ALL_COMPONENTS.map((c) => c.id));
+    const extra = indexedComponents().filter((c) => (seen.has(c.id) ? false : (seen.add(c.id), true)));
+    merged = [...ALL_COMPONENTS, ...extra];
+  }
+  return merged;
+}
+/** Lookup across curated + indexed components. */
+export function findComponent(id: string): ComponentMeta | undefined {
+  return COMPONENT_INDEX.get(id) ?? searchableComponents().find((c) => c.id === id);
+}

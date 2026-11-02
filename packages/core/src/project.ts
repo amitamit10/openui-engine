@@ -11,7 +11,7 @@ import type { PageSpec } from "./compose/sections.js";
  *   openui.page.json (page spec) · openui.overrides.json (visual-editor tweaks)
  *   dist/ (rendered static site: deployable as-is to Vercel/Netlify/Pages)
  */
-export interface Project { dir: string; tokens: DesignTokens; spec: PageSpec; overrides: Overrides }
+export interface Project { dir: string; tokens: DesignTokens; spec: PageSpec; overrides: Overrides; icons?: Record<string, string> }
 
 const f = (dir: string, name: string) => join(dir, name);
 const write = (p: string, c: string) => { mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, c); };
@@ -31,6 +31,7 @@ export function loadProject(dir: string): Project {
     tokens: readJson<DesignTokens>(f(d, "openui.tokens.json")),
     spec: readJson<PageSpec>(f(d, "openui.page.json")),
     overrides: readJson<Overrides>(f(d, "openui.overrides.json"), {}),
+    icons: readJson<Record<string, string>>(f(d, "openui.icons.json"), {}),
   };
 }
 
@@ -40,10 +41,11 @@ export function saveProject(p: Project): { files: string[] } {
   w("openui.tokens.json", JSON.stringify(p.tokens, null, 2) + "\n");
   w("openui.page.json", JSON.stringify(p.spec, null, 2) + "\n");
   w("openui.overrides.json", JSON.stringify(p.overrides, null, 2) + "\n");
+  if (p.icons && Object.keys(p.icons).length) w("openui.icons.json", JSON.stringify(p.icons) + "\n");
   w("DESIGN.md", renderDesignMd(p.tokens));
   w("tokens.json", renderTokensJson(p.tokens));
   w("tokens.css", renderTokensCss(p.tokens));
-  const site = buildSite(p.spec, p.tokens, p.overrides);
+  const site = buildSite(p.spec, p.tokens, p.overrides, p.icons ?? {});
   for (const [name, content] of Object.entries(site.files)) w(`dist/${name}`, content);
   return { files: [...files, ...Object.keys(site.files).map((n) => `dist/${n}`)] };
 }

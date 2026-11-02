@@ -124,7 +124,7 @@ Modular scale ratio 1.25; sizes are fluid between a 375px and a 1280px viewport.
 
 ## Layout
 
-Container 1200px, 12-column grid, 24px gutters. Spacing is a 4px base unit; section padding is fluid 72–128px.
+Container 1200px, 12-column grid, 24px gutters. Spacing is a 4px base unit; section padding is fluid 56–104px.
 Section transitions: Hairline dividers and radial accent glows; surfaces step up one elevation per layer.
 
 ## Elevation & Depth

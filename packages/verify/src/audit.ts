@@ -4,6 +4,7 @@ import { join } from "node:path";
 import type { Page } from "playwright-core";
 import type { DesignTokens } from "@openui-engine/core";
 import { getBrowser } from "./browser.js";
+import { detectSlop } from "./slop.js";
 import { VIEWPORTS, type AuditReport, type Compliance, type Issue, type PageMetrics, type Viewport, type ViewportReport } from "./types.js";
 
 const require = createRequire(import.meta.url);
@@ -348,6 +349,11 @@ export async function auditViewport(url: string, vp: Viewport, opts: AuditOption
     const hit = opts.starterMarkers.filter((m) => body.includes(m));
     if (hit.length) issues.push({ severity: "warning", category: "content", message: `Starter placeholder copy is still on the page: ${hit.slice(0, 6).map((h) => `"${h}"`).join(", ")}${hit.length > 6 ? ` (+${hit.length - 6})` : ""}.`, fix: "Rewrite those sections via compose_page sectionProps (mock/visual data are configurable) so no unrelated demo content ships." });
   }
+  let slop: ViewportReport["slop"];
+  if (!vp.mobile && vp.width >= 1000) {
+    slop = await detectSlop(page);
+    for (const f of slop.findings) if (f.severity === "warning") issues.push({ severity: "warning", category: "content", message: `[slop:${f.rule}] ${f.message}`, fix: "Replace the generic pattern with something specific to this product (see detect_ai_slop guidance)." });
+  }
   const interactions = await interactionTests(page, !!vp.mobile, vp.height);
   for (const i of interactions) if (!i.passed) issues.push({ severity: "error", category: "interaction", message: `Interaction failed — ${i.name}: ${i.detail}` });
 
@@ -371,7 +377,7 @@ export async function auditViewport(url: string, vp: Viewport, opts: AuditOption
     }
   }
   await ctx.close();
-  return { viewport: vp, issues: dedupe(issues), compliance, metrics: collected.metrics, interactions, screenshots: shots, animations: { runningNormal, infiniteReduced: reduced.infinite } };
+  return { viewport: vp, issues: dedupe(issues), slop, compliance, metrics: collected.metrics, interactions, screenshots: shots, animations: { runningNormal, infiniteReduced: reduced.infinite } };
 }
 
 function dedupe(list: Issue[]): Issue[] {

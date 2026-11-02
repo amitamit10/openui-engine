@@ -5,7 +5,7 @@ export type Slot =
   | "pricing" | "faq" | "cta" | "footer" | "primitive" | "background" | "text-effect" | "layout";
 
 export type Runtime = "none" | "motion" | "gsap" | "three" | "radix" | "base-ui" | "tailwind";
-export type SourceId = "openui" | "fluid" | "shadcn" | "magicui" | "aceternity" | "reactbits" | "bencho";
+export type SourceId = "openui" | "fluid" | "shadcn" | "magicui" | "aceternity" | "reactbits" | "bencho" | "kibo" | "cult" | "motionprimitives" | "animateui" | "eldora" | "tripled";
 
 export interface ComponentMeta {
   id: string;
@@ -39,6 +39,8 @@ export interface ComponentMeta {
   /** Props schema hint for OpenUI sections (names only, concise). */
   props?: string[];
   variantGroup?: string;
+  /** curated = hand-reviewed metadata; inferred = derived from the registry entry's name/description/dependencies. */
+  confidence?: "curated" | "inferred";
   /** Hand-curated "pairs well with" and "avoid with" for composition reasoning. */
   pairsWith?: string[];
   avoidWith?: string[];

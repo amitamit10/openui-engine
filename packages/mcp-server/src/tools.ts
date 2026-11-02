@@ -1,13 +1,13 @@
-import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync, existsSync, cpSync } from "node:fs";
 import { join, relative } from "node:path";
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
-  ALL_COMPONENTS, COMPONENT_INDEX, RENDERERS, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
+  ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, collectIconRefs, fetchIcons, findComponent, lintCopy, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
   loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, getSources, setTokenPath, suggestLayout, applyTweaks,
   type DesignTokens, type PageSpec, type SectionSpec, type SectionType, type SiteCategory, type StyleId,
 } from "@openui-engine/core";
-import { auditTarget, capture, serveDir, VIEWPORTS, formatReport } from "@openui-engine/verify";
+import { auditTarget, capture, serveDir, VIEWPORTS, formatReport, detectSlop, getBrowser } from "@openui-engine/verify";
 import { applyPending } from "@openui-engine/editor";
 import type { ServerContext } from "./context.js";
 
@@ -44,15 +44,16 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
       style: STYLE.optional().describe("Art direction; defaults to the project's style when projectDir is given, else aurora-dark"),
       category: CATEGORY.optional(),
       framework: z.enum(["html", "react"]).optional().describe("'html' excludes React-only components"),
-      source: z.enum(["openui", "fluid", "shadcn", "magicui", "aceternity", "reactbits"]).optional(),
+      source: z.string().optional().describe("library id: openui, shadcn, magicui, reactbits, aceternity, fluid, kibo, cult, motionprimitives, animateui, eldora, tripled (see list_libraries)"),
+      includeInferred: z.boolean().default(true).describe("false = only hand-reviewed components"),
       projectDir: z.string().optional(),
       limit: z.number().int().min(1).max(15).default(6),
     },
   }, async (a) => {
     let style = a.style as StyleId | undefined;
     if (!style && a.projectDir) { try { style = loadProject(ctx.safePath(a.projectDir)).tokens.meta.style; } catch { /* fall through */ } }
-    const results = discover({ style: style ?? "aurora-dark", category: a.category as SiteCategory | undefined, slot: a.slot, framework: a.framework, query: a.query, limit: a.limit, source: a.source });
-    return text({ style: style ?? "aurora-dark", total_in_registry: ALL_COMPONENTS.length, results });
+    const results = discover({ style: style ?? "aurora-dark", category: a.category as SiteCategory | undefined, slot: a.slot, framework: a.framework, query: a.query, limit: a.limit, source: a.source, includeInferred: a.includeInferred });
+    return text({ style: style ?? "aurora-dark", searchable: searchableComponents().length, curated: ALL_COMPONENTS.length, note: "entries marked confidence:inferred have metadata derived from the registry entry, not hand-reviewed", results });
   });
 
   // 2 ────────────────────────────────────────────────────────────────────────
@@ -61,7 +62,7 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     description: "Full metadata for one component id. detail='meta' (default) returns capabilities, compatibility, license status and props. detail='source' additionally returns, for OpenUI sections, an example JSON spec + rendered HTML, and for third-party registry items, the live source files fetched on demand from the project's own registry (truncated).",
     inputSchema: { id: z.string().describe("e.g. openui/pricing or fluid/tabs"), detail: z.enum(["meta", "source"]).default("meta"), style: STYLE.optional() },
   }, async (a) => {
-    const c = COMPONENT_INDEX.get(a.id);
+    const c = findComponent(a.id);
     if (!c) return fail(`Unknown component "${a.id}". Use discover_components to find ids.`);
     const out: Record<string, unknown> = { ...c };
     if (a.detail === "source") {
@@ -75,7 +76,7 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
         const sec = spec.sections.find((s) => s.type === c.sectionType);
         if (sec) {
           out.example_spec = sec;
-          out.example_html = RENDERERS[sec.type as SectionType](sec, { tokens, spec }).slice(0, 5000);
+          out.example_html = RENDERERS[sec.type as SectionType](sec, { tokens, spec, icons: {} }).slice(0, 5000);
         }
       }
     }
@@ -291,5 +292,96 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     }
     if (dir && existsSync(join(dir, "openui.overrides.json"))) out.overrides = JSON.parse(readFileSync(join(dir, "openui.overrides.json"), "utf8"));
     return text(out);
+  });
+
+  // ── libraries ──────────────────────────────────────────────────────────────
+  server.registerTool("list_libraries", {
+    title: "List libraries",
+    description: "Every component and icon library the engine can search or fetch live: item counts, how many entries are hand-reviewed vs inferred, and licence status. Registries are indexed as metadata only; source is fetched on demand and never vendored.",
+    inputSchema: {},
+  }, async () => text({
+    indexedOn: INDEX_GENERATED_AT, searchableComponents: searchableComponents().length, curated: ALL_COMPONENTS.length,
+    componentLibraries: [{ id: "openui", name: "OpenUI original sections + domain visuals", items: ALL_COMPONENTS.filter((c) => c.source === "openui").length, license: "Apache-2.0" }, ...LIBRARIES.map((l) => ({ id: l.id, name: l.name, items: l.items, live: l.live, license: "see get_component per item (mostly unverified)" }))],
+    iconLibraries: ICON_SETS, visualKinds: VISUAL_KINDS,
+  }));
+
+  server.registerTool("search_icons", {
+    title: "Search icons",
+    description: "Find icon names across Lucide (ISC), Phosphor, Heroicons and Tabler (MIT) — 9,000+ icons. Returns refs like `lucide:siren` to use as the `icon` field of features, callouts, integrations and steps; the engine fetches and inlines the SVG at build time (offline fallback included). Understands concepts: incident, payment, analytics, security…",
+    inputSchema: { query: z.string(), set: z.enum(["lucide", "tabler", "heroicons", "phosphor"]).optional(), limit: z.number().int().min(1).max(30).default(10) },
+  }, async (a) => text({ query: a.query, results: searchIcons({ query: a.query, set: a.set, limit: a.limit }).map((h) => h.ref) }));
+
+  // ── one-call build ─────────────────────────────────────────────────────────
+  server.registerTool("brief_template", {
+    title: "Site brief template",
+    description: "Returns a complete example SiteBrief for a category with visual-kind suggestions. Copy it, REWRITE EVERY FIELD with specific copy for the real product, then pass it to build_site. Visual kinds: " + VISUAL_KINDS.join(", ") + ".",
+    inputSchema: { category: CATEGORY.default("saas") },
+  }, async (a) => text({ visualSuggestions: VISUAL_SUGGESTIONS[a.category as SiteCategory], rules: ["Headline 5–12 words with ONE *emphasised* phrase", "No buzzwords (seamless, unlock, supercharge, all-in-one…)", "Every feature gets a visual that shows THIS product's data", "Testimonials need a number; use distinctive fictional names", "Use real domain data inside visuals (times, names, amounts), never generic placeholders"], brief: briefTemplate(a.category as SiteCategory) }));
+
+  const deepMerge = (a: any, b: any): any => { if (Array.isArray(b) || b === null || typeof b !== "object") return b; const o = { ...(a && typeof a === "object" && !Array.isArray(a) ? a : {}) }; for (const [k, v] of Object.entries(b)) { if (v === null) delete o[k]; else o[k] = deepMerge(o[k], v); } return o; };
+
+  server.registerTool("build_site", {
+    title: "Build site (one call)",
+    description: "THE FASTEST PATH. Give a structured SiteBrief (call brief_template first) and the engine does art direction (style + non-violet accent from the brief), picks a varied layout (interactive tabs, showcase, steps-timeline, quote feature, split FAQ… not the same icon-card grid), renders domain-specific product visuals from YOUR data, inlines icons, lints the copy for buzzwords/placeholders, runs the real-browser QA gate with the anti-slop detector, and returns desktop+mobile screenshots. Re-call with `patch` (JSON merge onto the saved brief) to fix issues. Output is a static site in <projectDir>/dist (and copied to deployDir if given).",
+    inputSchema: {
+      projectDir: z.string(),
+      brief: z.any().optional().describe("full SiteBrief; required the first time"),
+      patch: z.any().optional().describe("partial SiteBrief merged onto the saved brief (arrays are replaced, null deletes a key)"),
+      deployDir: z.string().optional().describe("also copy the built site here, e.g. 'site' so site/index.html exists"),
+      verify: z.boolean().default(true), images: z.boolean().default(true),
+    },
+  }, async (a) => {
+    const dir = ctx.safePath(a.projectDir); const briefFile = join(dir, "openui.brief.json");
+    let brief: any = a.brief;
+    if (!brief && existsSync(briefFile)) brief = JSON.parse(readFileSync(briefFile, "utf8"));
+    if (!brief) return fail("brief is required the first time. Call brief_template, rewrite it for the real product, and pass it as `brief`.");
+    if (a.patch) brief = deepMerge(brief, a.patch);
+    const need = ["name", "headline", "subheadline", "category", "primaryCta", "features"].filter((k) => brief[k] === undefined || (Array.isArray(brief[k]) && !brief[k].length));
+    if (need.length) return fail(`brief is missing: ${need.join(", ")}. See brief_template.`);
+    if (!Array.isArray(brief.features)) return fail("brief.features must be an array of {title, body, icon?, visual?}.");
+    let planned;
+    try { planned = planSite(brief); } catch (e) { return fail(`Could not plan the site: ${(e as Error).message}. Check brief against brief_template.`); }
+    const copy = lintCopy(planned.spec);
+    const icons = await fetchIcons([...collectIconRefs(planned.spec)]);
+    mkdirSync(dir, { recursive: true }); writeFileSync(briefFile, JSON.stringify(brief, null, 2) + "\n");
+    saveProject({ dir, tokens: planned.tokens, spec: planned.spec, overrides: isProject(dir) ? loadProject(dir).overrides : {}, icons });
+    let deployed: string | undefined;
+    if (a.deployDir) { const dd = ctx.safePath(a.deployDir); mkdirSync(dd, { recursive: true }); cpSync(join(dir, "dist"), dd, { recursive: true }); deployed = relative(ctx.workdir, dd) || "."; }
+    const out: Record<string, unknown> = {
+      project: relative(ctx.workdir, dir) || ".", style: planned.tokens.meta.style, accent: planned.tokens.color.accent, deployed,
+      layout: planned.layout.map((l) => `${l.id}: ${l.type} — ${l.why}`),
+      icons: `${Object.keys(icons).length}/${collectIconRefs(planned.spec).size} fetched${Object.keys(icons).length < collectIconRefs(planned.spec).size ? " (others use built-in fallbacks)" : ""}`,
+      copy_lint: { errors: copy.filter((c) => c.severity === "error").length, warnings: copy.filter((c) => c.severity === "warning").length, top: copy.filter((c) => c.severity !== "info").slice(0, 10).map((c) => `[${c.rule}] ${c.where}: ${c.message} → ${c.fix}`) },
+    };
+    const content: any[] = [];
+    if (a.verify) {
+      const r = await auditTarget(dir, { viewports: VIEWPORTS.filter((v) => v.name === "desktop" || v.name === "mobile"), rebuildFirst: false, screenshots: false, starterMarkers: [] });
+      const issues = r.audit.viewports.flatMap((v) => v.issues.map((i) => ({ vp: v.viewport.name, ...i }))).filter((i) => i.severity !== "info");
+      const sl = r.audit.viewports.find((v) => v.slop)?.slop;
+      out.gate = { passed: r.audit.passed, errors: r.audit.totals.errors, warnings: r.audit.totals.warnings, originality: r.quality.dimensions.find((d) => d.id === "originality")?.score, quality: r.quality.overall, issues: issues.filter((i) => !i.message.startsWith("[slop")).slice(0, 8).map((i) => `${i.severity} [${i.category}] ${i.message.slice(0, 200)}${i.openuiId ? ` {id:${i.openuiId}}` : ""}`), slop: sl?.findings.map((f) => `[${f.rule}] ${f.message}`) ?? [] };
+    }
+    out.next = "Read copy_lint and gate.slop: fix by calling build_site again with `patch` (e.g. {\"features\":[…]} or {\"headline\":\"…\"}). Finish when copy_lint.errors=0, gate.passed=true and slop is empty or justified. Look at the screenshots.";
+    content.push({ type: "text", text: JSON.stringify(out, null, 1) });
+    if (a.images) {
+      const srv = await serveDir(join(dir, "dist"));
+      try { const shots = await capture(srv.url + "/", join(dir, ".openui", "shots"), ["desktop", "mobile"], "build"); for (const s of shots) content.push({ type: "image", data: readFileSync(s.fold).toString("base64"), mimeType: "image/jpeg" }); } finally { await srv.close(); }
+    }
+    return { content, ...(copy.some((c) => c.severity === "error") ? {} : {}) };
+  });
+
+  server.registerTool("detect_ai_slop", {
+    title: "Detect AI slop",
+    description: "Heuristic originality check of a built site (project dir, site dir or URL): default indigo/violet palette, repeated identical icon-card grids, gradient-text overuse, emoji icons, everything centered, missing product visuals, buzzwords, stock names. Returns a 0–100 score (higher = more original) and specific findings. A proxy for template-looking pages, not a judge of taste.",
+    inputSchema: { target: z.string() },
+  }, async (a) => {
+    const target = /^https?:/.test(a.target) ? a.target : ctx.safePath(a.target);
+    const srv = /^https?:/.test(target) ? null : await serveDir(isProject(target) ? join(target, "dist") : target);
+    try {
+      const page = await (await getBrowser()).newPage({ viewport: { width: 1440, height: 900 } });
+      await page.goto(srv ? srv.url + "/" : target, { waitUntil: "networkidle" });
+      const r = await detectSlop(page); await page.close();
+      const copy = !/^https?:/.test(target) && isProject(target) ? lintCopy(loadProject(target).spec).filter((c) => c.severity !== "info").slice(0, 12).map((c) => `[${c.rule}] ${c.where}: ${c.message}`) : undefined;
+      return text({ originality: r.score, findings: r.findings, copy_lint: copy });
+    } finally { await srv?.close(); }
   });
 }

@@ -13,17 +13,17 @@
     "border": "#26263a",
     "text": "#f4f4f8",
     "muted": "#9a9ab2",
-    "accent": "#7c6cff",
+    "accent": "#0ea5e9",
     "accentFg": "#06060a",
-    "accentSoft": "#1a1733",
-    "accent2": "#f3bc68",
+    "accentSoft": "#08202f",
+    "accent2": "#f36882",
     "success": "#4ade80",
     "warning": "#fbbf24",
     "danger": "#f87171",
     "accent2Fg": "#0b0b10",
     "successFg": "#0b0b10",
     "warningFg": "#0b0b10",
-    "accentText": "#8171ff"
+    "accentText": "#0ea5e9"
   },
   "font": {
     "display": "'Inter Tight', 'Inter', ui-sans-serif, system-ui, sans-serif",
@@ -146,8 +146,8 @@
     "container": 1200,
     "gutter": 24,
     "sectionY": {
-      "min": 72,
-      "max": 128
+      "min": 56,
+      "max": 104
     },
     "grid": 12
   },

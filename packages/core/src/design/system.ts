@@ -13,6 +13,36 @@ export interface DesignBrief {
   motion?: 0 | 1 | 2 | 3;
 }
 
+/**
+ * Accent families by category. Violet/indigo (the default AI palette) is deliberately absent: it is only
+ * used when the brief asks for it. Hues are chosen to read as a *product* colour, not a template colour.
+ */
+const ACCENTS: Record<SiteCategory, string[]> = {
+  saas: ["#2563eb", "#0d9488", "#ea580c", "#16a34a"],
+  "ai-product": ["#0ea5e9", "#10b981", "#f59e0b", "#e11d48"],
+  devtool: ["#14b8a6", "#f97316", "#22c55e", "#06b6d4"],
+  fintech: ["#047857", "#1d4ed8", "#0f766e", "#b45309"],
+  agency: ["#dc2626", "#ea580c", "#be123c", "#0f766e"],
+  portfolio: ["#dc2626", "#c2410c", "#0f766e", "#be123c"],
+  ecommerce: ["#c2410c", "#047857", "#be185d", "#1d4ed8"],
+  "consumer-app": ["#ea580c", "#16a34a", "#db2777", "#0284c7"],
+};
+const TONE_ACCENTS: Array<[RegExp, string[]]> = [
+  [/calm|trust|reliab|secure|steady|precise/, ["#0d9488", "#2563eb", "#0369a1", "#15803d"]], [/bold|loud|energ|fast|playful/, ["#ea580c", "#dc2626", "#d97706", "#db2777"]],
+  [/natural|wellness|health|garden|organic|sustain/, ["#16a34a", "#65a30d", "#0f766e", "#b45309"]], [/luxur|premium|elegan|heritage|craft/, ["#b45309", "#7c2d12", "#166534", "#9f1239"]],
+  [/finance|bank|invoice|ledger|account/, ["#047857", "#1d4ed8", "#0f766e", "#b45309"]], [/creative|studio|art|design/, ["#dc2626", "#ea580c", "#be123c", "#0f766e"]],
+  [/ocean|water|cloud|data|analytic/, ["#0284c7", "#0891b2", "#0d9488", "#2563eb"]],
+];
+const hashStr = (t: string) => { let h = 2166136261; for (const c of t) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0; };
+/** Deterministic, non-violet accent from category + tone words + name. */
+export function pickAccent(brief: Pick<DesignBrief, "name" | "description" | "category">): string {
+  const text = `${brief.name} ${brief.description ?? ""}`.toLowerCase();
+  // tone narrows to a family; the product name picks within it, so two "calm" products still differ
+  const tone = TONE_ACCENTS.find(([re]) => re.test(text));
+  const list = tone ? [...new Set([...tone[1], ...ACCENTS[brief.category ?? "saas"].slice(0, 2)])] : ACCENTS[brief.category ?? "saas"];
+  return list[hashStr(brief.name) % list.length]!;
+}
+
 export interface StyleMatch { style: StyleId; score: number; reasons: string[] }
 
 /** Rank art directions against a brief using category fit, keyword overlap and explicit tone words. */
@@ -59,7 +89,8 @@ export function generateTokens(brief: DesignBrief): DesignTokens {
   const category: SiteCategory = brief.category ?? "saas";
   const styleId = brief.style ?? matchStyles({ ...brief, category })[0]!.style;
   const s = getStyle(styleId);
-  const accentRequested = brief.accent ?? s.defaultAccent;
+  // Only the two styles whose built-in accent is indigo/violet get a derived accent; the others keep their identity colour.
+  const accentRequested = brief.accent ?? (styleId === "aurora-dark" || styleId === "clarity-light" ? pickAccent({ ...brief, category }) : s.defaultAccent);
   const p = s.palette;
 
   // Accent must be usable as a button fill: choose foreground by contrast, then guarantee text-grade accent for links.
@@ -109,7 +140,7 @@ export function generateTokens(brief: DesignBrief): DesignTokens {
       fast: "140ms", base: "240ms", slow: "520ms",
       easing: "cubic-bezier(.2,.7,.2,1)",
     },
-    layout: { container: 1200, gutter: 24, sectionY: { min: 72, max: 128 }, grid: 12 },
+    layout: { container: 1200, gutter: 24, sectionY: { min: 56, max: 104 }, grid: 12 },
     composition: s.composition,
   };
   // keep a derived text-safe accent available for links on bg

@@ -12,6 +12,10 @@ var m=b.getAttribute('data-billing');
 d.querySelectorAll('[data-billing]').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
 d.querySelectorAll('[data-price]').forEach(function(p){var v=p.getAttribute('data-'+m);var n=Number(v);p.textContent=(isNaN(n)?'':'$')+v;});
 });});
+d.querySelectorAll('[data-tabs]').forEach(function(root){var tabs=[].slice.call(root.querySelectorAll('[role=tab]')),panels=[].slice.call(root.querySelectorAll('[role=tabpanel]'));
+function sel(i,focus){tabs.forEach(function(t,j){var on=i===j;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;panels[j].hidden=!on;});if(focus)tabs[i].focus();}
+tabs.forEach(function(t,i){t.addEventListener('click',function(){sel(i,false)});t.addEventListener('keydown',function(e){var n=tabs.length,k=e.key;if(k==='ArrowRight'||k==='ArrowDown'){e.preventDefault();sel((i+1)%n,true)}else if(k==='ArrowLeft'||k==='ArrowUp'){e.preventDefault();sel((i-1+n)%n,true)}else if(k==='Home'){e.preventDefault();sel(0,true)}else if(k==='End'){e.preventDefault();sel(n-1,true)}})});});
+d.querySelectorAll('[data-form]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var i=f.querySelector('input[type=email]'),n=f.querySelector('.form__note');if(!i.value||!/^\S+@\S+\.\S+$/.test(i.value)){n.textContent='Please enter a valid email address.';i.setAttribute('aria-invalid','true');i.focus();return;}i.removeAttribute('aria-invalid');n.textContent=f.getAttribute('data-success');n.className='form__note form__ok';f.reset();});});
 var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var els=d.querySelectorAll('.reveal');
 if(reduce||!('IntersectionObserver' in window)||root.getAttribute('data-motion')==='0'){els.forEach(function(e){e.classList.add('in')});}

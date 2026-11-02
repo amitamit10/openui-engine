@@ -3,9 +3,9 @@ version: alpha
 name: "Lumen"
 description: "Aurora Dark art direction for Lumen. Deep ink canvas, soft violet/cyan light bleeding from behind a product shot. Calm, precise, premium."
 colors:
-  primary: "#7c6cff"
+  primary: "#0ea5e9"
   on-primary: "#06060a"
-  secondary: "#f3bc68"
+  secondary: "#f36882"
   neutral: "#07070c"
   surface: "#0e0e16"
   surface-raised: "#151522"
@@ -112,8 +112,8 @@ Signatures:
 
 ## Colors
 
-- **Primary (#7c6cff):** the only call-to-action fill. Foreground on it is #06060a.
-- **Secondary (#f3bc68):** a derived accent for data and illustrations only, never for buttons.
+- **Primary (#0ea5e9):** the only call-to-action fill. Foreground on it is #06060a.
+- **Secondary (#f36882):** a derived accent for data and illustrations only, never for buttons.
 - **Neutral (#07070c) / Surface (#0e0e16) / Surface-raised (#151522):** the elevation ladder; each nested layer steps up one surface.
 - **Text (#f4f4f8) / Text-muted (#9a9ab2):** both meet WCAG AA on every surface.
 
@@ -124,7 +124,7 @@ Modular scale ratio 1.25; sizes are fluid between a 375px and a 1280px viewport.
 
 ## Layout
 
-Container 1200px, 12-column grid, 24px gutters. Spacing is a 4px base unit; section padding is fluid 72–128px.
+Container 1200px, 12-column grid, 24px gutters. Spacing is a 4px base unit; section padding is fluid 56–104px.
 Section transitions: Hairline dividers and radial accent glows; surfaces step up one elevation per layer.
 
 ## Elevation & Depth

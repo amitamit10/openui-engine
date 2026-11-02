@@ -30,6 +30,7 @@ export interface ViewportReport {
   compliance?: { color: Compliance; font: Compliance; fontSize: Compliance; spacing: Compliance; radius: Compliance };
   metrics: PageMetrics;
   interactions: Array<{ name: string; passed: boolean; detail?: string }>;
+  slop?: { score: number; findings: Array<{ rule: string; severity: "warning" | "info"; message: string; evidence?: string }> };
   screenshots: { full?: string; fold?: string };
   animations: { runningNormal: number; infiniteReduced: number };
 }

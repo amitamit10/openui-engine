@@ -142,7 +142,13 @@ export function analyzeQuality(audit: AuditReport): QualityReport {
       evidence: [`${uniq.size} distinct runtime errors; ${pass}/${inter.length} interaction checks passed (desktop)`, `reduced-motion: ${desktop.animations.infiniteReduced} infinite animations; normal: ${desktop.animations.runningNormal} running`], suggestions: [...uniq].slice(0, 3) });
   }
 
-  const weights: Record<string, number> = { accessibility: 1.2, typography: 1.2, spacing: 1, color: 1, layout: 1.2, whitespace: 1, responsive: 1.2, robustness: 1.2 };
+  // 9. Originality (anti-slop proxy)
+  {
+    const sl = desktop.slop;
+    if (sl) dims.push({ id: "originality", label: "Originality (anti-template heuristics)", basis: "heuristic", score: sl.score, evidence: sl.findings.length ? sl.findings.map((x) => x.message) : ["no template tells detected"], suggestions: sl.findings.filter((x) => x.severity === "warning").slice(0, 4).map((x) => x.message) });
+  }
+
+  const weights: Record<string, number> = { originality: 1.6, accessibility: 1.2, typography: 1.2, spacing: 1, color: 1, layout: 1.2, whitespace: 1, responsive: 1.2, robustness: 1.2 };
   const wsum = dims.reduce((a, d) => a + (weights[d.id] ?? 1), 0);
   const overall = clamp(dims.reduce((a, d) => a + d.score * (weights[d.id] ?? 1), 0) / wsum);
   return {

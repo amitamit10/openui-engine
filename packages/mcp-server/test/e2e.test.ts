@@ -192,6 +192,50 @@ describe("design → compose → verify → review loop", () => {
     await browser.close();
   });
 
+  it("build_site: one call plans, renders, lints, gates and returns screenshots; patch iterates", async () => {
+    const t = await call("brief_template", { category: "devtool" });
+    expect(t.json.visualSuggestions.length).toBeGreaterThan(2);
+    const brief = { ...t.json.brief, name: "Northstar", headline: "Incidents handled before they become *emergencies*", subheadline: "Northstar groups alerts into one incident and pages the on-call engineer in 38 seconds." };
+    brief.features[0].title = "Detect"; brief.features[1].title = "Respond"; brief.features[2].title = "Learn";
+    const r = await call("build_site", { projectDir: "ns", deployDir: "ns-out", brief });
+    expect(r.isError).toBe(false);
+    const out = JSON.parse(r.text);
+    expect(out.layout.join("\n")).toMatch(/feature-tabs/);
+    expect(out.icons).toMatch(/^\d+\/\d+ fetched/);
+    expect(out.gate.passed).toBe(true);
+    expect(existsSync(join(work, "ns-out/index.html"))).toBe(true);
+    expect(r.content.filter((c: any) => c.type === "image")).toHaveLength(2);
+    // the closing email form validates and confirms (real browser)
+    const { chromium: cr } = await import("playwright-core");
+    const br = await cr.launch({ executablePath: findChromium(), args: ["--no-sandbox"] });
+    const pg = await br.newPage(); await pg.goto("file://" + join(work, "ns-out/index.html"));
+    await pg.locator("#cta-email").scrollIntoViewIfNeeded();
+    await pg.fill("#cta-email", "nope"); await pg.click("[data-form] button");
+    await expect.poll(() => pg.locator("[data-form] .form__note").textContent()).toMatch(/valid email/i);
+    await pg.fill("#cta-email", "ana@quillstone.io"); await pg.click("[data-form] button");
+    await expect.poll(() => pg.locator("[data-form] .form__note").textContent()).toMatch(/Thanks/);
+    // feature tabs: keyboard navigation
+    await pg.locator("[role=tab]").first().focus(); await pg.keyboard.press("ArrowRight");
+    await expect.poll(() => pg.locator("[role=tab][aria-selected=true]").textContent()).toMatch(/Respond/);
+    await br.close();
+    // patch: introduce buzzwords → copy lint reports them
+    const r2 = await call("build_site", { projectDir: "ns", patch: { headline: "Supercharge your seamless workflow!" }, verify: false, images: false });
+    const o2 = JSON.parse(r2.text);
+    expect(o2.copy_lint.top.join(" ")).toMatch(/buzzword/);
+    expect(readFileSync(join(work, "ns/openui.brief.json"), "utf8")).toContain("Supercharge");
+  });
+
+  it("list_libraries, search_icons and discover across indexed registries", async () => {
+    const l = await call("list_libraries");
+    expect(l.json.searchableComponents).toBeGreaterThan(1000);
+    expect(l.json.componentLibraries.map((x: any) => x.id)).toEqual(expect.arrayContaining(["openui", "shadcn", "kibo", "cult", "animateui"]));
+    expect(l.json.iconLibraries.map((x: any) => x.id)).toEqual(["lucide", "tabler", "heroicons", "phosphor"]);
+    const i = await call("search_icons", { query: "invoice" });
+    expect(i.json.results.length).toBeGreaterThan(3);
+    const d = await call("discover_components", { query: "kanban", limit: 3 });
+    expect(d.json.results.some((x: any) => x.id === "kibo/kanban")).toBe(true);
+  });
+
   it("rejects unsafe tweak values (injection attempt) and unknown properties", async () => {
     const r = await call("apply_visual_tweaks", { projectDir: "site", tweaks: [{ openuiId: "hero.title", props: { "background-color": "url(javascript:alert(1))", "position": "fixed", color: "red" } }] });
     expect(r.json.explicit.rejected.map((x: any) => x.prop).sort()).toEqual(["background-color", "position"]);

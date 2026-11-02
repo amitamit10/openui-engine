@@ -84,6 +84,6 @@
   --ease: cubic-bezier(.2,.7,.2,1);
   --container: 1200px;
   --gutter: 24px;
-  --section-y: clamp(72px, 48.796px + 6.1878vw, 128px);
+  --section-y: clamp(56px, 36.110px + 5.3039vw, 104px);
   --motion: 2;
 }

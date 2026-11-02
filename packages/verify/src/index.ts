@@ -43,3 +43,4 @@ export async function auditTarget(target: string, opts: Partial<AuditOptions> & 
   } finally { await srv.close(); }
 }
 export * from "./capture.js";
+export * from "./slop.js";

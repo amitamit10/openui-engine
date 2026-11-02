@@ -146,8 +146,8 @@
     "container": 1200,
     "gutter": 24,
     "sectionY": {
-      "min": 72,
-      "max": 128
+      "min": 56,
+      "max": 104
     },
     "grid": 12
   },

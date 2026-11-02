@@ -1,7 +1,7 @@
 import type { DesignTokens, SiteCategory, StyleId } from "../design/types.js";
 import { getStyle } from "../design/styles.js";
 import type { ComponentMeta } from "./types.js";
-import { ALL_COMPONENTS, COMPONENT_INDEX } from "./components.js";
+import { findComponent, searchableComponents } from "./components.js";
 
 export interface FitContext {
   style: StyleId;
@@ -50,8 +50,8 @@ export interface CompositionIssue { severity: "error" | "warning" | "info"; rule
 /** Reason about a *set* of components so a page looks like one product, not a collage. */
 export function checkComposition(ids: string[], tokens: Pick<DesignTokens, "meta" | "motion">): CompositionIssue[] {
   const out: CompositionIssue[] = [];
-  const comps = ids.map((id) => COMPONENT_INDEX.get(id)).filter((c): c is ComponentMeta => !!c);
-  for (const id of ids) if (!COMPONENT_INDEX.has(id)) out.push({ severity: "error", rule: "unknown-component", message: `Unknown component "${id}"` });
+  const comps = ids.map((id) => findComponent(id)).filter((c): c is ComponentMeta => !!c);
+  for (const id of ids) if (!findComponent(id)) out.push({ severity: "error", rule: "unknown-component", message: `Unknown component "${id}"` });
   const style = getStyle(tokens.meta.style);
 
   const frameworks = new Set(comps.map((c) => c.requires.framework));
@@ -78,29 +78,32 @@ export function checkComposition(ids: string[], tokens: Pick<DesignTokens, "meta
   return out;
 }
 
-export interface DiscoverOptions extends FitContext { query?: string; limit?: number; source?: string }
+export interface DiscoverOptions extends FitContext { query?: string; limit?: number; source?: string; includeInferred?: boolean }
 
-export interface DiscoverResult { id: string; name: string; slot: string; source: string; fit: number; why: string; install?: string }
+export interface DiscoverResult { id: string; name: string; slot: string; source: string; fit: number; why: string; confidence: string; install?: string }
 
 /** Ranked, deliberately small result set: never dump the registry into model context. */
 export function discover(opts: DiscoverOptions): DiscoverResult[] {
   const q = (opts.query ?? "").toLowerCase().split(/\s+/).filter(Boolean);
   const limit = Math.min(opts.limit ?? 8, 20);
-  return ALL_COMPONENTS
+  return searchableComponents()
+    .filter((c) => opts.includeInferred !== false || c.confidence !== "inferred")
     .filter((c) => !opts.slot || c.slot === opts.slot)
     .filter((c) => !opts.source || c.source === opts.source)
     .map((c) => {
       const f = fit(c, opts);
-      const hay = `${c.id} ${c.name} ${c.summary} ${c.slot}`.toLowerCase();
-      const hits = q.filter((t) => hay.includes(t)).length;
-      const text = q.length ? hits / q.length : 1;
-      return { c, f, rank: f.score + text * 30 - f.blockers.length * 100, text };
+      const nameHay = `${c.id} ${c.name}`.toLowerCase(), descHay = `${c.summary} ${c.slot}`.toLowerCase();
+      // a query word in the component's name is strong evidence; in its description only weak evidence
+      const score = q.reduce((a, t) => a + (nameHay.includes(t) ? 1 : descHay.includes(t) ? 0.35 : 0), 0);
+      const text = q.length ? Math.min(1, score / q.length) : 1;
+      // inferred metadata is a guess: it must clearly beat curated options to rank above them
+      return { c, f, rank: f.score + text * 30 - f.blockers.length * 100 - (c.confidence === "inferred" ? 14 : 0), text };
     })
     .filter((r) => r.text > 0 && (opts.framework !== "html" || r.f.blockers.length === 0))
     .sort((a, b) => b.rank - a.rank)
     .slice(0, limit)
     .map(({ c, f }) => ({
-      id: c.id, name: c.name, slot: c.slot, source: c.source, fit: f.score,
+      id: c.id, name: c.name, slot: c.slot, source: c.source, fit: f.score, confidence: c.confidence ?? "curated",
       why: f.reasons.slice(0, 2).join("; ") || c.summary.slice(0, 80),
       ...(c.registry ? { install: c.registry.install } : {}),
     }));

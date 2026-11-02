@@ -1,43 +1,10 @@
-import type { DesignTokens } from "../design/types.js";
-
-export type SectionType =
-  | "navbar-glass" | "hero-centered-product" | "hero-split" | "hero-editorial"
-  | "logo-cloud" | "feature-bento" | "feature-rows" | "metrics" | "steps"
-  | "testimonials" | "pricing" | "faq" | "cta-band" | "footer-columns";
-
-export interface Cta { label: string; href: string }
-export interface SectionSpec { id: string; type: SectionType; props: Record<string, any> }
-
-export interface PageSpec {
-  title: string;
-  description: string;
-  brand: { name: string };
-  lang?: string;
-  sections: SectionSpec[];
-}
-
-export const esc = (s: unknown): string =>
-  String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-
-/** Allow *emphasis* in headlines → <em>, everything else escaped. */
-export const rich = (s: unknown): string => esc(s).replace(/\*([^*]+)\*/g, "<em>$1</em>");
-
-const ICON = {
-  arrow: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>`,
-  check: `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg>`,
-  plus: `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg>`,
-  menu: `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg>`,
-  mark: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l3-6 3 4 4-6"/></svg>`,
-};
-
-const btn = (c: Cta | undefined, kind: "primary" | "ghost" | "link", id: string, large = false, arrow = false) =>
-  c ? `<a class="btn btn--${kind}${large ? " btn--lg" : ""}" href="${esc(c.href)}" data-openui-id="${id}">${esc(c.label)}${arrow ? ICON.arrow : ""}</a>` : "";
-
-function ctaRow(p: any, id: string, hierarchy: DesignTokens["composition"]["ctaHierarchy"]): string {
-  if (hierarchy === "single") return `<div class="cta-row">${btn(p.primaryCta, "primary", `${id}.cta`, true, true)}</div>`;
-  const second = hierarchy === "primary-secondary-link" ? btn(p.secondaryCta, "link", `${id}.cta2`, true, true) : btn(p.secondaryCta, "ghost", `${id}.cta2`, true);
-  return `<div class="cta-row">${btn(p.primaryCta, "primary", `${id}.cta`, true, true)}${second}</div>`;
-}
+import { ICON, btn, ctaRow, esc, head, rich, wrap } from "./util.js";
+import type { Cta, Renderer, SectionType } from "./types.js";
+import { iconSvg } from "../assets/icons.js";
+import { RENDERERS_2 } from "./sections2.js";
+import { renderVisual } from "./visuals.js";
+export * from "./types.js";
+export { esc, rich } from "./util.js";
 
 /** Deterministic smooth chart path so mockups look real and stay stable between builds. */
 function chartPaths(): { line: string; area: string; line2: string } {
@@ -102,21 +69,11 @@ function viz(kind: string, d: VizData = {}): string {
   }
 }
 
-type Ctx = { tokens: DesignTokens; spec: PageSpec };
-type Renderer = (s: SectionSpec, ctx: Ctx) => string;
 
-const head = (id: string, p: any, left = false) => `<div class="section-head${left ? " section-head--left" : ""} reveal">
-    ${p.eyebrow ? `<span class="eyebrow" data-openui-id="${id}.eyebrow">${esc(p.eyebrow)}</span>` : ""}
-    <h2 class="h2" data-openui-id="${id}.title">${rich(p.title)}</h2>
-    ${p.subtitle ? `<p class="lead" data-openui-id="${id}.subtitle">${esc(p.subtitle)}</p>` : ""}
-  </div>`;
+/** Mini visual by name (legacy) or a full domain visual object. */
+function vizAny(v: any, data: any, id: string): string { return v && typeof v === "object" ? renderVisual(v, id) : viz(String(v ?? ""), data); }
 
-const wrap = (s: SectionSpec, inner: string, cls = "", tint = false) =>
-  `<section class="section ${cls}${tint ? " section--tint" : ""}" id="${esc(s.props.anchor ?? s.id)}" data-openui-section="${esc(s.id)}" data-openui-variant="${s.type}" data-openui-id="${esc(s.id)}">
-  <div class="container">${inner}</div>
-</section>`;
-
-export const RENDERERS: Record<SectionType, Renderer> = {
+const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
   "navbar-glass": (s, { spec }) => {
     const p = s.props, id = s.id;
     const links = (p.links ?? []) as Array<{ label: string; href: string }>;
@@ -143,7 +100,7 @@ export const RENDERERS: Record<SectionType, Renderer> = {
       ${ctaRow(p, id, tokens.composition.ctaHierarchy)}
       ${p.note ? `<p class="hero__note" data-openui-id="${id}.note">${esc(p.note)}</p>` : ""}
     </div>
-    <div class="hero__visual">${dashboardMock(id, spec.brand.name, p.mock)}</div>
+    <div class="hero__visual">${p.visual ? renderVisual(p.visual, `${id}hv`) : dashboardMock(id, spec.brand.name, p.mock)}</div>
   </div>
 </section>`;
   },
@@ -160,7 +117,7 @@ export const RENDERERS: Record<SectionType, Renderer> = {
       ${ctaRow(p, id, tokens.composition.ctaHierarchy)}
       ${p.note ? `<p class="hero__note" data-openui-id="${id}.note">${esc(p.note)}</p>` : ""}
     </div>
-    <div class="hero__visual">${dashboardMock(id, spec.brand.name, p.mock)}</div>
+    <div class="hero__visual">${p.visual ? renderVisual(p.visual, `${id}hv`) : dashboardMock(id, spec.brand.name, p.mock)}</div>
   </div>
 </section>`;
   },
@@ -185,22 +142,22 @@ export const RENDERERS: Record<SectionType, Renderer> = {
     const p = s.props, id = s.id;
     return `<section class="logos" data-openui-section="${id}" data-openui-variant="logo-cloud" data-openui-id="${id}" aria-label="Customers">
   <div class="container reveal"><p class="logos__label" data-openui-id="${id}.label">${esc(p.label)}</p>
-  <div class="logos__row">${((p.logos ?? []) as string[]).map((n) => `<span class="logo-word"><i></i>${esc(n)}</span>`).join("")}</div></div>
+  ${p.marquee ? `<div class="marq"><div class="marq__track">${[0, 1].map((k) => ((p.logos ?? []) as string[]).map((n) => `<span class="logo-word"${k ? ' aria-hidden="true"' : ""}><i></i>${esc(n)}</span>`).join("")).join("")}</div></div>` : `<div class="logos__row">${((p.logos ?? []) as string[]).map((n) => `<span class="logo-word"><i></i>${esc(n)}</span>`).join("")}</div>`}</div>
 </section>`;
   },
 
-  "feature-bento": (s) => {
+  "feature-bento": (s, ctx) => {
     const p = s.props, id = s.id;
-    const items = (p.items ?? []) as Array<{ title: string; body: string; visual: string; span?: number }>;
+    const items = (p.items ?? []) as Array<{ title: string; body: string; visual: any; span?: number }>;
     return wrap(s, `${head(id, p)}
   <div class="bento">${items.map((it, i) => `<article class="card span-${it.span ?? 2} reveal" data-openui-id="${id}.card${i}">
-    ${viz(it.visual, (it as any).data)}
-    <div class="card__text"><h3 class="h4" data-openui-id="${id}.card${i}.title">${esc(it.title)}</h3><p data-openui-id="${id}.card${i}.body">${esc(it.body)}</p></div></article>`).join("")}</div>`, "", false);
+    ${vizAny(it.visual, (it as any).data, `${id}c${i}`)}
+    <div class="card__text">${(it as any).icon ? `<span class="ico-chip">${iconSvg((it as any).icon, ctx.icons)}</span>` : ""}<h3 class="h4" data-openui-id="${id}.card${i}.title">${esc(it.title)}</h3><p data-openui-id="${id}.card${i}.body">${esc(it.body)}</p></div></article>`).join("")}</div>`, "", false);
   },
 
   "feature-rows": (s) => {
     const p = s.props, id = s.id;
-    const items = (p.items ?? []) as Array<{ eyebrow?: string; title: string; body: string; bullets?: string[]; visual: string }>;
+    const items = (p.items ?? []) as Array<{ eyebrow?: string; title: string; body: string; bullets?: string[]; visual: any }>;
     return wrap(s, `${p.title ? head(id, p) : ""}
   <div class="rows">${items.map((it, i) => `<div class="frow reveal" data-openui-id="${id}.row${i}">
     <div class="frow__copy">
@@ -209,7 +166,7 @@ export const RENDERERS: Record<SectionType, Renderer> = {
       <p class="lead" data-openui-id="${id}.row${i}.body">${esc(it.body)}</p>
       ${it.bullets ? `<ul class="ticks">${it.bullets.map((b) => `<li>${ICON.check}<span>${esc(b)}</span></li>`).join("")}</ul>` : ""}
     </div>
-    <div class="card" style="padding:var(--s-5)">${viz(it.visual, (it as any).data)}</div></div>`).join("")}</div>`, "", !!p.tint);
+    <div class="card" style="padding:var(--s-5)">${vizAny(it.visual, (it as any).data, `${id}r${i}`)}</div></div>`).join("")}</div>`, "", !!p.tint);
   },
 
   metrics: (s) => {
@@ -218,10 +175,10 @@ export const RENDERERS: Record<SectionType, Renderer> = {
     return wrap(s, `${p.title ? head(id, p) : ""}<div class="metrics reveal">${items.map((m, i) => `<div class="metric"><strong data-openui-id="${id}.m${i}">${esc(m.value)}</strong><span>${esc(m.label)}</span></div>`).join("")}</div>`, "", !!p.tint);
   },
 
-  steps: (s) => {
+  steps: (s, ctx) => {
     const p = s.props, id = s.id;
     const items = (p.items ?? []) as Array<{ title: string; body: string }>;
-    return wrap(s, `${head(id, p)}<div class="steps">${items.map((st, i) => `<div class="step card reveal" data-openui-id="${id}.step${i}"><h3 class="h3">${esc(st.title)}</h3><p>${esc(st.body)}</p></div>`).join("")}</div>`, "", true);
+    return wrap(s, `${head(id, p)}<div class="steps">${items.map((st, i) => `<div class="step card reveal" data-openui-id="${id}.step${i}">${(st as any).icon ? `<span class="ico-chip">${iconSvg((st as any).icon, ctx.icons)}</span>` : ""}<h3 class="h3">${esc(st.title)}</h3><p>${esc(st.body)}</p></div>`).join("")}</div>`, "", true);
   },
 
   testimonials: (s) => {
@@ -278,3 +235,5 @@ export const RENDERERS: Record<SectionType, Renderer> = {
 export const SECTION_VARIANT_GROUPS: Record<string, SectionType[]> = {
   hero: ["hero-centered-product", "hero-split", "hero-editorial"],
 };
+
+export const RENDERERS = { ...RENDERERS_1, ...RENDERERS_2 } as Record<SectionType, Renderer>;

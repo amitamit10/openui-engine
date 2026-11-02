@@ -1,6 +1,7 @@
 import type { DesignTokens } from "../design/types.js";
 import { renderTokensCss } from "../design/system.js";
 import { BASE_CSS } from "./css.js";
+import { EXTRA_CSS } from "./css2.js";
 import { RENDERERS, esc, type PageSpec } from "./sections.js";
 
 export interface Overrides { [openuiId: string]: Record<string, string> }
@@ -48,6 +49,10 @@ var m=b.getAttribute('data-billing');
 d.querySelectorAll('[data-billing]').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
 d.querySelectorAll('[data-price]').forEach(function(p){var v=p.getAttribute('data-'+m);var n=Number(v);p.textContent=(isNaN(n)?'':'$')+v;});
 });});
+d.querySelectorAll('[data-tabs]').forEach(function(root){var tabs=[].slice.call(root.querySelectorAll('[role=tab]')),panels=[].slice.call(root.querySelectorAll('[role=tabpanel]'));
+function sel(i,focus){tabs.forEach(function(t,j){var on=i===j;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;panels[j].hidden=!on;});if(focus)tabs[i].focus();}
+tabs.forEach(function(t,i){t.addEventListener('click',function(){sel(i,false)});t.addEventListener('keydown',function(e){var n=tabs.length,k=e.key;if(k==='ArrowRight'||k==='ArrowDown'){e.preventDefault();sel((i+1)%n,true)}else if(k==='ArrowLeft'||k==='ArrowUp'){e.preventDefault();sel((i-1+n)%n,true)}else if(k==='Home'){e.preventDefault();sel(0,true)}else if(k==='End'){e.preventDefault();sel(n-1,true)}})});});
+d.querySelectorAll('[data-form]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var i=f.querySelector('input[type=email]'),n=f.querySelector('.form__note');if(!i.value||!/^\\S+@\\S+\\.\\S+$/.test(i.value)){n.textContent='Please enter a valid email address.';i.setAttribute('aria-invalid','true');i.focus();return;}i.removeAttribute('aria-invalid');n.textContent=f.getAttribute('data-success');n.className='form__note form__ok';f.reset();});});
 var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var els=d.querySelectorAll('.reveal');
 if(reduce||!('IntersectionObserver' in window)||root.getAttribute('data-motion')==='0'){els.forEach(function(e){e.classList.add('in')});}
@@ -58,8 +63,8 @@ window.addEventListener('beforeprint',function(){els.forEach(function(e){e.class
 export interface BuiltSite { files: Record<string, string> }
 
 /** Render a full static site (HTML + tokens.css + styles.css + overrides.css + app.js). */
-export function buildSite(spec: PageSpec, tokens: DesignTokens, overrides: Overrides = {}): BuiltSite {
-  const ctx = { tokens, spec };
+export function buildSite(spec: PageSpec, tokens: DesignTokens, overrides: Overrides = {}, icons: Record<string, string> = {}): BuiltSite {
+  const ctx = { tokens, spec, icons };
   const body = spec.sections.map((s) => {
     const r = RENDERERS[s.type];
     if (!r) throw new Error(`Unknown section type "${s.type}" (section ${s.id})`);
@@ -95,7 +100,7 @@ ${body}
   const files: Record<string, string> = {
     "index.html": landmarks(html),
     "tokens.css": renderTokensCss(tokens),
-    "styles.css": BASE_CSS,
+    "styles.css": BASE_CSS + EXTRA_CSS,
     "overrides.css": renderOverridesCss(overrides),
     "app.js": APP_JS,
   };

@@ -4,7 +4,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   { ignores: ["**/dist/**", "**/node_modules/**", "examples/**", "benchmark/**", "docs/site/**", ".openui/**"] },
   js.configs.recommended,
-  { files: ["scripts/**/*.mjs", "docs/**/*.mjs"], languageOptions: { globals: { URL: "readonly", console: "readonly", process: "readonly" } } },
+  { files: ["scripts/**/*.mjs", "docs/**/*.mjs"], languageOptions: { globals: { URL: "readonly", console: "readonly", process: "readonly", fetch: "readonly", AbortSignal: "readonly" } } },
   ...tseslint.configs.recommended,
   {
     rules: {

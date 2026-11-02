@@ -1,6 +1,6 @@
 # Component inventory
 
-> Generated from `packages/core/src/registry/components.ts`. 32 curated entries (quality over registry size — the MCP never returns the whole list).
+> Generated from `packages/core/src/registry/components.ts`. 56 curated entries (quality over registry size — the MCP never returns the whole list).
 
 | ID | Slot | Source | Framework | Runtimes | Motion | Styles | Licence |
 |---|---|---|---|---|---|---|---|
@@ -17,7 +17,31 @@
 | `openui/pricing` | pricing | openui | html | none | 1/3 | all | Apache-2.0 |
 | `openui/faq` | faq | openui | html | none | 0/3 | all | Apache-2.0 |
 | `openui/cta-band` | cta | openui | html | none | 1/3 | all | Apache-2.0 |
+| `openui/feature-tabs` | features | openui | html | none | 1/3 | all | Apache-2.0 |
+| `openui/feature-showcase` | features | openui | html | none | 1/3 | all | Apache-2.0 |
+| `openui/comparison` | features | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/integrations` | logos | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/quote-feature` | testimonials | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/testimonial-wall` | testimonials | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/steps-timeline` | steps | openui | html | none | 1/3 | all | Apache-2.0 |
+| `openui/cta-split` | cta | openui | html | none | 1/3 | all | Apache-2.0 |
+| `openui/metrics-spark` | metrics | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/faq-split` | faq | openui | html | none | 0/3 | all | Apache-2.0 |
 | `openui/footer-columns` | footer | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-timeline` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-chat` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-code` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-terminal` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-kanban` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-table` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-chart` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-invoice` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-schedule` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-gallery` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-product-cards` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-checklist` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-metrics` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
+| `openui/visual-dashboard` | primitive | openui | html | none | 0/3 | all | Apache-2.0 |
 | `fluid/tabs` | primitive | fluid | react | tailwind, radix, motion | 2/3 | clarity-light, aurora-dark, warm-human | unverified (unverified) |
 | `fluid/button` | primitive | fluid | react | tailwind, radix, motion | 1/3 | clarity-light, aurora-dark, warm-human | unverified (unverified) |
 | `fluid/accordion` | faq | fluid | react | tailwind, radix, motion | 1/3 | clarity-light, aurora-dark, warm-human | unverified (unverified) |

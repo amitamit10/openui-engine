@@ -1,0 +1,138 @@
+import { esc } from "./util.js";
+
+/**
+ * Domain visuals: original HTML/SVG "product screenshots" driven by the brief's own data, so a page about
+ * incidents shows incidents and a page about invoicing shows an invoice. All values are escaped.
+ */
+export type VisualKind = "dashboard" | "timeline" | "chat" | "code" | "terminal" | "kanban" | "table" | "chart" | "invoice" | "schedule" | "gallery" | "product-cards" | "checklist" | "metrics";
+export const VISUAL_KINDS: VisualKind[] = ["dashboard", "timeline", "chat", "code", "terminal", "kanban", "table", "chart", "invoice", "schedule", "gallery", "product-cards", "checklist", "metrics"];
+
+export interface VisualSpec { kind: VisualKind; title?: string; [k: string]: any }
+type Tone = "ok" | "warn" | "bad" | "info" | "now" | "muted";
+const tone = (t: unknown): Tone => (["ok", "warn", "bad", "info", "now", "muted"].includes(String(t)) ? (t as Tone) : "muted");
+
+const KW = /\b(const|let|var|function|return|if|else|for|while|await|async|import|from|export|class|new|def|print|true|false|null|None|True|False|in|of|try|catch|throw|type|interface|fn|pub|use|SELECT|FROM|WHERE|INSERT|UPDATE)\b/g;
+/** Minimal single-pass highlighter: comments, strings, numbers, keywords, calls. */
+export function highlight(code: string): string {
+  const out: string[] = [];
+  const re = /(\/\/[^\n]*|#[^\n]*)|("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)|(\b\d[\d_.]*\b)|(\b[A-Za-z_]\w*)(?=\()|(\b[A-Za-z_]\w*\b)/g;
+  let last = 0, m: RegExpExecArray | null;
+  while ((m = re.exec(code))) {
+    out.push(esc(code.slice(last, m.index)));
+    if (m[1]) out.push(`<span class="c">${esc(m[1])}</span>`);
+    else if (m[2]) out.push(`<span class="s">${esc(m[2])}</span>`);
+    else if (m[3]) out.push(`<span class="n">${esc(m[3])}</span>`);
+    else if (m[4]) out.push(KW.test(m[4]) ? `<span class="k">${esc(m[4])}</span>` : `<span class="f">${esc(m[4])}</span>`);
+    else out.push((KW.lastIndex = 0, KW.test(m[5]!)) ? `<span class="k">${esc(m[5])}</span>` : esc(m[5]));
+    KW.lastIndex = 0; last = re.lastIndex;
+  }
+  out.push(esc(code.slice(last)));
+  return out.join("");
+}
+
+const bar = (title: string, right?: string) => `<div class="vz-bar"><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__dot"></span><span class="vz-title">${esc(title)}</span>${right ? `<span class="vz-right">${esc(right)}</span>` : ""}</div>`;
+const pill = (text: unknown, t: unknown) => `<span class="vz-pill vz-${tone(t)}">${esc(text)}</span>`;
+const seeded = (seed: string) => { let h = 2166136261; for (const c of seed) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return () => ((h = Math.imul(h ^ (h >>> 15), 2246822507)), ((h >>> 0) % 10000) / 10000); };
+
+function smooth(values: number[], W: number, H: number, max: number, pad = 10): string {
+  const step = (W - pad * 2) / Math.max(1, values.length - 1);
+  const pts = values.map((v, i) => [pad + i * step, H - pad - (v / max) * (H - pad * 2)] as const);
+  let d = `M${pts[0]![0].toFixed(1)} ${pts[0]![1].toFixed(1)}`;
+  for (let i = 1; i < pts.length; i++) { const [x0, y0] = pts[i - 1]!, [x1, y1] = pts[i]!, cx = (x0 + x1) / 2; d += ` C${cx.toFixed(1)} ${y0.toFixed(1)}, ${cx.toFixed(1)} ${y1.toFixed(1)}, ${x1.toFixed(1)} ${y1.toFixed(1)}`; }
+  return d;
+}
+
+function chartSvg(v: VisualSpec, uid: string): string {
+  const series: Array<{ label: string; values: number[] }> = (v.series ?? [{ label: "Series", values: [12, 18, 15, 24, 22, 31, 29, 38] }]).slice(0, 3);
+  const labels: string[] = v.labels ?? [];
+  const kind = v.chart ?? "line";
+  const max = Math.max(1, ...series.flatMap((s) => s.values)) * 1.15;
+  const W = 560, H = 220;
+  const grid = [0.25, 0.5, 0.75].map((f) => `<line x1="10" x2="${W - 10}" y1="${(H - 10 - f * (H - 20)).toFixed(1)}" y2="${(H - 10 - f * (H - 20)).toFixed(1)}"/>`).join("");
+  let body = "";
+  if (kind === "bars") {
+    const n = series[0]!.values.length, gw = (W - 20) / n, bw = Math.min(34, gw / (series.length + 0.6));
+    body = series.map((s, si) => s.values.map((val, i) => { const h = (val / max) * (H - 20); return `<rect class="b b${si}" x="${(10 + i * gw + (gw - bw * series.length) / 2 + si * bw).toFixed(1)}" y="${(H - 10 - h).toFixed(1)}" width="${(bw - 3).toFixed(1)}" height="${h.toFixed(1)}" rx="3"/>`; }).join("")).join("");
+  } else if (kind === "donut") {
+    const vals = series[0]!.values, tot = vals.reduce((a, b) => a + b, 0) || 1; let a0 = -Math.PI / 2; const R = 80, r = 52, cx = W / 2, cy = H / 2;
+    body = vals.map((val, i) => { const a1 = a0 + (val / tot) * Math.PI * 2; const large = a1 - a0 > Math.PI ? 1 : 0; const p = (R_: number, a: number) => `${(cx + R_ * Math.cos(a)).toFixed(1)} ${(cy + R_ * Math.sin(a)).toFixed(1)}`;
+      const d = `M${p(R, a0)} A${R} ${R} 0 ${large} 1 ${p(R, a1 - 0.02)} L${p(r, a1 - 0.02)} A${r} ${r} 0 ${large} 0 ${p(r, a0)}Z`; a0 = a1; return `<path class="d d${i % 5}" d="${d}"/>`; }).join("") +
+      `<text x="${cx}" y="${cy + 6}" text-anchor="middle" class="vz-big">${esc(v.center ?? Math.round(tot))}</text>`;
+  } else {
+    body = series.map((s, si) => { const d = smooth(s.values, W, H, max); return (si === 0 && kind === "area" ? `<path class="ar" d="${d} L${W - 10} ${H - 10} L10 ${H - 10}Z" fill="url(#g${uid})"/>` : "") + `<path class="ln ln${si}" d="${d}"/>`; }).join("");
+    if (series[0]) { const last = series[0].values.at(-1)!; const x = W - 10, y = H - 10 - (last / max) * (H - 20); body += `<circle class="dot" cx="${x}" cy="${y.toFixed(1)}" r="4.5"/>`; }
+  }
+  const xl = kind !== "donut" && labels.length ? `<div class="vz-xl">${labels.map((l) => `<span>${esc(l)}</span>`).join("")}</div>` : "";
+  const legend = series.length > 1 || kind === "donut" ? `<div class="vz-legend">${(kind === "donut" ? (v.labels ?? []).map((l: string, i: number) => [l, i]) : series.map((s, i) => [s.label, i])).map(([l, i]: any) => `<span><i class="sw d${i % 5}"></i>${esc(l)}</span>`).join("")}</div>` : "";
+  return `<svg class="vz-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${esc(v.title ?? "Chart")}"><defs><linearGradient id="g${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-accent)" stop-opacity=".3"/><stop offset="1" stop-color="var(--c-accent)" stop-opacity="0"/></linearGradient></defs><g class="gr">${grid}</g>${body}</svg>${xl}${legend}`;
+}
+
+const GALLERY_SHAPES = (rnd: () => number, i: number) => {
+  const k = Math.floor(rnd() * 4);
+  const a = (n: number) => (rnd() * n).toFixed(0);
+  if (k === 0) return `<circle cx="${a(200)}" cy="${a(140)}" r="${40 + Number(a(50))}" class="s${i % 3}"/><circle cx="${a(200)}" cy="${a(140)}" r="${20 + Number(a(30))}" class="s${(i + 1) % 3}"/>`;
+  if (k === 1) return `<rect x="${a(80)}" y="${a(50)}" width="${70 + Number(a(80))}" height="${60 + Number(a(60))}" rx="${a(30)}" class="s${i % 3}"/><rect x="${a(120)}" y="${a(80)}" width="${50 + Number(a(70))}" height="${50 + Number(a(50))}" rx="${a(24)}" class="s${(i + 2) % 3}"/>`;
+  if (k === 2) return `<path d="M0 ${100 + Number(a(40))} Q 80 ${a(60)} 160 ${80 + Number(a(40))} T 320 ${60 + Number(a(60))} V160 H0Z" class="s${i % 3}"/><path d="M0 ${130 + Number(a(20))} Q 100 ${60 + Number(a(40))} 200 ${120 + Number(a(30))} T 320 ${90 + Number(a(40))} V160 H0Z" class="s${(i + 1) % 3}"/>`;
+  return Array.from({ length: 6 }, (_, j) => `<rect x="${j * 54}" y="0" width="50" height="160" class="s${(i + j) % 3}" opacity="${(0.35 + (j % 3) * 0.25).toFixed(2)}"/>`).join("");
+};
+
+/** Render a domain visual. `id` namespaces SVG gradient ids so several can share a page. */
+export function renderVisual(v: VisualSpec | undefined, id = "v"): string {
+  if (!v || !v.kind) return "";
+  const uid = id.replace(/[^a-z0-9]/gi, "");
+  switch (v.kind) {
+    case "timeline": {
+      const items: any[] = (v.items ?? []).slice(0, 7);
+      return `<div class="vz vz-timeline" role="img" aria-label="${esc(v.title ?? "Activity timeline")}">${bar(v.title ?? "Timeline", v.right)}<ol class="vz-tl">${items.map((it) => `<li class="vz-${tone(it.status)}"><time>${esc(it.time ?? "")}</time><div><b>${esc(it.title)}</b>${it.detail ? `<small>${esc(it.detail)}</small>` : ""}</div>${it.tag ? pill(it.tag, it.status) : ""}</li>`).join("")}</ol></div>`;
+    }
+    case "chat": {
+      const msgs: any[] = (v.messages ?? []).slice(0, 6);
+      return `<div class="vz vz-chat" role="img" aria-label="${esc(v.title ?? "Conversation")}">${bar(v.title ?? "Assistant", v.right)}<div class="vz-msgs">${msgs.map((m) => `<div class="vz-msg ${m.role === "user" ? "me" : "bot"}"><p>${esc(m.text)}</p>${m.meta ? `<small>${esc(m.meta)}</small>` : ""}</div>`).join("")}</div>${(v.suggestions ?? []).length ? `<div class="vz-sugs">${(v.suggestions as string[]).slice(0, 3).map((s) => `<span>${esc(s)}</span>`).join("")}</div>` : ""}<div class="vz-input"><span>${esc(v.placeholder ?? "Ask anything…")}</span><i></i></div></div>`;
+    }
+    case "code":
+    case "terminal": {
+      const code = String(v.code ?? "").split("\n").slice(0, 16);
+      const isTerm = v.kind === "terminal";
+      return `<div class="vz vz-code" role="img" aria-label="${esc(v.title ?? "Code")}">${bar(v.filename ?? v.title ?? (isTerm ? "terminal" : "index.ts"), v.right)}<pre><code>${code.map((l, i) => `<span class="ln">${isTerm ? "" : i + 1}</span>${isTerm && /^\$ /.test(l) ? `<span class="pr">$ </span>${highlight(l.slice(2))}` : highlight(l)}`).join("\n")}</code></pre></div>`;
+    }
+    case "kanban": {
+      const cols: any[] = (v.columns ?? []).slice(0, 4);
+      return `<div class="vz vz-kanban" role="img" aria-label="${esc(v.title ?? "Board")}">${bar(v.title ?? "Board", v.right)}<div class="vz-cols">${cols.map((c) => `<div class="vz-col"><h4>${esc(c.title)} <em>${(c.cards ?? []).length}</em></h4>${(c.cards ?? []).slice(0, 4).map((k: any) => `<div class="vz-card"><b>${esc(k.title)}</b>${k.meta ? `<small>${esc(k.meta)}</small>` : ""}${k.tag ? pill(k.tag, k.tone) : ""}</div>`).join("")}</div>`).join("")}</div></div>`;
+    }
+    case "table": {
+      const cols: string[] = v.columns ?? []; const rows: any[][] = (v.rows ?? []).slice(0, 7);
+      const cell = (c: any) => (c && typeof c === "object" ? pill(c.text, c.tone) : esc(c));
+      return `<div class="vz vz-table" role="img" aria-label="${esc(v.title ?? "Table")}">${bar(v.title ?? "Records", v.right)}<table><thead><tr>${cols.map((c) => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${cell(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    }
+    case "chart":
+      return `<div class="vz vz-chart" role="img" aria-label="${esc(v.title ?? "Chart")}">${bar(v.title ?? "Overview", v.right)}<div class="vz-pad">${v.headline ? `<div class="vz-head"><strong>${esc(v.headline)}</strong>${v.delta ? `<em>${esc(v.delta)}</em>` : ""}</div>` : ""}${chartSvg(v, uid)}</div></div>`;
+    case "invoice": {
+      const items: any[] = (v.items ?? []).slice(0, 5);
+      return `<div class="vz vz-invoice" role="img" aria-label="${esc(v.title ?? "Invoice")}">${bar(v.title ?? "Invoice", v.right)}<div class="vz-pad"><div class="vz-inv-head"><div><small>${esc(v.number ?? "INV-0001")}</small><strong>${esc(v.to ?? "Customer")}</strong><small>${esc(v.from ?? "")}</small></div>${v.status ? pill(v.status, v.statusTone ?? "ok") : ""}</div><table><thead><tr><th>Item</th><th>Qty</th><th>Amount</th></tr></thead><tbody>${items.map((i) => `<tr><td>${esc(i.desc)}</td><td>${esc(i.qty ?? 1)}</td><td>${esc(i.price)}</td></tr>`).join("")}</tbody><tfoot><tr><td colspan="2">Total</td><td>${esc(v.total ?? "")}</td></tr></tfoot></table></div></div>`;
+    }
+    case "schedule": {
+      const days: string[] = v.days ?? ["Mon", "Tue", "Wed", "Thu", "Fri"]; const rows: any[] = (v.rows ?? []).slice(0, 5);
+      return `<div class="vz vz-schedule" role="img" aria-label="${esc(v.title ?? "Schedule")}">${bar(v.title ?? "Schedule", v.right)}<div class="vz-sg" style="--cols:${days.length}"><span></span>${days.map((d) => `<b>${esc(d)}</b>`).join("")}${rows.map((r) => `<span class="rl">${esc(r.label)}</span>${days.map((_, di) => { const b = (r.blocks ?? []).find((x: any) => x.day === di); return b ? `<i class="blk vz-${tone(b.tone)}" style="${b.len > 1 ? `grid-column:span ${Math.min(b.len, days.length - di)}` : ""}">${esc(b.label ?? "")}</i>` : ((r.blocks ?? []).some((x: any) => x.day < di && x.day + (x.len ?? 1) > di) ? "" : "<i></i>"); }).join("")}`).join("")}</div></div>`;
+    }
+    case "gallery": {
+      const items: any[] = (v.items ?? []).slice(0, 6);
+      return `<div class="vz vz-gallery" role="img" aria-label="${esc(v.title ?? "Selected work")}">${items.map((it, i) => { const r = seeded(String(it.seed ?? it.title ?? i)); return `<figure class="g${i % 3}"><svg viewBox="0 0 320 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="320" height="160" class="s-bg"/>${GALLERY_SHAPES(r, i)}</svg><figcaption><b>${esc(it.title)}</b>${it.caption ? `<small>${esc(it.caption)}</small>` : ""}</figcaption></figure>`; }).join("")}</div>`;
+    }
+    case "product-cards": {
+      const items: any[] = (v.items ?? []).slice(0, 4);
+      return `<div class="vz vz-products" role="img" aria-label="${esc(v.title ?? "Products")}">${items.map((it, i) => { const r = seeded(String(it.name)); return `<div class="vz-prod"><div class="ph"><svg viewBox="0 0 160 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="160" height="120" class="s-bg"/>${GALLERY_SHAPES(r, i).replace(/320/g, "160")}</svg>${it.tag ? `<span class="vz-pill vz-info">${esc(it.tag)}</span>` : ""}</div><b>${esc(it.name)}</b><div class="pr"><span>${esc(it.price)}</span>${it.note ? `<small>${esc(it.note)}</small>` : ""}</div></div>`; }).join("")}</div>`;
+    }
+    case "checklist": {
+      const items: any[] = (v.items ?? []).slice(0, 7);
+      return `<div class="vz vz-check" role="img" aria-label="${esc(v.title ?? "Checklist")}">${bar(v.title ?? "Checklist", v.right)}<ul>${items.map((it) => `<li class="${it.done ? "done" : ""}"><i></i><span>${esc(it.text)}</span>${it.meta ? `<small>${esc(it.meta)}</small>` : ""}</li>`).join("")}</ul></div>`;
+    }
+    case "metrics": {
+      const items: any[] = (v.items ?? []).slice(0, 4);
+      return `<div class="vz vz-metrics" role="img" aria-label="${esc(v.title ?? "Key metrics")}">${items.map((m, i) => { const sp: number[] = m.spark ?? [4, 6, 5, 8, 7, 10, 9, 12]; const d = smooth(sp, 120, 36, Math.max(...sp) * 1.1, 3); return `<div class="vz-metric"><small>${esc(m.label)}</small><strong>${esc(m.value)}</strong>${m.delta ? `<em class="${/^[-−▼]/.test(String(m.delta)) ? "dn" : "up"}">${esc(m.delta)}</em>` : ""}<svg viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true"><path class="ln ln${i % 2}" d="${d}"/></svg></div>`; }).join("")}</div>`;
+    }
+    default: return "";
+  }
+}
+
+/** Visuals that already provide their own title bar/frame. */
+export const FRAMELESS: VisualKind[] = ["gallery", "product-cards", "metrics"];
