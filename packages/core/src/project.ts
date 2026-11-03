@@ -1,7 +1,8 @@
-import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync, existsSync, readdirSync, copyFileSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import type { DesignTokens } from "./design/types.js";
 import { renderDesignMd, renderTokensCss, renderTokensJson } from "./design/system.js";
+import { setAssets, IMAGE_EXTS, collectImageRequests, imageInstructions, type AssetMap } from "./compose/assets.js";
 import { buildSite, sanitizeTweak, type Overrides } from "./compose/page.js";
 import type { PageSpec } from "./compose/sections.js";
 
@@ -35,6 +36,26 @@ export function loadProject(dir: string): Project {
   };
 }
 
+/** Images the user or the model dropped into <project>/images/ (hero.png, feature-2.jpg, logo.svg...), keyed by slot. Max 8MB each; logo.svg only svg/png/jpg. */
+export function findAssets(dir: string): AssetMap {
+  const d = join(resolve(dir), "images"), out: AssetMap = {};
+  if (!existsSync(d)) return out;
+  for (const n of readdirSync(d).sort()) {
+    const m = /^([a-z0-9][a-z0-9-]{0,30})\.([a-z0-9]+)$/i.exec(n);
+    if (!m || !IMAGE_EXTS.includes(m[2]!.toLowerCase())) continue;
+    const slot = m[1]!.toLowerCase(), st = statSync(join(d, n));
+    if (!st.isFile() || st.size > 8 * 1024 * 1024 || out[slot]) continue;
+    out[slot] = `images/${n}`;
+  }
+  return out;
+}
+
+/** Image slots (hero, feature photos, logo) of a saved project and whether each has a file yet, with the instruction to relay to the user. */
+export function imageStatus(dir: string) {
+  const p = loadProject(dir), requests = collectImageRequests(p.spec, findAssets(dir));
+  return { requests, next_step: imageInstructions(requests) };
+}
+
 export function saveProject(p: Project): { files: string[] } {
   const files: string[] = [];
   const w = (name: string, content: string) => { write(f(p.dir, name), content); files.push(name); };
@@ -45,8 +66,12 @@ export function saveProject(p: Project): { files: string[] } {
   w("DESIGN.md", renderDesignMd(p.tokens));
   w("tokens.json", renderTokensJson(p.tokens));
   w("tokens.css", renderTokensCss(p.tokens));
+  const found = findAssets(p.dir);
+  setAssets(found);
   const site = buildSite(p.spec, p.tokens, p.overrides, p.icons ?? {});
+  setAssets({});
   for (const [name, content] of Object.entries(site.files)) w(`dist/${name}`, content);
+  for (const rel of Object.values(found)) { const dest = f(p.dir, `dist/${rel}`); mkdirSync(dirname(dest), { recursive: true }); copyFileSync(f(p.dir, rel), dest); files.push(`dist/${rel}`); }
   return { files: [...files, ...Object.keys(site.files).map((n) => `dist/${n}`)] };
 }
 

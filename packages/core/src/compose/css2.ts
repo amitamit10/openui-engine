@@ -213,7 +213,15 @@ h1,h2,.h2{text-wrap:balance}
 export const LOGO_CSS = String.raw`
 .brand__mark--svg{background:none!important;border:0!important;box-shadow:none!important;width:30px;height:30px;border-radius:0;display:block}
 .brand__mark--svg::before{content:none!important}
-.brand__mark--svg .brand__svg,.brand__svg{width:100%;height:100%;display:block}
+.brand__mark--svg .brand__svg,.brand__img{height:32px;width:auto;max-width:180px;display:block;object-fit:contain}
+.vz-photo--ph{background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--c-accent) 7%,var(--c-surface)) 0 14px,var(--c-surface) 14px 28px);border:1.5px dashed color-mix(in srgb,var(--c-accent) 45%,var(--c-border));box-shadow:none;display:grid;place-items:center;color:var(--c-muted)}
+.vz-photo--ph .ph{display:grid;gap:6px;justify-items:center;text-align:center;padding:18px;max-width:92%}
+.vz-photo--ph svg{width:34px;height:34px;color:var(--c-accent)}
+.vz-photo--ph strong{color:var(--c-text);font-size:14px}
+.vz-photo--ph span{font-size:12px}
+.vz-photo--ph p{margin:4px 0 0;font-size:11.5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;opacity:.85}
+.fcard .vz-photo--ph p{display:none}
+.brand__svg{width:100%;height:100%;display:block}
 .vz-photo{margin:0;width:100%;max-width:100%;min-width:0;aspect-ratio:var(--ar,1.5);overflow:hidden;border-radius:var(--r-xl,28px);background:var(--c-surface);box-shadow:var(--sh-lg,var(--sh-md));position:relative}
 .vz-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .vz-photo figcaption{position:absolute;left:12px;bottom:12px;right:12px;font-size:12px;padding:6px 10px;border-radius:999px;background:color-mix(in srgb,var(--c-bg) 82%,transparent);color:var(--c-text);backdrop-filter:blur(8px);width:fit-content;max-width:100%}

@@ -1,12 +1,13 @@
 import { PHOTO_ROWS } from "./photos-data.js";
 import { esc } from "./util.js";
+import { renderImageSlot } from "./assets.js";
 
 export interface Photo { id: number; alt: string; tags: string[]; author: string; unsplash: string; w: number; h: number }
 export const PHOTOS: Photo[] = PHOTO_ROWS.map(([id, alt, tags, author, unsplash, w, h]) => ({ id, alt, tags, author, unsplash, w, h }));
 const BY_ID = new Map(PHOTOS.map((p) => [p.id, p]));
 
 /** A photo reference: a library id (number or numeric string), an https image URL, or an object with alt text. */
-export type PhotoRef = number | string | { id?: number | string; url?: string; alt?: string; credit?: string };
+export type PhotoRef = number | string | { id?: number | string; url?: string; alt?: string; credit?: string } | { prompt: string; alt?: string; aspect?: string; slot?: string };
 
 const stem = (w: string) => w.replace(/(ing|es|s)$/, "");
 /** Offline keyword search over the hand-tagged library. Best matches first. */
@@ -43,6 +44,7 @@ export const photoCredits = (): string[] => [...new Set(used.values())];
 
 /** Responsive <figure><img>: explicit width/height (no layout shift), lazy unless eager, descriptive alt. */
 export function renderPhoto(ref: unknown, opts: { alt?: string; ratio?: number; eager?: boolean; sizes?: string; caption?: string } = {}): string | null {
+  if (ref && typeof ref === "object" && typeof (ref as any).prompt === "string") return renderImageSlot(ref as any, opts);
   const p = resolvePhoto(ref, opts.alt);
   if (!p) return null;
   const alt = opts.alt && !(typeof ref === "object" && (ref as any)?.alt) ? opts.alt : p.alt;

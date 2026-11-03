@@ -1,10 +1,10 @@
-import { mkdirSync, readFileSync, writeFileSync, existsSync, cpSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync, existsSync, cpSync, unlinkSync } from "node:fs";
 import { join, relative } from "node:path";
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, styleGuide, collectIconRefs, normalizeCategory, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
-  loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, reviewDesign, searchPhotos, photoUrl, PHOTOS, LOGO_MARKS, pickMark, logoFiles, legalDoc, pickAccent, hexToHsl, hslToHex, contrast, OBJECTS, PALETTE_VARS, SCENE_IDS, sceneSvg, getSources, setTokenPath, suggestLayout, applyTweaks,
+  loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, reviewDesign, imageStatus, findAssets, IMAGE_EXTS, searchPhotos, photoUrl, PHOTOS, LOGO_MARKS, pickMark, logoFiles, legalDoc, pickAccent, hexToHsl, hslToHex, contrast, OBJECTS, PALETTE_VARS, SCENE_IDS, sceneSvg, getSources, setTokenPath, suggestLayout, applyTweaks,
   type DesignTokens, type PageSpec, type SectionSpec, type SectionType, type SiteCategory, type StyleId,
 } from "@openui-engine/core";
 import { auditTarget, capture, serveDir, VIEWPORTS, formatReport, detectSlop, getBrowser } from "@openui-engine/verify";
@@ -185,7 +185,7 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
       const dir = ctx.safePath(a.projectDir); if (!isProject(dir)) return fail("Not an OpenUI project.");
       const out = rebuild(dir);
       if (a.deployDir) { const dd = ctx.safePath(a.deployDir); mkdirSync(dd, { recursive: true }); cpSync(join(dir, "dist"), dd, { recursive: true }); }
-      return text(out);
+      return text({ ...out, images: imageStatus(dir) });
     });
 
   // 8 ────────────────────────────────────────────────────────────────────────
@@ -320,16 +320,47 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   }, async (a) => text({ query: a.query, results: searchIcons({ query: a.query, set: a.set, limit: a.limit }).map((h) => h.ref) }));
 
 
+
+  server.registerTool("image_requests", {
+    title: "Image slots and prompts",
+    description: "List every image slot of a project (hero, feature photos, logo) with its status (missing/provided), the file name to save it as, and a ready-to-paste image-generation prompt. FIRST decide whether you can generate images yourself: if yes, generate each missing one and save it with add_image. If you cannot, show the user the prompts and tell them plainly to copy-paste each into ChatGPT (or another image generator), save the result as images/<slot>.png in the project, then run rebuild_project.",
+    inputSchema: { projectDir: z.string() },
+  }, async (a) => { const dir = ctx.safePath(a.projectDir); if (!isProject(dir)) return fail("Not an OpenUI project."); return text(imageStatus(dir)); });
+
+  server.registerTool("add_image", {
+    title: "Add an image to a slot",
+    description: "Put a finished image into a slot (hero, feature-1, feature-2, logo...) and rebuild. Give `path` (a file inside the workdir) or `base64` + `ext`. png, jpg, webp, avif, and svg for the logo; max 8MB. The placeholder for that slot becomes the real <img> (with width/height and alt) and the file is copied to dist/images/.",
+    inputSchema: { projectDir: z.string(), slot: z.string().regex(/^[a-z0-9][a-z0-9-]{0,30}$/), path: z.string().optional(), base64: z.string().optional(), ext: z.enum(["png", "jpg", "jpeg", "webp", "avif", "svg"]).optional(), deployDir: z.string().optional() },
+  }, async (a) => {
+    const dir = ctx.safePath(a.projectDir); if (!isProject(dir)) return fail("Not an OpenUI project.");
+    let bytes: Buffer, ext = a.ext as string | undefined;
+    if (a.path) { const src = ctx.safePath(a.path); if (!existsSync(src)) return fail(`No file at ${a.path}`); bytes = readFileSync(src); ext = ext ?? (/\.([a-z0-9]+)$/i.exec(src)?.[1] ?? "").toLowerCase(); }
+    else if (a.base64) { bytes = Buffer.from(a.base64.replace(/^data:[^,]*,/, ""), "base64"); }
+    else return fail("Give `path` or `base64` + `ext`.");
+    if (!ext || !IMAGE_EXTS.includes(ext)) return fail(`Unsupported type "${ext ?? ""}". Use ${IMAGE_EXTS.join(", ")}.`);
+    if (bytes.length < 64 || bytes.length > 8 * 1024 * 1024) return fail("Image must be between 64 bytes and 8MB.");
+    const head = bytes.subarray(0, 12), isPng = head[0] === 0x89 && head[1] === 0x50, isJpg = head[0] === 0xff && head[1] === 0xd8, isWebp = head.subarray(0, 4).toString() === "RIFF" && head.subarray(8, 12).toString() === "WEBP", isAvif = head.subarray(4, 8).toString() === "ftyp";
+    if (ext === "svg") { const t = bytes.toString("utf8"); if (!/<svg[\s>]/i.test(t) || /<script|on[a-z]+\s*=|<foreignObject|javascript:/i.test(t)) return fail("SVG must be a plain <svg> with no scripts, event handlers or foreignObject."); }
+    else if (!(isPng || isJpg || isWebp || isAvif)) return fail("That does not look like a real png/jpg/webp/avif image (bad file signature).");
+    if (a.slot !== "logo" && ext === "svg") return fail("SVG is only accepted for the logo slot.");
+    const imgDir = join(dir, "images"); mkdirSync(imgDir, { recursive: true });
+    for (const e of IMAGE_EXTS) { const old = join(imgDir, `${a.slot}.${e}`); if (existsSync(old)) unlinkSync(old); }
+    writeFileSync(join(imgDir, `${a.slot}.${ext}`), bytes);
+    const out = rebuild(dir);
+    if (a.deployDir) { const dd = ctx.safePath(a.deployDir); mkdirSync(dd, { recursive: true }); cpSync(join(dir, "dist"), dd, { recursive: true }); }
+    return text({ saved: `images/${a.slot}.${ext}`, bytes: bytes.length, rebuilt: out.files.length, images: imageStatus(dir) });
+  });
+
   // ── assets: photos, logo, colour, legal ────────────────────────────────────
   server.registerTool("search_photos", {
     title: "Search photos",
-    description: "Find real photographs (120 hand-tagged Unsplash-licensed photos, offline search) for heroPhoto or features[].photo. Returns ids, alt text and ready URLs. Pass the id as `heroPhoto` or `features[].photo`; the engine writes responsive <img> tags with width/height and alt and credits the photographer in the footer. The library is heavy on workspaces, landscapes, coasts, cities, cafes, craft and vintage objects; for anything it lacks (dental chairs, a specific product), draw an SVG or supply your own https image URL with alt text.",
+    description: "Stock fallback: find real photographs (120 hand-tagged Unsplash-licensed photos, offline search) for heroPhoto or features[].photo. Returns ids, alt text and ready URLs. Pass the id as `heroPhoto` or `features[].photo`; the engine writes responsive <img> tags with width/height and alt and credits the photographer in the footer. The library is heavy on workspaces, landscapes, coasts, cities, cafes, craft and vintage objects; for anything it lacks (dental chairs, a specific product), draw an SVG or supply your own https image URL with alt text.",
     inputSchema: { query: z.string().describe("keywords, e.g. 'coffee cafe interior', 'workspace laptop', 'mountain hiking'"), limit: z.number().int().min(1).max(20).default(8) },
   }, async (a) => { const r = searchPhotos(a.query, a.limit); return text({ query: a.query, count: PHOTOS.length, results: r.map((p) => ({ id: p.id, alt: p.alt, tags: p.tags, photographer: p.author, preview: photoUrl(p.id, 480, 320) })), use: "heroPhoto: <id> (add heroPhotoAlt to override alt), features[].photo: <id>", note: r.length ? undefined : "no match: try broader words (workspace, coast, city, food, people, craft, vintage, nature) or supply your own https image URL" }); });
 
   server.registerTool("generate_logo", {
     title: "Generate logo",
-    description: "Generate an SVG logo mark (monogram, arch, leaf, petal, stack, diamond, orbit, hex, wave, spark) for a brand, in the chosen colours, with favicon.svg and logo.svg ready to write. build_site already generates one automatically from the name and art direction; call this to preview options, pick a mark (brief.logo.mark) or get standalone files.",
+    description: "Preview generated geometric logo marks (these are simple placeholders, not a designed brand logo: prefer the image-prompt flow for a real logo) (monogram, arch, leaf, petal, stack, diamond, orbit, hex, wave, spark) for a brand, in the chosen colours, with favicon.svg and logo.svg ready to write. build_site already generates one automatically from the name and art direction; call this to preview options, pick a mark (brief.logo.mark) or get standalone files.",
     inputSchema: { name: z.string(), style: z.string().optional(), accent: z.string().optional().describe("hex, default #2563eb"), mark: z.enum(LOGO_MARKS as unknown as [string, ...string[]]).optional() },
   }, async (a) => { const accent = /^#[0-9a-f]{6}$/i.test(a.accent ?? "") ? a.accent! : "#2563eb"; const fg = contrast(accent, "#ffffff") >= contrast(accent, "#0b0b10") ? "#ffffff" : "#0b0b10"; const kind = (a.mark ?? pickMark(a.name, a.style)) as any; return text({ mark: kind, options: LOGO_MARKS, files: logoFiles(a.name, kind, accent, fg, "#111111"), use: `brief.logo = { mark: "${kind}" }, or { svg: "<svg viewBox=\"0 0 32 32\">…</svg>" } for your own` }); });
 
@@ -357,7 +388,7 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     title: "Site brief template",
     description: "Returns a complete example SiteBrief for a category with visual-kind suggestions. Copy it, REWRITE EVERY FIELD with specific copy for the real product, then pass it to build_site. Visual kinds: " + VISUAL_KINDS.join(", ") + ".",
     inputSchema: { category: z.string().default("saas").describe("any text; mapped to the nearest of: saas, ai-product, devtool, fintech, agency, portfolio, ecommerce, consumer-app") },
-  }, async (a0) => { const a = { category: normalizeCategory(a0.category) }; return text({ visualSuggestions: VISUAL_SUGGESTIONS[a.category as SiteCategory], styleGuide: styleGuide(), rules: ["ASSETS (one-shot a complete site): search_photos finds real photographs for heroPhoto and features[].photo (photographic heroes make people-facing, place-based and lifestyle businesses feel real); a logo mark, favicon.svg and logo.svg are generated automatically (brief.logo to choose or supply your own); generate_palette gives a brand accent with harmonies and contrast checks (brief.accent); brief.legal {holder, email, address, jurisdiction, pages:true} writes the copyright line plus privacy.html and terms.html (template text, not legal advice).", "ART (biggest quality lever): a SPECIFIC drawing beats generic art. Call illustration_kit, then draw your own flat SVG for the hero (heroVisual {kind:\"svg\",svg}) or give each feature an art SVG (features[].art), adapting the example scenes/objects to YOUR product (a labelled coffee bag, a kiln, a client portal timeline) using palette variables only. If the product is an app, a UI mockup (heroVisual kind \"ui\") is the better hero.", "HERO: for software, data and API products show the product (heroVisual kind:\"ui\" with 5-8 specific blocks). For services, retail, care, food, craft, clinics, law and other non-software businesses, benchmark judges preferred a SPECIFIC artefact of the customer experience over any scene: show the thing the customer gets, as heroVisual, using a real-data kind: a booking/appointment card (kind \"schedule\"), a receipt or quote (kind \"invoice\"), a route or order timeline (kind \"timeline\"), a labelled product (kind \"product-cards\"), or your own drawn svg of that exact object with labels. Fill it with real names, times and amounts, and layer 2 specific heroFloats. Only OMIT heroVisual (engine draws a library scene; heroScene forces one) when you cannot think of a concrete artefact.", "Choose or omit `style`: the engine picks from your tone words (warm/human/calm → field-notes; technical → terminal-dev; refined/crafted → editorial-paper). Dark only if asked for.", "Hero visual: use kind:\"ui\" with 5–8 blocks that show YOUR product doing its job (not a 3-row list)", "Headline 5–12 words with ONE *emphasised* phrase", "No buzzwords (seamless, unlock, supercharge, all-in-one…)", "Every feature gets a visual that shows THIS product's data", "Testimonials need a number; use distinctive fictional names", "Use real domain data inside visuals (times, names, amounts), never generic placeholders"], brief: briefTemplate(a.category as SiteCategory) }); });
+  }, async (a0) => { const a = { category: normalizeCategory(a0.category) }; return text({ visualSuggestions: VISUAL_SUGGESTIONS[a.category as SiteCategory], styleGuide: styleGuide(), rules: ["ASSETS (one-shot a complete site): FIRST check whether you can generate images yourself. Give photographs as prompts (heroPhoto {prompt, alt, aspect}, features[].photo {prompt, alt}); the build shows labelled placeholders and returns images.requests with a prompt per slot. If you can generate images, do it and call add_image; if you cannot, tell the user to copy-paste each prompt into ChatGPT, save as images/<slot>.png, and run rebuild_project. Never invent image URLs. The logo works the same way (images/logo.svg|png) unless you can write a genuinely professional SVG (brief.logo.svg); the default is a clean text wordmark. search_photos offers 120 generic stock photographs as a fallback (heroPhoto: <id>); generate_palette gives a brand accent with harmonies and contrast checks (brief.accent); brief.legal {holder, email, address, jurisdiction, pages:true} writes the copyright line plus privacy.html and terms.html (template text, not legal advice).", "ART (biggest quality lever): a SPECIFIC drawing beats generic art. Call illustration_kit, then draw your own flat SVG for the hero (heroVisual {kind:\"svg\",svg}) or give each feature an art SVG (features[].art), adapting the example scenes/objects to YOUR product (a labelled coffee bag, a kiln, a client portal timeline) using palette variables only. If the product is an app, a UI mockup (heroVisual kind \"ui\") is the better hero.", "HERO: for software, data and API products show the product (heroVisual kind:\"ui\" with 5-8 specific blocks). For services, retail, care, food, craft, clinics, law and other non-software businesses, benchmark judges preferred a SPECIFIC artefact of the customer experience over any scene: show the thing the customer gets, as heroVisual, using a real-data kind: a booking/appointment card (kind \"schedule\"), a receipt or quote (kind \"invoice\"), a route or order timeline (kind \"timeline\"), a labelled product (kind \"product-cards\"), or your own drawn svg of that exact object with labels. Fill it with real names, times and amounts, and layer 2 specific heroFloats. Only OMIT heroVisual (engine draws a library scene; heroScene forces one) when you cannot think of a concrete artefact.", "Choose or omit `style`: the engine picks from your tone words (warm/human/calm → field-notes; technical → terminal-dev; refined/crafted → editorial-paper). Dark only if asked for.", "Hero visual: use kind:\"ui\" with 5–8 blocks that show YOUR product doing its job (not a 3-row list)", "Headline 5–12 words with ONE *emphasised* phrase", "No buzzwords (seamless, unlock, supercharge, all-in-one…)", "Every feature gets a visual that shows THIS product's data", "Testimonials need a number; use distinctive fictional names", "Use real domain data inside visuals (times, names, amounts), never generic placeholders"], brief: briefTemplate(a.category as SiteCategory) }); });
 
   const deepMerge = (a: any, b: any): any => { if (Array.isArray(b) || b === null || typeof b !== "object") return b; const o = { ...(a && typeof a === "object" && !Array.isArray(a) ? a : {}) }; for (const [k, v] of Object.entries(b)) { if (v === null) delete o[k]; else o[k] = deepMerge(o[k], v); } return o; };
 
@@ -405,6 +436,7 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
       project: relative(ctx.workdir, dir) || ".", notes: [...planned.notes, ...(a.deployDir ? [`${a.deployDir}/ is regenerated on every build_site call — hand edits there are lost; change the brief (patch) instead.`] : [])], style: planned.tokens.meta.style, accent: planned.tokens.color.accent, deployed,
       layout: planned.layout.map((l) => `${l.id}: ${l.type} — ${l.why}`),
       design_review: reviewDesign(planned.spec, brief),
+      images: imageStatus(dir),
       inspiration: searchPatterns({ category: planned.tokens.meta.category as SiteCategory, style: planned.tokens.meta.style as StyleId, limit: 3 }).map((p) => ({ pattern: p.name, principles: p.principles.slice(0, 2), pitfall: p.pitfalls[0] })),
       icons: `${Object.keys(icons).length}/${collectIconRefs(planned.spec).size} fetched${Object.keys(icons).length < collectIconRefs(planned.spec).size ? " (others use built-in fallbacks)" : ""}`,
       copy_lint: { errors: copy.filter((c) => c.severity === "error").length, warnings: copy.filter((c) => c.severity === "warning").length, top: [...copy.filter((c) => c.severity === "error"), ...copy.filter((c) => c.severity === "warning")].slice(0, 12).map((c) => `[${c.rule}] ${c.where}: ${c.message} → ${c.fix}`) },

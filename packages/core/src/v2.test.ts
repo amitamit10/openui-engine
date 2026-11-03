@@ -339,7 +339,7 @@ describe("assets: photos, logo, legal", () => {
   });
   it("builds heroPhoto, feature photos, logo files, legal pages and a copyright footer", async () => {
     const { planSite, buildSite } = await import("./index.js");
-    const brief: any = { name: "Harbour Row", category: "consumer-app", headline: "Coffee roasted *two streets* away", subheadline: "Small batch beans roasted every Tuesday.", primaryCta: "Order beans", heroPhoto: 42, features: [{ title: "Roasted twice a week", body: "12kg batches bagged within an hour.", photo: 0 }, { title: "Beans by post", body: "Ordered by noon, with you in two days." }, { title: "Brewed at the bar", body: "Flat whites from 7am." }], legal: { holder: "Harbour Row Ltd", pages: true, email: "a@b.test" } };
+    const brief: any = { name: "Harbour Row", category: "consumer-app", headline: "Coffee roasted *two streets* away", subheadline: "Small batch beans roasted every Tuesday.", primaryCta: "Order beans", heroPhoto: 42, features: [{ title: "Roasted twice a week", body: "12kg batches bagged within an hour.", photo: 0 }, { title: "Beans by post", body: "Ordered by noon, with you in two days." }, { title: "Brewed at the bar", body: "Flat whites from 7am." }], legal: { holder: "Harbour Row Ltd", pages: true, email: "a@b.test" }, logo: { mark: "leaf" } };
     const { tokens, spec } = planSite(brief);
     const site = buildSite(spec, tokens, {}, {});
     const idx = site.files["index.html"]!;
@@ -352,5 +352,39 @@ describe("assets: photos, logo, legal", () => {
     const { customLogo } = await import("./compose/logo.js");
     expect(customLogo('<svg viewBox="0 0 32 32" onload="x()"><circle cx="16" cy="16" r="8"/></svg>')).toBeNull();
     expect(customLogo('<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="8"/></svg>')).toContain("brand__svg");
+  });
+});
+
+describe("image slots: placeholders, prompts and dropped-in files", () => {
+  const brief: any = { name: "Quay Bakery", category: "consumer-app", headline: "Bread baked before the town wakes", subheadline: "Sourdough and pastries from a quayside oven.", primaryCta: "Order bread", heroPhoto: { prompt: "A baker lifting a sourdough loaf from a stone oven at dawn", alt: "A baker with a fresh loaf" }, features: [{ title: "Stone-baked sourdough", body: "Thirty-hour ferment, baked at 5am.", photo: { prompt: "Close-up of scored sourdough loaves on a wooden peel", alt: "Loaves" } }, { title: "Pastries", body: "Laminated daily." }, { title: "Box delivery", body: "Saturday boxes." }] };
+  it("renders placeholders carrying the prompt, and lists requests with a logo prompt and user instructions", async () => {
+    const { planSite, buildSite, collectImageRequests, imageInstructions, setAssets } = await import("./index.js");
+    setAssets({});
+    const { tokens, spec } = planSite(brief);
+    const html = buildSite(spec, tokens, {}, {}).files["index.html"]!;
+    expect(html).toContain("vz-photo--ph"); expect(html).toContain("A baker lifting a sourdough loaf"); expect(html).toContain("No text, logos, watermarks");
+    expect(html).not.toContain("<img src=\"undefined");
+    const reqs = collectImageRequests(spec, {});
+    expect(reqs.map((r) => r.slot).sort()).toEqual(["feature-1", "hero", "logo"]);
+    expect(reqs.every((r) => r.status === "missing" && r.prompt.length > 40)).toBe(true);
+    expect(reqs.find((r) => r.slot === "logo")!.prompt).toContain("Quay Bakery");
+    expect(imageInstructions(reqs)).toMatch(/copy-paste/);
+  });
+  it("swaps placeholders for real files and marks slots provided", async () => {
+    const { planSite, buildSite, collectImageRequests, imageInstructions, setAssets } = await import("./index.js");
+    const { tokens, spec } = planSite(brief);
+    const found = { hero: "images/hero.png", "feature-1": "images/feature-1.jpg", logo: "images/logo.svg" };
+    setAssets(found);
+    const html = buildSite(spec, tokens, {}, {}).files["index.html"]!;
+    setAssets({});
+    expect(html).toContain('src="images/hero.png"'); expect(html).toContain('src="images/feature-1.jpg"'); expect(html).toContain('class="brand__img"'); expect(html).toContain('href="images/logo.svg"');
+    expect(html).not.toContain("vz-photo--ph\"");
+    const reqs = collectImageRequests(spec, found);
+    expect(reqs.every((r) => r.status === "provided")).toBe(true);
+    expect(imageInstructions(reqs)).toBeUndefined();
+  });
+  it("ignores unsafe slot names", async () => {
+    const { renderImageSlot } = await import("./index.js");
+    expect(renderImageSlot({ slot: '../x"', prompt: "p" })).toBeNull();
   });
 });

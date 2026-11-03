@@ -72,6 +72,7 @@ export interface BuiltSite { files: Record<string, string> }
 /** Render a full static site (HTML + tokens.css + styles.css + overrides.css + app.js). */
 import { setIllustrationIcons } from "./illustrate.js";
 import { resetPhotoCredits } from "./photos.js";
+import { getAsset } from "./assets.js";
 import { logoFiles, type LogoMark } from "./logo.js";
 import { renderLegalPage } from "./legal.js";
 export function buildSite(spec: PageSpec, tokens: DesignTokens, overrides: Overrides = {}, icons: Record<string, string> = {}): BuiltSite {
@@ -86,7 +87,8 @@ export function buildSite(spec: PageSpec, tokens: DesignTokens, overrides: Overr
   const fonts = tokens.font.googleFamilies.length
     ? `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?${tokens.font.googleFamilies.map((f) => "family=" + f).join("&")}&display=swap">`
     : "";
-  const iconLink = spec.brand.mark ? `<link rel="icon" href="favicon.svg" type="image/svg+xml">` : `<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='${encodeURIComponent(tokens.color.accent)}'/%3E%3C/svg%3E">`;
+  const logoFile = getAsset("logo");
+  const iconLink = logoFile ? `<link rel="icon" href="${esc(logoFile)}"${/\.svg$/.test(logoFile) ? ' type="image/svg+xml"' : ""}>` : spec.brand.mark ? `<link rel="icon" href="favicon.svg" type="image/svg+xml">` : `<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='${encodeURIComponent(tokens.color.accent)}'/%3E%3C/svg%3E">`;
   const html = `<!doctype html>
 <html lang="${esc(spec.lang ?? "en")}" data-motion="${tokens.motion.intensity}">
 <head>
