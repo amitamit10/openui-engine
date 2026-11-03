@@ -1,0 +1,103 @@
+{
+  "release": "v0.7.0",
+  "note": "Controlled benchmark of the engine at commit 7cdfd76 (v0.6.0 plus per-brief accents for field-notes/warm-human, steer to a specific customer artefact for non-software heroes, photo/logo/palette/legal tools, prompt placeholders and add_image). Haiku 5.5 without vs with the MCP, identical SPEC.md, same 60-call budget, four never-seen domains (saltmarsh sauna club, marlowe maths tutors, lumen heirloom seeds, plotline screenwriting app), engine frozen for the run. RESULT: engine 1/8 again (judged more template-like in 7/8); the one win was a split pair on lumen. The spec forbids external images for BOTH arms, so the new photo, logo-prompt and placeholder flow was deliberately NOT exercised: this run measures the generator, not the asset tools. DEFECTS named by judges and agents (fixed afterwards): five features render as an orphaned 3+2 grid; pale or muted palettes and flat feature illustrations; hero floats overlapping the headline or mockup; the art sanitiser silently strips <text> (a drawn hero lost its labels, and a rejected feature art fell back to generic art with no warning); a sixth supplied feature silently dropped; desktop nav and footer links 17-30px tall; the build keeps nagging about a missing logo even when the text wordmark is wanted. CONFOUNDS: the Plotline MCP agent hand-appended a footer min-height rule to overrides.css; the Marlowe MCP agent replaced its svg hero with a ui mockup after the sanitiser stripped its labels; the Lumen MCP agent patched the style to field-notes; several agents deleted their own scratch files, so their working is not inspectable. Judge sessions were short (about 13-22 s each) but every verdict carried all 8 dimension scores and a specific rationale. NOT deployed to Vercel (no VERCEL_TOKEN in this environment).",
+  "briefs": [
+    "lumen",
+    "marlowe",
+    "plotline",
+    "saltmarsh"
+  ],
+  "judgements": 8,
+  "wins": {
+    "baseline": 7,
+    "engine": 1
+  },
+  "engineWinRatePct": 13,
+  "engineJudgedMoreTemplateLike": 7,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 7.9,
+      "typography": 8.1,
+      "spacing": 7.3,
+      "colour": 8,
+      "product_visual": 7.9,
+      "mobile": 7.1,
+      "polish": 7.6,
+      "originality": 7.5
+    },
+    "engine": {
+      "hierarchy": 6.9,
+      "typography": 7,
+      "spacing": 6.5,
+      "colour": 6.8,
+      "product_visual": 6.6,
+      "mobile": 6.5,
+      "polish": 6.5,
+      "originality": 5.8
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.7,
+    "engine": 6.6
+  },
+  "automated": {
+    "baseline": {
+      "sites": 4,
+      "quality": 90,
+      "originalityScore": 96,
+      "slopScore": 96,
+      "slopFindings": 1,
+      "auditErrors": 2.8,
+      "auditWarnings": 6,
+      "neutralChecksPassed": "9/12",
+      "svgs": 6.3,
+      "fontFamilies": 2.3,
+      "distinctColors": 19.8,
+      "spacingOn4px": 74.4,
+      "sourceKB": 53.2
+    },
+    "engine": {
+      "sites": 4,
+      "quality": 94.8,
+      "originalityScore": 98.5,
+      "slopScore": 98.5,
+      "slopFindings": 0.3,
+      "auditErrors": 0,
+      "auditWarnings": 0,
+      "neutralChecksPassed": "9/12",
+      "svgs": 31,
+      "fontFamilies": 3,
+      "distinctColors": 11,
+      "spacingOn4px": 92.3,
+      "sourceKB": 104.3
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 4,
+    "tokens": "101,494-153,494 (baseline arm in the same run: 107,128-131,863)",
+    "toolCalls": "18-38 (baseline arm: 14-31)",
+    "seconds": "251-355 (baseline arm: 199-338)",
+    "perAgent": {
+      "saltmarsh": {
+        "tokens": 119353,
+        "toolCalls": 18,
+        "seconds": 251
+      },
+      "lumen": {
+        "tokens": 101494,
+        "toolCalls": 18,
+        "seconds": 254
+      },
+      "plotline": {
+        "tokens": 115632,
+        "toolCalls": 24,
+        "seconds": 267
+      },
+      "marlowe": {
+        "tokens": 153494,
+        "toolCalls": 38,
+        "seconds": 355
+      }
+    }
+  }
+}
