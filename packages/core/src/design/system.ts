@@ -87,8 +87,8 @@ export function generateTokens(brief: DesignBrief): DesignTokens {
   const category: SiteCategory = brief.category ?? "saas";
   const styleId = brief.style ?? matchStyles({ ...brief, category })[0]!.style;
   const s = getStyle(styleId);
-  // Only the two styles whose built-in accent is indigo/violet get a derived accent; the others keep their identity colour.
-  const accentRequested = brief.accent ?? (styleId === "aurora-dark" || styleId === "clarity-light" ? pickAccent({ ...brief, category }) : s.defaultAccent);
+  // Styles whose built-in accent is generic (indigo, or a single green or orange shared by every site) get a per-brief derived accent; the others keep their identity colour.
+  const accentRequested = brief.accent ?? (styleId === "aurora-dark" || styleId === "clarity-light" || styleId === "field-notes" || styleId === "warm-human" ? pickAccent({ ...brief, category }) : s.defaultAccent);
   const p = s.palette;
 
   // Accent must be usable as a button fill: choose foreground by contrast, then guarantee text-grade accent for links.
