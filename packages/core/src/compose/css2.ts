@@ -233,3 +233,13 @@ export const LOGO_CSS = String.raw`
 .legal{max-width:760px;padding-block:96px}.legal h1{margin-bottom:8px}.legal section{margin-top:32px}.legal p{margin:10px 0;line-height:1.7}
 .footer__legal a{color:inherit;text-decoration:underline;text-underline-offset:3px;display:inline-flex;align-items:center;min-height:32px}
 `;
+
+/** Restrained two-tone layer: the secondary accent appears in small structural places so pages are not one colour. */
+export const TWO_TONE_CSS = String.raw`
+.eyebrow::before{background:var(--c-accent2)}
+.tier__tag{background:var(--c-accent2);color:var(--c-accent2-fg)}
+.fgrid>.fcard:nth-child(even) :is(.spot,.vz-art){--c-accent:var(--c-accent2);--c-accent-soft:color-mix(in srgb,var(--c-accent2) 14%,var(--c-bg))}
+.hfloat--info strong::before{background:var(--c-accent2)}
+.section--ink .metric:nth-child(even) strong{color:color-mix(in srgb,var(--c-accent2) 55%,var(--c-bg))}
+.faq details[open]>summary,.faq .faq__q[aria-expanded="true"]{color:var(--c-accent-text)}
+`;

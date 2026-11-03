@@ -1,7 +1,7 @@
 import type { DesignTokens } from "../design/types.js";
 import { renderTokensCss } from "../design/system.js";
 import { BASE_CSS } from "./css.js";
-import { EXTRA_CSS, LOGO_CSS } from "./css2.js";
+import { EXTRA_CSS, LOGO_CSS, TWO_TONE_CSS } from "./css2.js";
 import { RENDERERS, esc, type PageSpec } from "./sections.js";
 
 export interface Overrides { [openuiId: string]: Record<string, string> }
@@ -116,7 +116,7 @@ ${body}
   const files: Record<string, string> = {
     "index.html": landmarks(html),
     "tokens.css": renderTokensCss(tokens),
-    "styles.css": BASE_CSS + EXTRA_CSS + LOGO_CSS,
+    "styles.css": BASE_CSS + EXTRA_CSS + LOGO_CSS + TWO_TONE_CSS,
     "overrides.css": renderOverridesCss(overrides),
     "app.js": APP_JS,
   };

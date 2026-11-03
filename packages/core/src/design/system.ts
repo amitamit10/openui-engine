@@ -43,6 +43,19 @@ export function pickAccent(brief: Pick<DesignBrief, "name" | "description" | "ca
   return list[hashStr(brief.name) % list.length]!;
 }
 
+/** Complementary hue for the secondary accent: warm for greens/teals/blues, cool for reds/oranges, green for magentas. */
+export function pairHue(h: number): number {
+  const x = ((h % 360) + 360) % 360;
+  if (x < 20 || x >= 340) return 175;
+  if (x < 50) return 205;
+  if (x < 75) return 215;
+  if (x < 170) return 22;
+  if (x < 200) return 16;
+  if (x < 250) return 32;
+  if (x < 300) return 42;
+  return 160;
+}
+
 export interface StyleMatch { style: StyleId; score: number; reasons: string[] }
 
 /** Rank art directions against a brief. Tone words dominate; category is a weak prior; dark only when asked for or technical. */
@@ -100,7 +113,9 @@ export function generateTokens(brief: DesignBrief): DesignTokens {
   let accentText = accentIn;
   for (const bgc of [p.bg, p.surface, p.surface2, accentSoft]) accentText = ensureContrast(accentText, bgc, 4.5);
   const h = hexToHsl(accentIn);
-  const accent2 = hslToHex({ h: h.h + s.secondaryHueShift, s: Math.min(0.85, h.s), l: s.mode === "dark" ? 0.68 : 0.5 });
+  // Light styles pair the brand hue with a curated warm/cool complement (a green brand gets terracotta, a red one teal) instead of a blind hue rotation, which turned forest green into magenta.
+  const curated = s.mode !== "dark" && styleId !== "terminal-dev";
+  const accent2 = hslToHex({ h: curated ? pairHue(h.h) : h.h + s.secondaryHueShift, s: curated ? Math.min(0.78, Math.max(0.55, h.s)) : Math.min(0.85, h.s), l: s.mode === "dark" ? 0.68 : 0.5 });
   const motion = (brief.motion ?? s.defaultMotion);
 
   // semantic colours (success/warning/danger) are used as text on plain surfaces AND on their own ~14% tint (status pills)
