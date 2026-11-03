@@ -166,7 +166,7 @@ h4.vz-b{font-family:var(--f-display);font-size:var(--t-h4);font-weight:var(--fw-
 .spot__bg,.scene .spot__bg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .spot__badge,.scene__main{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;background:var(--c-bg);color:var(--c-accent-text);border:var(--bw) solid var(--c-border);box-shadow:var(--sh-md);z-index:1}
 .spot__badge{width:34%;aspect-ratio:1;border-radius:28%}.spot__badge .ico,.scene__main .ico{width:52%;height:52%;stroke-width:1.5}
-.spot__pill{position:absolute;z-index:2;padding:6px 12px;border-radius:999px;background:var(--c-bg);border:var(--bw) solid var(--c-border);box-shadow:var(--sh-sm);font-size:var(--t-caption);font-weight:600;color:var(--c-text);white-space:nowrap;max-width:70%;overflow:hidden;text-overflow:ellipsis}
+.spot__pill{position:absolute;z-index:2;padding:6px 12px;border-radius:999px;background:var(--c-bg);border:var(--bw) solid var(--c-border);box-shadow:var(--sh-sm);font-size:var(--t-caption);font-weight:600;color:var(--c-text);white-space:normal;line-height:1.25;max-width:76%;width:max-content}
 .spot__pill--1{left:7%;bottom:10%;transform:rotate(-2deg)}.spot__pill--2{right:7%;top:10%;transform:rotate(2deg)}
 .fgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-5)}
 .fcard{display:grid;gap:var(--s-4);padding:var(--s-3) var(--s-3) var(--s-5);align-content:start;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
