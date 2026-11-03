@@ -43,6 +43,18 @@ export function pickAccent(brief: Pick<DesignBrief, "name" | "description" | "ca
   return list[hashStr(brief.name) % list.length]!;
 }
 
+const TINT_STYLES = new Set<string>(["field-notes", "warm-human", "editorial-paper", "clarity-light", "material-tonal", "pastel-play"]);
+/** Re-hue a palette to `hue`, keeping each colour's lightness. Saturation is set per role so the tint is visible but quiet. */
+export function tintPalette(pal: { bg: string; surface: string; surface2: string; border: string; text: string; muted: string }, hue: number) {
+  const sat: Record<string, [number, number]> = { bg: [0.22, 0.34], surface: [0.2, 0.36], surface2: [0.2, 0.3], border: [0.16, 0.26], text: [0.25, 0.4], muted: [0.1, 0.22] };
+  const out: Record<string, string> = {};
+  for (const k of Object.keys(sat)) {
+    const c = hexToHsl((pal as Record<string, string>)[k]!), [lo, hi] = sat[k]!;
+    out[k] = hslToHex({ h: hue, s: Math.min(hi, Math.max(lo, c.s)), l: c.l });
+  }
+  return out as typeof pal;
+}
+
 /** Complementary hue for the secondary accent: warm for greens/teals/blues, cool for reds/oranges, green for magentas. */
 export function pairHue(h: number): number {
   const x = ((h % 360) + 360) % 360;
@@ -102,7 +114,8 @@ export function generateTokens(brief: DesignBrief): DesignTokens {
   const s = getStyle(styleId);
   // Styles whose built-in accent is generic (indigo, or a single green or orange shared by every site) get a per-brief derived accent; the others keep their identity colour.
   const accentRequested = brief.accent ?? (styleId === "aurora-dark" || styleId === "clarity-light" || styleId === "field-notes" || styleId === "warm-human" || styleId === "material-tonal" || styleId === "pastel-play" ? pickAccent({ ...brief, category }) : s.defaultAccent);
-  const p = s.palette;
+  // The paper colour is part of the identity, so on the light "paper" styles the surfaces, borders and ink take the brand hue (same lightness, so contrast is unchanged). Without this every site in a style shares one cream and pages read alike.
+  const p = TINT_STYLES.has(styleId) ? tintPalette(s.palette, hexToHsl(accentRequested).h) : s.palette;
 
   // Accent must be usable as a button fill: choose foreground by contrast, then guarantee text-grade accent for links.
   const accentFg = readableOn(accentRequested, "#ffffff", p.text === "#ffffff" ? "#0b0b10" : s.mode === "dark" ? "#06060a" : p.text);

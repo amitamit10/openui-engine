@@ -88,7 +88,7 @@ function firstSentence(t: string, max: number): string {
 }
 
 const CATEGORY_WORDS: Array<[RegExp, SiteCategory]> = [
-  [/ecommerce|e-commerce|shop|store|retail|marketplace|dtc|commerce|ceramic|fashion|food|subscription box/, "ecommerce"],
+  [/ecommerce|e-commerce|shop|store|retail|marketplace|dtc|commerce|ceramic|fashion|food|subscription box|florist|flower|bouquet|gift|boutique|jewel|candle|stationery|bookshop/, "ecommerce"],
   [/portfolio|photograph|artist|illustrat|freelance creative/, "portfolio"], [/agency|studio|architect|interior|design firm|consult|creative/, "agency"],
   [/fintech|financ|bank|payment|invoic|account|bookkeep|lending|insur|crypto|ledger|payroll/, "fintech"],
   [/ai\b|ml\b|llm|assistant|copilot|machine learning|agent|transcri|generative/, "ai-product"],
@@ -118,7 +118,7 @@ export function planSite(input: SiteBrief): PlannedSite {
   const sections: SectionSpec[] = []; const layout: PlannedSite["layout"] = []; const notes: string[] = [];
   {
     const chk = (label: string, svg: unknown) => { if (typeof svg === "string" && svg.trim()) { const r = sanitizeArtDetailed(svg); if (!r.svg) notes.push(`${label} was rejected (${r.reason}); the engine used generated art instead. Fix the SVG and rebuild.`); } };
-    brief.features.forEach((f, i) => chk(`features[${i}].art`, (f as any).art));
+    brief.features.forEach((f, i) => { const a = (f as any).art; if (a != null && a !== "" && artString(a) === undefined) notes.push(`features[${i}].art is not an SVG string (got ${typeof a}); pass the <svg ...> markup as a plain string or as { svg: "<svg ...>" }. The engine used generated art instead.`); chk(`features[${i}].art`, artString(a)); });
     if (brief.heroVisual?.kind === "svg") chk("heroVisual.svg", (brief.heroVisual as any).svg);
     if (brief.logo?.svg) chk("logo.svg", brief.logo.svg);
   }
@@ -159,7 +159,7 @@ export function planSite(input: SiteBrief): PlannedSite {
       const gridItems = brief.features.filter((f) => !rowItems.includes(f)).slice(0, 6);
       const motifs = MOTIF_BY_STYLE[style] ?? ["blobs"];
       if (rowItems.length) add("features", "feature-rows", { anchor: "features", align: "left", eyebrow: "Product", title, items: rowItems.map((f) => ({ title: f.title, body: f.body, bullets: f.bullets, visual: f.visual })) }, "the two strongest features get a full product-visual row");
-      if (gridItems.length) add(rowItems.length ? "more" : "features", "feature-grid", { anchor: rowItems.length ? "more" : "features", ...(rowItems.length ? {} : { eyebrow: "Product", title }), tint: !!rowItems.length, items: gridItems.map((f, i) => ({ title: f.title, body: f.body, icon: iconRefFor(f), bullets: f.bullets, motif: motifs[i % motifs.length], art: (f as any).art, photo: photoRef((f as any).photo, `feature-${brief.features.indexOf(f) + 1}`, "3:2") })) }, "remaining features as illustrated cards: every feature visible, none a dashboard clone");
+      if (gridItems.length) add(rowItems.length ? "more" : "features", "feature-grid", { anchor: rowItems.length ? "more" : "features", ...(rowItems.length ? {} : { eyebrow: "Product", title }), tint: !!rowItems.length, items: gridItems.map((f, i) => ({ title: f.title, body: f.body, icon: iconRefFor(f), bullets: f.bullets, motif: motifs[i % motifs.length], art: artString((f as any).art), photo: photoRef((f as any).photo, `feature-${brief.features.indexOf(f) + 1}`, "3:2") })) }, "remaining features as illustrated cards: every feature visible, none a dashboard clone");
     } else if (withVis.length >= 3 && layoutMode === "rows") add("features", "feature-rows", { anchor: "features", align: "left", eyebrow: "Product", title, items: brief.features.slice(0, 6).map((f, i) => ({ title: f.title, body: f.body, bullets: f.bullets, visual: f.visual ?? ["list", "chart", "ui", "table"][i % 4] })) }, "≥3 features have visuals → alternating rows so every product visual is visible at once (tabs hide all but one)");
     else if (withVis.length >= 3 && layoutMode === "tabs") add("features", "feature-tabs", { anchor: "features", align: "left", eyebrow: "Product", title, tabs: brief.features.slice(0, 5).map((f) => ({ label: f.title, icon: f.icon, title: f.title, body: f.body, bullets: f.bullets, visual: f.visual })) }, "≥3 features have visuals → interactive tabs (depth without identical cards)");
     else if (brief.showcase) { add("features", "feature-showcase", { anchor: "features", align: "left", eyebrow: "Product", title: brief.showcase.title, subtitle: brief.showcase.subtitle, visual: brief.showcase.visual, callouts: brief.showcase.callouts }, "one large product visual with callouts"); }
@@ -243,6 +243,13 @@ export function styleGuide(): Array<{ id: StyleId; use_for: string; look: string
     "pastel-play": "kids, schools, nurseries, tutoring, bakeries, pets and family services (soft, rounded, cheerful)",
   };
   return (Object.keys(use) as StyleId[]).map((id) => ({ id, use_for: use[id], look: getStyle(id).summary }));
+}
+
+/** features[].art is meant to be an SVG string, but small models also pass { svg }, { markup } or { code }; accept those instead of silently dropping the drawing. */
+export function artString(a: unknown): string | undefined {
+  if (typeof a === "string") return a;
+  if (a && typeof a === "object") { const o = a as Record<string, unknown>; const v = o.svg ?? o.markup ?? o.content ?? o.code ?? o.html ?? o.source; if (typeof v === "string") return v; }
+  return undefined;
 }
 
 function brandLogo(brief: SiteBrief, style: string, tokens: { color: { accent: string } }): { mark?: string; customLogo?: string; logoPrompt?: string } {

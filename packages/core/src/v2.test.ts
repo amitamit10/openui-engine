@@ -454,5 +454,19 @@ describe("category normalisation understands local service businesses", () => {
     for (const w of ["services", "surf school", "veterinary clinic", "sauna club", "dental practice", "hospitality", "tutoring", "restaurant"]) expect(normalizeCategory(w), w).toBe("consumer-app");
     expect(normalizeCategory("saas")).toBe("saas"); expect(normalizeCategory("developer tools")).toBe("devtool"); expect(normalizeCategory("ecommerce shop")).toBe("ecommerce");
     expect(normalizeCategory("architecture studio")).toBe("agency");
+    for (const w of ["florist", "flower subscription", "gift boutique", "candle maker", "stationery shop"]) expect(normalizeCategory(w), w).toBe("ecommerce");
+  });
+});
+
+describe("features[].art accepts object forms and warns about unusable ones", () => {
+  it("renders art given as { svg }, and notes a value that is not an SVG", async () => {
+    const { planSite, buildSite, artString } = await import("./index.js");
+    const svg = '<svg viewBox="0 0 400 300"><rect width="400" height="300" fill="var(--c-accent)"/><circle cx="9" cy="9" r="4" fill="var(--c-bg)"/></svg>';
+    expect(artString({ svg })).toBe(svg); expect(artString({ markup: svg })).toBe(svg); expect(artString(42)).toBeUndefined();
+    const brief: any = { ...briefTemplate("saas"), features: [{ title: "A", body: "b", art: { svg } }, { title: "B", body: "b", art: { shape: "circle" } }, { title: "C", body: "b" }] };
+    const { tokens, spec, notes } = planSite(brief);
+    const html = buildSite(spec, tokens, {}, {}).files["index.html"]!;
+    expect(html).toContain("vz-art");
+    expect(notes.join(" ")).toMatch(/features\[1\]\.art is not an SVG string/);
   });
 });
