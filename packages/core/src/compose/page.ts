@@ -56,7 +56,7 @@ d.querySelectorAll('[data-form]').forEach(function(f){f.addEventListener('submit
 var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var els=d.querySelectorAll('.reveal');
 if(reduce||!('IntersectionObserver' in window)||root.getAttribute('data-motion')==='0'){els.forEach(function(e){e.classList.add('in')});}
-else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});els.forEach(function(e){io.observe(e)});
+else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting||e.boundingClientRect.top<0){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});els.forEach(function(e){io.observe(e)});
 window.addEventListener('beforeprint',function(){els.forEach(function(e){e.classList.add('in')})});}
 var nums=d.querySelectorAll('.metric strong');
 if(!reduce&&root.getAttribute('data-motion')!=='0'&&'IntersectionObserver' in window&&nums.length){

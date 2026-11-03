@@ -28,7 +28,7 @@ export function sanitizeArt(input: unknown): string | null {
       if (REF_ATTR.has(k) && !/^#[\w-]+$|^url\(#[\w-]+\)$/.test(v)) continue;
       attrs += ` ${k === "viewbox" ? "viewBox" : k === "preserveaspectratio" ? "preserveAspectRatio" : k === "gradienttransform" ? "gradientTransform" : k === "gradientunits" ? "gradientUnits" : k}="${v.replace(/"/g, "&quot;")}"`;
     }
-    if (name === "svg") { sawRoot = true; if (!/viewBox=/.test(attrs)) attrs += ' viewBox="0 0 400 300"'; attrs = attrs.replace(/\s(width|height)="[^"]*"/g, ""); attrs += ' class="art__svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"'; }
+    if (name === "svg") { sawRoot = true; if (!/viewBox=/.test(attrs)) attrs += ' viewBox="0 0 400 300"'; attrs = attrs.replace(/\s(width|height)="[^"]*"/g, ""); attrs += ' class="art__svg" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"'; }
     const tag = name === "lineargradient" ? "linearGradient" : name === "radialgradient" ? "radialGradient" : name === "clippath" ? "clipPath" : name;
     out += `<${tag}${attrs}${selfClose ? "/" : ""}>`;
     if (!selfClose) depth++;
@@ -39,5 +39,7 @@ export function sanitizeArt(input: unknown): string | null {
 
 export const renderArt = (svg: unknown, alt?: string): string | null => {
   const clean = sanitizeArt(svg);
-  return clean ? `<figure class="vz vz-art"${alt ? ` role="img" aria-label="${String(alt).replace(/[&<>"']/g, "")}"` : ' aria-hidden="true"'}>${clean}</figure>` : null;
+  const vb = clean?.match(/viewBox="([-\d.]+)[ ,]+([-\d.]+)[ ,]+([\d.]+)[ ,]+([\d.]+)"/);
+  const ar = vb && +vb[3]! > 0 && +vb[4]! > 0 ? Math.min(2, Math.max(0.6, +vb[3]! / +vb[4]!)).toFixed(3) : "1.25";
+  return clean ? `<figure class="vz vz-art" style="--ar:${ar}"${alt ? ` role="img" aria-label="${String(alt).replace(/[&<>"']/g, "")}"` : ' aria-hidden="true"'}>${clean}</figure>` : null;
 };
