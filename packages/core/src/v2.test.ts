@@ -132,11 +132,11 @@ describe("v0.2.1 regressions (found by agents using the engine)", () => {
     expect(findComponent("feature-tabs")?.id).toBe("openui/feature-tabs"); expect(findComponent("dashboard")?.id).toBe("openui/visual-dashboard"); expect(findComponent("visual-chart")?.id).toBe("openui/visual-chart");
     expect(suggestComponentIds("kanban")[0]).toMatch(/kanban/);
   });
-  it("default footer has three columns and the planner warns about >5 features", () => {
-    const b = briefTemplate("saas"); b.features = [...b.features, ...b.features];
+  it("default footer has three columns and the planner warns when features exceed what the layout shows", () => {
+    const b = briefTemplate("saas"); b.features = [...b.features, ...b.features, ...b.features];
     const p = planSite(b);
     expect((p.spec.sections.find((x) => x.id === "footer")!.props.columns as any[]).length).toBe(3);
-    expect(p.notes.join(" ")).toMatch(/only the first 5/);
+    expect(p.notes.join(" ")).toMatch(/only the first 8/);
   });
   it("uses minmax(0,1fr) tracks so long content cannot widen a grid", () => {
     const css = buildSite(planSite(briefTemplate("saas")).spec, planSite(briefTemplate("saas")).tokens, {}, {}).files["styles.css"]!;
@@ -303,10 +303,34 @@ describe("v0.6.0: model-drawn art", () => {
     expect(sanitizeArt('<svg><script>alert(1)</script><rect width="1" height="1"/></svg>')).toBeNull();
     expect(sanitizeArt('<svg><foreignObject><div/></foreignObject><rect width="1" height="1"/></svg>')).toBeNull();
     const mixed = sanitizeArt('<svg><rect width="1" height="1" fill="url(https://evil.test/x)" style="x" href="javascript:alert(1)"/><text>hi</text><image href="http://e/x.png"/><circle r="2"/></svg>')!;
-    expect(mixed).not.toMatch(/evil|javascript|onclick|style=|<text|<image|http/);
+    expect(mixed).not.toMatch(/evil|javascript|onclick|style=|<image|http/);
+    expect(mixed).toContain("<text>hi</text>");
     expect(mixed).toContain("<circle");
     expect(sanitizeArt('<svg><rect width="1" height="1" onclick="1"/></svg>')).toBeNull(); // any event handler rejects the whole drawing
     expect(sanitizeArt("not svg")).toBeNull(); expect(sanitizeArt("<svg></svg>")).toBeNull(); expect(sanitizeArt(42)).toBeNull();
+  });
+  it("keeps short plain text labels, escapes them, drops risky attrs, and explains rejections", async () => {
+    const { sanitizeArtDetailed } = await import("./compose/art.js");
+    const ok = sanitizeArtDetailed('<svg viewBox="0 0 400 300"><rect width="400" height="300"/><text x="20" y="40" font-size="18" font-family="evil, serif" fill="var(--c-text)">Sauna 1 &amp; plunge <b>now</b></text></svg>');
+    expect(ok.svg).toContain('<text x="20" y="40" font-size="18" fill="var(--c-text)">');
+    expect(ok.svg).not.toMatch(/font-family|<b>/);
+    expect(ok.svg).toContain("Sauna 1 &amp; plunge");
+    expect(sanitizeArtDetailed('<svg><text x="1">' + "x".repeat(200) + '</text><rect width="1" height="1"/></svg>').svg).not.toContain("x".repeat(61));
+    expect(sanitizeArtDetailed('<svg><text>javascript:alert(1)</text><rect width="1" height="1"/></svg>').svg).not.toMatch(/javascript/);
+    expect(sanitizeArtDetailed("<svg><script/></svg>").reason).toMatch(/script/);
+    expect(sanitizeArtDetailed('<svg><rect onclick="1"/></svg>').reason).toMatch(/event handler/);
+    expect(sanitizeArtDetailed("<svg></svg>").reason).toMatch(/no drawable shapes/);
+    expect(sanitizeArtDetailed("hello").reason).toMatch(/no <svg>/);
+  });
+  it("warns in the build notes when supplied art is rejected, and lays out five features without an orphan row", async () => {
+    const { planSite, buildSite } = await import("./index.js");
+    const bad = '<svg viewBox="0 0 10 10"><script>x</script><rect width="1" height="1"/></svg>';
+    const brief: any = { ...briefTemplate("saas"), features: [1, 2, 3, 4, 5].map((n) => ({ title: `Feature ${n}`, body: "b", art: n === 2 ? bad : undefined })) };
+    const { tokens, spec, notes } = planSite(brief);
+    expect(notes.join(" ")).toMatch(/features\[1\]\.art.*rejected.*script/);
+    expect(buildSite(spec, tokens, {}, {}).files["index.html"]).toContain("fgrid fgrid--n5");
+    const six: any = { ...briefTemplate("saas"), features: [1, 2, 3, 4, 5, 6].map((n) => ({ title: `F${n}`, body: "b" })) };
+    expect(planSite(six).notes.join(" ")).not.toMatch(/only the first/);
   });
   it("renders heroVisual svg and per-feature art, never overridden by a library scene", () => {
     const art = '<svg viewBox="0 0 400 300"><rect width="400" height="300" fill="var(--c-accent)"/><circle cx="9" cy="9" r="4" fill="var(--c-bg)"/></svg>';

@@ -12,7 +12,7 @@ const xmark = `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentC
 export const RENDERERS_2: Partial<Record<SectionType, Renderer>> = {
   "feature-grid": (s) => {
     const p = s.props, id = s.id; const items = (p.items ?? []) as any[];
-    return wrap(s, `${p.title ? head(id, p) : ""}<div class="fgrid">${items.map((it, i) => `<article class="card fcard reveal" data-openui-id="${id}.card${i}">
+    return wrap(s, `${p.title ? head(id, p) : ""}<div class="fgrid fgrid--n${items.length}">${items.map((it, i) => `<article class="card fcard reveal" data-openui-id="${id}.card${i}">
       ${(it.photo != null && it.photo !== "" && renderPhoto(it.photo, { alt: it.title, ratio: 1.45, sizes: "(max-width:700px) 100vw, 360px" })) || (it.art && renderArt(it.art, it.title)) || renderSpot({ icon: it.icon, motif: it.motif, seed: `${id}${i}${it.title}`, pills: it.pills ?? (it.bullets ?? []).slice(0, 2) }, `${id}${i}`)}
       <div class="fcard__text"><h3 class="h4" data-openui-id="${id}.card${i}.title">${esc(it.title)}</h3><p data-openui-id="${id}.card${i}.body">${esc(it.body)}</p></div></article>`).join("")}</div>`, "", !!p.tint);
   },

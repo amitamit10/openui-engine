@@ -1,3 +1,4 @@
+import { sanitizeArtDetailed } from "./art.js";
 import { logoPromptFor, styleSuffix } from "./assets.js";
 import { LOGO_MARKS, pickMark, customLogo, type LogoMark } from "./logo.js";
 import type { PhotoRef } from "./photos.js";
@@ -73,7 +74,7 @@ export interface SiteBrief {
   nav?: { links?: Array<{ label: string; href: string }>; signIn?: { label: string; href: string } | false };
   faq?: Array<{ q: string; a: string }>;
   closing?: { title: string; subtitle: string; bullets?: string[]; form?: boolean; button?: string; note?: string };
-  footer?: { tagline?: string; columns?: Array<{ title: string; links: Array<{ label: string; href: string }> }>; legal?: string };
+  footer?: { tagline?: string; columns?: Array<{ title: string; links: Array<{ label: string; href?: string }> }>; legal?: string };
 }
 
 /** First sentence, cut at a word boundary, never mid-word. */
@@ -114,7 +115,13 @@ export function planSite(input: SiteBrief): PlannedSite {
   const tokens = generateTokens({ name: brief.name, description: desc, category: brief.category, style, accent: brief.accent });
   const comp = getStyle(style).composition;
   const sections: SectionSpec[] = []; const layout: PlannedSite["layout"] = []; const notes: string[] = [];
-  if (brief.features.length > 5) notes.push(`brief.features has ${brief.features.length} items; only the first 5 are shown. Merge or drop the rest.`);
+  {
+    const chk = (label: string, svg: unknown) => { if (typeof svg === "string" && svg.trim()) { const r = sanitizeArtDetailed(svg); if (!r.svg) notes.push(`${label} was rejected (${r.reason}); the engine used generated art instead. Fix the SVG and rebuild.`); } };
+    brief.features.forEach((f, i) => chk(`features[${i}].art`, (f as any).art));
+    if (brief.heroVisual?.kind === "svg") chk("heroVisual.svg", (brief.heroVisual as any).svg);
+    if (brief.logo?.svg) chk("logo.svg", brief.logo.svg);
+  }
+  { const cap = brief.featureLayout === "tabs" ? 5 : brief.featureLayout === "rows" ? 6 : 8; if (brief.features.length > cap) notes.push(`brief.features has ${brief.features.length} items; only the first ${cap} are shown in this layout. Merge or drop the rest.`); }
   if (!brief.footer?.columns) notes.push("footer uses generated placeholder columns; set brief.footer.columns with real links.");
   const add = (id: string, type: SectionSpec["type"], props: Record<string, any>, why: string) => { sections.push({ id, type, props }); layout.push({ id, type, why }); };
   const cta = (label: string, href: string) => ({ label, href });
@@ -200,6 +207,7 @@ export function briefTemplate(category: SiteCategory = "saas"): SiteBrief {
       { type: "callout", text: "A reassuring or important state message", tone: "ok", side: true },
     ] } as unknown as VisualSpec,
     logos: ["Customer One", "Customer Two", "Customer Three", "Customer Four", "Customer Five", "Customer Six"],
+    logosLabel: "Trusted by teams at", // rewrite for the audience, e.g. "Booked by", "Used in schools like", "Stocked by"
     features: [
       { title: "Capability one", body: "What it does and what changes for the user, in one sentence.", icon: "lucide:activity", bullets: ["Concrete proof point", "Another proof point"], visual: { kind: kinds[1] ?? "chart", title: "Screen name" } as VisualSpec },
       { title: "Capability two", body: "One sentence.", icon: "lucide:users", visual: { kind: kinds[2] ?? "table", title: "Screen name" } as VisualSpec },

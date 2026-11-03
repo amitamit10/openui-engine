@@ -25,7 +25,7 @@ export const styleSuffix = (style: string, accent: string, aspect: string, extra
 export const logoPromptFor = (name: string, what: string, accent: string, _style?: string) =>
   `Design a logo for "${name}"${what ? `, ${what.replace(/[.\s]+$/, "")}` : ""}. A simple, distinctive, memorable mark next to the wordmark "${name}". Flat vector style, at most two colours (${accent} and near-black), no gradients, no shadows, no mockup, no extra text, plain white background. It must stay legible at 32px. Deliver as SVG if you can, otherwise a transparent PNG.`;
 
-export interface ImageRequest { slot: string; kind: "photo" | "logo"; file: string; aspect: string; size: string; alt: string; prompt: string; status: "missing" | "provided"; provided?: string }
+export interface ImageRequest { slot: string; kind: "photo" | "logo"; file: string; aspect: string; size: string; alt: string; prompt: string; status: "missing" | "provided"; provided?: string; /** true: the site already looks right without it (a text wordmark stands in for a missing logo). */ optional?: boolean }
 
 /** The image slots described by a PageSpec: everything with a `prompt` and `slot` (hero, features) plus the logo. */
 export function collectImageRequests(spec: { brand?: any; sections: Array<{ props: any }> }, found: AssetMap = {}): ImageRequest[] {
@@ -39,15 +39,18 @@ export function collectImageRequests(spec: { brand?: any; sections: Array<{ prop
     } else Object.values(v).forEach(walk);
   };
   spec.sections.forEach((s) => walk(s.props));
-  if (spec.brand?.logoPrompt) out.push({ slot: "logo", kind: "logo", file: "images/logo.svg", aspect: "4:1", size: "svg or png, about 512px wide", alt: `${spec.brand.name} logo`, prompt: String(spec.brand.logoPrompt), status: found.logo ? "provided" : "missing", provided: found.logo });
+  if (spec.brand?.logoPrompt) out.push({ slot: "logo", kind: "logo", file: "images/logo.svg", aspect: "4:1", size: "svg or png, about 512px wide", alt: `${spec.brand.name} logo`, prompt: String(spec.brand.logoPrompt), status: found.logo ? "provided" : "missing", provided: found.logo, optional: true });
   const seen = new Set<string>();
   return out.filter((r) => !seen.has(r.slot) && seen.add(r.slot));
 }
 
 export function imageInstructions(reqs: ImageRequest[]): string | undefined {
-  const missing = reqs.filter((r) => r.status === "missing");
-  if (!missing.length) return undefined;
-  return `IMAGES: ${missing.length} image slot(s) still show a placeholder. FIRST decide whether you can generate images yourself (an image-generation tool). If you can, generate each prompt below and save it with add_image (slot + file), then call rebuild_project. If you cannot, do NOT invent image URLs and do NOT leave this out: tell the user plainly that they need to copy-paste each prompt below into ChatGPT (or any image generator), save the result into the project's images/ folder with the file name shown (for example images/hero.png), and ask you to run rebuild_project, which swaps the placeholders for the real images automatically.`;
+  const photos = reqs.filter((r) => r.status === "missing" && !r.optional);
+  const logo = reqs.find((r) => r.status === "missing" && r.optional);
+  const parts: string[] = [];
+  if (photos.length) parts.push(`IMAGES: ${photos.length} image slot(s) still show a placeholder. FIRST decide whether you can generate images yourself (an image-generation tool). If you can, generate each prompt below and save it with add_image (slot + file), then call rebuild_project. If you cannot, do NOT invent image URLs and do NOT leave this out: tell the user plainly that they need to copy-paste each prompt below into ChatGPT (or any image generator), save the result into the project's images/ folder with the file name shown (for example images/hero.png), and ask you to run rebuild_project, which swaps the placeholders for the real images automatically.`);
+  if (logo) parts.push(`LOGO (optional): the site is using a clean text wordmark, which is fine to ship. If the user wants a designed logo, give them the logo prompt to paste into ChatGPT and save the result as images/logo.svg or images/logo.png; do not treat the wordmark as an error.`);
+  return parts.length ? parts.join(" ") : undefined;
 }
 
 /** Placeholder or real <img> for a prompt-described slot. */

@@ -233,7 +233,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
     return `<footer class="footer" data-openui-section="${id}" data-openui-variant="footer-columns" data-openui-id="${id}">
   <div class="container"><div class="footer__grid">
     <div class="footer__brand"><a class="brand" href="#top">${brandInner(spec)}</a><p class="muted small" data-openui-id="${id}.tagline">${esc(p.tagline)}</p></div>
-    ${cols.map((c) => `<nav aria-label="${esc(c.title)}"><h3>${esc(c.title)}</h3><ul>${c.links.map((l) => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`).join("")}</ul></nav>`).join("")}
+    ${cols.map((c) => `<nav aria-label="${esc(c.title)}"><h3>${esc(c.title)}</h3><ul>${c.links.map((l) => `<li>${l.href ? `<a href="${esc(l.href)}">${esc(l.label)}</a>` : `<span class="muted small">${esc(l.label)}</span>`}</li>`).join("")}</ul></nav>`).join("")}
   </div>
   <div class="footer__legal"><span>${esc(p.legal)}${(p.legalLinks ?? []).map((l: any) => ` · <a href="${esc(l.href)}">${esc(l.label)}</a>`).join("")}</span><span>${esc([p.note, photoCredits().length ? `Photos: ${photoCredits().slice(0, 4).join(", ")} via Unsplash` : ""].filter(Boolean).join(" · "))}</span></div></div>
 </footer>`;
