@@ -412,3 +412,27 @@ describe("image slots: placeholders, prompts and dropped-in files", () => {
     expect(renderImageSlot({ slot: '../x"', prompt: "p" })).toBeNull();
   });
 });
+
+describe("art directions added in v0.7 are chosen for the briefs they were built for", () => {
+  const pick = (name: string, description: string, category: any) => matchStyles({ name, description, category })[0]!.style;
+  it("routes briefs to the right new style and leaves the older routing intact", () => {
+    expect(pick("Hollis & Reed", "an architecture practice designing houses and galleries with a rational, structured approach", "agency")).toBe("swiss-grid");
+    expect(pick("Maison Verre", "a boutique hotel and spa for private evening stays, luxury and bespoke service", "agency")).toBe("noir-luxe");
+    expect(pick("Pip & Bean", "a nursery school and kids learning club, playful and friendly", "consumer-app")).toBe("pastel-play");
+    expect(pick("Ledgerline", "a minimal internal developer dashboard and workspace tool, clean and neutral", "devtool")).toBe("shadcn-mono");
+    expect(pick("Homely", "a friendly household services marketplace app for families booking help", "consumer-app")).toBe("material-tonal");
+    expect(pick("Quillstone Bindery", "hand bookbinding studio, refined, patient, old-fashioned", "ecommerce")).toBe("editorial-paper");
+    expect(pick("Saltmarsh Sauna", "calm earthy coastal sauna club", "consumer-app")).toBe("field-notes");
+  });
+  it("renders every new style with its own signature rules and a curated, non-magenta secondary accent", () => {
+    for (const style of ["shadcn-mono", "material-tonal", "swiss-grid", "noir-luxe", "pastel-play"] as const) {
+      const brief: any = { ...briefTemplate("saas"), style };
+      const { tokens, spec } = planSite(brief);
+      const css = buildSite(spec, tokens, {}, {}).files["styles.css"]!;
+      expect(css, style).toContain(`[data-style="${style}"]`);
+      expect(tokens.meta.style).toBe(style);
+      const h2 = hexToHsl(tokens.color.accent2).h;
+      expect(h2 > 285 && h2 < 335, `${style} accent2 hue ${Math.round(h2)}`).toBe(false);
+    }
+  });
+});

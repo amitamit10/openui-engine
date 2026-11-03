@@ -15,6 +15,7 @@ import { pickScene, SCENE_IDS, type SceneId } from "./scenes.js";
 const MOTIF_BY_STYLE: Record<string, string[]> = {
   "aurora-dark": ["contour", "rings", "dots"], "clarity-light": ["dots", "stack", "rings"], "editorial-paper": ["arches", "rings", "scallop"],
   "terminal-dev": ["dots", "contour", "stripes"], "warm-human": ["blobs", "waves", "dunes"], "field-notes": ["dunes", "contour", "scallop"], "neo-brutal": ["stripes", "rays", "scallop"],
+  "shadcn-mono": ["dots", "stack", "contour"], "material-tonal": ["blobs", "rings", "dots"], "swiss-grid": ["stripes", "dots", "stack"], "noir-luxe": ["contour", "arches", "rings"], "pastel-play": ["blobs", "scallop", "waves"],
 };
 const ICON_REF = /^(lucide|tabler|heroicons|phosphor):[a-z0-9-]+$/;
 /** Best icon for a feature: the brief's own choice, else an offline search over the title then the body. */
@@ -235,6 +236,11 @@ export function styleGuide(): Array<{ id: StyleId; use_for: string; look: string
     "terminal-dev": "developer tools, CLIs, infrastructure and data products",
     "aurora-dark": "dark, premium AI and platform products (only when the brief wants dark)",
     "neo-brutal": "loud, playful, creative brands",
+    "shadcn-mono": "minimal, neutral, professional product UI: developer tools, internal tools, B2B and AI apps (the shadcn look)",
+    "material-tonal": "friendly rounded consumer apps, marketplaces and household services (Material-style tonal surfaces)",
+    "swiss-grid": "design studios, architects, galleries and engineering firms: strict grid, heavy grotesk, signal red",
+    "noir-luxe": "luxury and evening brands: hotels, spas, jewellers, bespoke tailors, fine dining (dark, serif, gold)",
+    "pastel-play": "kids, schools, nurseries, tutoring, bakeries, pets and family services (soft, rounded, cheerful)",
   };
   return (Object.keys(use) as StyleId[]).map((id) => ({ id, use_for: use[id], look: getStyle(id).summary }));
 }

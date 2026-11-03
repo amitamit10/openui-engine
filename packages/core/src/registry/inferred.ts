@@ -6,10 +6,10 @@ interface RawItem { l: string; n: string; t: string; y: string; d: string; p: st
 interface RawIndex { generatedAt: string; libs: Record<string, { name: string; count: number; itemUrl: string; ok: boolean }>; items: RawItem[] }
 const INDEX = raw as unknown as RawIndex;
 
-const ALL_STYLES: StyleId[] = ["aurora-dark", "clarity-light", "editorial-paper", "terminal-dev", "warm-human", "neo-brutal"];
+const ALL_STYLES: StyleId[] = ["aurora-dark", "clarity-light", "editorial-paper", "terminal-dev", "warm-human", "neo-brutal", "field-notes", "shadcn-mono", "material-tonal", "swiss-grid", "noir-luxe", "pastel-play"];
 
 const LIB_LICENSE: Record<string, string> = {
-  shadcn: "MIT (widely documented; re-verify)",
+  shadcn: "MIT (verified 2026-11-03 from shadcn-ui/ui LICENSE.md)",
   magicui: "unverified — read the upstream LICENSE", reactbits: "unverified — may carry custom terms", aceternity: "free items open, Pro paid — confirm terms",
   fluid: "unverified — read the upstream LICENSE", kibo: "unverified — read the upstream LICENSE", cult: "unverified — read the upstream LICENSE",
   motionprimitives: "unverified — read the upstream LICENSE", animateui: "unverified — read the upstream LICENSE", eldora: "unverified — read the upstream LICENSE", tripled: "unverified — read the upstream LICENSE",

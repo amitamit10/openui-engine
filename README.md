@@ -17,7 +17,7 @@ it hands the agent a **curated, compatibility-checked component registry**, a **
 
 | Package | What it does |
 |---|---|
-| [`@openui-engine/core`](packages/core) | Art directions (6), token generator + WCAG linting, DESIGN.md / DTCG / CSS exporters, component registry with structured compatibility metadata, composition checker, reference/pattern search, section renderers and page builder |
+| [`@openui-engine/core`](packages/core) | Art directions (12), token generator + WCAG linting, DESIGN.md / DTCG / CSS exporters, component registry with structured compatibility metadata, composition checker, reference/pattern search, section renderers and page builder |
 | [`@openui-engine/verify`](packages/verify) | Playwright audit: overflow, axe-core, console/network errors, broken assets & anchors, interaction tests, reduced-motion, invisible-content detection, **design-token compliance**, pixel-scan whitespace analysis, heuristic quality scoring |
 | [`@openui-engine/editor`](packages/editor) | Browser editor: select, comment, live-tweak typography/spacing/colour/radius/shadow/layout, switch component variants, natural-language requests → agent. Token-authenticated sessions |
 | [`@openui-engine/mcp-server`](packages/mcp-server) | The MCP server (`openui-engine-mcp`) and a protocol-level CLI client (`openui-engine-call`) |
@@ -61,7 +61,7 @@ Register it with your agent → **[docs/MCP_SETUP.md](docs/MCP_SETUP.md)** (Clau
 
 ## Design intelligence, not keyword search
 
-* **Art directions** (`aurora-dark`, `clarity-light`, `editorial-paper`, `terminal-dev`, `warm-human`, `neo-brutal`) define type ratio, palette, radii, shadows, motion budget, hero composition, CTA hierarchy, image treatment and section transitions — plus signatures and *don'ts*.
+* **Art directions** are the "pick a style and get a lot of ready-made things" unit. Twelve ship: `aurora-dark`, `clarity-light`, `editorial-paper`, `terminal-dev`, `warm-human`, `neo-brutal`, `field-notes`, plus five added in v0.7: `shadcn-mono` (neutral zinc product UI in the shadcn manner), `material-tonal` (rounded Material-style tonal surfaces), `swiss-grid` (strict grid, heavy grotesk, signal red), `noir-luxe` (warm black, serif, gold) and `pastel-play` (soft, rounded, cheerful). Choosing one sets type ratio, palette, radii, shadows, motion budget, hero composition, CTA hierarchy, image direction, logo-mark family, illustration motifs and the signature CSS of the page, so every section, illustration and image prompt agrees. Each has signatures and *don'ts*. Design sources behind them: [shadcn/ui](https://ui.shadcn.com/) (MIT), [Untitled UI React](https://www.untitledui.com/react/components) (MIT) and [MUI / Material UI](https://mui.com/) (MIT), all licence-checked in [docs/SOURCES.md](docs/SOURCES.md); no third-party code is copied.
 * **Compatibility**: each component declares styles it is native to, motion energy, density, runtimes (Radix vs Base UI, GSAP vs Motion), framework and licence status. `checkComposition` flags framework mixes, duplicate slots, animation-runtime mixes, energy spread and style misfits.
 * **Tokens are enforced**, not decorative: the verifier computes colour/font/size/spacing/radius compliance of the rendered DOM against `tokens.json`.
 * **DESIGN.md** follows Google's alpha spec and is checked with the official linter in CI.

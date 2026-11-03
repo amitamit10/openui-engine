@@ -8,6 +8,7 @@ const BY_STYLE: Record<string, LogoMark[]> = {
   "aurora-dark": ["orbit", "spark", "hex", "monogram"], "clarity-light": ["monogram", "stack", "hex", "diamond"],
   "editorial-paper": ["monogram", "arch", "diamond"], "terminal-dev": ["stack", "monogram", "hex"],
   "warm-human": ["petal", "leaf", "arch", "wave"], "field-notes": ["leaf", "wave", "arch", "petal"], "neo-brutal": ["diamond", "spark", "monogram", "stack"],
+  "shadcn-mono": ["monogram", "stack", "hex"], "material-tonal": ["petal", "orbit", "spark", "hex"], "swiss-grid": ["monogram", "diamond", "stack"], "noir-luxe": ["monogram", "arch", "diamond"], "pastel-play": ["petal", "spark", "wave", "orbit"],
 };
 const hash = (t: string) => { let h = 2166136261; for (const c of t) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0; };
 export const initialOf = (name: string) => [...String(name).trim()][0]?.toUpperCase() ?? "•";

@@ -101,7 +101,7 @@ export function generateTokens(brief: DesignBrief): DesignTokens {
   const styleId = brief.style ?? matchStyles({ ...brief, category })[0]!.style;
   const s = getStyle(styleId);
   // Styles whose built-in accent is generic (indigo, or a single green or orange shared by every site) get a per-brief derived accent; the others keep their identity colour.
-  const accentRequested = brief.accent ?? (styleId === "aurora-dark" || styleId === "clarity-light" || styleId === "field-notes" || styleId === "warm-human" ? pickAccent({ ...brief, category }) : s.defaultAccent);
+  const accentRequested = brief.accent ?? (styleId === "aurora-dark" || styleId === "clarity-light" || styleId === "field-notes" || styleId === "warm-human" || styleId === "material-tonal" || styleId === "pastel-play" ? pickAccent({ ...brief, category }) : s.defaultAccent);
   const p = s.palette;
 
   // Accent must be usable as a button fill: choose foreground by contrast, then guarantee text-grade accent for links.

@@ -18,6 +18,11 @@ const LOOK: Record<string, string> = {
   "warm-human": "warm natural daylight, candid and human, golden tones",
   "field-notes": "soft natural light, muted earthy palette, documentary feel",
   "neo-brutal": "bold flat colour, hard light, graphic composition",
+  "shadcn-mono": "neutral and uncluttered, soft overcast light, cool grey tones, minimal composition",
+  "material-tonal": "bright friendly light, clean tonal backgrounds, approachable and modern",
+  "swiss-grid": "flat even lighting, strong geometry and straight lines, documentary and architectural",
+  "noir-luxe": "dark low-key lighting, warm candle-like highlights, rich shadows, still-life composition",
+  "pastel-play": "bright soft daylight, cheerful pastel colours, playful and warm",
 };
 export const styleSuffix = (style: string, accent: string, aspect: string, extra?: string) =>
   `Overall look (secondary to the subject above): ${LOOK[style] ?? "natural light, professional photography"}${extra ? `, ${extra}` : ""}. Colours that harmonise with ${accent}. No text, logos, watermarks or UI overlays. Photorealistic, high resolution, ${aspect} aspect ratio.`;

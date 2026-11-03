@@ -2,7 +2,7 @@ import type { ComponentMeta, Runtime, SourceId } from "./types.js";
 import { indexedComponents } from "./inferred.js";
 import type { SiteCategory, StyleId } from "../design/types.js";
 
-const ALL_STYLES: StyleId[] = ["aurora-dark", "clarity-light", "editorial-paper", "terminal-dev", "warm-human", "neo-brutal", "field-notes"];
+const ALL_STYLES: StyleId[] = ["aurora-dark", "clarity-light", "editorial-paper", "terminal-dev", "warm-human", "neo-brutal", "field-notes", "shadcn-mono", "material-tonal", "swiss-grid", "noir-luxe", "pastel-play"];
 const APACHE = { spdx: "Apache-2.0", verified: true, note: "Original OpenUI Engine code (this repository)." };
 
 const a11yOk = { keyboard: true, reducedMotion: true, notes: "Semantic HTML, visible focus, motion gated by prefers-reduced-motion." };
@@ -122,7 +122,7 @@ const BASES: Record<string, { baseUrl: string; install: (item: string) => string
   shadcn: {
     baseUrl: "https://ui.shadcn.com/r/styles/new-york-v4/",
     install: (i) => `npx shadcn@latest add ${i}`,
-    license: { spdx: "MIT", verified: false, note: "shadcn/ui is widely documented as MIT; repository not reachable from the audit sandbox, re-verify." },
+    license: { spdx: "MIT", verified: true, note: "Verified 2026-11-03: LICENSE.md in shadcn-ui/ui reads MIT, Copyright (c) 2023 shadcn." },
   },
   magicui: {
     baseUrl: "https://magicui.design/r/",

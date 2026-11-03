@@ -243,3 +243,39 @@ export const TWO_TONE_CSS = String.raw`
 .section--ink .metric:nth-child(even) strong{color:color-mix(in srgb,var(--c-accent2) 55%,var(--c-bg))}
 .faq details[open]>summary,.faq .faq__q[aria-expanded="true"]{color:var(--c-accent-text)}
 `;
+
+/** Signature rules for the newer art directions, so each reads as itself and not as a recoloured token set. */
+export const STYLE_CSS = String.raw`
+[data-style="shadcn-mono"] .btn{border-radius:var(--r-md);font-weight:500}
+[data-style="shadcn-mono"] .h-display em,[data-style="shadcn-mono"] .h1 em,[data-style="shadcn-mono"] .h2 em{background:linear-gradient(transparent 64%,color-mix(in srgb,var(--c-accent2) 38%,transparent) 64%);color:var(--c-text)}
+[data-style="shadcn-mono"] .card{box-shadow:none}
+[data-style="shadcn-mono"] .eyebrow{font-family:var(--f-mono);text-transform:none;letter-spacing:0}
+[data-style="material-tonal"] .btn{border-radius:var(--r-pill)}
+[data-style="material-tonal"] .card{border-color:transparent;box-shadow:var(--sh-sm)}
+[data-style="material-tonal"] .section--tint{background:color-mix(in srgb,var(--c-accent) 7%,var(--c-bg))}
+[data-style="material-tonal"] .cta-band{background:color-mix(in srgb,var(--c-accent) 12%,var(--c-surface));border-color:transparent}
+[data-style="swiss-grid"] .btn{border-radius:var(--r-sm);text-transform:uppercase;letter-spacing:.06em;font-size:var(--t-small)}
+[data-style="swiss-grid"] .h-display,[data-style="swiss-grid"] .h1,[data-style="swiss-grid"] .h2{text-transform:none}
+[data-style="swiss-grid"] .h-display em,[data-style="swiss-grid"] .h1 em,[data-style="swiss-grid"] .h2 em{color:var(--c-accent);font-style:normal}
+[data-style="swiss-grid"] .eyebrow{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.12em;color:var(--c-text)}
+[data-style="swiss-grid"] .card,[data-style="swiss-grid"] .fcard{border-color:var(--c-border);box-shadow:none}
+[data-style="swiss-grid"] .section+.section{border-top:var(--bw) solid var(--c-border)}
+[data-style="swiss-grid"] .cta-band{background:var(--c-accent);color:var(--c-accent-fg);border-color:var(--c-border);box-shadow:none}
+[data-style="swiss-grid"] .cta-band .lead,[data-style="swiss-grid"] .cta-band .h2{color:inherit}
+[data-style="swiss-grid"] .cta-band .btn--primary{background:var(--c-text);color:var(--c-bg);border-color:var(--c-text)}
+[data-style="noir-luxe"] .btn{border-radius:var(--r-sm);text-transform:uppercase;letter-spacing:.12em;font-size:var(--t-caption);font-weight:600}
+[data-style="noir-luxe"] .eyebrow{text-transform:uppercase;letter-spacing:.22em;color:var(--c-accent-text)}
+[data-style="noir-luxe"] .h-display em,[data-style="noir-luxe"] .h1 em,[data-style="noir-luxe"] .h2 em{font-style:italic;color:var(--c-accent-text)}
+[data-style="noir-luxe"] .card,[data-style="noir-luxe"] .fcard,[data-style="noir-luxe"] .tier{border-color:color-mix(in srgb,var(--c-accent) 26%,var(--c-border))}
+[data-style="noir-luxe"] .tier--featured{border-color:var(--c-accent)}
+[data-style="noir-luxe"] .section+.section{border-top:var(--bw) solid color-mix(in srgb,var(--c-accent) 22%,var(--c-border))}
+[data-style="pastel-play"] .btn{border-radius:var(--r-pill);box-shadow:0 4px 0 color-mix(in srgb,var(--c-accent) 62%,#000);font-weight:700}
+[data-style="pastel-play"] .btn:active{transform:translateY(3px);box-shadow:0 1px 0 color-mix(in srgb,var(--c-accent) 62%,#000)}
+[data-style="pastel-play"] .btn--ghost{box-shadow:0 4px 0 var(--c-border);background:var(--c-surface)}
+[data-style="pastel-play"] .card,[data-style="pastel-play"] .fcard{border-width:var(--bw);box-shadow:var(--sh-md)}
+[data-style="pastel-play"] .eyebrow{background:var(--c-accent-soft);color:var(--c-accent-text);padding:4px 12px;border-radius:var(--r-pill)}
+[data-style="pastel-play"] .section--tint{background:color-mix(in srgb,var(--c-accent2) 10%,var(--c-bg))}
+[data-style="pastel-play"] .cta-band{background:var(--c-accent);color:var(--c-accent-fg);border-color:transparent}
+[data-style="pastel-play"] .cta-band .lead,[data-style="pastel-play"] .cta-band .h2{color:inherit}
+[data-style="pastel-play"] .cta-band .btn--primary{background:var(--c-surface);color:var(--c-text);box-shadow:0 4px 0 rgba(0,0,0,.18)}
+`;

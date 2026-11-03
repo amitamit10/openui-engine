@@ -5,7 +5,12 @@ export type StyleId =
   | "terminal-dev"
   | "warm-human"
   | "neo-brutal"
-  | "field-notes";
+  | "field-notes"
+  | "shadcn-mono"
+  | "material-tonal"
+  | "swiss-grid"
+  | "noir-luxe"
+  | "pastel-play";
 
 export type SiteCategory =
   | "saas"
