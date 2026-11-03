@@ -1,0 +1,250 @@
+[
+ {
+  "pair": "atlas-baseline-vs-engine-r1",
+  "brief": "atlas",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a confident editorial serif headline, a warm terracotta/teal/cream palette and a specific booking-timeline hero card that feels like a real removals product. Y has stronger feature illustrations, but its hero card leaves an awkward empty right column, and the sans-serif type, teal CTAs and card grid read as a more generic SaaS template."
+ },
+ {
+  "pair": "atlas-baseline-vs-engine-r2",
+  "brief": "atlas",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 7,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 6
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y has a confident serif and terracotta-on-deep-green palette, tidy section rhythm and a coherent booking-timeline hero, so it reads as a finished, ownable brand. X has a stronger, more specific quote-sheet hero and nice feature illustrations, but the hero has loose floating cards and empty space, the social-proof strip and FAQ feel sparse, and the soft teal-on-cream pill styling is closer to a stock SaaS template."
+ },
+ {
+  "pair": "brewline-baseline-vs-engine-r1",
+  "brief": "brewline",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a bold, characterful display serif, a confident green/amber palette and a hero with a specific tap-list UI, which reads cheeky and local. Y has charming flat illustrations in the feature cards, but its light serif headline is weaker, its hero scene is generic, and the overall layout follows the standard SaaS pattern (centred headings, dark metrics band, dark middle pricing card), so it is the more template-like of the two. Y's feature illustrations are stronger than X's small icons, but X wins on overall impact and cohesion."
+ },
+ {
+  "pair": "brewline-baseline-vs-engine-r2",
+  "brief": "brewline",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 8
+  },
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a refined editorial serif with italic accent, a cohesive terracotta/green/cream palette, bespoke illustrated feature cards and a dark pricing/metrics rhythm that feels specific to a brewery. Y is competent, with a strong hero tap-list card, but its small icon-in-box feature cards, heavy display serif and standard section stack read as a more generic template."
+ },
+ {
+  "pair": "larkspur-baseline-vs-engine-r1",
+  "brief": "larkspur",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 5,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 7
+  },
+  "rationale": "Y's hero shows a specific, believable product UI (timetable with seat counts, placement card, phrase of the week), while X relies on a generic flat illustration of a classroom with abstract bars. Y has a stronger indigo/saffron palette and a clearer editorial hierarchy with a split-layout FAQ and an email-capture CTA. X is clean and warm but its illustration-led cards and standard section rhythm feel more like a template."
+ },
+ {
+  "pair": "larkspur-baseline-vs-engine-r2",
+  "brief": "larkspur",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a distinctive editorial headline and a specific, believable product UI (timetable with seat counts, placement card, phrase of the week), plus a bold indigo and amber palette. Y is clean and competent but its hero is a generic flat illustration of abstract bars and bubbles, and its layout follows the standard SaaS section rhythm. Y is the more template-like of the two."
+ },
+ {
+  "pair": "payfold-baseline-vs-engine-r1",
+  "brief": "payfold",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 7,
+   "spacing": 5,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y has a bold dark hero with a crisp, specific pay-run card, a strong serif headline, a confident navy/green/amber palette and well-built feature illustrations and metrics band. X has a pleasant cream and serif look but its hero mock-up has awkward empty space and wrapped text, uneven testimonial cards and a more generic soft-card template feel."
+ },
+ {
+  "pair": "payfold-baseline-vs-engine-r2",
+  "brief": "payfold",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "baseline",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 6
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 7,
+   "spacing": 5,
+   "colour": 6,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 7
+  },
+  "rationale": "X has a confident dark hero with a specific, believable pay-run UI and a cohesive green/gold/navy system that carries through the page. Y has charming illustrated feature cards and a distinctive serif-italic headline, but its hero mockup has large awkward empty gaps and cramped wrapping, the testimonials are uneven, and the palette is flatter. X's overall structure is the more conventional SaaS layout, but it is executed far more cleanly."
+ }
+]

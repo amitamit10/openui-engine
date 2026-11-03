@@ -19,6 +19,7 @@ Every release of OpenUI Engine is evaluated the same way: the same spec per brie
 | [v0.9.0](v0.9.0/REPORT.md) | 8 | 0 / 8 | 7.7 | 6.4 | 5.5 | 6.8 | 105,389-129,433 (baseline arm in the same run: 102,811-119,752) | 18-40 (baseline arm: 15-26) | 186-352 (baseline arm: 201-224) |
 | [v0.10.0](v0.10.0/REPORT.md) | 8 | 0 / 8 | 7.7 | 6 | 4.9 | 6.1 | 112,796-133,694 (baseline arm in the same run: 99,587-110,995) | 17-32 (baseline arm: 12-21) | 246-310 (baseline arm: 192-244) |
 | [v0.11.0](v0.11.0/REPORT.md) | 8 | 3 / 8 | 7.3 | 6.8 | 6.1 | 6.5 | 103,575-118,324 (baseline arm in the same run: 96,499-129,832) | 18-24 (baseline arm: 11-21) | 186-274 (baseline arm: 181-310) |
+| [v0.12.0](v0.12.0/REPORT.md) | 8 | 1 / 8 | 7.6 | 6.7 | 6.3 | 6.5 | 99,128-124,032 (baseline arm in the same run: 101,869-126,500) | 16-25 (baseline arm: 12-22) | 206-368 (baseline arm: 188-442) |
 
 The v0.1.0 run (three arms, the original experiment) is in [v0.1.0/REPORT.md](v0.1.0/REPORT.md). The control experiment that tests whether the hybrid's win came from the engine tools is in [control-v0.4.1/REPORT.md](control-v0.4.1/REPORT.md) (result: it did not, as far as 8 judgements can tell).
 
