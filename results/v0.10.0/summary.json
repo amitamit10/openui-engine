@@ -1,0 +1,103 @@
+{
+  "release": "v0.10.0",
+  "note": "Controlled benchmark of the engine at commit bc7de0c (v0.9.0 plus brand-tinted paper surfaces on the light styles, features[].art object fix, florist category, selector and snippet on gate issues, RTL support). Haiku 5.5 without vs with the MCP, identical SPEC.md, same 60-call budget, four never-seen domains (ironbark tree surgeons, formwell forms software, harvest catering, driftwood kayak hire), engine frozen for the run. RESULT: engine 0/8, judged more template-like in 8/8; engine originality 4.9 and colour 5.75, the lowest of any run. The brand-tinted surfaces BACKFIRED: with the agents' green accents the whole page became mint, and judges called the engine pages a 'mint-green SaaS template' and 'mint-on-mint', while the baselines' 'warm cream, forest and amber' palettes won; the tinting is therefore reverted to opt-in. All four MCP agents patched the style to the older field-notes or warm-human, so the new styles were not exercised. The spec forbids external images for both arms, so the photo, logo-prompt and placeholder tools were not exercised. COST: engine arm tokens 113k-134k vs baseline 100k-111k, tool calls 17-32 vs 12-21, time 246-310 s vs 192-244 s. DEFECTS named by agents (to fix): the matcher first chose the loud neo-brutal style for a relaxed outdoor hire brand; brief_template returns the generic SaaS template for food and outdoor-activity categories; a decorative hero icon tile rendered blank (a missing icon). CONFOUNDS: several agents deleted their own scratch files; one agent made an unnecessary read_documentation call. NOT deployed to Vercel (no VERCEL_TOKEN in this environment).",
+  "briefs": [
+    "driftwood",
+    "formwell",
+    "harvest",
+    "ironbark"
+  ],
+  "judgements": 8,
+  "wins": {
+    "baseline": 8,
+    "engine": 0
+  },
+  "engineWinRatePct": 0,
+  "engineJudgedMoreTemplateLike": 8,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 8,
+      "typography": 8.3,
+      "spacing": 7.5,
+      "colour": 8,
+      "product_visual": 7.5,
+      "mobile": 7.1,
+      "polish": 7.8,
+      "originality": 7.4
+    },
+    "engine": {
+      "hierarchy": 6.4,
+      "typography": 6.3,
+      "spacing": 5.9,
+      "colour": 5.8,
+      "product_visual": 6.1,
+      "mobile": 6.3,
+      "polish": 6,
+      "originality": 4.9
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.7,
+    "engine": 6
+  },
+  "automated": {
+    "baseline": {
+      "sites": 4,
+      "quality": 86.3,
+      "originalityScore": 95.5,
+      "slopScore": 95.5,
+      "slopFindings": 0.8,
+      "auditErrors": 8,
+      "auditWarnings": 3,
+      "neutralChecksPassed": "10/12",
+      "svgs": 7.5,
+      "fontFamilies": 2,
+      "distinctColors": 15,
+      "spacingOn4px": 89.3,
+      "sourceKB": 53.2
+    },
+    "engine": {
+      "sites": 4,
+      "quality": 95,
+      "originalityScore": 100,
+      "slopScore": 100,
+      "slopFindings": 0,
+      "auditErrors": 0,
+      "auditWarnings": 0.3,
+      "neutralChecksPassed": "10/12",
+      "svgs": 28.5,
+      "fontFamilies": 3,
+      "distinctColors": 11.5,
+      "spacingOn4px": 93.2,
+      "sourceKB": 107.3
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 4,
+    "tokens": "112,796-133,694 (baseline arm in the same run: 99,587-110,995)",
+    "toolCalls": "17-32 (baseline arm: 12-21)",
+    "seconds": "246-310 (baseline arm: 192-244)",
+    "perAgent": {
+      "ironbark": {
+        "tokens": 123361,
+        "toolCalls": 19,
+        "seconds": 273
+      },
+      "formwell": {
+        "tokens": 133694,
+        "toolCalls": 32,
+        "seconds": 310
+      },
+      "harvest": {
+        "tokens": 112796,
+        "toolCalls": 17,
+        "seconds": 246
+      },
+      "driftwood": {
+        "tokens": 113038,
+        "toolCalls": 22,
+        "seconds": 274
+      }
+    }
+  }
+}
