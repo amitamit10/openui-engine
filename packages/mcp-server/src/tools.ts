@@ -4,7 +4,7 @@ import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, styleGuide, collectIconRefs, normalizeCategory, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
-  loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, reviewDesign, imageStatus, IMAGE_EXTS, searchPhotos, photoUrl, PHOTOS, LOGO_MARKS, pickMark, logoFiles, legalDoc, pickAccent, hexToHsl, hslToHex, contrast, OBJECTS, PALETTE_VARS, SCENE_IDS, sceneSvg, getSources, setTokenPath, suggestLayout, applyTweaks,
+  loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, reviewDesign, buildSite, getStyle, imageStatus, IMAGE_EXTS, searchPhotos, photoUrl, PHOTOS, LOGO_MARKS, pickMark, logoFiles, legalDoc, pickAccent, hexToHsl, hslToHex, contrast, OBJECTS, PALETTE_VARS, SCENE_IDS, sceneSvg, getSources, setTokenPath, suggestLayout, applyTweaks,
   type DesignTokens, type PageSpec, type SectionSpec, type SectionType, type SiteCategory, type StyleId,
 } from "@openui-engine/core";
 import { auditTarget, capture, serveDir, VIEWPORTS, formatReport, detectSlop, getBrowser } from "@openui-engine/verify";
@@ -351,6 +351,31 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     const out = rebuild(dir);
     if (a.deployDir) { const dd = ctx.safePath(a.deployDir); mkdirSync(dd, { recursive: true }); cpSync(join(dir, "dist"), dd, { recursive: true }); }
     return text({ saved: `images/${a.slot}.${ext}`, bytes: bytes.length, rebuilt: out.files.length, images: imageStatus(dir) });
+  });
+
+
+  // ── toolkit mode: the model writes the page, the engine supplies the pieces ──
+  server.registerTool("style_pack", {
+    title: "Style pack for a hand-written page",
+    description: "TOOLKIT MODE: write the page YOURSELF and let the engine supply the pieces. Pick a style (or let the brief choose) and get a folder with: tokens.css (colours, type, spacing, radii), styles.css (the component classes), app.js (accessible mobile menu, pricing toggle, accordion, tabs and reveals, driven by data attributes), DESIGN.md (the art direction and its don'ts), snippets/ (ready-made, tested HTML for every section type with the right classes and data attributes) and reference.html (a complete sample page). Copy a snippet, rewrite its copy, restructure it, and draw your own hero object, then run validate_design. The more specific and unusual your hero object and layout, the better: the snippets are a starting point, not a template to leave untouched.",
+    inputSchema: { outDir: z.string().describe("folder to write into, e.g. 'pack'"), name: z.string().default("Brand"), description: z.string().default("").describe("what the business does and its tone: used to choose the style and accent"), category: CATEGORY.default("saas"), style: STYLE.optional(), accent: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(), lang: z.string().optional() },
+  }, async (a) => {
+    const dir = ctx.safePath(a.outDir); mkdirSync(join(dir, "snippets"), { recursive: true });
+    const brief: any = { ...briefTemplate(a.category as SiteCategory), name: a.name, subheadline: a.description || a.name, category: a.category, style: a.style, accent: a.accent, lang: a.lang };
+    const planned = planSite(brief);
+    const icons = await fetchIcons([...collectIconRefs(planned.spec)]).catch(() => ({}));
+    const site = buildSite(planned.spec, planned.tokens, {}, icons);
+    const written: string[] = [];
+    const w = (rel: string, content: string) => { writeFileSync(join(dir, rel), content); written.push(rel); };
+    for (const f of ["tokens.css", "styles.css", "app.js"]) w(f, site.files[f]!);
+    w("reference.html", site.files["index.html"]!.replace(/<link rel="stylesheet" href="overrides\.css">\s*/, ""));
+    w("DESIGN.md", renderDesignMd(planned.tokens));
+    const rctx = { tokens: planned.tokens, spec: planned.spec, icons };
+    for (const s of planned.spec.sections) { const r = (RENDERERS as any)[s.type]; if (r) w(`snippets/${s.id}.${s.type}.html`, `<!-- ${s.type}: copy this block, rewrite the copy, restructure freely. Classes come from styles.css; data-* attributes are used by app.js. -->\n${r(s, rctx)}\n`); }
+    const fonts = /<link rel="preconnect"[\s\S]*?(?=<link rel="stylesheet" href="tokens.css">)/.exec(site.files["index.html"]!)?.[0]?.trim() ?? "";
+    const st = getStyle(planned.tokens.meta.style as StyleId);
+    w("README.md", `# Style pack: ${st.name}\n\n${st.summary}\n\n## Use it\n1. Put these files next to your index.html: tokens.css, styles.css, app.js.\n2. In <head>, add the font links below, then <link rel="stylesheet" href="tokens.css"> and <link rel="stylesheet" href="styles.css">; before </body> add <script src="app.js" defer></script>.\n3. Build your sections from snippets/*.html (copy, rewrite, restructure). Keep the data-* attributes the snippet uses; app.js wires them (menu, billing toggle, accordion, tabs, reveal, form).\n4. Draw something specific for the hero (your own inline SVG or an HTML product card with real data) rather than leaving a generic visual.\n5. Run validate_design on your site folder and fix what it reports.\n\n## Fonts\n\`\`\`html\n${fonts}\n\`\`\`\n\n## Signatures of this style\n${st.signatures.map((x) => "- " + x).join("\n")}\n\n## Do not\n${st.doNot.map((x) => "- " + x).join("\n")}\n\n## Palette\naccent ${planned.tokens.color.accent}, secondary ${planned.tokens.color.accent2}, bg ${planned.tokens.color.bg}, text ${planned.tokens.color.text}\n`);
+    return text({ style: planned.tokens.meta.style, why: st.summary, accent: planned.tokens.color.accent, outDir: a.outDir, files: written, next: "Read README.md and DESIGN.md, copy the snippets you need into your own index.html, make the hero specific, then validate_design." });
   });
 
   // ── assets: photos, logo, colour, legal ────────────────────────────────────

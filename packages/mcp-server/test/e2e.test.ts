@@ -34,6 +34,16 @@ describe("MCP tool surface", () => {
     for (const t of tools) { expect(t.description!.length).toBeGreaterThan(40); expect(t.inputSchema.type).toBe("object"); }
   });
 
+  it("style_pack writes a self-contained toolkit (tokens, CSS, JS, snippets) that a hand-written page can use and that passes the quick gate", async () => {
+    const r = await call("style_pack", { outDir: "pack", name: "Quay Bakery", description: "an independent neighbourhood bakery, warm and unfussy", category: "ecommerce" });
+    expect(r.isError).toBe(false);
+    for (const f of ["tokens.css", "styles.css", "app.js", "DESIGN.md", "README.md", "reference.html"]) expect(r.json.files).toContain(f);
+    expect(r.json.files.filter((f: string) => f.startsWith("snippets/")).length).toBeGreaterThanOrEqual(8);
+    expect(readFileSync(join(work, "pack", "README.md"), "utf8")).toMatch(/Signatures of this style/);
+    const ref = readFileSync(join(work, "pack", "reference.html"), "utf8");
+    expect(ref).not.toContain("overrides.css");
+  });
+
   it("discover_components returns a short ranked list, never the full registry", async () => {
     const r = await call("discover_components", { slot: "pricing", style: "aurora-dark", limit: 3 });
     expect(r.json.results.length).toBeLessThanOrEqual(3);
