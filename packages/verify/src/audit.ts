@@ -91,6 +91,46 @@ function collectInPage(isMobile: boolean): Collected {
   const hiddenTop = hidden.filter((el) => !hidden.some((o) => o !== el && o.contains(el)));
   if (hiddenTop.length) issues.push({ severity: "error", category: "content", message: `${hiddenTop.length} element(s) with text are invisible (opacity 0) after scrolling — a reveal animation did not complete.`, selector: sel(hiddenTop[0]!), openuiId: idOf(hiddenTop[0]!), fix: "Ensure reveal/entrance states are removed once in view, are JS-gated, and fall back to visible with reduced motion." });
 
+  // --- text that is effectively invisible against its real (solid) background, e.g. an accent-coloured word on an accent band ---
+  {
+    const parse = (c: string): number[] | null => { const m = c.match(/rgba?\(([^)]+)\)/); if (!m) return null; const p = m[1]!.split(",").map((x) => Number.parseFloat(x)); return [p[0]!, p[1]!, p[2]!, p[3] ?? 1]; };
+    const lum = (r: number, g: number, b: number) => { const f = (v: number) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
+    const bgOf = (el: Element): number[] | null => { for (let n: Element | null = el; n; n = n.parentElement) { const cs = getComputedStyle(n); if (cs.backgroundImage !== "none") return null; const bg = parse(cs.backgroundColor); if (bg && bg[3]! > 0.95) return bg; } return [255, 255, 255, 1]; };
+    const faint: Element[] = [];
+    for (const el of vis) {
+      if (el.closest("[aria-hidden='true']")) continue;
+      if (![...el.childNodes].some((n) => n.nodeType === 3 && (n.textContent ?? "").trim().length > 1)) continue;
+      const cs = getComputedStyle(el);
+      if (parseFloat(cs.opacity) < 0.5 || cs.visibility === "hidden") continue;
+      const fg = parse(cs.color), bg = bgOf(el);
+      if (!fg || !bg || fg[3]! < 0.95) continue;
+      const l1 = lum(fg[0]!, fg[1]!, fg[2]!), l2 = lum(bg[0]!, bg[1]!, bg[2]!);
+      if ((Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05) < 1.6) faint.push(el);
+    }
+    if (faint.length) issues.push({ severity: "error", category: "a11y", message: `${faint.length} text element(s) are almost invisible against their background (under 1.6:1), e.g. "${(faint[0]!.textContent ?? "").trim().slice(0, 40)}".`, selector: sel(faint[0]!), openuiId: idOf(faint[0]!), fix: "Give the text a colour that contrasts with the band it sits on (for example inherit the band's foreground colour)." });
+  }
+
+  // --- large empty holes inside grid or column layouts (a lopsided card wall) ---
+  {
+    const holes: Array<{ el: Element; empty: number }> = [];
+    for (const el of document.querySelectorAll("main *, body > section *")) {
+      const cs = getComputedStyle(el), kids = [...el.children].filter((c) => { const r = c.getBoundingClientRect(); return r.width > 40 && r.height > 40; });
+      const multiCol = cs.display === "grid" ? cs.gridTemplateColumns.split(" ").length > 1 : cs.columnCount !== "auto" && Number(cs.columnCount) > 1;
+      if (!multiCol || kids.length < 3) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width * r.height < 60000 || r.width < 500) continue;
+      const rects = kids.map((c) => c.getBoundingClientRect());
+      let empty = 0, total = 0;
+      for (let ix = 0; ix < 16; ix++) for (let iy = 0; iy < 8; iy++) {
+        const x = r.left + ((ix + 0.5) / 16) * r.width, y = r.top + ((iy + 0.5) / 8) * r.height; total++;
+        if (!rects.some((k) => x >= k.left && x <= k.right && y >= k.top && y <= k.bottom)) empty++;
+      }
+      if (empty / total > 0.25) holes.push({ el, empty: empty / total });
+    }
+    const top = holes.filter((h) => !holes.some((o) => o !== h && h.el.contains(o.el)));
+    for (const h of top.slice(0, 2)) issues.push({ severity: "warning", category: "layout", message: `Large empty hole inside a ${Math.round(h.empty * 100)}% unfilled grid or column layout (uneven or missing cards).`, selector: sel(h.el), openuiId: idOf(h.el), fix: "Make the cards in this group even (stretch to equal height, or lay out so the last row is full)." });
+  }
+
   // --- images / assets ---
   for (const img of Array.from(document.images)) {
     if (!img.complete || img.naturalWidth === 0) issues.push({ severity: "error", category: "assets", message: `Broken image: ${img.currentSrc || img.src}`, selector: sel(img), openuiId: idOf(img), fix: "Fix the src path or add the asset." });
