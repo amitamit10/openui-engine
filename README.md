@@ -98,7 +98,7 @@ Each release is tested the same way (same spec, clean workspace, Haiku 5.5 build
 | [v0.3.1 held-out](results/v0.3.1-heldout/REPORT.md) (4 new briefs, fresh agents) | 8 | 1 | 7.5 / 6.1 | 5.6 | 6.6 | 80,420-95,448 | 21-29 |
 | [v0.4.0](results/v0.4.0/REPORT.md) (4 more new domains, fresh agents) | 8 | 1 | 7.6 / 6.3 | 5.5 | 7.4 | 77,598-95,242 | 14-30 |
 | [hybrid v0.4.1](results/hybrid-v0.4.1/REPORT.md) (hand-written page + engine QA tools; 4 more new domains; "engine" columns = hybrid arm) | 8 | 7 | 6.9 / 7.6 | 7.6 | 7.6 | 104,474-125,480 | 18-29 |
-| [control v0.4.1](results/control-v0.4.1/REPORT.md) (same, **no engine tools**): vs hybrid 4-4, vs baseline 4-4 | 16 | n/a | 7.17 / 7.33 (baseline/control) | - | - | 110k-144k | 20-40 |
+| [control v0.4.1](results/control-v0.4.1/REPORT.md) (same, **no engine tools**): vs hybrid 4-4, vs baseline 4-4 | 16 | n/a | 7.17 / 7.33 (baseline/control) | - | - | 110k-144k | 13-40 |
 
 What the data says, plainly:
 
