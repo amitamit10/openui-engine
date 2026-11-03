@@ -6,6 +6,7 @@ import type { VisualKind, VisualSpec } from "./visuals.js";
 
 /** The one structured document a small model has to write. Everything else is decided by the engine. */
 import { searchIcons } from "../assets/icons.js";
+import { pickScene, SCENE_IDS, type SceneId } from "./scenes.js";
 
 const MOTIF_BY_STYLE: Record<string, string[]> = {
   "aurora-dark": ["contour", "rings", "dots"], "clarity-light": ["dots", "stack", "rings"], "editorial-paper": ["arches", "rings", "scallop"],
@@ -37,6 +38,10 @@ export interface SiteBrief {
   heroNote?: string;
   /** Domain visual for the hero, e.g. {kind:"timeline", items:[…]}. */
   heroVisual?: VisualSpec;
+  /** "auto" (default): non-software businesses (care, food, craft, interiors, marinas, clinics, law, solar...) get an illustrated domain scene as the hero and software/data products keep the product mockup. "product" forces heroVisual; "scene" forces a scene. */
+  heroStyle?: "auto" | "product" | "scene";
+  /** Force a scene: interior, care, clinic, food, marine, books, craft, solar, law, climb, field. */
+  heroScene?: "interior" | "care" | "clinic" | "food" | "marine" | "books" | "craft" | "solar" | "law" | "climb" | "field";
   /** 1-3 small stat chips layered over the hero visual, e.g. {label:"Next free slot",value:"Today 4:10pm",tone:"good"}. Makes the hero read as a composed product scene. */
   heroFloats?: Array<{ label: string; value: string; tone?: "good" | "warn" | "info" }>;
   logos?: string[];
@@ -106,11 +111,15 @@ export function planSite(input: SiteBrief): PlannedSite {
   const primaryHref = has.pricing ? "#pricing" : "#cta";
   add("nav", "navbar-glass", { links: brief.nav?.links ?? links, signIn: brief.nav?.signIn === false ? undefined : (brief.nav?.signIn ?? { label: "Sign in", href: primaryHref }), cta: cta(brief.primaryCta, primaryHref) }, "wayfinding + primary CTA");
 
-  const hv = brief.heroVisual;
+  const sceneText = `${brief.name} ${brief.subheadline} ${brief.audience ?? ""} ${brief.features.map((f) => `${f.title} ${f.body}`).join(" ")}`;
+  const isSoftware = ["devtool", "ai-product"].includes(brief.category) || /\b(api|sdk|webhook|saas|cli)\b/i.test(`${brief.name} ${brief.subheadline}`);
+  const forcedScene = brief.heroScene && (SCENE_IDS as string[]).includes(brief.heroScene) ? (brief.heroScene as SceneId) : null;
+  const sceneId: SceneId | null = brief.heroStyle === "product" ? null : forcedScene ?? (brief.heroStyle === "scene" ? pickScene(sceneText) ?? "interior" : isSoftware ? null : pickScene(sceneText));
+  const hv = sceneId ? undefined : brief.heroVisual;
   const heroIcons = [...new Set(brief.features.map((f) => iconRefFor(f)).filter(Boolean) as string[])].slice(0, 4);
   const heroScene = { motif: (MOTIF_BY_STYLE[style] ?? ["blobs"])[0], seed: brief.name, icons: heroIcons.length ? heroIcons : undefined, badge: hv ? undefined : brief.heroFloats?.[0] };
-  const heroType = !hv && comp.heroVariant === "editorial" ? "hero-editorial" : hv && WIDE.includes(hv.kind) ? "hero-centered-product" : hv ? "hero-split" : comp.heroVariant === "split" ? "hero-split" : "hero-centered-product";
-  add("hero", heroType, { title: brief.headline, subtitle: brief.subheadline, primaryCta: cta(brief.primaryCta, primaryHref), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined, note: brief.heroNote, floats: hv ? brief.heroFloats?.slice(0, 3) : brief.heroFloats?.slice(1, 3), scene: heroScene, big: brief.headline.replace(/\*/g, "").trim().split(/\s+/).length <= 8, ...(hv ? { visual: hv } : {}), ...(heroType === "hero-editorial" ? { stats: (brief.metrics ?? []).slice(0, 3).map((m) => ({ value: m.value, label: m.label })) } : {}) },
+  const heroType = sceneId ? "hero-split" : !hv && comp.heroVariant === "editorial" ? "hero-editorial" : hv && WIDE.includes(hv.kind) ? "hero-centered-product" : hv ? "hero-split" : comp.heroVariant === "split" ? "hero-split" : "hero-centered-product";
+  add("hero", heroType, { title: brief.headline, subtitle: brief.subheadline, primaryCta: cta(brief.primaryCta, primaryHref), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined, note: brief.heroNote, floats: hv ? brief.heroFloats?.slice(0, 3) : brief.heroFloats?.slice(1, 3), scene: heroScene, sceneArt: sceneId ?? undefined, big: ((n) => (n <= 7 ? 2 : n <= 12 ? 1 : 0))(brief.headline.replace(/\*/g, "").trim().split(/\s+/).length), ...(hv ? { visual: hv } : {}), ...(heroType === "hero-editorial" ? { stats: (brief.metrics ?? []).slice(0, 3).map((m) => ({ value: m.value, label: m.label })) } : {}) },
     hv ? `hero shows the product itself (${hv.kind}); ${WIDE.includes(hv.kind) ? "wide visual → centered layout" : "narrow visual → split layout"}` : `no hero visual given → ${heroType}`);
 
   if (brief.logos?.length) add("logos", "logo-cloud", { label: brief.logosLabel ?? "Trusted by teams at", logos: brief.logos, marquee: brief.logos.length >= 7 }, "social proof directly under the hero");
@@ -143,7 +152,7 @@ export function planSite(input: SiteBrief): PlannedSite {
   if (has.faq) add("faq", (brief.faq!.length >= 4 ? "faq-split" : "faq"), { anchor: "faq", eyebrow: "FAQ", title: "Questions, answered", items: brief.faq }, "objection handling");
   const c = brief.closing ?? { title: `Try *${brief.name}*`, subtitle: brief.subheadline };
   add("cta", c.form ? "cta-split" : "cta-band", c.form ? { anchor: "cta", title: c.title, subtitle: c.subtitle, bullets: c.bullets, form: { button: c.button ?? brief.primaryCta, note: c.note ?? "", label: "Work email" } } : { anchor: "cta", title: c.title, subtitle: c.subtitle, primaryCta: cta(brief.primaryCta, "#top"), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined }, "single closing ask");
-  add("footer", "footer-columns", { tagline: brief.footer?.tagline ?? firstSentence(brief.subheadline, 96), columns: brief.footer?.columns ?? [{ title: "Product", links: links.length ? links : [{ label: "Home", href: "#top" }] }, { title: "Get started", links: [{ label: brief.primaryCta, href: has.pricing ? "#pricing" : "#cta" }, ...(brief.secondaryCta ? [{ label: brief.secondaryCta, href: "#features" }] : [])] }, { title: "Company", links: [{ label: "Back to top", href: "#top" }, ...(has.faq ? [{ label: "Questions", href: "#faq" }] : [])] }], legal: brief.footer?.legal ?? `© ${new Date().getFullYear()} ${brief.name}`, note: "" }, "navigation and legal");
+  add("footer", "footer-columns", { tagline: brief.footer?.tagline ?? firstSentence(brief.subheadline, 150), columns: brief.footer?.columns ?? [{ title: "Product", links: links.length ? links : [{ label: "Home", href: "#top" }] }, { title: "Get started", links: [{ label: brief.primaryCta, href: has.pricing ? "#pricing" : "#cta" }, ...(brief.secondaryCta ? [{ label: brief.secondaryCta, href: "#features" }] : [])] }, { title: "Company", links: [{ label: "Back to top", href: "#top" }, ...(has.faq ? [{ label: "Questions", href: "#faq" }] : [])] }], legal: brief.footer?.legal ?? `© ${new Date().getFullYear()} ${brief.name}`, note: "" }, "navigation and legal");
 
   return { tokens, spec: { title: `${brief.name} — ${brief.headline.replace(/\*/g, "").slice(0, 70)}`, description: brief.subheadline, brand: { name: brief.name }, sections }, layout, notes };
 }

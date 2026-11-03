@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { MOTIFS, motifSvg, renderScene, renderSpot } from "./compose/illustrate.js";
+import { SCENE_IDS, pickScene, sceneMarkup } from "./compose/scenes.js";
 import {
   ALL_COMPONENTS, BUZZWORDS, contrast as contrastRatio, RENDERERS, STYLE_IDS, VISUAL_KINDS, briefTemplate, buildSite, collectIconRefs, discover, generateTokens, hexToHsl, indexedComponents, lintCopy,
   styleGuide, findComponent, lintVisuals, normalizeCategory, normalizeVisual, suggestComponentIds, matchStyles, pickAccent, planSite, renderVisual, sanitizeSvg, searchIcons, searchableComponents, type PageSpec, type SiteBrief, type SiteCategory,
@@ -256,5 +257,35 @@ describe("v0.5.0: illustration layer", () => {
     expect((html.match(/class="spot /g) ?? []).length).toBe(3);
     expect(html).not.toContain("<img src=x");
     expect(buildSite(p.spec, p.tokens, {}, {}).files["app.js"]).toContain("requestAnimationFrame");
+  });
+});
+
+describe("v0.5.1: domain scenes and polish", () => {
+  const mk = (over: Partial<SiteBrief>): SiteBrief => ({ ...briefTemplate("saas"), ...over }) as SiteBrief;
+  it("routes non-software businesses to a drawn domain scene and keeps software on the product mockup", () => {
+    expect(pickScene("Fernwood Dental family practice")).toBe("clinic");
+    expect(pickScene("Heron & Finch interior design studio")).toBe("interior");
+    expect(pickScene("Tidewater marina sailing lessons")).toBe("marine");
+    expect(pickScene("Skyplot crop-monitoring satellite imagery")).toBe("field");
+    expect(pickScene("an invoicing app for freelancers")).toBeNull();
+    const dental = planSite(mk({ name: "Fernwood Dental", subheadline: "A family dental practice with evening appointments.", category: "saas" }));
+    const hero: any = dental.spec.sections.find((x) => x.id === "hero")!;
+    expect(hero.type).toBe("hero-split"); expect(hero.props.sceneArt).toBe("clinic"); expect(hero.props.visual).toBeUndefined();
+    const api = planSite(mk({ name: "Skyplot", subheadline: "A crop-monitoring satellite imagery API for developers.", category: "devtool" }));
+    expect((api.spec.sections.find((x) => x.id === "hero")!.props as any).sceneArt).toBeUndefined();
+    const forced = planSite(mk({ name: "Fernwood Dental", subheadline: "A family dental practice.", heroStyle: "product" }));
+    expect((forced.spec.sections.find((x) => x.id === "hero")!.props as any).sceneArt).toBeUndefined();
+  });
+  it("every scene renders self-contained SVG with no external references and uses only palette variables", () => {
+    for (const id of SCENE_IDS) {
+      const m = sceneMarkup(id);
+      expect(m).toContain("<svg"); expect(m).not.toMatch(/https?:|<script|href=|<image/);
+    }
+  });
+  it("renders the scene hero without throwing and formats prices with thousands separators", () => {
+    const p = planSite(mk({ name: "Heron & Finch", subheadline: "An interior design studio for family homes.", category: "agency", pricing: { currency: "£", tiers: [{ name: "Whole", monthly: 6200, yearly: 5580, desc: "d", features: ["f"], cta: "Go", featured: true }] } as any }));
+    const html = buildSite(p.spec, p.tokens, {}, {}).files["index.html"]!;
+    expect(html).toContain("scene--art"); expect(html).toContain("£6,200");
+    expect(buildSite(p.spec, p.tokens, {}, {}).files["app.js"]).toContain("toLocaleString");
   });
 });

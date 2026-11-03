@@ -174,7 +174,7 @@ h4.vz-b{font-family:var(--f-display);font-size:var(--t-h4);font-weight:var(--fw-
 .fcard__text{display:grid;gap:var(--s-2);padding:0 var(--s-3)}.fcard__text p{color:var(--c-muted);font-size:var(--t-small);line-height:var(--lh-small)}
 .fcard .spot{border-radius:calc(var(--r-lg) - 4px)}
 @media(max-width:980px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.fgrid{grid-template-columns:minmax(0,1fr)}}
-.scene{aspect-ratio:5/4}.scene__main{width:30%;aspect-ratio:1;border-radius:30%}
+.scene{aspect-ratio:5/4}.scene--art{border:0;background:none;box-shadow:var(--sh-lg,var(--sh-md));border-radius:var(--r-xl,28px)}.scene__art{position:absolute;inset:0;width:100%;height:100%;display:block}.scene__main{width:30%;aspect-ratio:1;border-radius:30%}
 .scene__sat{position:absolute;z-index:1;display:grid;place-items:center;width:15%;aspect-ratio:1;border-radius:34%;background:var(--c-bg);color:var(--c-accent-text);border:var(--bw) solid var(--c-border);box-shadow:var(--sh-md)}.scene__sat .ico{width:50%;height:50%}
 .scene__sat--1{left:12%;top:16%}.scene__sat--2{right:12%;top:22%}.scene__sat--3{left:22%;bottom:14%}
 .scene__stat{position:absolute;right:8%;bottom:9%;z-index:2}
@@ -192,4 +192,14 @@ h1,h2,.h2{text-wrap:balance}
   html:not([data-motion="0"]) .spot__pill--1{animation:bob 8s ease-in-out infinite}html:not([data-motion="0"]) .spot__pill--2{animation:bob 9s ease-in-out -3s infinite}
   @keyframes bob{50%{translate:0 -8px}}
 }
+
+/* ── v0.5.1 polish ── */
+.hero--d1 .h1{font-size:calc(var(--t-h1)*1.18);line-height:var(--lh-h1)}
+.vz-uigrid.two>div:first-child{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s-4)}
+.tier--featured{background:var(--c-text);color:var(--c-bg);border-color:var(--c-text);box-shadow:var(--sh-md)}
+.tier--featured .h3,.tier--featured .price strong{color:var(--c-bg)}
+.tier--featured .muted,.tier--featured .price span,.tier--featured .ticks li,.tier--featured .small{color:color-mix(in srgb,var(--c-bg) 82%,var(--c-text))}
+.tier--featured .ticks .ico{color:var(--c-accent-soft)}
+.tier--featured .btn--primary{background:var(--c-accent);color:var(--c-accent-fg)}
+@media(max-width:820px){.footer a{display:inline-flex;align-items:center;min-height:44px}}
 `;

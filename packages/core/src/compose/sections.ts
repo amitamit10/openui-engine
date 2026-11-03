@@ -1,6 +1,7 @@
 import { ICON, btn, ctaRow, esc, head, rich, wrap } from "./util.js";
 import type { Cta, Renderer, SectionType } from "./types.js";
 import { renderBackdrop, renderScene } from "./illustrate.js";
+import { sceneMarkup } from "./scenes.js";
 import { iconSvg } from "../assets/icons.js";
 import { RENDERERS_2 } from "./sections2.js";
 import { renderVisual } from "./visuals.js";
@@ -108,7 +109,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
 
   "hero-split": (s, { tokens, spec }) => {
     const p = s.props, id = s.id;
-    return `<section class="hero hero--split${p.big ? " hero--display" : ""}" data-openui-section="${id}" data-openui-variant="hero-split" data-openui-id="${id}" id="top">
+    return `<section class="hero hero--split${p.big === 2 ? " hero--display" : p.big === 1 ? " hero--d1" : ""}" data-openui-section="${id}" data-openui-variant="hero-split" data-openui-id="${id}" id="top">
   <div class="hero__grid" aria-hidden="true"></div>
   <div class="container hero__row">
     <div class="hero__copy">
@@ -118,7 +119,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
       ${ctaRow(p, id, tokens.composition.ctaHierarchy)}
       ${p.note ? `<p class="hero__note" data-openui-id="${id}.note">${esc(p.note)}</p>` : ""}
     </div>
-    <div class="hero__visual">${p.scene && p.visual ? renderBackdrop(p.scene, `${id}bd`) : ""}${p.visual ? renderVisual(p.visual, `${id}hv`) : (p.scene ? renderScene(p.scene, `${id}sc`) : dashboardMock(id, spec.brand.name, p.mock))}${Array.isArray(p.floats) && p.floats.length ? `<div class="hero__floats">${p.floats.map((f: any, i: number) => `<div class="hfloat hfloat--${esc(f.tone ?? "info")}" data-openui-id="${id}.float${i}"><span>${esc(f.label)}</span><strong>${esc(f.value)}</strong></div>`).join("")}</div>` : ""}</div>
+    <div class="hero__visual">${p.sceneArt ? `<div class="scene scene--art" aria-hidden="true">${sceneMarkup(p.sceneArt)}</div>` : ""}${p.sceneArt ? "" : p.scene && p.visual ? renderBackdrop(p.scene, `${id}bd`) : ""}${p.sceneArt ? "" : p.visual ? renderVisual(p.visual, `${id}hv`) : (p.scene ? renderScene(p.scene, `${id}sc`) : dashboardMock(id, spec.brand.name, p.mock))}${Array.isArray(p.floats) && p.floats.length ? `<div class="hero__floats">${p.floats.map((f: any, i: number) => `<div class="hfloat hfloat--${esc(f.tone ?? "info")}" data-openui-id="${id}.float${i}"><span>${esc(f.label)}</span><strong>${esc(f.value)}</strong></div>`).join("")}</div>` : ""}</div>
   </div>
 </section>`;
   },
@@ -203,7 +204,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
   <div class="tiers">${tiers.map((t, i) => `<article class="card tier reveal${t.featured ? " tier--featured" : ""}" data-openui-id="${id}.tier${i}">
     ${t.featured ? `<span class="tier__tag">Most popular</span>` : ""}
     <div class="stack"><h3 class="h3">${esc(t.name)}</h3><p class="muted small">${esc(t.desc)}</p></div>
-    <div class="price"><strong data-price data-monthly="${esc(t.monthly)}" data-yearly="${esc(t.yearly)}" data-cur="${esc(p.currency ?? "$")}">${typeof t.monthly === "number" ? esc(p.currency ?? "$") : ""}${esc(t.monthly)}</strong><span>${typeof t.monthly === "number" ? esc(t.unit ?? "/ month") : ""}</span></div>
+    <div class="price"><strong data-price data-monthly="${esc(t.monthly)}" data-yearly="${esc(t.yearly)}" data-cur="${esc(p.currency ?? "$")}">${typeof t.monthly === "number" ? esc(p.currency ?? "$") + t.monthly.toLocaleString("en-US") : esc(t.monthly)}</strong><span>${typeof t.monthly === "number" ? esc(t.unit ?? "/ month") : ""}</span></div>
     ${btn(t.cta, t.featured ? "primary" : "ghost", `${id}.tier${i}.cta`, false)}
     <ul class="ticks">${t.features.map((f) => `<li>${ICON.check}<span>${esc(f)}</span></li>`).join("")}</ul></article>`).join("")}</div>`, "", true);
   },
