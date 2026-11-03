@@ -22,7 +22,7 @@ const LOOK: Record<string, string> = {
 export const styleSuffix = (style: string, accent: string, aspect: string, extra?: string) =>
   `Overall look (secondary to the subject above): ${LOOK[style] ?? "natural light, professional photography"}${extra ? `, ${extra}` : ""}. Colours that harmonise with ${accent}. No text, logos, watermarks or UI overlays. Photorealistic, high resolution, ${aspect} aspect ratio.`;
 
-export const logoPromptFor = (name: string, what: string, accent: string, style: string) =>
+export const logoPromptFor = (name: string, what: string, accent: string, _style?: string) =>
   `Design a logo for "${name}"${what ? `, ${what.replace(/[.\s]+$/, "")}` : ""}. A simple, distinctive, memorable mark next to the wordmark "${name}". Flat vector style, at most two colours (${accent} and near-black), no gradients, no shadows, no mockup, no extra text, plain white background. It must stay legible at 32px. Deliver as SVG if you can, otherwise a transparent PNG.`;
 
 export interface ImageRequest { slot: string; kind: "photo" | "logo"; file: string; aspect: string; size: string; alt: string; prompt: string; status: "missing" | "provided"; provided?: string }

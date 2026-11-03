@@ -4,7 +4,7 @@ import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, styleGuide, collectIconRefs, normalizeCategory, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
-  loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, reviewDesign, imageStatus, findAssets, IMAGE_EXTS, searchPhotos, photoUrl, PHOTOS, LOGO_MARKS, pickMark, logoFiles, legalDoc, pickAccent, hexToHsl, hslToHex, contrast, OBJECTS, PALETTE_VARS, SCENE_IDS, sceneSvg, getSources, setTokenPath, suggestLayout, applyTweaks,
+  loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, reviewDesign, imageStatus, IMAGE_EXTS, searchPhotos, photoUrl, PHOTOS, LOGO_MARKS, pickMark, logoFiles, legalDoc, pickAccent, hexToHsl, hslToHex, contrast, OBJECTS, PALETTE_VARS, SCENE_IDS, sceneSvg, getSources, setTokenPath, suggestLayout, applyTweaks,
   type DesignTokens, type PageSpec, type SectionSpec, type SectionType, type SiteCategory, type StyleId,
 } from "@openui-engine/core";
 import { auditTarget, capture, serveDir, VIEWPORTS, formatReport, detectSlop, getBrowser } from "@openui-engine/verify";
@@ -362,7 +362,7 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     title: "Generate logo",
     description: "Preview generated geometric logo marks (these are simple placeholders, not a designed brand logo: prefer the image-prompt flow for a real logo) (monogram, arch, leaf, petal, stack, diamond, orbit, hex, wave, spark) for a brand, in the chosen colours, with favicon.svg and logo.svg ready to write. build_site already generates one automatically from the name and art direction; call this to preview options, pick a mark (brief.logo.mark) or get standalone files.",
     inputSchema: { name: z.string(), style: z.string().optional(), accent: z.string().optional().describe("hex, default #2563eb"), mark: z.enum(LOGO_MARKS as unknown as [string, ...string[]]).optional() },
-  }, async (a) => { const accent = /^#[0-9a-f]{6}$/i.test(a.accent ?? "") ? a.accent! : "#2563eb"; const fg = contrast(accent, "#ffffff") >= contrast(accent, "#0b0b10") ? "#ffffff" : "#0b0b10"; const kind = (a.mark ?? pickMark(a.name, a.style)) as any; return text({ mark: kind, options: LOGO_MARKS, files: logoFiles(a.name, kind, accent, fg, "#111111"), use: `brief.logo = { mark: "${kind}" }, or { svg: "<svg viewBox=\"0 0 32 32\">…</svg>" } for your own` }); });
+  }, async (a) => { const accent = /^#[0-9a-f]{6}$/i.test(a.accent ?? "") ? a.accent! : "#2563eb"; const fg = contrast(accent, "#ffffff") >= contrast(accent, "#0b0b10") ? "#ffffff" : "#0b0b10"; const kind = (a.mark ?? pickMark(a.name, a.style)) as any; return text({ mark: kind, options: LOGO_MARKS, files: logoFiles(a.name, kind, accent, fg, "#111111"), use: `brief.logo = { mark: "${kind}" }, or { svg: "<svg viewBox='0 0 32 32'>…</svg>" } for your own` }); });
 
   server.registerTool("generate_palette", {
     title: "Generate colour palette",
