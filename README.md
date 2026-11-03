@@ -22,7 +22,7 @@ it hands the agent a **curated, compatibility-checked component registry**, a **
 | [`@openui-engine/editor`](packages/editor) | Browser editor: select, comment, live-tweak typography/spacing/colour/radius/shadow/layout, switch component variants, natural-language requests → agent. Token-authenticated sessions |
 | [`@openui-engine/mcp-server`](packages/mcp-server) | The MCP server (`openui-engine-mcp`) and a protocol-level CLI client (`openui-engine-call`) |
 
-### MCP tools (13)
+### MCP tools (26)
 
 | Tool | Purpose |
 |---|---|
@@ -39,6 +39,26 @@ it hands the agent a **curated, compatibility-checked component registry**, a **
 | `create_review_session` | Starts the editor, returns a private tokenised URL |
 | `get_visual_feedback` | Comments, requests and pending tweaks as CSS patches; long-poll supported |
 | `apply_visual_tweaks` | Persist approved tweaks to `openui.overrides.json` (id-keyed CSS) and rebuild |
+| `brief_template` / `build_site` | **The one-call path.** `brief_template` returns an example `SiteBrief` plus rules for a category (any free text is accepted); `build_site` plans art direction, layout and tokens, renders the page, lints the copy, runs the browser QA gate with the anti-slop detector and returns screenshots plus a design review and image slots. Re-call with a `patch` to fix what it reports |
+| `illustration_kit` | Palette variables, scene and object library and an example drawing, so the model can draw a *specific* flat SVG for the hero or a feature (a sanitiser keeps it safe; short text labels are allowed) |
+| `search_icons` | Offline search over 9,000+ icons (Lucide, Phosphor, Heroicons, Tabler) |
+| `search_photos` | Stock fallback: 120 hand-tagged Unsplash-licensed photographs for `heroPhoto` and `features[].photo` |
+| `image_requests` / `add_image` | Image slots (hero, feature photos, logo) with a ready-to-paste generation prompt each, and a way to drop a finished image into a slot and rebuild (see **Images and logos** below) |
+| `generate_logo` | Preview simple geometric logo marks, favicon and logo SVG. These are placeholders, not a designed brand logo |
+| `generate_palette` | A brand accent with colour harmonies, the token set of the best-matching art directions and WCAG contrast checks |
+| `legal_kit` | Copyright line plus template privacy and terms text; `brief.legal.pages` writes `privacy.html` and `terms.html` |
+| `detect_ai_slop` | Flags generic AI-template patterns on a built page |
+| `list_libraries` | The audited component and inspiration sources and their licence status |
+
+## Images and logos
+
+The engine never invents image URLs. Photos and the logo go into the brief as **prompts**, and the build shows a labelled placeholder carrying the prompt (slot name, aspect ratio, file name) until a real image exists:
+
+1. The model first decides whether it can generate images itself. If it can, it generates each slot's prompt and saves the result with `add_image`.
+2. If it cannot, it tells you to copy-paste each prompt into ChatGPT (or any image generator), save the result as `images/<slot>.png` in the project (`hero`, `feature-1`, `logo` and so on), and run `rebuild_project`. The placeholders are swapped for the real images, which are copied into `dist/images/`.
+3. The logo works the same way. The default is a clean text wordmark, which is fine to ship. A designed logo is optional (`images/logo.svg` or `.png`, which also becomes the favicon). The model may supply its own SVG only if it is genuinely professional.
+
+`brief.heroPhoto: <id>` or `features[].photo: <id>` use the bundled stock library instead. All images get `width`/`height` and alt text. Library photos are credited in the footer.
 
 ## Quick start
 
@@ -78,7 +98,9 @@ Component and inspiration sources were audited with real HTTP probes — **inclu
 
 ## Benchmark (read before quoting it)
 
-A controlled experiment was run with a **substitute model** (`claude-haiku-5-5`; GPT-6 Luna is unavailable here). Headline findings, in order of importance:
+**Current headline (read this first):** across eleven controlled runs, an unguided Haiku 5.5 beat the same model using the engine's page generator in blind pairwise judging in 89 of 98 judgements (see the table below). The latest run (v0.8.0) was 6 to 2, with the engine judged more template-like in 6 of 8 pairs and costing about 17% more tokens and 70% more time. The engine's own gate scores (95 to 100) do not predict the blind judgements. Where the engine did win, the hero was a specific product mockup. Every run used a **substitute model** (`claude-haiku-5-5`; GPT-6 Luna is unavailable here), small samples (n = 8 judgements per run) and sealed, position-swapped Sonnet judges. Nothing was deployed to Vercel (no credentials in the session), so no live URLs are claimed.
+
+The original first experiment, for the record. Headline findings, in order of importance:
 
 * The "engine available" agent **made zero MCP calls**, so it was effectively a second baseline; a third arm with *required* engine use was added.
 * In a **blind design review the engine-built page ranked last**; measured token discipline (12 vs ~30 colours, 9 vs 14–17 font sizes) and zero sub-12 px text *were* better. Accessibility/overflow/function were indistinguishable.
@@ -119,7 +141,9 @@ Regenerate with `node benchmark/summarize.mjs`.
 
 * Output target today is **static HTML/CSS/JS** with original sections (zero runtime deps). React/shadcn/Fluid components are *discoverable and installable* but not composed into generated pages yet.
 * `analyze_visual_quality` measures engineering quality; it cannot judge taste, brand fit or imagery. Always look at `capture_preview`.
-* Third-party licences are marked *unverified* where the upstream repositories were not reachable from the audit sandbox.
+* Third-party licences are marked *unverified* where the upstream repositories were not reachable from the audit sandbox. shadcn/ui, Untitled UI React and Material UI were verified as MIT from their LICENSE files on 2026-11-03; no third-party component code is copied into generated pages.
+* **Page generation does not yet beat an unguided cheap model** in blind judging (see the results table). The engine is strongest on correctness (zero audit errors, consistent tokens, accessible markup) and weakest on distinctive, specific composition. Treat it as a fast way to a clean, accessible, consistent page, not yet as a way to a more impressive one.
+* The photo library is generic (120 photos, mostly workspaces, landscapes and objects); anything specific needs generated or supplied images, via the prompt flow above.
 * The editor persists to OpenUI projects; arbitrary codebases get CSS patches, not source rewrites.
 
 ## Development
