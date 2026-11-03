@@ -529,3 +529,22 @@ describe("style routing for the v0.10.0 domains", () => {
     expect(pick("Iron Pit", "a loud punk gym for energetic gen z climbers, bold and brutal", "consumer-app")).toBe("neo-brutal");
   });
 });
+
+describe("brief section titles and unknown keys", () => {
+  it("accepts testimonialsTitle and faqTitle (and the aliases models guess) and reports unknown fields", async () => {
+    const { planSite, buildSite } = await import("./index.js");
+    const base: any = { ...briefTemplate("saas") }; base.testimonials = [...base.testimonials, ...base.testimonials, ...base.testimonials].slice(0, 3);
+    const a = planSite({ ...base, testimonialsTitle: "What our regulars say", faqTitle: "Before you book", pricing: { ...base.pricing, title: undefined }, pricingTitle: "Pick a plan" });
+    const html = buildSite(a.spec, a.tokens, {}, {}).files["index.html"]!;
+    expect(html).toContain("What our regulars say"); expect(html).toContain("Before you book"); expect(html).toContain("Pick a plan");
+    expect(html).not.toContain("What customers say"); expect(html).not.toContain("Questions, answered");
+    delete base.testimonialsTitle; delete base.faqTitle;
+    const b = planSite({ ...base, testimonials_title: "Kind words", faq_title: "Good to know" });
+    const h2 = buildSite(b.spec, b.tokens, {}, {}).files["index.html"]!;
+    expect(h2).toContain("Kind words"); expect(h2).toContain("Good to know");
+    const c = planSite({ ...base, testimonialTitel: "x", wibble: 1 } as any);
+    expect(c.notes.join(" ")).toMatch(/brief\.testimonialTitel is not a field the engine reads/);
+    expect(c.notes.join(" ")).toMatch(/brief\.wibble is not a field the engine reads/);
+    expect(planSite(base).notes.join(" ")).not.toMatch(/is not a field the engine reads/);
+  });
+});

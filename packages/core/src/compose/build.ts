@@ -67,6 +67,9 @@ export interface SiteBrief {
   /** 3–6 capabilities. Give each a `visual` when possible: it becomes an interactive tab with a product screenshot. */
   features: Array<{ title: string; body: string; icon?: string; bullets?: string[]; visual?: VisualSpec; /** A flat SVG YOU draw for this feature (viewBox 0 0 400 300, palette vars, no text): shown on the illustrated card. */ art?: string; /** A real photo (library id or https URL) shown on the card instead of the illustration. */ photo?: PhotoRef }>;
   featuresTitle?: string;
+  /** Section headings: write them for this business ("What our regulars say", "Before you book"). */
+  testimonialsTitle?: string;
+  faqTitle?: string;
   showcase?: { title: string; subtitle?: string; visual: VisualSpec; callouts: Array<{ title: string; body: string; icon?: string }> };
   comparison?: { title: string; them: { label: string; items: string[] }; us: { label: string; items: string[] } };
   how?: { title: string; subtitle?: string; steps: Array<{ title: string; body: string }>; visual?: VisualSpec };
@@ -114,7 +117,7 @@ export interface PlannedSite { tokens: DesignTokens; spec: PageSpec; layout: Arr
 
 /** Deterministic planner: brief → art direction, tokens and a varied, non-template section sequence. */
 export function planSite(input: SiteBrief): PlannedSite {
-  const brief: SiteBrief = { ...input, category: normalizeCategory(input.category) };
+  const brief = { ...applyBriefAliases(input as any), category: normalizeCategory(input.category) } as SiteBrief;
   const desc = `${brief.subheadline} ${(brief.tone ?? []).join(" ")} ${brief.audience ?? ""}`;
   const style = brief.style ?? matchStyles({ name: brief.name, description: desc, category: brief.category })[0]!.style;
   const tokens = generateTokens({ name: brief.name, description: desc, category: brief.category, style, accent: brief.accent, tint: brief.tintSurfaces });
@@ -126,6 +129,7 @@ export function planSite(input: SiteBrief): PlannedSite {
     if (brief.heroVisual?.kind === "svg") chk("heroVisual.svg", (brief.heroVisual as any).svg);
     if (brief.logo?.svg) chk("logo.svg", brief.logo.svg);
   }
+  notes.push(...unknownBriefKeys(input as any));
   { const cap = brief.featureLayout === "tabs" ? 5 : brief.featureLayout === "rows" ? 6 : 8; if (brief.features.length > cap) notes.push(`brief.features has ${brief.features.length} items; only the first ${cap} are shown in this layout. Merge or drop the rest.`); }
   if (!brief.footer?.columns) notes.push("footer uses generated placeholder columns; set brief.footer.columns with real links.");
   const add = (id: string, type: SectionSpec["type"], props: Record<string, any>, why: string) => { sections.push({ id, type, props }); layout.push({ id, type, why }); };
@@ -177,9 +181,9 @@ export function planSite(input: SiteBrief): PlannedSite {
   if (brief.metrics?.length) add("metrics", sparkish ? "metrics-spark" : "metrics", { tint: true, ink: !sparkish, items: brief.metrics.slice(0, 4) }, sparkish ? "metric cards with sparklines" : "plain stat band");
   const t = brief.testimonials ?? [];
   if (t.length === 1 || (t.length >= 1 && t.length < 3)) add("testimonials", "quote-feature", { quote: t[0]!.quote, name: t[0]!.name, role: t[0]!.role, stats: t[0]!.stats ?? [], tint: !brief.metrics?.length }, "one strong quote beats three vague ones");
-  else if (t.length >= 3) add("testimonials", "testimonial-wall", { title: "What customers say", items: t.slice(0, 5).map((q, i) => ({ ...q, big: i === 0 })) }, "varied masonry wall");
+  else if (t.length >= 3) add("testimonials", "testimonial-wall", { title: brief.testimonialsTitle ?? "What customers say", items: t.slice(0, 5).map((q, i) => ({ ...q, big: i === 0 })) }, "varied masonry wall");
   if (has.pricing) add("pricing", "pricing", { anchor: "pricing", eyebrow: "Pricing", title: brief.pricing!.title ?? "Simple pricing", subtitle: brief.pricing!.subtitle, currency: brief.pricing!.currency, savings: brief.pricing!.savings, tiers: brief.pricing!.tiers.map((x) => ({ name: x.name, monthly: x.monthly, yearly: x.yearly, desc: x.desc, features: x.features, cta: cta(x.cta, "#cta"), featured: x.featured, unit: x.unit })) }, "cost made legible");
-  if (has.faq) add("faq", (brief.faq!.length >= 4 ? "faq-split" : "faq"), { anchor: "faq", eyebrow: "FAQ", title: "Questions, answered", items: brief.faq }, "objection handling");
+  if (has.faq) add("faq", (brief.faq!.length >= 4 ? "faq-split" : "faq"), { anchor: "faq", eyebrow: "FAQ", title: brief.faqTitle ?? "Questions, answered", items: brief.faq }, "objection handling");
   const c = brief.closing ?? { title: `Try *${brief.name}*`, subtitle: brief.subheadline };
   add("cta", c.form ? "cta-split" : "cta-band", c.form ? { anchor: "cta", title: c.title, subtitle: c.subtitle, bullets: c.bullets, form: { button: c.button ?? brief.primaryCta, note: c.note ?? "", label: isSoftware ? "Work email" : "Your email" } } : { anchor: "cta", title: c.title, subtitle: c.subtitle, primaryCta: cta(brief.primaryCta, "#top"), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined }, "single closing ask");
   add("footer", "footer-columns", { tagline: brief.footer?.tagline ?? firstSentence(brief.subheadline, 150), columns: brief.footer?.columns ?? [{ title: "Product", links: links.length ? links : [{ label: "Home", href: "#top" }] }, { title: "Get started", links: [{ label: brief.primaryCta, href: has.pricing ? "#pricing" : "#cta" }, ...(brief.secondaryCta ? [{ label: brief.secondaryCta, href: "#features" }] : [])] }, { title: "Company", links: [{ label: "Back to top", href: "#top" }, ...(has.faq ? [{ label: "Questions", href: "#faq" }] : [])] }], legal: brief.footer?.legal ?? `© ${brief.legal?.year ?? new Date().getFullYear()} ${brief.legal?.holder ?? brief.name}. All rights reserved.`, legalLinks: brief.legal?.pages ? [{ label: "Privacy", href: "privacy.html" }, { label: "Terms", href: "terms.html" }] : [], note: "" }, "navigation and legal");
@@ -223,6 +227,8 @@ export function briefTemplate(category: SiteCategory = "saas"): SiteBrief {
     testimonials: [{ quote: "A concrete outcome with a number, in the customer's own words.", name: "Distinctive Name", role: "Role, Company" }],
     // currency: symbol for the prices. unit: per-tier suffix, e.g. "/ month", "/ seat / month", "/ visit". The savings badge is computed from monthly vs yearly (or set savings:"..." yourself).
     featuresTitle: "A specific heading for the features section (not \"What it does\")",
+    testimonialsTitle: "A heading in the business's own voice (not \"What customers say\")",
+    faqTitle: "A heading that fits the questions (not \"Questions, answered\")",
     nav: { links: [{ label: "Product", href: "#features" }, { label: "How it works", href: "#how" }, { label: "Pricing", href: "#pricing" }, { label: "FAQ", href: "#faq" }] },
     pricing: { currency: "$", tiers: [{ name: "Starter", monthly: 0, yearly: 0, unit: "/ month", desc: "who it is for", features: ["feature"], cta: "Start free" }, { name: "Team", monthly: 24, yearly: 19, unit: "/ seat / month", desc: "who it is for", features: ["feature"], cta: "Start trial", featured: true }, { name: "Enterprise", monthly: "Custom", yearly: "Custom", desc: "who it is for", features: ["feature"], cta: "Talk to sales" }] },
     faq: [{ q: "A real objection?", a: "A direct answer." }, { q: "Another?", a: "Answer." }, { q: "Another?", a: "Answer." }, { q: "Another?", a: "Answer." }],
@@ -263,4 +269,33 @@ function brandLogo(brief: SiteBrief, style: string, tokens: { color: { accent: s
   if (brief.logo?.mark && (LOGO_MARKS as readonly string[]).includes(brief.logo.mark)) return { mark: brief.logo.mark };
   // No logo supplied: a text wordmark stands in, and the image prompt asks for a proper one (an auto-generated geometric mark is not a real brand logo).
   return { logoPrompt: brief.logo?.prompt ?? logoPromptFor(brief.name, firstSentence(brief.subheadline, 90), tokens.color.accent, style) };
+}
+
+/** Top-level brief keys the planner understands. Anything else is reported instead of being dropped silently. */
+export const KNOWN_BRIEF_KEYS = ["name", "headline", "subheadline", "category", "featureLayout", "audience", "tone", "accent", "style", "primaryCta", "secondaryCta", "heroNote", "lang", "heroVisual", "heroPhoto", "heroPhotoAlt", "imageStyle", "tintSurfaces", "logo", "legal", "heroStyle", "heroScene", "heroFloats", "logos", "logosLabel", "features", "featuresTitle", "testimonialsTitle", "faqTitle", "showcase", "comparison", "how", "integrations", "metrics", "testimonials", "pricing", "nav", "faq", "closing", "footer"] as const;
+const BRIEF_ALIASES: Record<string, string> = {
+  testimonials_title: "testimonialsTitle", testimonialsHeading: "testimonialsTitle", testimonialTitle: "testimonialsTitle", reviewsTitle: "testimonialsTitle",
+  faq_title: "faqTitle", faqHeading: "faqTitle", questionsTitle: "faqTitle", faqsTitle: "faqTitle",
+  features_title: "featuresTitle", featuresHeading: "featuresTitle", sub_headline: "subheadline", subHeadline: "subheadline", subtitle: "subheadline",
+  primary_cta: "primaryCta", primaryCTA: "primaryCta", secondary_cta: "secondaryCta", secondaryCTA: "secondaryCta", hero_floats: "heroFloats", heroFloat: "heroFloats",
+  hero_visual: "heroVisual", logos_label: "logosLabel", language: "lang",
+};
+/** Map the key names small models guess onto the real ones; pricingTitle folds into pricing.title. */
+export function applyBriefAliases(input: Record<string, any>): Record<string, any> {
+  const out: Record<string, any> = { ...input };
+  for (const [from, to] of Object.entries(BRIEF_ALIASES)) if (from in out && !(to in out)) { out[to] = out[from]; }
+  if (typeof out.pricingTitle === "string" && out.pricing && typeof out.pricing === "object" && !out.pricing.title) out.pricing = { ...out.pricing, title: out.pricingTitle };
+  return out;
+}
+const editDistance = (a: string, b: string): number => { const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]); for (let j = 1; j <= b.length; j++) d[0]![j] = j; for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++) d[i]![j] = Math.min(d[i - 1]![j]! + 1, d[i]![j - 1]! + 1, d[i - 1]![j - 1]! + (a[i - 1] === b[j - 1] ? 0 : 1)); return d[a.length]![b.length]!; };
+/** One note per brief key the planner does not read, with the closest real key as a suggestion. */
+export function unknownBriefKeys(input: Record<string, unknown>): string[] {
+  const known = new Set<string>(KNOWN_BRIEF_KEYS), aliased = new Set([...Object.keys(BRIEF_ALIASES), "pricingTitle"]);
+  const notes: string[] = [];
+  for (const k of Object.keys(input)) {
+    if (known.has(k) || aliased.has(k) || k.startsWith("_") || k === "description") continue;
+    const best = [...known].map((c) => [c, editDistance(k.toLowerCase(), c.toLowerCase())] as const).sort((x, y) => x[1] - y[1])[0];
+    notes.push(`brief.${k} is not a field the engine reads and was ignored${best && best[1] <= Math.max(3, Math.floor(k.length / 3)) ? ` (did you mean "${best[0]}"?)` : ""}.`);
+  }
+  return notes;
 }
