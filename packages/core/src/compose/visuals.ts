@@ -1,3 +1,4 @@
+import { renderPhoto } from "./photos.js";
 import { esc } from "./util.js";
 
 /**
@@ -6,8 +7,8 @@ import { esc } from "./util.js";
  */
 import { renderScene, renderSpot } from "./illustrate.js";
 import { renderArt } from "./art.js";
-export type VisualKind = "ui" | "dashboard" | "timeline" | "chat" | "code" | "terminal" | "kanban" | "table" | "chart" | "invoice" | "schedule" | "gallery" | "product-cards" | "checklist" | "metrics" | "spot" | "scene" | "svg";
-export const VISUAL_KINDS: VisualKind[] = ["ui", "dashboard", "timeline", "chat", "code", "terminal", "kanban", "table", "chart", "invoice", "schedule", "gallery", "product-cards", "checklist", "metrics", "spot", "scene", "svg"];
+export type VisualKind = "ui" | "dashboard" | "timeline" | "chat" | "code" | "terminal" | "kanban" | "table" | "chart" | "invoice" | "schedule" | "gallery" | "product-cards" | "checklist" | "metrics" | "spot" | "scene" | "svg" | "photo";
+export const VISUAL_KINDS: VisualKind[] = ["ui", "dashboard", "timeline", "chat", "code", "terminal", "kanban", "table", "chart", "invoice", "schedule", "gallery", "product-cards", "checklist", "metrics", "spot", "scene", "svg", "photo"];
 
 export interface VisualSpec { kind: VisualKind; title?: string; [k: string]: any }
 type Tone = "ok" | "warn" | "bad" | "info" | "now" | "muted";
@@ -137,6 +138,7 @@ export function renderVisual(input: VisualSpec | undefined, id = "v"): string {
   if (!v || !v.kind) return "";
   const uid = id.replace(/[^a-z0-9]/gi, "");
   switch (v.kind) {
+    case "photo": return renderPhoto((v as any).photo ?? (v as any).id ?? (v as any).url, { alt: (v as any).alt ?? (v as any).title, caption: (v as any).caption, ratio: Number((v as any).ratio) || 1.25, eager: true }) ?? "";
     case "svg": return renderArt((v as any).svg, (v as any).alt ?? (v as any).title) ?? "";
     case "spot": return renderSpot(v as any, uid);
     case "scene": return renderScene(v as any, uid);
@@ -204,4 +206,4 @@ export function renderVisual(input: VisualSpec | undefined, id = "v"): string {
 }
 
 /** Visuals that already provide their own title bar/frame. */
-export const FRAMELESS: VisualKind[] = ["gallery", "product-cards", "metrics"];
+export const FRAMELESS: VisualKind[] = ["photo", "gallery", "product-cards", "metrics"];

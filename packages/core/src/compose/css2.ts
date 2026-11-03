@@ -209,3 +209,16 @@ h1,h2,.h2{text-wrap:balance}
 .fcard .vz-art{border-radius:calc(var(--r-lg) - 4px);box-shadow:none;border:var(--bw) solid var(--c-border)}
 .hero__visual>.vz-art{z-index:1}
 `;
+
+export const LOGO_CSS = String.raw`
+.brand__mark--svg{background:none!important;border:0!important;box-shadow:none!important;width:30px;height:30px;border-radius:0;display:block}
+.brand__mark--svg::before{content:none!important}
+.brand__mark--svg .brand__svg,.brand__svg{width:100%;height:100%;display:block}
+.vz-photo{margin:0;width:100%;max-width:100%;min-width:0;aspect-ratio:var(--ar,1.5);overflow:hidden;border-radius:var(--r-xl,28px);background:var(--c-surface);box-shadow:var(--sh-lg,var(--sh-md));position:relative}
+.vz-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.vz-photo figcaption{position:absolute;left:12px;bottom:12px;right:12px;font-size:12px;padding:6px 10px;border-radius:999px;background:color-mix(in srgb,var(--c-bg) 82%,transparent);color:var(--c-text);backdrop-filter:blur(8px);width:fit-content;max-width:100%}
+.fcard .vz-photo{aspect-ratio:var(--ar,1.45);border-radius:calc(var(--r-lg) - 4px);box-shadow:none;border:var(--bw) solid var(--c-border)}
+.hero__visual>.vz-photo{z-index:1}
+.legal{max-width:760px;padding-block:96px}.legal h1{margin-bottom:8px}.legal section{margin-top:32px}.legal p{margin:10px 0;line-height:1.7}
+.footer__legal a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+`;

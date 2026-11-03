@@ -13,7 +13,9 @@ export interface SectionSpec { id: string; type: SectionType; props: Record<stri
 export interface PageSpec {
   title: string;
   description: string;
-  brand: { name: string };
+  brand: { name: string; mark?: string; customLogo?: string };
+  /** Standalone legal pages (privacy.html, terms.html) and the details they use. */
+  legal?: { pages?: boolean; holder?: string; email?: string; address?: string; jurisdiction?: string };
   lang?: string;
   sections: SectionSpec[];
 }

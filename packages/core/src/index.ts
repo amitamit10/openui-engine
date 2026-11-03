@@ -22,3 +22,6 @@ export * from "./compose/build.js";
 export * from "./compose/review.js";
 export * from "./compose/scenes.js";
 export * from "./compose/art.js";
+export * from "./compose/photos.js";
+export * from "./compose/logo.js";
+export * from "./compose/legal.js";

@@ -1,3 +1,5 @@
+import { inlineMark, type LogoMark } from "./logo.js";
+import { photoCredits } from "./photos.js";
 import { ICON, btn, ctaRow, esc, head, rich, wrap } from "./util.js";
 import type { Cta, Renderer, SectionType } from "./types.js";
 import { renderBackdrop, renderScene } from "./illustrate.js";
@@ -81,7 +83,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
     const links = (p.links ?? []) as Array<{ label: string; href: string }>;
     return `<header class="nav" data-openui-section="${id}" data-openui-variant="navbar-glass" data-openui-id="${id}">
   <div class="container nav__row">
-    <a class="brand" href="#top" aria-label="${esc(spec.brand.name)} home" data-openui-id="${id}.brand"><span class="brand__mark" aria-hidden="true" data-i="${esc([...String(spec.brand.name).trim()][0]?.toUpperCase() ?? "•")}"></span>${esc(spec.brand.name)}</a>
+    <a class="brand" href="#top" aria-label="${esc(spec.brand.name)} home" data-openui-id="${id}.brand">${brandMark(spec)}${esc(spec.brand.name)}</a>
     <nav class="nav__links" aria-label="Primary">${links.map((l, i) => `<a href="${esc(l.href)}" data-openui-id="${id}.link${i}">${esc(l.label)}</a>`).join("")}</nav>
     <div class="nav__actions">${p.signIn ? `<a class="btn btn--ghost" href="${esc(p.signIn.href)}" data-openui-id="${id}.signin">${esc(p.signIn.label)}</a>` : ""}${btn(p.cta, "primary", `${id}.cta`)}
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="${id}-sheet" aria-label="Open menu" data-nav-toggle>${ICON.menu}</button></div>
@@ -229,10 +231,10 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
     const cols = (p.columns ?? []) as Array<{ title: string; links: Array<{ label: string; href: string }> }>;
     return `<footer class="footer" data-openui-section="${id}" data-openui-variant="footer-columns" data-openui-id="${id}">
   <div class="container"><div class="footer__grid">
-    <div class="footer__brand"><a class="brand" href="#top"><span class="brand__mark" aria-hidden="true" data-i="${esc([...String(spec.brand.name).trim()][0]?.toUpperCase() ?? "•")}"></span>${esc(spec.brand.name)}</a><p class="muted small" data-openui-id="${id}.tagline">${esc(p.tagline)}</p></div>
+    <div class="footer__brand"><a class="brand" href="#top">${brandMark(spec)}${esc(spec.brand.name)}</a><p class="muted small" data-openui-id="${id}.tagline">${esc(p.tagline)}</p></div>
     ${cols.map((c) => `<nav aria-label="${esc(c.title)}"><h3>${esc(c.title)}</h3><ul>${c.links.map((l) => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`).join("")}</ul></nav>`).join("")}
   </div>
-  <div class="footer__legal"><span>${esc(p.legal)}</span><span>${esc(p.note ?? "")}</span></div></div>
+  <div class="footer__legal"><span>${esc(p.legal)}${(p.legalLinks ?? []).map((l: any) => ` · <a href="${esc(l.href)}">${esc(l.label)}</a>`).join("")}</span><span>${esc([p.note, photoCredits().length ? `Photos: ${photoCredits().slice(0, 4).join(", ")} via Unsplash` : ""].filter(Boolean).join(" · "))}</span></div></div>
 </footer>`;
   },
 };
@@ -240,5 +242,13 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
 export const SECTION_VARIANT_GROUPS: Record<string, SectionType[]> = {
   hero: ["hero-centered-product", "hero-split", "hero-editorial"],
 };
+
+/** Brand mark: a model-supplied logo, the generated SVG mark, or the plain initial tile. */
+function brandMark(spec: { brand: { name: string; mark?: string; customLogo?: string } }): string {
+  const b = spec.brand;
+  if (b.customLogo) return `<span class="brand__mark brand__mark--svg" aria-hidden="true">${b.customLogo}</span>`;
+  if (b.mark) return `<span class="brand__mark brand__mark--svg" aria-hidden="true">${inlineMark(b.name, b.mark as LogoMark)}</span>`;
+  return `<span class="brand__mark" aria-hidden="true" data-i="${esc([...String(b.name).trim()][0]?.toUpperCase() ?? "•")}"></span>`;
+}
 
 export const RENDERERS = { ...RENDERERS_1, ...RENDERERS_2 } as Record<SectionType, Renderer>;

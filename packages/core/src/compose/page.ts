@@ -1,7 +1,7 @@
 import type { DesignTokens } from "../design/types.js";
 import { renderTokensCss } from "../design/system.js";
 import { BASE_CSS } from "./css.js";
-import { EXTRA_CSS } from "./css2.js";
+import { EXTRA_CSS, LOGO_CSS } from "./css2.js";
 import { RENDERERS, esc, type PageSpec } from "./sections.js";
 
 export interface Overrides { [openuiId: string]: Record<string, string> }
@@ -71,8 +71,12 @@ export interface BuiltSite { files: Record<string, string> }
 
 /** Render a full static site (HTML + tokens.css + styles.css + overrides.css + app.js). */
 import { setIllustrationIcons } from "./illustrate.js";
+import { resetPhotoCredits } from "./photos.js";
+import { logoFiles, type LogoMark } from "./logo.js";
+import { renderLegalPage } from "./legal.js";
 export function buildSite(spec: PageSpec, tokens: DesignTokens, overrides: Overrides = {}, icons: Record<string, string> = {}): BuiltSite {
   setIllustrationIcons(icons);
+  resetPhotoCredits();
   const ctx = { tokens, spec, icons };
   const body = spec.sections.map((s) => {
     const r = RENDERERS[s.type];
@@ -82,6 +86,7 @@ export function buildSite(spec: PageSpec, tokens: DesignTokens, overrides: Overr
   const fonts = tokens.font.googleFamilies.length
     ? `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?${tokens.font.googleFamilies.map((f) => "family=" + f).join("&")}&display=swap">`
     : "";
+  const iconLink = spec.brand.mark ? `<link rel="icon" href="favicon.svg" type="image/svg+xml">` : `<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='${encodeURIComponent(tokens.color.accent)}'/%3E%3C/svg%3E">`;
   const html = `<!doctype html>
 <html lang="${esc(spec.lang ?? "en")}" data-motion="${tokens.motion.intensity}">
 <head>
@@ -90,7 +95,7 @@ export function buildSite(spec: PageSpec, tokens: DesignTokens, overrides: Overr
 <title>${esc(spec.title)}</title>
 <meta name="description" content="${esc(spec.description)}">
 <meta name="theme-color" content="${tokens.color.bg}">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='${encodeURIComponent(tokens.color.accent)}'/%3E%3C/svg%3E">
+${iconLink}
 ${fonts}
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="styles.css">
@@ -109,10 +114,17 @@ ${body}
   const files: Record<string, string> = {
     "index.html": landmarks(html),
     "tokens.css": renderTokensCss(tokens),
-    "styles.css": BASE_CSS + EXTRA_CSS,
+    "styles.css": BASE_CSS + EXTRA_CSS + LOGO_CSS,
     "overrides.css": renderOverridesCss(overrides),
     "app.js": APP_JS,
   };
+  if (spec.brand.mark) Object.assign(files, logoFiles(spec.brand.name, spec.brand.mark as LogoMark, tokens.color.accent, tokens.color.accentFg, tokens.color.text));
+  if (spec.legal?.pages) {
+    const split = landmarks(html), nav = /<header class="nav"[\s\S]*?<\/header>/.exec(split)?.[0] ?? "", foot = /<footer[\s\S]*?<\/footer>/.exec(split)?.[0] ?? "";
+    const info = { name: spec.brand.name, holder: spec.legal.holder, email: spec.legal.email, address: spec.legal.address, jurisdiction: spec.legal.jurisdiction };
+    const fixHref = (h: string) => h.replace(/href="#/g, 'href="index.html#');
+    for (const k of ["privacy", "terms"] as const) files[`${k}.html`] = renderLegalPage(k, info, { fonts, lang: spec.lang, icon: iconLink, navHtml: fixHref(nav), footerHtml: fixHref(foot) });
+  }
   return { files };
 }
 

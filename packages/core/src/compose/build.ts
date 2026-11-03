@@ -1,3 +1,5 @@
+import { LOGO_MARKS, pickMark, customLogo, type LogoMark } from "./logo.js";
+import type { PhotoRef } from "./photos.js";
 import type { DesignTokens, SiteCategory, StyleId } from "../design/types.js";
 import { generateTokens, matchStyles } from "../design/system.js";
 import { getStyle } from "../design/styles.js";
@@ -38,6 +40,13 @@ export interface SiteBrief {
   heroNote?: string;
   /** Domain visual for the hero, e.g. {kind:"timeline", items:[…]}. */
   heroVisual?: VisualSpec;
+  /** A real photograph for the hero: a library id from search_photos, or an https image URL, with descriptive alt text. Ignored if heroVisual is set. */
+  heroPhoto?: PhotoRef;
+  heroPhotoAlt?: string;
+  /** Logo: omit for a generated SVG mark that fits the art direction; { mark: "leaf" | ... | "none" } picks one; { svg } supplies your own (sanitised, viewBox 0 0 32 32 works best). Also emits favicon.svg and logo.svg. */
+  logo?: { mark?: LogoMark | "none"; svg?: string };
+  /** Copyright holder and legal pages: pages:true also writes privacy.html and terms.html (template text) and links them in the footer. */
+  legal?: { holder?: string; year?: number; email?: string; address?: string; jurisdiction?: string; pages?: boolean };
   /** "auto" (default): non-software businesses (care, food, craft, interiors, marinas, clinics, law, solar...) get an illustrated domain scene as the hero and software/data products keep the product mockup. "product" forces heroVisual; "scene" forces a scene. */
   heroStyle?: "auto" | "product" | "scene";
   /** Hero options: heroVisual {kind:"ui"|...} = product mockup; heroVisual {kind:"svg", svg:"<svg ...>"} = YOUR own drawn illustration. Force a library scene: interior, care, clinic, food, marine, books, craft, solar, law, climb, field. */
@@ -47,7 +56,7 @@ export interface SiteBrief {
   logos?: string[];
   logosLabel?: string;
   /** 3–6 capabilities. Give each a `visual` when possible: it becomes an interactive tab with a product screenshot. */
-  features: Array<{ title: string; body: string; icon?: string; bullets?: string[]; visual?: VisualSpec; /** A flat SVG YOU draw for this feature (viewBox 0 0 400 300, palette vars, no text): shown on the illustrated card. */ art?: string }>;
+  features: Array<{ title: string; body: string; icon?: string; bullets?: string[]; visual?: VisualSpec; /** A flat SVG YOU draw for this feature (viewBox 0 0 400 300, palette vars, no text): shown on the illustrated card. */ art?: string; /** A real photo (library id or https URL) shown on the card instead of the illustration. */ photo?: PhotoRef }>;
   featuresTitle?: string;
   showcase?: { title: string; subtitle?: string; visual: VisualSpec; callouts: Array<{ title: string; body: string; icon?: string }> };
   comparison?: { title: string; them: { label: string; items: string[] }; us: { label: string; items: string[] } };
@@ -118,8 +127,9 @@ export function planSite(input: SiteBrief): PlannedSite {
   const isSoftware = ["devtool", "ai-product"].includes(brief.category) || /\b(software|saas|api|sdk|platform)\b/i.test(`${brief.name} ${brief.subheadline}`) || swCues >= 3;
   const forcedScene = brief.heroScene && (SCENE_IDS as string[]).includes(brief.heroScene) ? (brief.heroScene as SceneId) : null;
   // A product mockup or hand-drawn SVG the model supplied is never overridden by a library scene (benchmark v0.5.1: generic scenes lost to specific product UI).
-  const sceneId: SceneId | null = brief.heroStyle === "product" ? null : forcedScene ?? (brief.heroStyle === "scene" ? pickScene(sceneText) ?? "interior" : brief.heroVisual || isSoftware ? null : pickScene(sceneText));
-  const hv = sceneId ? undefined : brief.heroVisual;
+  const heroPhotoV: VisualSpec | undefined = brief.heroPhoto && !brief.heroVisual ? { kind: "photo", photo: brief.heroPhoto, alt: brief.heroPhotoAlt } : undefined;
+  const sceneId: SceneId | null = heroPhotoV || brief.heroStyle === "product" ? null : forcedScene ?? (brief.heroStyle === "scene" ? pickScene(sceneText) ?? "interior" : brief.heroVisual || isSoftware ? null : pickScene(sceneText));
+  const hv = sceneId ? undefined : brief.heroVisual ?? heroPhotoV;
   const heroIcons = [...new Set(brief.features.map((f) => iconRefFor(f)).filter(Boolean) as string[])].slice(0, 4);
   const heroScene = { motif: (MOTIF_BY_STYLE[style] ?? ["blobs"])[0], seed: brief.name, icons: heroIcons.length ? heroIcons : undefined, badge: hv ? undefined : brief.heroFloats?.[0] };
   const heroType = sceneId ? "hero-split" : !hv && comp.heroVariant === "editorial" ? "hero-editorial" : hv && WIDE.includes(hv.kind) ? "hero-centered-product" : hv ? "hero-split" : comp.heroVariant === "split" ? "hero-split" : "hero-centered-product";
@@ -137,7 +147,7 @@ export function planSite(input: SiteBrief): PlannedSite {
       const gridItems = brief.features.filter((f) => !rowItems.includes(f)).slice(0, 6);
       const motifs = MOTIF_BY_STYLE[style] ?? ["blobs"];
       if (rowItems.length) add("features", "feature-rows", { anchor: "features", align: "left", eyebrow: "Product", title, items: rowItems.map((f) => ({ title: f.title, body: f.body, bullets: f.bullets, visual: f.visual })) }, "the two strongest features get a full product-visual row");
-      if (gridItems.length) add(rowItems.length ? "more" : "features", "feature-grid", { anchor: rowItems.length ? "more" : "features", ...(rowItems.length ? {} : { eyebrow: "Product", title }), tint: !!rowItems.length, items: gridItems.map((f, i) => ({ title: f.title, body: f.body, icon: iconRefFor(f), bullets: f.bullets, motif: motifs[i % motifs.length], art: (f as any).art })) }, "remaining features as illustrated cards: every feature visible, none a dashboard clone");
+      if (gridItems.length) add(rowItems.length ? "more" : "features", "feature-grid", { anchor: rowItems.length ? "more" : "features", ...(rowItems.length ? {} : { eyebrow: "Product", title }), tint: !!rowItems.length, items: gridItems.map((f, i) => ({ title: f.title, body: f.body, icon: iconRefFor(f), bullets: f.bullets, motif: motifs[i % motifs.length], art: (f as any).art, photo: (f as any).photo })) }, "remaining features as illustrated cards: every feature visible, none a dashboard clone");
     } else if (withVis.length >= 3 && layoutMode === "rows") add("features", "feature-rows", { anchor: "features", align: "left", eyebrow: "Product", title, items: brief.features.slice(0, 6).map((f, i) => ({ title: f.title, body: f.body, bullets: f.bullets, visual: f.visual ?? ["list", "chart", "ui", "table"][i % 4] })) }, "≥3 features have visuals → alternating rows so every product visual is visible at once (tabs hide all but one)");
     else if (withVis.length >= 3 && layoutMode === "tabs") add("features", "feature-tabs", { anchor: "features", align: "left", eyebrow: "Product", title, tabs: brief.features.slice(0, 5).map((f) => ({ label: f.title, icon: f.icon, title: f.title, body: f.body, bullets: f.bullets, visual: f.visual })) }, "≥3 features have visuals → interactive tabs (depth without identical cards)");
     else if (brief.showcase) { add("features", "feature-showcase", { anchor: "features", align: "left", eyebrow: "Product", title: brief.showcase.title, subtitle: brief.showcase.subtitle, visual: brief.showcase.visual, callouts: brief.showcase.callouts }, "one large product visual with callouts"); }
@@ -156,9 +166,9 @@ export function planSite(input: SiteBrief): PlannedSite {
   if (has.faq) add("faq", (brief.faq!.length >= 4 ? "faq-split" : "faq"), { anchor: "faq", eyebrow: "FAQ", title: "Questions, answered", items: brief.faq }, "objection handling");
   const c = brief.closing ?? { title: `Try *${brief.name}*`, subtitle: brief.subheadline };
   add("cta", c.form ? "cta-split" : "cta-band", c.form ? { anchor: "cta", title: c.title, subtitle: c.subtitle, bullets: c.bullets, form: { button: c.button ?? brief.primaryCta, note: c.note ?? "", label: isSoftware ? "Work email" : "Your email" } } : { anchor: "cta", title: c.title, subtitle: c.subtitle, primaryCta: cta(brief.primaryCta, "#top"), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined }, "single closing ask");
-  add("footer", "footer-columns", { tagline: brief.footer?.tagline ?? firstSentence(brief.subheadline, 150), columns: brief.footer?.columns ?? [{ title: "Product", links: links.length ? links : [{ label: "Home", href: "#top" }] }, { title: "Get started", links: [{ label: brief.primaryCta, href: has.pricing ? "#pricing" : "#cta" }, ...(brief.secondaryCta ? [{ label: brief.secondaryCta, href: "#features" }] : [])] }, { title: "Company", links: [{ label: "Back to top", href: "#top" }, ...(has.faq ? [{ label: "Questions", href: "#faq" }] : [])] }], legal: brief.footer?.legal ?? `© ${new Date().getFullYear()} ${brief.name}`, note: "" }, "navigation and legal");
+  add("footer", "footer-columns", { tagline: brief.footer?.tagline ?? firstSentence(brief.subheadline, 150), columns: brief.footer?.columns ?? [{ title: "Product", links: links.length ? links : [{ label: "Home", href: "#top" }] }, { title: "Get started", links: [{ label: brief.primaryCta, href: has.pricing ? "#pricing" : "#cta" }, ...(brief.secondaryCta ? [{ label: brief.secondaryCta, href: "#features" }] : [])] }, { title: "Company", links: [{ label: "Back to top", href: "#top" }, ...(has.faq ? [{ label: "Questions", href: "#faq" }] : [])] }], legal: brief.footer?.legal ?? `© ${brief.legal?.year ?? new Date().getFullYear()} ${brief.legal?.holder ?? brief.name}. All rights reserved.`, legalLinks: brief.legal?.pages ? [{ label: "Privacy", href: "privacy.html" }, { label: "Terms", href: "terms.html" }] : [], note: "" }, "navigation and legal");
 
-  return { tokens, spec: { title: `${brief.name} — ${brief.headline.replace(/\*/g, "").slice(0, 70)}`, description: brief.subheadline, brand: { name: brief.name }, sections }, layout, notes };
+  return { tokens, spec: { title: `${brief.name} — ${brief.headline.replace(/\*/g, "").slice(0, 70)}`, description: brief.subheadline, brand: { name: brief.name, ...brandLogo(brief, style) }, legal: brief.legal?.pages ? { pages: true, holder: brief.legal.holder, email: brief.legal.email, address: brief.legal.address, jurisdiction: brief.legal.jurisdiction } : undefined, sections }, layout, notes };
 }
 
 export const VISUAL_SUGGESTIONS: Record<SiteCategory, VisualKind[]> = {
@@ -215,4 +225,12 @@ export function styleGuide(): Array<{ id: StyleId; use_for: string; look: string
     "neo-brutal": "loud, playful, creative brands",
   };
   return (Object.keys(use) as StyleId[]).map((id) => ({ id, use_for: use[id], look: getStyle(id).summary }));
+}
+
+function brandLogo(brief: SiteBrief, style: string): { mark?: string; customLogo?: string } {
+  const custom = brief.logo?.svg ? customLogo(brief.logo.svg) : null;
+  if (custom) return { customLogo: custom, mark: pickMark(brief.name, style) };
+  if (brief.logo?.mark === "none") return {};
+  const m = brief.logo?.mark && (LOGO_MARKS as readonly string[]).includes(brief.logo.mark) ? brief.logo.mark : pickMark(brief.name, style);
+  return { mark: m };
 }

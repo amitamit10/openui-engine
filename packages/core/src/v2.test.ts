@@ -319,3 +319,38 @@ describe("v0.6.0: model-drawn art", () => {
     expect(html).not.toContain("<script>alert");
   });
 });
+
+describe("assets: photos, logo, legal", () => {
+  it("searches the photo library offline and ranks tag matches first", async () => {
+    const { searchPhotos, PHOTOS } = await import("./compose/photos.js");
+    expect(PHOTOS.length).toBeGreaterThanOrEqual(100);
+    const r = searchPhotos("coffee cafe", 5);
+    expect(r.length).toBeGreaterThan(0);
+    expect(r[0]!.tags.some((t) => t === "coffee" || t === "cafe")).toBe(true);
+    expect(searchPhotos("zzzz")).toEqual([]);
+  });
+  it("renders accessible responsive photos, accepts id 0, rejects unsafe URLs", async () => {
+    const { renderPhoto } = await import("./compose/photos.js");
+    const html = renderPhoto(0, { alt: "A desk" })!;
+    expect(html).toContain('alt="A desk"'); expect(html).toContain("srcset="); expect(html).toContain('width="1200"'); expect(html).toContain('loading="lazy"');
+    expect(renderPhoto("javascript:alert(1)")).toBeNull();
+    expect(renderPhoto('https://x.test/a.jpg"onerror="x')).toBeNull();
+    expect(renderPhoto("https://images.example.com/a.jpg", { alt: "x" })).toContain('src="https://images.example.com/a.jpg"');
+  });
+  it("builds heroPhoto, feature photos, logo files, legal pages and a copyright footer", async () => {
+    const { planSite, buildSite } = await import("./index.js");
+    const brief: any = { name: "Harbour Row", category: "consumer-app", headline: "Coffee roasted *two streets* away", subheadline: "Small batch beans roasted every Tuesday.", primaryCta: "Order beans", heroPhoto: 42, features: [{ title: "Roasted twice a week", body: "12kg batches bagged within an hour.", photo: 0 }, { title: "Beans by post", body: "Ordered by noon, with you in two days." }, { title: "Brewed at the bar", body: "Flat whites from 7am." }], legal: { holder: "Harbour Row Ltd", pages: true, email: "a@b.test" } };
+    const { tokens, spec } = planSite(brief);
+    const site = buildSite(spec, tokens, {}, {});
+    const idx = site.files["index.html"]!;
+    expect(idx).toContain("picsum.photos/id/42/"); expect(idx).toContain("picsum.photos/id/0/");
+    expect(idx).toContain("All rights reserved"); expect(idx).toContain("privacy.html"); expect(idx).toContain('rel="icon" href="favicon.svg"');
+    for (const f of ["favicon.svg", "logo.svg", "privacy.html", "terms.html"]) expect(site.files[f]).toBeTruthy();
+    expect(site.files["privacy.html"]).toContain("Harbour Row Ltd");
+  });
+  it("sanitises a supplied logo", async () => {
+    const { customLogo } = await import("./compose/logo.js");
+    expect(customLogo('<svg viewBox="0 0 32 32" onload="x()"><circle cx="16" cy="16" r="8"/></svg>')).toBeNull();
+    expect(customLogo('<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="8"/></svg>')).toContain("brand__svg");
+  });
+});
