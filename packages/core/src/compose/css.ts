@@ -80,7 +80,7 @@ ul,ol{padding:0;list-style:none}
 .brand__mark::before{content:attr(data-i)}
 [data-style="neo-brutal"] .brand__mark{border:var(--bw) solid var(--c-border);background:var(--c-accent)}
 .nav__links{display:flex;gap:var(--s-2);align-items:center}
-.nav__links a:not(.btn){padding:10px 16px;border-radius:var(--r-pill);color:var(--c-muted);font-weight:500;font-size:var(--t-small);transition:color var(--dur-fast),background var(--dur-fast)}
+.nav__links a:not(.btn){min-height:44px;display:inline-flex;align-items:center;padding:10px 16px;border-radius:var(--r-pill);color:var(--c-muted);font-weight:500;font-size:var(--t-small);transition:color var(--dur-fast),background var(--dur-fast)}
 .nav__links a:not(.btn):hover{color:var(--c-text);background:var(--c-surface2)}
 .nav__actions{display:flex;gap:var(--s-3);align-items:center}
 .nav__toggle{display:none;width:44px;height:44px;border-radius:var(--r-md);border:var(--bw) solid var(--c-border);background:var(--c-surface);align-items:center;justify-content:center}
@@ -220,7 +220,7 @@ ul,ol{padding:0;list-style:none}
 
 /* pricing */
 .billing{display:inline-flex;padding:4px;border-radius:var(--r-pill);border:var(--bw) solid var(--c-border);background:var(--c-surface);gap:4px}
-.billing button{border:0;background:transparent;padding:0 var(--s-4);min-height:40px;border-radius:var(--r-pill);font-weight:600;font-size:var(--t-small);color:var(--c-muted);display:inline-flex;align-items:center;gap:var(--s-2)}
+.billing button{border:0;background:transparent;padding:0 var(--s-4);min-height:44px;border-radius:var(--r-pill);font-weight:600;font-size:var(--t-small);color:var(--c-muted);display:inline-flex;align-items:center;gap:var(--s-2)}
 .billing button[aria-pressed="true"]{background:var(--c-accent);color:var(--c-accent-fg)}
 .billing .save{font-size:var(--t-caption);padding:2px 8px;border-radius:var(--r-pill);background:var(--c-accent-soft);color:var(--c-accent-text)}
 .billing button[aria-pressed="true"] .save{background:rgba(255,255,255,.22);color:inherit}

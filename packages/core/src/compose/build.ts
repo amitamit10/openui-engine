@@ -68,8 +68,9 @@ export interface SiteBrief {
 function firstSentence(t: string, max: number): string {
   const s = t.split(/(?<=[.!?])\s/)[0] ?? t;
   if (s.length <= max) return s;
-  const cut = s.slice(0, max).replace(/\s+\S*$/, "");
-  return cut.replace(/[,;:]$/, "") + "…";
+  // Prefer a clause boundary inside the limit; otherwise keep the whole sentence (it wraps) rather than ending on an ellipsis.
+  const clause = Math.max(s.lastIndexOf(", ", max), s.lastIndexOf("; ", max), s.lastIndexOf(" - ", max));
+  return clause > max * 0.45 ? s.slice(0, clause).replace(/[,;:]$/, "") + "." : s;
 }
 
 const CATEGORY_WORDS: Array<[RegExp, SiteCategory]> = [
@@ -112,7 +113,9 @@ export function planSite(input: SiteBrief): PlannedSite {
   add("nav", "navbar-glass", { links: brief.nav?.links ?? links, signIn: brief.nav?.signIn === false ? undefined : (brief.nav?.signIn ?? { label: "Sign in", href: primaryHref }), cta: cta(brief.primaryCta, primaryHref) }, "wayfinding + primary CTA");
 
   const sceneText = `${brief.name} ${brief.subheadline} ${brief.audience ?? ""} ${brief.features.map((f) => `${f.title} ${f.body}`).join(" ")}`;
-  const isSoftware = ["devtool", "ai-product"].includes(brief.category) || /\b(api|sdk|webhook|saas|cli|software|dashboard|platform)\b/i.test(`${brief.name} ${brief.subheadline}`);
+  // Software if the category says so, or the brief is full of software cues (a single "app" in a care agency's copy is not enough).
+  const swCues = (sceneText.match(/\b(api|sdk|webhook|saas|cli|software|dashboard|platform|app|rota|scheduling|forecast|analytics|integrat\w*|sync\w*|automat\w*|workflow|inbox|login|admin|notification\w*|real-time|json|plugin|endpoint|alerts?)\b/gi) ?? []).length;
+  const isSoftware = ["devtool", "ai-product"].includes(brief.category) || /\b(software|saas|api|sdk|platform)\b/i.test(`${brief.name} ${brief.subheadline}`) || swCues >= 3;
   const forcedScene = brief.heroScene && (SCENE_IDS as string[]).includes(brief.heroScene) ? (brief.heroScene as SceneId) : null;
   const sceneId: SceneId | null = brief.heroStyle === "product" ? null : forcedScene ?? (brief.heroStyle === "scene" ? pickScene(sceneText) ?? "interior" : isSoftware ? null : pickScene(sceneText));
   const hv = sceneId ? undefined : brief.heroVisual;
