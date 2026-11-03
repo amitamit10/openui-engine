@@ -124,7 +124,7 @@ Each release is tested the same way (same spec, clean workspace, Haiku 5.5 build
 | [v0.6.0](results/v0.6.0/REPORT.md) (model-drawn SVG art; 4 new domains) | 8 | 1 | 7.6 / 6.3 | 5.6 | 6.0 | 108,281-112,685 | 17-32 |
 | [v0.7.0](results/v0.7.0/REPORT.md) (+ photo/logo/palette/legal tools, image prompts; 4 new domains; spec forbids external images) | 8 | 1 | 7.7 / 6.6 | 5.8 | 6.6 | 101,494-153,494 | 18-38 |
 | [v0.8.0](results/v0.8.0/REPORT.md) (+ five new art directions, two-tone colour, defect fixes; 4 new domains; spec forbids external images) | 8 | 2 | 7.6 / 6.5 | 6.0 | 6.8 | 109,155-119,984 | 20-29 |
-| [v0.9.0](results/v0.9.0/REPORT.md) (+ gate checks, two-tone, layout fixes; 4 new domains; spec forbids external images) | 8 | 0 | 7.7 / 6.5 | 5.5 | 6.8 | 105,389-129,433 | 18-40 |
+| [v0.9.0](results/v0.9.0/REPORT.md) (+ gate checks, two-tone, layout fixes; 4 new domains; spec forbids external images) | 8 | 0 | 7.7 / 6.4 | 5.5 | 6.8 | 105,389-129,433 | 18-40 |
 | [hybrid v0.4.1](results/hybrid-v0.4.1/REPORT.md) (hand-written page + engine QA tools; 4 more new domains; "engine" columns = hybrid arm) | 8 | 7 | 6.9 / 7.6 | 7.6 | 7.6 | 104,474-125,480 | 18-29 |
 | [control v0.4.1](results/control-v0.4.1/REPORT.md) (same, **no engine tools**): vs hybrid 4-4, vs baseline 4-4 | 16 | n/a | 7.17 / 7.33 (baseline/control) | - | - | 110k-144k | 13-40 |
 
