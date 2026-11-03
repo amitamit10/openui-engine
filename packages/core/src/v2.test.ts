@@ -548,3 +548,13 @@ describe("brief section titles and unknown keys", () => {
     expect(planSite(base).notes.join(" ")).not.toMatch(/is not a field the engine reads/);
   });
 });
+
+describe("ui mockup layout", () => {
+  it("does not stretch the first column of a two-column mockup with space-between", async () => {
+    const { buildSite, planSite } = await import("./index.js");
+    const p = planSite({ ...briefTemplate("saas") } as any);
+    const css = buildSite(p.spec, p.tokens, {}, {}).files["styles.css"]!;
+    expect(css).not.toMatch(/\.vz-uigrid\.two>div:first-child\{[^}]*space-between/);
+    expect(css).toMatch(/\.vz-uigrid\.two\{align-items:start\}/);
+  });
+});

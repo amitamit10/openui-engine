@@ -197,7 +197,7 @@ h1,h2,.h2{text-wrap:balance}
 
 /* ── v0.5.1 polish ── */
 .hero--d1 .h1{font-size:calc(var(--t-h1)*1.18);line-height:var(--lh-h1)}
-.vz-uigrid.two>div:first-child{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s-4)}
+.vz-uigrid.two{align-items:start}.vz-uigrid.two>div:first-child{display:flex;flex-direction:column;justify-content:flex-start;gap:var(--s-4)}
 .tier--featured{background:var(--c-text);color:var(--c-bg);border-color:var(--c-text);box-shadow:var(--sh-md)}
 .tier--featured .h3,.tier--featured .price strong{color:var(--c-bg)}
 .tier--featured .muted,.tier--featured .price span,.tier--featured .ticks li,.tier--featured .small{color:color-mix(in srgb,var(--c-bg) 82%,var(--c-text))}
