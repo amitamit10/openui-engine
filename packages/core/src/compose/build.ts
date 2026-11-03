@@ -93,7 +93,7 @@ const CATEGORY_WORDS: Array<[RegExp, SiteCategory]> = [
   [/fintech|financ|bank|payment|invoic|account|bookkeep|lending|insur|crypto|ledger|payroll/, "fintech"],
   [/ai\b|ml\b|llm|assistant|copilot|machine learning|agent|transcri|generative/, "ai-product"],
   [/devtool|developer|devops|observab|infra|api\b|sdk|database|data pipeline|monitoring|security|cli\b|open.?source|data eng/, "devtool"],
-  [/consumer|wellness|health|journal|habit|meditat|fitness|therapy|mental|family|personal|lifestyle|education|learning|travel|game/, "consumer-app"],
+  [/consumer|wellness|health|journal|habit|meditat|fitness|therapy|mental|family|personal|lifestyle|education|learning|travel|game|service|local|clinic|vet\b|veterinar|dental|dentist|school|nursery|club|sauna|spa\b|salon|barber|gym|restaurant|cafe|bakery|hotel|hospitality|lesson|tutor|booking|camp|surf|coach|care\b|pet\b/, "consumer-app"],
   [/saas|b2b|software|platform|crm|hr\b|productivity|collaborat|project|analytics|operations/, "saas"],
 ];
 /** Free-text category → one of the 8 engine categories (small models write "wellness", "data observability"…). */

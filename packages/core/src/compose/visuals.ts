@@ -101,6 +101,22 @@ export function normalizeVisual(v: any): VisualSpec | undefined {
   if (o.kind === "kanban") o.columns = o.columns ?? o.lanes ?? o.boards;
   if (o.kind === "chat") o.messages = o.messages ?? o.items ?? o.conversation;
   if (o.kind === "checklist" || o.kind === "gallery" || o.kind === "metrics" || o.kind === "product-cards") o.items = o.items ?? o.rows ?? o.entries;
+  if (o.kind === "schedule") {
+    // Small models describe appointments naturally (rows of times with items); accept those shapes instead of rendering an empty grid.
+    const rows = o.rows ?? o.items ?? o.entries ?? o.slots ?? o.appointments ?? o.events;
+    const days: string[] | undefined = Array.isArray(o.days) ? o.days.map(String) : undefined;
+    const dayIndex = (d: unknown, fallback: number): number => {
+      if (typeof d === "number" && d >= 0) return d;
+      if (typeof d === "string" && days) { const i = days.findIndex((x) => x.toLowerCase().startsWith(d.slice(0, 3).toLowerCase())); if (i >= 0) return i; }
+      return fallback;
+    };
+    if (Array.isArray(rows)) o.rows = rows.map((r: any) => {
+      if (!r || typeof r !== "object") return { label: String(r ?? ""), blocks: [] };
+      const raw = r.blocks ?? r.cells ?? r.items ?? r.appointments ?? r.slots ?? [];
+      const blocks = (Array.isArray(raw) ? raw : []).map((b: any, i: number) => (typeof b === "string" ? { day: i, label: b } : { ...b, day: dayIndex(b.day ?? b.col, i), label: b.label ?? b.title ?? b.text ?? b.name }));
+      return { ...r, label: r.label ?? r.name ?? r.title ?? r.time ?? "", blocks };
+    });
+  }
   if (o.kind === "code" || o.kind === "terminal") o.code = o.code ?? (Array.isArray(o.lines) ? o.lines.join("\n") : o.snippet ?? o.content);
   return o;
 }

@@ -279,3 +279,17 @@ export const STYLE_CSS = String.raw`
 [data-style="pastel-play"] .cta-band .lead,[data-style="pastel-play"] .cta-band .h2{color:inherit}
 [data-style="pastel-play"] .cta-band .btn--primary{background:var(--c-surface);color:var(--c-text);box-shadow:0 4px 0 rgba(0,0,0,.18)}
 `;
+
+/** Fixes found in the v0.8.0 architecture page: a three-quote wall left a hole, and an accent-flooded closing band hid its emphasised word. */
+export const FIX_CSS = String.raw`
+.wall--n2,.wall--n3{display:grid;columns:auto;gap:var(--s-4);align-items:stretch}
+.wall--n2{grid-template-columns:repeat(2,minmax(0,1fr))}.wall--n3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.wall--n2 .card,.wall--n3 .card{margin-bottom:0;align-content:start}
+@media(max-width:820px){.wall--n2,.wall--n3{grid-template-columns:minmax(0,1fr)}}
+[data-style="neo-brutal"] .cta-band .h2 em,[data-style="pastel-play"] .cta-band .h2 em{background:none;color:inherit;text-decoration:underline;text-decoration-thickness:.08em;text-underline-offset:.12em}
+[data-style="swiss-grid"] .section--soft{background:var(--c-surface2)}
+[data-style="swiss-grid"] .cta-band{background:var(--c-text);color:var(--c-bg);border-color:var(--c-text)}
+[data-style="swiss-grid"] .cta-band .h2 em{color:color-mix(in srgb,var(--c-accent) 72%,#fff)}
+[data-style="swiss-grid"] .cta-band .btn--primary{background:var(--c-accent);color:var(--c-accent-fg);border-color:var(--c-accent)}
+[data-style="swiss-grid"] .cta-band .btn--ghost{background:transparent;color:var(--c-bg);border-color:var(--c-bg)}
+`;

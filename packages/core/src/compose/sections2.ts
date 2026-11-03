@@ -46,7 +46,7 @@ export const RENDERERS_2: Partial<Record<SectionType, Renderer>> = {
 
   "testimonial-wall": (s) => {
     const p = s.props, id = s.id; const items = (p.items ?? []) as any[];
-    return wrap(s, `${head(id, p)}<div class="wall">${items.map((q, i) => `<figure class="card reveal" data-openui-id="${id}.q${i}"><blockquote class="${q.big ? "big" : ""}">“${esc(q.quote)}”</blockquote><figcaption style="display:flex;gap:12px;align-items:center"><span class="avatar" aria-hidden="true">${esc(String(q.name).split(" ").map((w: string) => w[0]).join("").slice(0, 2))}</span><span class="who"><strong>${esc(q.name)}</strong><br><span class="muted small">${esc(q.role)}</span></span></figcaption></figure>`).join("")}</div>`, "", !!p.tint);
+    return wrap(s, `${head(id, p)}<div class="wall wall--n${items.length}">${items.map((q, i) => `<figure class="card reveal" data-openui-id="${id}.q${i}"><blockquote class="${q.big ? "big" : ""}">“${esc(q.quote)}”</blockquote><figcaption style="display:flex;gap:12px;align-items:center"><span class="avatar" aria-hidden="true">${esc(String(q.name).split(" ").map((w: string) => w[0]).join("").slice(0, 2))}</span><span class="who"><strong>${esc(q.name)}</strong><br><span class="muted small">${esc(q.role)}</span></span></figcaption></figure>`).join("")}</div>`, "", !!p.tint);
   },
 
   "steps-timeline": (s) => {

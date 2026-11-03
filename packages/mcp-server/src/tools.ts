@@ -12,7 +12,8 @@ import { applyPending } from "@openui-engine/editor";
 import type { ServerContext } from "./context.js";
 
 const STYLE = z.enum(STYLE_IDS as [StyleId, ...StyleId[]]);
-const CATEGORY = z.enum(["saas", "ai-product", "devtool", "fintech", "agency", "portfolio", "ecommerce", "consumer-app"]);
+/** Any text is accepted and mapped to the nearest of the eight categories (small models write "services", "surf school", "vet clinic"). */
+const CATEGORY = z.string().describe("any text; mapped to the nearest of: saas, ai-product, devtool, fintech, agency, portfolio, ecommerce, consumer-app").transform((s) => normalizeCategory(s));
 /** Small models guess argument names; accept the obvious aliases for `target`. */
 const tgt = (a: Record<string, any>): string => { const t = a.target ?? a.url ?? a.path ?? a.dir ?? a.projectDir ?? a.site; if (typeof t !== "string") throw new Error("target is required (project dir, built-site dir or http(s) URL)"); return t.replace(/^file:\/\//, ""); };
 const text = (obj: unknown) => ({ content: [{ type: "text" as const, text: typeof obj === "string" ? obj : JSON.stringify(obj, null, 1) }] });

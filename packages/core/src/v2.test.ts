@@ -436,3 +436,23 @@ describe("art directions added in v0.7 are chosen for the briefs they were built
     }
   });
 });
+
+describe("schedule visual accepts natural shapes and warns when empty", () => {
+  it("maps items/appointments/day names to blocks, and the lint catches a grid with no blocks", async () => {
+    const { normalizeVisual, renderVisual, lintVisuals } = await import("./index.js");
+    const v: any = { kind: "schedule", title: "Thursday", days: ["Mon", "Tue", "Wed"], appointments: [{ time: "09:00", items: [{ day: "Tue", title: "Vaccination: Biscuit" }, "Check-up"] }, { name: "10:30", slots: [{ col: 2, label: "Dental" }] }] };
+    const n: any = normalizeVisual(v);
+    expect(n.rows[0].label).toBe("09:00"); expect(n.rows[0].blocks[0]).toMatchObject({ day: 1, label: "Vaccination: Biscuit" }); expect(n.rows[1].blocks[0]).toMatchObject({ day: 2, label: "Dental" });
+    expect(renderVisual(v, "t")).toContain("Vaccination: Biscuit");
+    const spec: any = { title: "t", description: "d", brand: { name: "X" }, sections: [{ id: "hero", type: "hero-split", props: { visual: { kind: "schedule", rows: [{ label: "09:00" }] } } }] };
+    expect(lintVisuals(spec).some((f) => /none has blocks/.test(f.message))).toBe(true);
+  });
+});
+
+describe("category normalisation understands local service businesses", () => {
+  it("maps services, clinics, schools and clubs to consumer-app and keeps exact categories", () => {
+    for (const w of ["services", "surf school", "veterinary clinic", "sauna club", "dental practice", "hospitality", "tutoring", "restaurant"]) expect(normalizeCategory(w), w).toBe("consumer-app");
+    expect(normalizeCategory("saas")).toBe("saas"); expect(normalizeCategory("developer tools")).toBe("devtool"); expect(normalizeCategory("ecommerce shop")).toBe("ecommerce");
+    expect(normalizeCategory("architecture studio")).toBe("agency");
+  });
+});

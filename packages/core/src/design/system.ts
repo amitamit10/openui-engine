@@ -115,7 +115,7 @@ export function generateTokens(brief: DesignBrief): DesignTokens {
   const h = hexToHsl(accentIn);
   // Light styles pair the brand hue with a curated warm/cool complement (a green brand gets terracotta, a red one teal) instead of a blind hue rotation, which turned forest green into magenta.
   const curated = s.mode !== "dark" && styleId !== "terminal-dev";
-  const accent2 = hslToHex({ h: curated ? pairHue(h.h) : h.h + s.secondaryHueShift, s: curated ? Math.min(0.78, Math.max(0.55, h.s)) : Math.min(0.85, h.s), l: s.mode === "dark" ? 0.68 : 0.5 });
+  const accent2 = hslToHex({ h: curated ? pairHue(h.h) : h.h + s.secondaryHueShift, s: curated ? Math.min(0.62, Math.max(0.42, h.s)) : Math.min(0.85, h.s), l: s.mode === "dark" ? 0.68 : curated ? 0.43 : 0.5 });
   const motion = (brief.motion ?? s.defaultMotion);
 
   // semantic colours (success/warning/danger) are used as text on plain surfaces AND on their own ~14% tint (status pills)

@@ -87,6 +87,9 @@ export function lintVisuals(spec: PageSpec): LintFinding[] {
       const missing = NEEDS[v.kind]!.filter((k) => { const x = v[k]; return x === undefined || x === null || (Array.isArray(x) && x.length === 0) || (typeof x === "string" && !x.trim()); });
       if (missing.length) out.push({ severity: "error", rule: "visual-empty", where, message: `${v.kind} visual has no ${missing.join(" / ")} — it will render empty.`, fix: `Give it real data, e.g. ${v.kind === "table" ? '{kind:"table", columns:["Invoice","Client","Amount","Status"], rows:[["INV-204","Quillstone","$4,800",{"text":"Paid","tone":"ok"}]]}' : `${missing.map((m) => m + ":[…]").join(", ")}`}` });
     }
+    if (v.kind === "schedule" && Array.isArray(v.rows) && v.rows.length && !v.rows.some((r: any) => Array.isArray(r?.blocks) && r.blocks.length)) {
+      out.push({ severity: "error", rule: "visual-empty", where, message: "schedule visual has rows but none has blocks, so the grid renders empty.", fix: 'Give each row blocks, e.g. { "label": "09:00", "blocks": [{ "day": 0, "label": "Vaccination: Biscuit", "tone": "good" }] } (day is a column index or a day name from `days`).' });
+    }
     for (const [k, x] of Object.entries(v)) if (x && typeof x === "object") visit(x, `${where}.${k}`);
   };
   for (const sec of spec.sections) visit(sec.props, sec.id);
