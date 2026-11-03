@@ -1,0 +1,250 @@
+[
+ {
+  "pair": "brightwater-baseline-vs-engine-r1",
+  "brief": "brightwater",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 6
+  },
+  "rationale": "X has a confident, warm serif headline, a specific pet-record hero card and distinctive spot illustrations. Its green and cream palette and the dark metrics band feel cohesive and deliberate. Y has a good appointment-list hero, but its feature illustrations are abstract blobs, the how-it-works and testimonial sections are sparse, and the overall layout is more of a generic SaaS template."
+ },
+ {
+  "pair": "brightwater-baseline-vs-engine-r2",
+  "brief": "brightwater",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 5
+  },
+  "rationale": "X's hero shows a specific, believable clinic schedule UI with real appointments, an emergency slot and a clinician note, and its feature illustrations are bespoke patterned scenes, so it feels distinctive and editorial. Y is clean and well organised, but its generic icon tiles, standard card grids and the usual dark-green SaaS rhythm read as a template; its pet-record hero card is good but less rich. X has a few small-text and density weaknesses, but it is the one a design director would ship."
+ },
+ {
+  "pair": "hollis-baseline-vs-engine-r1",
+  "brief": "hollis",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 5,
+   "originality": 5
+  },
+  "rationale": "X reads as a considered architecture practice: serif display type, a muted paper, green and brick palette, and a specific site-plan and report-card hero with drawn feature illustrations. Y uses a loud red and black startup look with a generic flat house illustration, an uneven testimonial grid, and a final CTA headline with a word that seems to vanish (red on red), so it feels more template-like and less polished. X is the one a design director would ship."
+ },
+ {
+  "pair": "hollis-baseline-vs-engine-r2",
+  "brief": "hollis",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 5,
+   "colour": 5,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 4,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y uses a restrained serif and green palette with a convincing annotated site plan and report card, which suits a rational architecture practice. X is bold red and grotesque with a cartoon house, a broken final CTA headline, a lopsided testimonials grid and an uneven hero, so it looks more like a template and less finished."
+ },
+ {
+  "pair": "stockroom-baseline-vs-engine-r1",
+  "brief": "stockroom",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a richer, more specific hero product UI (reorder toggle, draft reorder, sync chips, floating stat cards), illustrated feature scenes and a distinctive serif-italic voice, so it feels more designed. Y is clean and competent but follows a more standard SaaS layout (eyebrow, tilted card, uniform feature cards, orange/green accents) with simpler mini-visuals. X's hero logo strip wraps awkwardly (sixth name orphaned) and the feature grid is uneven, but overall it is the one to ship."
+ },
+ {
+  "pair": "stockroom-baseline-vs-engine-r2",
+  "brief": "stockroom",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 6
+  },
+  "rationale": "X has a bolder serif headline, a tilted live-count card with a barcode and a reorder toast, and a deep green metrics band and CTA. Its specific product UI and warm palette give it more character. Y is tidy and has illustrated feature cards, but its hero UI is flatter, the logo strip wraps awkwardly with a lone sixth name, and the layout feels more like a standard SaaS template."
+ },
+ {
+  "pair": "tideline-baseline-vs-engine-r1",
+  "brief": "tideline",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 8
+  },
+  "rationale": "Y has a distinctive serif display type, a warm sunset/teal/coral palette, and a specific hero product card (next session, tide chart, spots left) with illustrated feature cards and a strong closing CTA. X is clean but muted and generic, with a weaker hero illustration, a cramped mobile hero, cards that look sparse, and a more standard SaaS layout. Y would ship."
+ },
+ {
+  "pair": "tideline-baseline-vs-engine-r2",
+  "brief": "tideline",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "rationale": "X has a confident editorial serif display face, a warm sunset palette and a specific hero scene with a next-session card showing tide and swell data, so it reads as a branded surf school. Y is a clean but generic teal and cream SaaS layout with a sparse hero illustration, small unevenly placed floating chips and plain feature tiles. Y is the more template-like of the two."
+ }
+]
