@@ -33,7 +33,7 @@ it hands the agent a **curated, compatibility-checked component registry**, a **
 | `suggest_layout` | Surface-first section sequence with reasons |
 | `compose_page` | Create/update a project and render `dist/` (static, deployable). Edit copy via `sectionProps`, restructure via add/remove |
 | `update_design_tokens` / `rebuild_project` | Change tokens by path and re-render |
-| `validate_design` | The QA gate (desktop/tablet/mobile) with fix-oriented, id-addressed issues |
+| `validate_design` | The QA gate (desktop/tablet/mobile) with fix-oriented issues that carry the element selector, its visible text and the section id. `quick: true` runs a faster desktop-only check without axe-core while iterating. It also flags near-invisible text, large empty holes in card grids and, on right-to-left pages, physical left/right CSS |
 | `capture_preview` | Real screenshots returned as images so a multimodal model can *look* |
 | `analyze_visual_quality` | Evidence-backed scores (measured vs heuristic labelled) |
 | `create_review_session` | Starts the editor, returns a private tokenised URL |
@@ -144,6 +144,7 @@ Regenerate with `node benchmark/summarize.mjs`.
 * `analyze_visual_quality` measures engineering quality; it cannot judge taste, brand fit or imagery. Always look at `capture_preview`.
 * Third-party licences are marked *unverified* where the upstream repositories were not reachable from the audit sandbox. shadcn/ui, Untitled UI React and Material UI were verified as MIT from their LICENSE files on 2026-11-03; no third-party component code is copied into generated pages.
 * **Page generation does not yet beat an unguided cheap model** in blind judging (see the results table). The engine is strongest on correctness (zero audit errors, consistent tokens, accessible markup) and weakest on distinctive, specific composition. Treat it as a fast way to a clean, accessible, consistent page, not yet as a way to a more impressive one.
+* **Right-to-left:** `brief.lang` set to a right-to-left language (`ar`, `he`, `fa`, `ur`...) sets `dir="rtl"` and builds the stylesheet with CSS logical properties so the layout mirrors. Not yet handled: the engine does not translate or write the copy, its bundled Latin web fonts do not cover Arabic or Hebrew glyphs (system fonts take over), icons and drawn art are not mirrored, and keyboard arrow direction in the feature tabs is not swapped.
 * The photo library is generic (120 photos, mostly workspaces, landscapes and objects); anything specific needs generated or supplied images, via the prompt flow above.
 * The editor persists to OpenUI projects; arbitrary codebases get CSS patches, not source rewrites.
 

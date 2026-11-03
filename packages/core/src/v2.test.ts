@@ -470,3 +470,28 @@ describe("features[].art accepts object forms and warns about unusable ones", ()
     expect(notes.join(" ")).toMatch(/features\[1\]\.art is not an SVG string/);
   });
 });
+
+describe("right-to-left support", () => {
+  it("rewrites physical declarations as logical ones and leaves unknown things alone", async () => {
+    const { toLogical, isRtlLang } = await import("./compose/rtl.js");
+    expect(isRtlLang("ar")).toBe(true); expect(isRtlLang("he-IL")).toBe(true); expect(isRtlLang("en")).toBe(false); expect(isRtlLang(undefined)).toBe(false);
+    const out = toLogical(".a{margin-left:8px;padding-right:4px;text-align:left;border-left:1px solid red;float:right}.b{left:50%;transform:translateX(-50%)}.c{margin:1px 2px 3px 4px;border-radius:5px 6px 7px 8px;border-top-left-radius:9px}.d{background:linear-gradient(to right,red,blue);color:red;margin:0 auto}");
+    expect(out).toContain("margin-inline-start:8px"); expect(out).toContain("padding-inline-end:4px"); expect(out).toContain("text-align:start"); expect(out).toContain("border-inline-start:1px solid red"); expect(out).toContain("float:inline-end");
+    expect(out).toContain("inset-inline-start:50%"); expect(out).toContain("translateX(50%)");
+    expect(out).toContain("margin-block:1px 3px;margin-inline:4px 2px");
+    expect(out).toContain("border-start-start-radius:5px;border-start-end-radius:6px;border-end-end-radius:7px;border-end-start-radius:8px");
+    expect(out).toContain("border-start-start-radius:9px"); expect(out).toContain("to left,red,blue"); expect(out).toContain("color:red"); expect(out).toContain("margin:0 auto");
+  });
+  it("builds an Arabic page with dir=rtl and no physical left/right in the stylesheet, and leaves English untouched", async () => {
+    const { planSite, buildSite } = await import("./index.js");
+    const base: any = { ...briefTemplate("saas"), name: "Nour", headline: "ابدأ *بسرعة*", subheadline: "منصة بسيطة" };
+    const ar = buildSite(...(() => { const p = planSite({ ...base, lang: "ar" }); return [p.spec, p.tokens, {}, {}] as const; })());
+    expect(ar.files["index.html"]).toContain('<html lang="ar" dir="rtl"');
+    const css = ar.files["styles.css"]!;
+    expect(css).not.toMatch(/margin-left|margin-right|padding-left|padding-right|text-align:\s*(left|right)/);
+    expect(css).toContain("margin-inline-start");
+    const en = buildSite(...(() => { const p = planSite({ ...base }); return [p.spec, p.tokens, {}, {}] as const; })());
+    expect(en.files["index.html"]).not.toContain("dir=");
+    expect(en.files["styles.css"]).toMatch(/margin-left/);
+  });
+});

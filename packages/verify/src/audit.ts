@@ -53,6 +53,10 @@ function collectInPage(isMobile: boolean): Collected {
     const cls = typeof (el as HTMLElement).className === "string" ? (el as HTMLElement).className.trim().split(/\s+/).slice(0, 2).map((c) => "." + c).join("") : "";
     return `${el.tagName.toLowerCase()}${id}${cls}`;
   };
+  const snip = (el: Element): string | undefined => {
+    const t = (el.getAttribute("aria-label") ?? (el as HTMLElement).innerText ?? el.textContent ?? el.getAttribute("alt") ?? el.getAttribute("title") ?? "").replace(/\s+/g, " ").trim().slice(0, 40);
+    return t || undefined;
+  };
   const visible = (el: Element): boolean => {
     const r = el.getBoundingClientRect();
     const cs = getComputedStyle(el);
@@ -78,7 +82,7 @@ function collectInPage(isMobile: boolean): Collected {
       if (!clipped) offenders.push(el);
     }
     issues.push({ severity: "error", category: "overflow", message: `Horizontal overflow: page is ${docOverflow}px wider than the viewport (${vw}px).`, selector: offenders[0] ? sel(offenders[0]) : undefined, openuiId: offenders[0] ? idOf(offenders[0]) : undefined, fix: "Constrain the widest element (max-width:100%, min-width:0, overflow-wrap:anywhere) or reduce its fixed width at this breakpoint." });
-    for (const el of offenders.slice(1, 4)) issues.push({ severity: "warning", category: "overflow", message: `Also extends past the viewport: ${sel(el)}`, selector: sel(el), openuiId: idOf(el) });
+    for (const el of offenders.slice(1, 4)) issues.push({ severity: "warning", category: "overflow", message: `Also extends past the viewport: ${sel(el)}`, selector: sel(el), snippet: snip(el), openuiId: idOf(el) });
   }
 
   // --- content invisible (opacity 0 / reveal never fired) ---
@@ -89,7 +93,7 @@ function collectInPage(isMobile: boolean): Collected {
     return (el.textContent ?? "").trim().length > 3 && !el.closest("[hidden]");
   });
   const hiddenTop = hidden.filter((el) => !hidden.some((o) => o !== el && o.contains(el)));
-  if (hiddenTop.length) issues.push({ severity: "error", category: "content", message: `${hiddenTop.length} element(s) with text are invisible (opacity 0) after scrolling — a reveal animation did not complete.`, selector: sel(hiddenTop[0]!), openuiId: idOf(hiddenTop[0]!), fix: "Ensure reveal/entrance states are removed once in view, are JS-gated, and fall back to visible with reduced motion." });
+  if (hiddenTop.length) issues.push({ severity: "error", category: "content", message: `${hiddenTop.length} element(s) with text are invisible (opacity 0) after scrolling — a reveal animation did not complete.`, selector: sel(hiddenTop[0]!), snippet: snip(hiddenTop[0]!), openuiId: idOf(hiddenTop[0]!), fix: "Ensure reveal/entrance states are removed once in view, are JS-gated, and fall back to visible with reduced motion." });
 
   // --- text that is effectively invisible against its real (solid) background, e.g. an accent-coloured word on an accent band ---
   {
@@ -107,7 +111,7 @@ function collectInPage(isMobile: boolean): Collected {
       const l1 = lum(fg[0]!, fg[1]!, fg[2]!), l2 = lum(bg[0]!, bg[1]!, bg[2]!);
       if ((Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05) < 1.6) faint.push(el);
     }
-    if (faint.length) issues.push({ severity: "error", category: "a11y", message: `${faint.length} text element(s) are almost invisible against their background (under 1.6:1), e.g. "${(faint[0]!.textContent ?? "").trim().slice(0, 40)}".`, selector: sel(faint[0]!), openuiId: idOf(faint[0]!), fix: "Give the text a colour that contrasts with the band it sits on (for example inherit the band's foreground colour)." });
+    if (faint.length) issues.push({ severity: "error", category: "a11y", message: `${faint.length} text element(s) are almost invisible against their background (under 1.6:1), e.g. "${(faint[0]!.textContent ?? "").trim().slice(0, 40)}".`, selector: sel(faint[0]!), snippet: snip(faint[0]!), openuiId: idOf(faint[0]!), fix: "Give the text a colour that contrasts with the band it sits on (for example inherit the band's foreground colour)." });
   }
 
   // --- large empty holes inside grid or column layouts (a lopsided card wall) ---
@@ -128,19 +132,34 @@ function collectInPage(isMobile: boolean): Collected {
       if (empty / total > 0.25) holes.push({ el, empty: empty / total });
     }
     const top = holes.filter((h) => !holes.some((o) => o !== h && h.el.contains(o.el)));
-    for (const h of top.slice(0, 2)) issues.push({ severity: "warning", category: "layout", message: `Large empty hole inside a ${Math.round(h.empty * 100)}% unfilled grid or column layout (uneven or missing cards).`, selector: sel(h.el), openuiId: idOf(h.el), fix: "Make the cards in this group even (stretch to equal height, or lay out so the last row is full)." });
+    for (const h of top.slice(0, 2)) issues.push({ severity: "warning", category: "layout", message: `Large empty hole inside a ${Math.round(h.empty * 100)}% unfilled grid or column layout (uneven or missing cards).`, selector: sel(h.el), snippet: snip(h.el), openuiId: idOf(h.el), fix: "Make the cards in this group even (stretch to equal height, or lay out so the last row is full)." });
+  }
+
+  // --- right-to-left pages: physical left/right declarations break the mirrored layout ---
+  if (document.documentElement.dir === "rtl" || getComputedStyle(document.documentElement).direction === "rtl") {
+    const physical: string[] = [];
+    const re = /(?:^|;|\s)((?:margin|padding|border)-(?:left|right)(?:-[a-z]+)?|(?:left|right)|float|text-align)\s*:\s*([^;]*)/g;
+    for (const sheet of Array.from(document.styleSheets)) {
+      let rules: CSSRuleList; try { rules = sheet.cssRules; } catch { continue; }
+      for (const rule of Array.from(rules)) {
+        const st = rule as CSSStyleRule; if (!st.style) continue;
+        const text = st.style.cssText; let m: RegExpExecArray | null; re.lastIndex = 0;
+        while ((m = re.exec(text))) { const prop = m[1]!, val = m[2]!.trim(); if (prop === "float" || prop === "text-align" ? /^(left|right)$/.test(val) : !/^(0(px|em|rem|%)?|none|initial|inherit|unset|currentcolor)$/.test(val)) physical.push(`${st.selectorText} { ${prop}: ${val} }`); }
+      }
+    }
+    if (physical.length) issues.push({ severity: "warning", category: "layout", message: `${physical.length} physical left/right declaration(s) on an RTL page, e.g. ${physical.slice(0, 3).join("; ")}.`, fix: "Use logical properties (margin-inline-start, padding-inline-end, inset-inline-start, text-align: start) so the layout mirrors." });
   }
 
   // --- images / assets ---
   for (const img of Array.from(document.images)) {
-    if (!img.complete || img.naturalWidth === 0) issues.push({ severity: "error", category: "assets", message: `Broken image: ${img.currentSrc || img.src}`, selector: sel(img), openuiId: idOf(img), fix: "Fix the src path or add the asset." });
-    if (!img.hasAttribute("alt")) issues.push({ severity: "error", category: "a11y", message: "Image without alt attribute.", selector: sel(img), openuiId: idOf(img), fix: 'Add alt text (or alt="" if decorative).' });
+    if (!img.complete || img.naturalWidth === 0) issues.push({ severity: "error", category: "assets", message: `Broken image: ${img.currentSrc || img.src}`, selector: sel(img), snippet: snip(img), openuiId: idOf(img), fix: "Fix the src path or add the asset." });
+    if (!img.hasAttribute("alt")) issues.push({ severity: "error", category: "a11y", message: "Image without alt attribute.", selector: sel(img), snippet: snip(img), openuiId: idOf(img), fix: 'Add alt text (or alt="" if decorative).' });
   }
   // --- anchors ---
   for (const a of Array.from(document.querySelectorAll("a[href]"))) {
     const href = a.getAttribute("href") ?? "";
-    if (href.startsWith("#") && href.length > 1 && !document.getElementById(decodeURIComponent(href.slice(1)))) issues.push({ severity: "error", category: "interaction", message: `Anchor ${href} has no matching element id.`, selector: sel(a), openuiId: idOf(a), fix: `Add id="${href.slice(1)}" to the target section.` });
-    if (href === "") issues.push({ severity: "warning", category: "interaction", message: "Link with empty href.", selector: sel(a), openuiId: idOf(a) });
+    if (href.startsWith("#") && href.length > 1 && !document.getElementById(decodeURIComponent(href.slice(1)))) issues.push({ severity: "error", category: "interaction", message: `Anchor ${href} has no matching element id.`, selector: sel(a), snippet: snip(a), openuiId: idOf(a), fix: `Add id="${href.slice(1)}" to the target section.` });
+    if (href === "") issues.push({ severity: "warning", category: "interaction", message: "Link with empty href.", selector: sel(a), snippet: snip(a), openuiId: idOf(a) });
   }
 
   // --- document-level SEO / semantics ---
@@ -159,8 +178,8 @@ function collectInPage(isMobile: boolean): Collected {
   for (const el of interactive) {
     if (el.closest("p,li") && el.tagName === "A" && !el.closest(".btn,nav")) continue;
     const r = el.getBoundingClientRect();
-    if (r.width < 24 || r.height < 24) issues.push({ severity: "warning", category: "responsive", message: `Touch target ${Math.round(r.width)}×${Math.round(r.height)}px is below WCAG 2.2 minimum (24px).`, selector: sel(el), openuiId: idOf(el), fix: "Increase min-height/padding to at least 44px for primary controls." });
-    else if (isMobile && el.matches(".btn,button") && r.height < 40) issues.push({ severity: "info", category: "responsive", message: `Button ${Math.round(r.height)}px tall on mobile (44px recommended).`, selector: sel(el), openuiId: idOf(el) });
+    if (r.width < 24 || r.height < 24) issues.push({ severity: "warning", category: "responsive", message: `Touch target ${Math.round(r.width)}×${Math.round(r.height)}px is below WCAG 2.2 minimum (24px).`, selector: sel(el), snippet: snip(el), openuiId: idOf(el), fix: "Increase min-height/padding to at least 44px for primary controls." });
+    else if (isMobile && el.matches(".btn,button") && r.height < 40) issues.push({ severity: "info", category: "responsive", message: `Button ${Math.round(r.height)}px tall on mobile (44px recommended).`, selector: sel(el), snippet: snip(el), openuiId: idOf(el) });
   }
 
   // --- style statistics for token compliance + typography ---
@@ -179,7 +198,7 @@ function collectInPage(isMobile: boolean): Collected {
       const fs = parseFloat(cs.fontSize);
       bump(sizes, fs.toFixed(1), who, "size");
       fontSizes.push(Math.round(fs));
-      if (fs < 12) issues.push({ severity: "warning", category: "typography", message: `Text smaller than 12px (${fs}px).`, selector: sel(el), openuiId: idOf(el) });
+      if (fs < 12) issues.push({ severity: "warning", category: "typography", message: `Text smaller than 12px (${fs}px).`, selector: sel(el), snippet: snip(el), openuiId: idOf(el) });
       if (el.matches("p,li,blockquote")) { const cpl = Math.min((el.textContent ?? "").trim().length, el.getBoundingClientRect().width / (fs * 0.5)); if (cpl > maxLine) maxLine = cpl; }
     }
     const bg = cs.backgroundColor;

@@ -42,6 +42,8 @@ export interface SiteBrief {
   secondaryCta?: string;
   heroNote?: string;
   /** Domain visual for the hero, e.g. {kind:"timeline", items:[…]}. */
+  /** Page language (BCP 47). Right-to-left languages (ar, he, fa, ur...) set dir="rtl" and mirror the layout. */
+  lang?: string;
   heroVisual?: VisualSpec;
   /** A real photograph for the hero: a library id from search_photos, or an https image URL, with descriptive alt text. Ignored if heroVisual is set. */
   heroPhoto?: PhotoRef; // or { prompt, alt, aspect }: a placeholder carrying the image-generation prompt until images/hero.png exists
@@ -180,7 +182,7 @@ export function planSite(input: SiteBrief): PlannedSite {
   add("cta", c.form ? "cta-split" : "cta-band", c.form ? { anchor: "cta", title: c.title, subtitle: c.subtitle, bullets: c.bullets, form: { button: c.button ?? brief.primaryCta, note: c.note ?? "", label: isSoftware ? "Work email" : "Your email" } } : { anchor: "cta", title: c.title, subtitle: c.subtitle, primaryCta: cta(brief.primaryCta, "#top"), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined }, "single closing ask");
   add("footer", "footer-columns", { tagline: brief.footer?.tagline ?? firstSentence(brief.subheadline, 150), columns: brief.footer?.columns ?? [{ title: "Product", links: links.length ? links : [{ label: "Home", href: "#top" }] }, { title: "Get started", links: [{ label: brief.primaryCta, href: has.pricing ? "#pricing" : "#cta" }, ...(brief.secondaryCta ? [{ label: brief.secondaryCta, href: "#features" }] : [])] }, { title: "Company", links: [{ label: "Back to top", href: "#top" }, ...(has.faq ? [{ label: "Questions", href: "#faq" }] : [])] }], legal: brief.footer?.legal ?? `© ${brief.legal?.year ?? new Date().getFullYear()} ${brief.legal?.holder ?? brief.name}. All rights reserved.`, legalLinks: brief.legal?.pages ? [{ label: "Privacy", href: "privacy.html" }, { label: "Terms", href: "terms.html" }] : [], note: "" }, "navigation and legal");
 
-  return { tokens, spec: { title: `${brief.name} — ${brief.headline.replace(/\*/g, "").slice(0, 70)}`, description: brief.subheadline, brand: { name: brief.name, ...brandLogo(brief, style, tokens) }, legal: brief.legal?.pages ? { pages: true, holder: brief.legal.holder, email: brief.legal.email, address: brief.legal.address, jurisdiction: brief.legal.jurisdiction } : undefined, sections }, layout, notes };
+  return { tokens, spec: { lang: brief.lang, title: `${brief.name} — ${brief.headline.replace(/\*/g, "").slice(0, 70)}`, description: brief.subheadline, brand: { name: brief.name, ...brandLogo(brief, style, tokens) }, legal: brief.legal?.pages ? { pages: true, holder: brief.legal.holder, email: brief.legal.email, address: brief.legal.address, jurisdiction: brief.legal.jurisdiction } : undefined, sections }, layout, notes };
 }
 
 export const VISUAL_SUGGESTIONS: Record<SiteCategory, VisualKind[]> = {

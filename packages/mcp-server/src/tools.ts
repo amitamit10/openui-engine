@@ -193,11 +193,11 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("validate_design", {
     title: "Validate design",
     description: "Run the automated QA gate in a real Chromium: desktop/tablet/mobile overflow, axe accessibility, console + network errors, broken images/anchors, interaction tests (accordion, nav, toggles, keyboard focus), reduced-motion behaviour, invisible-content detection and design-token compliance. Returns pass/fail with prioritised, fix-oriented issues (with data-openui-id so you can target them).",
-    inputSchema: { target: z.string().optional().describe("OpenUI project dir, a built-site dir, or http(s) URL (aliases accepted: url, path, dir)"), url: z.string().optional(), path: z.string().optional(), dir: z.string().optional(), viewports: z.array(z.enum(["desktop", "tablet", "mobile"])).default(["desktop", "mobile"]), maxIssues: z.number().int().default(15) },
+    inputSchema: { target: z.string().optional().describe("OpenUI project dir, a built-site dir, or http(s) URL (aliases accepted: url, path, dir)"), url: z.string().optional(), path: z.string().optional(), dir: z.string().optional(), viewports: z.array(z.enum(["desktop", "tablet", "mobile"])).default(["desktop", "mobile"]), maxIssues: z.number().int().default(15), quick: z.boolean().default(false).describe("faster iterative check while building: desktop only and skips axe-core (about a third less time in a measured run, mostly browser start-up and interaction tests remain). Run the full gate before you finish.") },
   }, async (a) => {
     const t0 = tgt(a); const target = /^https?:/.test(t0) ? t0 : ctx.safePath(t0);
-    const vps = VIEWPORTS.filter((v) => a.viewports.includes(v.name as "desktop"));
-    const r = await auditTarget(target, { viewports: vps, rebuildFirst: true });
+    const vps = a.quick ? VIEWPORTS.filter((v) => v.name === "desktop") : VIEWPORTS.filter((v) => a.viewports.includes(v.name as "desktop"));
+    const r = await auditTarget(target, { viewports: vps, rebuildFirst: true, axe: !a.quick });
     const issues = r.audit.viewports.flatMap((v) => v.issues.map((i) => ({ viewport: v.viewport.name, ...i }))).filter((i) => i.severity !== "info");
     const order = { error: 0, warning: 1, info: 2 } as const;
     issues.sort((x, y) => order[x.severity] - order[y.severity]);
@@ -205,7 +205,8 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
       passed: r.audit.passed, totals: r.audit.totals,
       interactions: Object.fromEntries(r.audit.viewports.map((v) => [v.viewport.name, `${v.interactions.filter((i) => i.passed).length}/${v.interactions.length}`])),
       token_compliance: r.audit.viewports[0]?.compliance ? Object.fromEntries(Object.entries(r.audit.viewports[0].compliance).map(([k, c]) => [k, `${(c.ratio * 100).toFixed(0)}%`])) : "n/a (no tokens)",
-      issues: issues.slice(0, a.maxIssues).map((i) => ({ sev: i.severity, vp: i.viewport, cat: i.category, msg: i.message.slice(0, 300), id: i.openuiId, fix: i.fix })),
+      issues: issues.slice(0, a.maxIssues).map((i) => ({ sev: i.severity, vp: i.viewport, cat: i.category, msg: i.message.slice(0, 300), selector: i.selector, text: i.snippet, id: i.openuiId, fix: i.fix })),
+      ...(a.quick ? { mode: "quick (desktop only, axe-core skipped): run validate_design without quick for the full gate before finishing" } : {}),
       truncated: Math.max(0, issues.length - a.maxIssues),
     });
   });

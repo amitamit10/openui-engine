@@ -72,6 +72,7 @@ export interface BuiltSite { files: Record<string, string> }
 /** Render a full static site (HTML + tokens.css + styles.css + overrides.css + app.js). */
 import { setIllustrationIcons } from "./illustrate.js";
 import { resetPhotoCredits } from "./photos.js";
+import { isRtlLang, flipRtl } from "./rtl.js";
 import { getAsset } from "./assets.js";
 import { logoFiles, type LogoMark } from "./logo.js";
 import { renderLegalPage } from "./legal.js";
@@ -90,7 +91,7 @@ export function buildSite(spec: PageSpec, tokens: DesignTokens, overrides: Overr
   const logoFile = getAsset("logo");
   const iconLink = logoFile ? `<link rel="icon" href="${esc(logoFile)}"${/\.svg$/.test(logoFile) ? ' type="image/svg+xml"' : ""}>` : spec.brand.mark ? `<link rel="icon" href="favicon.svg" type="image/svg+xml">` : `<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='${encodeURIComponent(tokens.color.accent)}'/%3E%3C/svg%3E">`;
   const html = `<!doctype html>
-<html lang="${esc(spec.lang ?? "en")}" data-motion="${tokens.motion.intensity}">
+<html lang="${esc(spec.lang ?? "en")}"${isRtlLang(spec.lang) ? ' dir="rtl"' : ""} data-motion="${tokens.motion.intensity}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -116,7 +117,7 @@ ${body}
   const files: Record<string, string> = {
     "index.html": landmarks(html),
     "tokens.css": renderTokensCss(tokens),
-    "styles.css": BASE_CSS + EXTRA_CSS + LOGO_CSS + TWO_TONE_CSS + STYLE_CSS + FIX_CSS,
+    "styles.css": isRtlLang(spec.lang) ? flipRtl(BASE_CSS + EXTRA_CSS + LOGO_CSS + TWO_TONE_CSS + STYLE_CSS + FIX_CSS) : BASE_CSS + EXTRA_CSS + LOGO_CSS + TWO_TONE_CSS + STYLE_CSS + FIX_CSS,
     "overrides.css": renderOverridesCss(overrides),
     "app.js": APP_JS,
   };

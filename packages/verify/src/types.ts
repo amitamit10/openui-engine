@@ -5,6 +5,8 @@ export interface Issue {
   category: "overflow" | "a11y" | "console" | "network" | "assets" | "interaction" | "motion" | "tokens" | "seo" | "responsive" | "content" | "typography" | "layout";
   message: string;
   selector?: string;
+  /** Short visible text, label or alt of the element, so the issue can be found without hunting through the HTML. */
+  snippet?: string;
   openuiId?: string;
   fix?: string;
 }

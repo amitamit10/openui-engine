@@ -25,4 +25,5 @@ export * from "./compose/art.js";
 export * from "./compose/photos.js";
 export * from "./compose/logo.js";
 export * from "./compose/legal.js";
+export * from "./compose/rtl.js";
 export * from "./compose/assets.js";
