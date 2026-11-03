@@ -1,0 +1,103 @@
+{
+  "release": "v0.5.1",
+  "note": "Controlled benchmark of the v0.5.1 engine (drawn domain scenes for non-software heroes, bigger headline tiers, dark featured pricing tier). Haiku 5.5 without vs with the MCP, identical SPEC.md, same 60-call budget, four never-seen domains (ashby coffee roastery, cornerstone conveyancing law firm, oakhaven pottery studio, cadence restaurant-scheduling software), engine frozen for the run. RESULT: WORSE than v0.5.0 (engine 0/8; product-visual 5.25 vs 8.13). DIAGNOSIS from the judges' own words: the generic library scenes read as generic or wrong (a courthouse for conveyancing where the baseline showed a specific client-portal UI; a LOOM for a pottery studio because the keyword router matched 'craft'; a generic cafe where the baseline drew a labelled coffee bag with a cupping panel) and the engine's feature illustrations (one icon on an abstract motif) were weaker than the baselines' bespoke per-feature drawings. The scene override also replaced product mockups that were the better hero. CONFOUNDS: the Ashby MCP agent's first build accidentally used a brief another agent had overwritten in the shared scratchpad (it noticed and rebuilt); the Cadence MCP agent had to force heroStyle:'product' (the software check was too fragile, fixed afterwards) and hand-edited the footer tagline and touch-target sizes; the Ashby MCP agent hand-edited the billing-button height. Next version (v0.6.0): let the model draw bespoke SVG for the hero and each feature, give it an illustration kit to compose from, and never override a supplied product mockup.",
+  "briefs": [
+    "ashby",
+    "cadence",
+    "cornerstone",
+    "oakhaven"
+  ],
+  "judgements": 8,
+  "wins": {
+    "baseline": 8,
+    "engine": 0
+  },
+  "engineWinRatePct": 0,
+  "engineJudgedMoreTemplateLike": 8,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 8,
+      "typography": 7.9,
+      "spacing": 7.4,
+      "colour": 8,
+      "product_visual": 8.1,
+      "mobile": 7.3,
+      "polish": 7.5,
+      "originality": 7.4
+    },
+    "engine": {
+      "hierarchy": 6.4,
+      "typography": 6.6,
+      "spacing": 6.1,
+      "colour": 6.1,
+      "product_visual": 5.3,
+      "mobile": 6.3,
+      "polish": 5.9,
+      "originality": 4.9
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.7,
+    "engine": 6
+  },
+  "automated": {
+    "baseline": {
+      "sites": 4,
+      "quality": 87.3,
+      "originalityScore": 96.3,
+      "slopScore": 96.3,
+      "slopFindings": 1,
+      "auditErrors": 4.3,
+      "auditWarnings": 9.8,
+      "neutralChecksPassed": "8/12",
+      "svgs": 12,
+      "fontFamilies": 2.3,
+      "distinctColors": 15.3,
+      "spacingOn4px": 73.3,
+      "sourceKB": 55
+    },
+    "engine": {
+      "sites": 4,
+      "quality": 93.8,
+      "originalityScore": 92,
+      "slopScore": 92,
+      "slopFindings": 1,
+      "auditErrors": 0,
+      "auditWarnings": 0.3,
+      "neutralChecksPassed": "8/12",
+      "svgs": 33,
+      "fontFamilies": 3,
+      "distinctColors": 12,
+      "spacingOn4px": 89.6,
+      "sourceKB": 100.5
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 4,
+    "tokens": "78,651-126,416 (baseline arm in the same run: 100,470-134,409)",
+    "toolCalls": "17-40 (baseline arm: 14-42)",
+    "seconds": "166-464 (baseline arm: 192-333)",
+    "perAgent": {
+      "ashby": {
+        "tokens": 111252,
+        "toolCalls": 29,
+        "seconds": 464
+      },
+      "cornerstone": {
+        "tokens": 87494,
+        "toolCalls": 20,
+        "seconds": 255
+      },
+      "oakhaven": {
+        "tokens": 78651,
+        "toolCalls": 17,
+        "seconds": 166
+      },
+      "cadence": {
+        "tokens": 126416,
+        "toolCalls": 40,
+        "seconds": 452
+      }
+    }
+  }
+}
