@@ -60,7 +60,8 @@ export function sanitizeSvg(svg: string): string | null {
   if (!m || m[0].length > 12_000) return null;
   let s = m[0];
   if (/<script|<foreignObject|javascript:|onload=|onerror=|<style|<image|xlink:href="http/i.test(s)) return null;
-  s = s.replace(/\s(width|height)="[^"]*"/g, "").replace(/<svg/i, '<svg class="ico" aria-hidden="true" focusable="false"');
+  // Only the root <svg> loses its width/height (so the icon scales with font-size). Inner <rect width height>, <use>, <image> sizes are geometry and must stay.
+  s = s.replace(/<svg\b[^>]*>/i, (root) => root.replace(/\s(width|height)="[^"]*"/g, "")).replace(/<svg/i, '<svg class="ico" aria-hidden="true" focusable="false"');
   return s.replace(/<!--[\s\S]*?-->/g, "").replace(/\s+/g, " ");
 }
 

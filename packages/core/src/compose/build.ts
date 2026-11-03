@@ -50,6 +50,8 @@ export interface SiteBrief {
   heroPhotoAlt?: string;
   /** Extra look-and-feel words appended to every image-generation prompt (the engine already adds art direction, palette and "no text").  */
   imageStyle?: string;
+  /** Opt in to paper surfaces tinted with the accent hue (off by default). */
+  tintSurfaces?: boolean;
   /** Logo: omit for a generated SVG mark that fits the art direction; { mark: "leaf" | ... | "none" } picks one; { svg } supplies your own (sanitised, viewBox 0 0 32 32 works best). Also emits favicon.svg and logo.svg. */
   logo?: { mark?: LogoMark | "none"; svg?: string; prompt?: string };
   /** Copyright holder and legal pages: pages:true also writes privacy.html and terms.html (template text) and links them in the footer. */
@@ -115,7 +117,7 @@ export function planSite(input: SiteBrief): PlannedSite {
   const brief: SiteBrief = { ...input, category: normalizeCategory(input.category) };
   const desc = `${brief.subheadline} ${(brief.tone ?? []).join(" ")} ${brief.audience ?? ""}`;
   const style = brief.style ?? matchStyles({ name: brief.name, description: desc, category: brief.category })[0]!.style;
-  const tokens = generateTokens({ name: brief.name, description: desc, category: brief.category, style, accent: brief.accent });
+  const tokens = generateTokens({ name: brief.name, description: desc, category: brief.category, style, accent: brief.accent, tint: brief.tintSurfaces });
   const comp = getStyle(style).composition;
   const sections: SectionSpec[] = []; const layout: PlannedSite["layout"] = []; const notes: string[] = [];
   {

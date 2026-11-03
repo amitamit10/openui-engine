@@ -495,3 +495,37 @@ describe("right-to-left support", () => {
     expect(en.files["styles.css"]).toMatch(/margin-left/);
   });
 });
+
+describe("surface tinting is opt-in", () => {
+  it("keeps the style's own paper by default and tints only when asked", () => {
+    const base = { name: "Fernleaf", description: "calm green nursery", category: "consumer-app" as const, style: "field-notes" as const, accent: "#15803d" };
+    const plain = generateTokens(base), tinted = generateTokens({ ...base, tint: true });
+    expect(plain.color.bg).toBe("#f6f1e7");
+    expect(tinted.color.bg).not.toBe(plain.color.bg);
+    expect(hexToHsl(tinted.color.bg).h).toBeCloseTo(hexToHsl("#15803d").h, -1);
+    expect(contrastRatio(tinted.color.text, tinted.color.bg)).toBeGreaterThan(7);
+  });
+});
+
+describe("icon sanitiser keeps geometry", () => {
+  it("strips width/height from the root svg only, so rect-based icons still draw", async () => {
+    const { sanitizeSvg } = await import("./assets/icons.js");
+    const out = sanitizeSvg('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/></svg>')!;
+    expect(out).not.toMatch(/<svg[^>]*\swidth=/); expect(out).not.toMatch(/<svg[^>]*\sheight=/);
+    expect(out).toContain('<rect width="18" height="7"'); expect(out).toContain('<rect width="9" height="7"');
+    expect(out).toContain('class="ico"');
+    expect(sanitizeSvg("<svg><script>x()</script></svg>")).toBeNull();
+  });
+});
+
+describe("style routing for the v0.10.0 domains", () => {
+  const pick = (name: string, description: string, category: any) => matchStyles({ name, description, category })[0]!.style;
+  it("no longer sends a relaxed outdoor business to neo-brutal and routes common service and software briefs sensibly", () => {
+    expect(pick("Driftwood Kayak Hire", "a river and estuary kayak hire business: half-day hire, guided evening paddles, kids tandem boats. relaxed, outdoorsy, safety-first", "consumer-app")).toBe("field-notes");
+    expect(pick("Ironbark Tree Surgeons", "family-run tree surgery firm, steady, safety-minded, plain-spoken", "consumer-app")).toBe("field-notes");
+    expect(pick("Harvest & Hearth Catering", "seasonal catering company, office lunch boxes, wedding feasts, generous, seasonal, unfussy", "consumer-app")).toBe("warm-human");
+    expect(pick("Formwell", "online forms and approvals software, practical, calm, operations managers replacing spreadsheets", "saas")).toBe("shadcn-mono");
+    expect(pick("Pip & Bean", "a nursery school and kids learning club, playful and friendly", "consumer-app")).toBe("pastel-play");
+    expect(pick("Iron Pit", "a loud punk gym for energetic gen z climbers, bold and brutal", "consumer-app")).toBe("neo-brutal");
+  });
+});

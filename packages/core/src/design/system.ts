@@ -10,6 +10,8 @@ export interface DesignBrief {
   style?: StyleId;
   /** Brand accent override (hex). */
   accent?: string;
+  /** Opt in: tint the paper surfaces, borders and ink with the accent hue on the light paper styles. Off by default (it made green brands read as mint). */
+  tint?: boolean;
   motion?: 0 | 1 | 2 | 3;
 }
 
@@ -114,8 +116,9 @@ export function generateTokens(brief: DesignBrief): DesignTokens {
   const s = getStyle(styleId);
   // Styles whose built-in accent is generic (indigo, or a single green or orange shared by every site) get a per-brief derived accent; the others keep their identity colour.
   const accentRequested = brief.accent ?? (styleId === "aurora-dark" || styleId === "clarity-light" || styleId === "field-notes" || styleId === "warm-human" || styleId === "material-tonal" || styleId === "pastel-play" ? pickAccent({ ...brief, category }) : s.defaultAccent);
-  // The paper colour is part of the identity, so on the light "paper" styles the surfaces, borders and ink take the brand hue (same lightness, so contrast is unchanged). Without this every site in a style shares one cream and pages read alike.
-  const p = TINT_STYLES.has(styleId) ? tintPalette(s.palette, hexToHsl(accentRequested).h) : s.palette;
+  // Optional: on the light "paper" styles the surfaces, borders and ink can take the brand hue (same lightness, so contrast is unchanged).
+  // Opt-in only (brief.tint): in the v0.10.0 benchmark, tinting made green-accent pages entirely mint and judges called them generic; the style's own warm paper scored better.
+  const p = brief.tint && TINT_STYLES.has(styleId) ? tintPalette(s.palette, hexToHsl(accentRequested).h) : s.palette;
 
   // Accent must be usable as a button fill: choose foreground by contrast, then guarantee text-grade accent for links.
   const accentFg = readableOn(accentRequested, "#ffffff", p.text === "#ffffff" ? "#0b0b10" : s.mode === "dark" ? "#06060a" : p.text);
