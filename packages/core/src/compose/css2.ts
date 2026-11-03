@@ -202,4 +202,10 @@ h1,h2,.h2{text-wrap:balance}
 .tier--featured .ticks .ico{color:var(--c-accent-soft)}
 .tier--featured .btn--primary{background:var(--c-accent);color:var(--c-accent-fg)}
 @media(max-width:820px){.footer a{display:inline-flex;align-items:center;min-height:44px}}
+
+/* ── v0.6 model-drawn art ── */
+.vz-art{margin:0;aspect-ratio:5/4;overflow:hidden;border-radius:var(--r-xl,28px);background:linear-gradient(160deg,var(--c-surface),var(--c-bg));box-shadow:var(--sh-lg,var(--sh-md));position:relative}
+.vz-art .art__svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.fcard .vz-art{aspect-ratio:4/3;border-radius:calc(var(--r-lg) - 4px);box-shadow:none;border:var(--bw) solid var(--c-border)}
+.hero__visual>.vz-art{z-index:1}
 `;

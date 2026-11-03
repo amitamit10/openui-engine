@@ -49,6 +49,9 @@ const OBJ: Record<string, string> = {
   basket: `<path d="M8 40 H92 L82 92 H18Z" ${f(C.wood)}/><path d="M12 56 H88 M14 72 H86" stroke="${C.w}" stroke-width="2" stroke-opacity=".6"/><path d="M14 40 C14 8 86 8 86 40" fill="none" stroke="${C.wood}" stroke-width="5"/>`,
 };
 
+/** The object kit (100x100 boxes) and palette, exposed so a model can compose and adapt its own illustration. */
+export const OBJECTS: Record<string, string> = OBJ;
+export const PALETTE_VARS = ["var(--c-accent)", "var(--c-accent-soft)", "var(--c-text)", "var(--c-surface)", "var(--c-bg)", "var(--c-border)", "var(--c-success)", "color-mix(in srgb,var(--c-accent) 55%,var(--c-text))"];
 const obj = (name: string, x: number, y: number, s = 1, flip = false) => place(OBJ[name] ?? "", x, y, s, flip);
 const rect = (x: number, y: number, w: number, h: number, c: string, extra = "") => `<rect x="${x}" y="${y}" width="${w}" height="${h}" ${f(c, extra)}/>`;
 const circ = (x: number, y: number, r: number, c: string, extra = "") => `<circle cx="${x}" cy="${y}" r="${r}" ${f(c, extra)}/>`;

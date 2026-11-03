@@ -40,14 +40,14 @@ export interface SiteBrief {
   heroVisual?: VisualSpec;
   /** "auto" (default): non-software businesses (care, food, craft, interiors, marinas, clinics, law, solar...) get an illustrated domain scene as the hero and software/data products keep the product mockup. "product" forces heroVisual; "scene" forces a scene. */
   heroStyle?: "auto" | "product" | "scene";
-  /** Force a scene: interior, care, clinic, food, marine, books, craft, solar, law, climb, field. */
+  /** Hero options: heroVisual {kind:"ui"|...} = product mockup; heroVisual {kind:"svg", svg:"<svg ...>"} = YOUR own drawn illustration. Force a library scene: interior, care, clinic, food, marine, books, craft, solar, law, climb, field. */
   heroScene?: "interior" | "care" | "clinic" | "food" | "marine" | "books" | "craft" | "solar" | "law" | "climb" | "field";
   /** 1-3 small stat chips layered over the hero visual, e.g. {label:"Next free slot",value:"Today 4:10pm",tone:"good"}. Makes the hero read as a composed product scene. */
   heroFloats?: Array<{ label: string; value: string; tone?: "good" | "warn" | "info" }>;
   logos?: string[];
   logosLabel?: string;
   /** 3–6 capabilities. Give each a `visual` when possible: it becomes an interactive tab with a product screenshot. */
-  features: Array<{ title: string; body: string; icon?: string; bullets?: string[]; visual?: VisualSpec }>;
+  features: Array<{ title: string; body: string; icon?: string; bullets?: string[]; visual?: VisualSpec; /** A flat SVG YOU draw for this feature (viewBox 0 0 400 300, palette vars, no text): shown on the illustrated card. */ art?: string }>;
   featuresTitle?: string;
   showcase?: { title: string; subtitle?: string; visual: VisualSpec; callouts: Array<{ title: string; body: string; icon?: string }> };
   comparison?: { title: string; them: { label: string; items: string[] }; us: { label: string; items: string[] } };
@@ -117,7 +117,8 @@ export function planSite(input: SiteBrief): PlannedSite {
   const swCues = (sceneText.match(/\b(api|sdk|webhook|saas|cli|software|dashboard|platform|app|rota|scheduling|forecast|analytics|integrat\w*|sync\w*|automat\w*|workflow|inbox|login|admin|notification\w*|real-time|json|plugin|endpoint|alerts?)\b/gi) ?? []).length;
   const isSoftware = ["devtool", "ai-product"].includes(brief.category) || /\b(software|saas|api|sdk|platform)\b/i.test(`${brief.name} ${brief.subheadline}`) || swCues >= 3;
   const forcedScene = brief.heroScene && (SCENE_IDS as string[]).includes(brief.heroScene) ? (brief.heroScene as SceneId) : null;
-  const sceneId: SceneId | null = brief.heroStyle === "product" ? null : forcedScene ?? (brief.heroStyle === "scene" ? pickScene(sceneText) ?? "interior" : isSoftware ? null : pickScene(sceneText));
+  // A product mockup or hand-drawn SVG the model supplied is never overridden by a library scene (benchmark v0.5.1: generic scenes lost to specific product UI).
+  const sceneId: SceneId | null = brief.heroStyle === "product" ? null : forcedScene ?? (brief.heroStyle === "scene" ? pickScene(sceneText) ?? "interior" : brief.heroVisual || isSoftware ? null : pickScene(sceneText));
   const hv = sceneId ? undefined : brief.heroVisual;
   const heroIcons = [...new Set(brief.features.map((f) => iconRefFor(f)).filter(Boolean) as string[])].slice(0, 4);
   const heroScene = { motif: (MOTIF_BY_STYLE[style] ?? ["blobs"])[0], seed: brief.name, icons: heroIcons.length ? heroIcons : undefined, badge: hv ? undefined : brief.heroFloats?.[0] };
@@ -136,7 +137,7 @@ export function planSite(input: SiteBrief): PlannedSite {
       const gridItems = brief.features.filter((f) => !rowItems.includes(f)).slice(0, 6);
       const motifs = MOTIF_BY_STYLE[style] ?? ["blobs"];
       if (rowItems.length) add("features", "feature-rows", { anchor: "features", align: "left", eyebrow: "Product", title, items: rowItems.map((f) => ({ title: f.title, body: f.body, bullets: f.bullets, visual: f.visual })) }, "the two strongest features get a full product-visual row");
-      if (gridItems.length) add(rowItems.length ? "more" : "features", "feature-grid", { anchor: rowItems.length ? "more" : "features", ...(rowItems.length ? {} : { eyebrow: "Product", title }), tint: !!rowItems.length, items: gridItems.map((f, i) => ({ title: f.title, body: f.body, icon: iconRefFor(f), bullets: f.bullets, motif: motifs[i % motifs.length] })) }, "remaining features as illustrated cards: every feature visible, none a dashboard clone");
+      if (gridItems.length) add(rowItems.length ? "more" : "features", "feature-grid", { anchor: rowItems.length ? "more" : "features", ...(rowItems.length ? {} : { eyebrow: "Product", title }), tint: !!rowItems.length, items: gridItems.map((f, i) => ({ title: f.title, body: f.body, icon: iconRefFor(f), bullets: f.bullets, motif: motifs[i % motifs.length], art: (f as any).art })) }, "remaining features as illustrated cards: every feature visible, none a dashboard clone");
     } else if (withVis.length >= 3 && layoutMode === "rows") add("features", "feature-rows", { anchor: "features", align: "left", eyebrow: "Product", title, items: brief.features.slice(0, 6).map((f, i) => ({ title: f.title, body: f.body, bullets: f.bullets, visual: f.visual ?? ["list", "chart", "ui", "table"][i % 4] })) }, "≥3 features have visuals → alternating rows so every product visual is visible at once (tabs hide all but one)");
     else if (withVis.length >= 3 && layoutMode === "tabs") add("features", "feature-tabs", { anchor: "features", align: "left", eyebrow: "Product", title, tabs: brief.features.slice(0, 5).map((f) => ({ label: f.title, icon: f.icon, title: f.title, body: f.body, bullets: f.bullets, visual: f.visual })) }, "≥3 features have visuals → interactive tabs (depth without identical cards)");
     else if (brief.showcase) { add("features", "feature-showcase", { anchor: "features", align: "left", eyebrow: "Product", title: brief.showcase.title, subtitle: brief.showcase.subtitle, visual: brief.showcase.visual, callouts: brief.showcase.callouts }, "one large product visual with callouts"); }

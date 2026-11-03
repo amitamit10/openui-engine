@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { MOTIFS, motifSvg, renderScene, renderSpot } from "./compose/illustrate.js";
 import { SCENE_IDS, pickScene, sceneMarkup } from "./compose/scenes.js";
+import { sanitizeArt } from "./compose/art.js";
 import {
   ALL_COMPONENTS, BUZZWORDS, contrast as contrastRatio, RENDERERS, STYLE_IDS, VISUAL_KINDS, briefTemplate, buildSite, collectIconRefs, discover, generateTokens, hexToHsl, indexedComponents, lintCopy,
   styleGuide, findComponent, lintVisuals, normalizeCategory, normalizeVisual, suggestComponentIds, matchStyles, pickAccent, planSite, renderVisual, sanitizeSvg, searchIcons, searchableComponents, type PageSpec, type SiteBrief, type SiteCategory,
@@ -261,7 +262,7 @@ describe("v0.5.0: illustration layer", () => {
 });
 
 describe("v0.5.1: domain scenes and polish", () => {
-  const mk = (over: Partial<SiteBrief>): SiteBrief => ({ ...briefTemplate("saas"), ...over }) as SiteBrief;
+  const mk = (over: Partial<SiteBrief>): SiteBrief => ({ ...briefTemplate("saas"), heroVisual: undefined, ...over }) as SiteBrief;
   it("routes non-software businesses to a drawn domain scene and keeps software on the product mockup", () => {
     expect(pickScene("Fernwood Dental family practice")).toBe("clinic");
     expect(pickScene("Heron & Finch interior design studio")).toBe("interior");
@@ -275,6 +276,8 @@ describe("v0.5.1: domain scenes and polish", () => {
     expect((api.spec.sections.find((x) => x.id === "hero")!.props as any).sceneArt).toBeUndefined();
     const sched = planSite(mk({ name: "Cadence", subheadline: "Shift-scheduling software for independent restaurants.", category: "saas" }));
     expect((sched.spec.sections.find((x) => x.id === "hero")!.props as any).sceneArt).toBeUndefined();
+    const supplied = planSite(mk({ name: "Fernwood Dental", subheadline: "A family dental practice.", heroVisual: { kind: "ui", title: "Visit", blocks: [{ type: "text", text: "hi" }] } as any }));
+    expect((supplied.spec.sections.find((x) => x.id === "hero")!.props as any).sceneArt).toBeUndefined(); // a supplied mockup is never overridden
     const forced = planSite(mk({ name: "Fernwood Dental", subheadline: "A family dental practice.", heroStyle: "product" }));
     expect((forced.spec.sections.find((x) => x.id === "hero")!.props as any).sceneArt).toBeUndefined();
   });
@@ -289,5 +292,30 @@ describe("v0.5.1: domain scenes and polish", () => {
     const html = buildSite(p.spec, p.tokens, {}, {}).files["index.html"]!;
     expect(html).toContain("scene--art"); expect(html).toContain("£6,200");
     expect(buildSite(p.spec, p.tokens, {}, {}).files["app.js"]).toContain("toLocaleString");
+  });
+});
+
+describe("v0.6.0: model-drawn art", () => {
+  it("keeps safe flat SVG with palette variables and strips everything executable or external", () => {
+    const ok = sanitizeArt('<svg viewBox="0 0 400 300" width="400"><rect width="400" height="300" fill="var(--c-accent-soft)"/><g transform="translate(10 10)"><circle cx="50" cy="50" r="20" fill="var(--c-accent)"/></g></svg>');
+    expect(ok).toContain("var(--c-accent)"); expect(ok).toContain("viewBox"); expect(ok).not.toMatch(/<svg[^>]*\swidth=/);
+    const evil = sanitizeArt('<svg onload="alert(1)"><rect width="1" height="1"/></svg>'); expect(evil).toBeNull();
+    expect(sanitizeArt('<svg><script>alert(1)</script><rect width="1" height="1"/></svg>')).toBeNull();
+    expect(sanitizeArt('<svg><foreignObject><div/></foreignObject><rect width="1" height="1"/></svg>')).toBeNull();
+    const mixed = sanitizeArt('<svg><rect width="1" height="1" fill="url(https://evil.test/x)" style="x" href="javascript:alert(1)"/><text>hi</text><image href="http://e/x.png"/><circle r="2"/></svg>')!;
+    expect(mixed).not.toMatch(/evil|javascript|onclick|style=|<text|<image|http/);
+    expect(mixed).toContain("<circle");
+    expect(sanitizeArt('<svg><rect width="1" height="1" onclick="1"/></svg>')).toBeNull(); // any event handler rejects the whole drawing
+    expect(sanitizeArt("not svg")).toBeNull(); expect(sanitizeArt("<svg></svg>")).toBeNull(); expect(sanitizeArt(42)).toBeNull();
+  });
+  it("renders heroVisual svg and per-feature art, never overridden by a library scene", () => {
+    const art = '<svg viewBox="0 0 400 300"><rect width="400" height="300" fill="var(--c-accent)"/><circle cx="9" cy="9" r="4" fill="var(--c-bg)"/></svg>';
+    const b: SiteBrief = { ...briefTemplate("saas"), name: "Fernwood Dental", subheadline: "A family dental practice.", category: "saas", heroVisual: { kind: "svg", svg: art, alt: "A tooth" } as any,
+      features: [{ title: "A", body: "b", art }, { title: "B", body: "b", art }, { title: "C", body: "b" }, { title: "D", body: "b" }, { title: "E", body: "b" }] } as SiteBrief;
+    const p = planSite(b);
+    expect((p.spec.sections.find((x) => x.id === "hero")!.props as any).sceneArt).toBeUndefined();
+    const html = buildSite(p.spec, p.tokens, {}, {}).files["index.html"]!;
+    expect((html.match(/class="vz vz-art"/g) ?? []).length).toBeGreaterThanOrEqual(3);
+    expect(html).not.toContain("<script>alert");
   });
 });

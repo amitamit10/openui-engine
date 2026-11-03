@@ -21,3 +21,4 @@ export * from "./compose/copy-lint.js";
 export * from "./compose/build.js";
 export * from "./compose/review.js";
 export * from "./compose/scenes.js";
+export * from "./compose/art.js";

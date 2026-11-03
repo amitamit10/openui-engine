@@ -5,8 +5,9 @@ import { esc } from "./util.js";
  * incidents shows incidents and a page about invoicing shows an invoice. All values are escaped.
  */
 import { renderScene, renderSpot } from "./illustrate.js";
-export type VisualKind = "ui" | "dashboard" | "timeline" | "chat" | "code" | "terminal" | "kanban" | "table" | "chart" | "invoice" | "schedule" | "gallery" | "product-cards" | "checklist" | "metrics" | "spot" | "scene";
-export const VISUAL_KINDS: VisualKind[] = ["ui", "dashboard", "timeline", "chat", "code", "terminal", "kanban", "table", "chart", "invoice", "schedule", "gallery", "product-cards", "checklist", "metrics", "spot", "scene"];
+import { renderArt } from "./art.js";
+export type VisualKind = "ui" | "dashboard" | "timeline" | "chat" | "code" | "terminal" | "kanban" | "table" | "chart" | "invoice" | "schedule" | "gallery" | "product-cards" | "checklist" | "metrics" | "spot" | "scene" | "svg";
+export const VISUAL_KINDS: VisualKind[] = ["ui", "dashboard", "timeline", "chat", "code", "terminal", "kanban", "table", "chart", "invoice", "schedule", "gallery", "product-cards", "checklist", "metrics", "spot", "scene", "svg"];
 
 export interface VisualSpec { kind: VisualKind; title?: string; [k: string]: any }
 type Tone = "ok" | "warn" | "bad" | "info" | "now" | "muted";
@@ -136,6 +137,7 @@ export function renderVisual(input: VisualSpec | undefined, id = "v"): string {
   if (!v || !v.kind) return "";
   const uid = id.replace(/[^a-z0-9]/gi, "");
   switch (v.kind) {
+    case "svg": return renderArt((v as any).svg, (v as any).alt ?? (v as any).title) ?? "";
     case "spot": return renderSpot(v as any, uid);
     case "scene": return renderScene(v as any, uid);
     case "timeline": {
