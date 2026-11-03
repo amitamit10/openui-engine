@@ -273,6 +273,8 @@ describe("v0.5.1: domain scenes and polish", () => {
     expect(hero.type).toBe("hero-split"); expect(hero.props.sceneArt).toBe("clinic"); expect(hero.props.visual).toBeUndefined();
     const api = planSite(mk({ name: "Skyplot", subheadline: "A crop-monitoring satellite imagery API for developers.", category: "devtool" }));
     expect((api.spec.sections.find((x) => x.id === "hero")!.props as any).sceneArt).toBeUndefined();
+    const sched = planSite(mk({ name: "Cadence", subheadline: "Shift-scheduling software for independent restaurants.", category: "saas" }));
+    expect((sched.spec.sections.find((x) => x.id === "hero")!.props as any).sceneArt).toBeUndefined();
     const forced = planSite(mk({ name: "Fernwood Dental", subheadline: "A family dental practice.", heroStyle: "product" }));
     expect((forced.spec.sections.find((x) => x.id === "hero")!.props as any).sceneArt).toBeUndefined();
   });

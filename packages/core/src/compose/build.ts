@@ -112,7 +112,7 @@ export function planSite(input: SiteBrief): PlannedSite {
   add("nav", "navbar-glass", { links: brief.nav?.links ?? links, signIn: brief.nav?.signIn === false ? undefined : (brief.nav?.signIn ?? { label: "Sign in", href: primaryHref }), cta: cta(brief.primaryCta, primaryHref) }, "wayfinding + primary CTA");
 
   const sceneText = `${brief.name} ${brief.subheadline} ${brief.audience ?? ""} ${brief.features.map((f) => `${f.title} ${f.body}`).join(" ")}`;
-  const isSoftware = ["devtool", "ai-product"].includes(brief.category) || /\b(api|sdk|webhook|saas|cli)\b/i.test(`${brief.name} ${brief.subheadline}`);
+  const isSoftware = ["devtool", "ai-product"].includes(brief.category) || /\b(api|sdk|webhook|saas|cli|software|dashboard|platform)\b/i.test(`${brief.name} ${brief.subheadline}`);
   const forcedScene = brief.heroScene && (SCENE_IDS as string[]).includes(brief.heroScene) ? (brief.heroScene as SceneId) : null;
   const sceneId: SceneId | null = brief.heroStyle === "product" ? null : forcedScene ?? (brief.heroStyle === "scene" ? pickScene(sceneText) ?? "interior" : isSoftware ? null : pickScene(sceneText));
   const hv = sceneId ? undefined : brief.heroVisual;
