@@ -1,0 +1,266 @@
+[
+ {
+  "pair": "ironbark-control-vs-hybrid-r1",
+  "brief": "ironbark",
+  "round": 1,
+  "X_is": "control",
+  "Y_is": "hybrid",
+  "winner_label": "X",
+  "winner": "control",
+  "more_template_like": "hybrid",
+  "scores": {
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 7
+   },
+   "hybrid": {
+    "hierarchy": 7,
+    "typography": 8,
+    "spacing": 6,
+    "colour": 7,
+    "product_visual": 6,
+    "mobile": 7,
+    "polish": 6,
+    "originality": 6
+   }
+  },
+  "rationale": "X has a convincing, specific hero: a shelf of spined books with a signed-edition seal and a bookseller note, and the dark green and gold palette is cohesive throughout. Y's hero book covers are cropped and muddled, the hero has dead space, and the social-proof names wrap awkwardly. Y's six-card grid of large icons and its dark-brown and black bands read more like a standard SaaS template."
+ },
+ {
+  "pair": "ironbark-control-vs-hybrid-r2",
+  "brief": "ironbark",
+  "round": 2,
+  "X_is": "hybrid",
+  "Y_is": "control",
+  "winner_label": "Y",
+  "winner": "control",
+  "more_template_like": "control",
+  "scores": {
+   "hybrid": {
+    "hierarchy": 7,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 6,
+    "mobile": 7,
+    "polish": 6,
+    "originality": 7
+   },
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 7
+   }
+  },
+  "rationale": "Y has a more convincing hero, a dark green shelf of titled spines with a signed-edition seal and a bookseller note. Its green and gold palette is richer and it looks more finished overall. X's hero stack crops the book titles awkwardly and the social-proof strip wraps to a second line. X's large feature illustrations are charming, but Y's card-grid and pricing structure is the more conventional SaaS layout, so Y is slightly more template-like."
+ },
+ {
+  "pair": "loomhouse-control-vs-hybrid-r1",
+  "brief": "loomhouse",
+  "round": 1,
+  "X_is": "control",
+  "Y_is": "hybrid",
+  "winner_label": "Y",
+  "winner": "hybrid",
+  "more_template_like": "control",
+  "scores": {
+   "control": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 6
+   },
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 8
+   }
+  },
+  "rationale": "Y has a more distinctive loom illustration with a live 'now on loom 4' status, a varied bento features grid with specific illustrations, and a bolder terracotta final CTA with an editorial serif voice. X is competent and warm but its uniform six-card feature grid and standard pricing and FAQ layouts read more like a polished template. Both are solid on mobile, but Y's specificity (intake dates, seats left) feels more crafted."
+ },
+ {
+  "pair": "loomhouse-control-vs-hybrid-r2",
+  "brief": "loomhouse",
+  "round": 2,
+  "X_is": "hybrid",
+  "Y_is": "control",
+  "winner_label": "X",
+  "winner": "hybrid",
+  "more_template_like": "control",
+  "scores": {
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 8
+   },
+   "control": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 6
+   }
+  },
+  "rationale": "X has a more distinctive loom illustration with a live 'now on loom 4' card, a high-contrast display serif, a bento features grid and specific copy, so it feels crafted rather than assembled. Y is clean and competent, but its boxed hero card, uniform six-card feature grid and standard navy/dark-card pricing follow a familiar SaaS pattern. X is the one a design director would ship, and Y is the more template-like."
+ },
+ {
+  "pair": "quartermaster-control-vs-hybrid-r1",
+  "brief": "quartermaster",
+  "round": 1,
+  "X_is": "hybrid",
+  "Y_is": "control",
+  "winner_label": "Y",
+  "winner": "control",
+  "more_template_like": "hybrid",
+  "scores": {
+   "hybrid": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 6,
+    "colour": 7,
+    "product_visual": 8,
+    "mobile": 6,
+    "polish": 6,
+    "originality": 6
+   },
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 8
+   }
+  },
+  "rationale": "Y pairs a condensed serif display with a restrained green and cream palette, ruled-ledger hero background, and custom SVG feature illustrations, so it reads as a considered, shippable brand. X has a strong, specific phone and order-ticket hero, but its oversized heavy headline is crowded, the page is a more standard card grid, and its mobile layout is dense. X is the more template-like of the two."
+ },
+ {
+  "pair": "quartermaster-control-vs-hybrid-r2",
+  "brief": "quartermaster",
+  "round": 2,
+  "X_is": "control",
+  "Y_is": "hybrid",
+  "winner_label": "X",
+  "winner": "control",
+  "more_template_like": "hybrid",
+  "scores": {
+   "control": {
+    "hierarchy": 8,
+    "typography": 9,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 8
+   },
+   "hybrid": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 6
+   }
+  },
+  "rationale": "X has a refined condensed serif display with ruled-ledger paper background, a coherent green and cream palette, and bespoke feature illustrations, so it reads as a considered brand. Y has a strong, specific hero product UI, but its heavy grotesque headline, orange CTA, sticker badge and card-grid features feel closer to the common SaaS template, and the feature mockups are smaller and less distinctive. X also looks more shippable overall."
+ },
+ {
+  "pair": "tidewater-control-vs-hybrid-r1",
+  "brief": "tidewater",
+  "round": 1,
+  "X_is": "hybrid",
+  "Y_is": "control",
+  "winner_label": "X",
+  "winner": "hybrid",
+  "more_template_like": "control",
+  "scores": {
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 8
+   },
+   "control": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 6
+   }
+  },
+  "rationale": "X has a more distinctive, specific feel: bento feature cards with real illustrations (berth plan, tide curve, compass dial), a tide-board overlay in the hero and a feature-led layout that reads as a marina rather than a SaaS page. Y is clean and competent with a nice hero booking card, but its 3x3 uniform feature grid, plain stat band and standard pricing and FAQ blocks are more template-like. Both are well made, but X would be shipped."
+ },
+ {
+  "pair": "tidewater-control-vs-hybrid-r2",
+  "brief": "tidewater",
+  "round": 2,
+  "X_is": "control",
+  "Y_is": "hybrid",
+  "winner_label": "Y",
+  "winner": "hybrid",
+  "more_template_like": "control",
+  "scores": {
+   "control": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 6,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 5
+   },
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 7
+   }
+  },
+  "rationale": "Y has a bento-style features section with distinct, specific illustrations (tide chart, berth plan, compass dial), an asymmetric testimonial layout and a two-column FAQ, giving it more editorial character. X is competent, with a good hero and tide card, but its uniform 3x3 icon-card grid, standard three-column testimonials and stacked FAQ read as the generic SaaS template. Y's hero tide board is also more specific and the overall palette more cohesive."
+ }
+]

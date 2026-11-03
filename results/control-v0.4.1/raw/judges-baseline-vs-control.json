@@ -1,0 +1,266 @@
+[
+ {
+  "pair": "ironbark-baseline-vs-control-r1",
+  "brief": "ironbark",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "control",
+  "winner_label": "Y",
+  "winner": "control",
+  "more_template_like": "baseline",
+  "scores": {
+   "baseline": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 6,
+    "colour": 7,
+    "product_visual": 6,
+    "mobile": 6,
+    "polish": 7,
+    "originality": 5
+   },
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 7
+   }
+  },
+  "rationale": "Y has a stronger hero, a dark green bookshelf panel with a specific handwritten bookseller note, a high-contrast display serif, and a cohesive green, gold and rust palette. Its feature illustrations, metrics band and pricing card carry the same character. X is competent but plainer: its hero bookshelf is smaller and sits in a pale card, and the six-card feature grid and standard layout read more like a template."
+ },
+ {
+  "pair": "ironbark-baseline-vs-control-r2",
+  "brief": "ironbark",
+  "round": 2,
+  "X_is": "control",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "control",
+  "more_template_like": "baseline",
+  "scores": {
+   "control": {
+    "hierarchy": 8,
+    "typography": 9,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 8
+   },
+   "baseline": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 6,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 5
+   }
+  },
+  "rationale": "X has a distinctive high-contrast display serif, a rich green shelf of spines with a signed-edition seal and a bookseller note, and a cohesive warm palette that feels bookish and opinionated. Y is competent but follows the standard SaaS skeleton (card grid, dark strip, terracotta CTA band), and its hero shelf/box illustration is flatter and less convincing, with a truncated title (Low Tide at Mere...). X is the one a design director would ship."
+ },
+ {
+  "pair": "loomhouse-baseline-vs-control-r1",
+  "brief": "loomhouse",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "control",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "control",
+  "scores": {
+   "baseline": {
+    "hierarchy": 8,
+    "typography": 9,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 7,
+    "mobile": 8,
+    "polish": 8,
+    "originality": 8
+   },
+   "control": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 6
+   }
+  },
+  "rationale": "X has a distinctive high-contrast display serif with an italic accent, illustrated feature cards that each show a different craft object, and a loom hero with a live class-availability card. Its overall feel is more cohesive and crafted. Y is solid and well specified, with concrete copy and prices on its cards, but its bold serif headline, navy and gold bands and dark footer follow a more familiar SaaS-template pattern. Y's feature illustrations are also tiny and its sections are denser."
+ },
+ {
+  "pair": "loomhouse-baseline-vs-control-r2",
+  "brief": "loomhouse",
+  "round": 2,
+  "X_is": "control",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "control",
+  "scores": {
+   "control": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 6
+   },
+   "baseline": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 8
+   }
+  },
+  "rationale": "Y has a more distinctive editorial voice (italic accent in the headline, bespoke SVG illustrations per feature, a rust final CTA band, and a hero with a live class-availability card). X is competent and warm but its feature icons are tiny and its structure follows the standard SaaS template more closely. Y's richer feature visuals and stronger typographic contrast make it the one to ship."
+ },
+ {
+  "pair": "quartermaster-baseline-vs-control-r1",
+  "brief": "quartermaster",
+  "round": 1,
+  "X_is": "control",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "control",
+  "more_template_like": "baseline",
+  "scores": {
+   "control": {
+    "hierarchy": 8,
+    "typography": 9,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 8
+   },
+   "baseline": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 6,
+    "originality": 6
+   }
+  },
+  "rationale": "X has a distinctive condensed serif headline, ruled-ledger background, a convincing phone count UI with variance and draft-order cards, and illustrated feature cards, which gives it a specific, crafted feel. Y is competent (dark hero, tilted cards, mono metrics) but leans on the familiar dark-hero, amber-CTA SaaS pattern, and its hero has an overlap that clips the draft order card and a garbled legend label ('Pad see ew'). X is the one a design director would ship; Y is more template-like."
+ },
+ {
+  "pair": "quartermaster-baseline-vs-control-r2",
+  "brief": "quartermaster",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "control",
+  "winner_label": "Y",
+  "winner": "control",
+  "more_template_like": "baseline",
+  "scores": {
+   "baseline": {
+    "hierarchy": 7,
+    "typography": 6,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 6,
+    "originality": 5
+   },
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 7
+   }
+  },
+  "rationale": "Y has a distinctive editorial serif headline, a believable phone count UI with specific data, and richer feature illustrations; its pricing and dark metrics band feel deliberate. X has a strong dark hero with overlapping cards, but the tight heavy sans and tilted card pair read more like a stock SaaS pattern, and the overlap clips the order card and carries a stray legend typo."
+ },
+ {
+  "pair": "tidewater-baseline-vs-control-r1",
+  "brief": "tidewater",
+  "round": 1,
+  "X_is": "control",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "control",
+  "scores": {
+   "control": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 6,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 6,
+    "polish": 6,
+    "originality": 6
+   },
+   "baseline": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 7
+   }
+  },
+  "rationale": "Y has a more refined display serif with italic accent, richer per-feature illustrations, a stronger dark/teal/coral rhythm and a coherent FAQ and CTA layout. X is competent, with a nice tide-chart overlay card and specific copy, but its six-card grid, centred sections and plain feature icons read more like a standard template. Y is the one a design director would ship."
+ },
+ {
+  "pair": "tidewater-baseline-vs-control-r2",
+  "brief": "tidewater",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "control",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "control",
+  "scores": {
+   "baseline": {
+    "hierarchy": 8,
+    "typography": 9,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 8
+   },
+   "control": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 6
+   }
+  },
+  "rationale": "X has a distinctive high-contrast display serif with italic accent, a cohesive cream, navy, teal and coral palette, and a confident editorial feel with a custom illustrated hero and harbour-status card. Y has a stronger product-UI hero with tide chart and booking cards, but its bolder slab-like headline, standard six-card grid, beige and dark alternating bands and yellow-accent pricing read as more conventional SaaS-template. X is the one a design director would ship; Y is more template-like."
+ }
+]
