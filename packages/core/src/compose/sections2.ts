@@ -1,12 +1,20 @@
 import { iconSvg } from "../assets/icons.js";
 import type { Renderer, SectionType } from "./types.js";
 import { ICON, btn, esc, head, rich, wrap } from "./util.js";
+import { renderSpot } from "./illustrate.js";
 import { renderVisual } from "./visuals.js";
 
 const chip = (ref: string | undefined, ctx: { icons: Record<string, string> }) => `<span class="ico-chip">${iconSvg(ref, ctx.icons)}</span>`;
 const xmark = `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>`;
 
 export const RENDERERS_2: Partial<Record<SectionType, Renderer>> = {
+  "feature-grid": (s) => {
+    const p = s.props, id = s.id; const items = (p.items ?? []) as any[];
+    return wrap(s, `${p.title ? head(id, p) : ""}<div class="fgrid">${items.map((it, i) => `<article class="card fcard reveal" data-openui-id="${id}.card${i}">
+      ${renderSpot({ icon: it.icon, motif: it.motif, seed: `${id}${i}${it.title}`, pills: it.pills ?? (it.bullets ?? []).slice(0, 2) }, `${id}${i}`)}
+      <div class="fcard__text"><h3 class="h4" data-openui-id="${id}.card${i}.title">${esc(it.title)}</h3><p data-openui-id="${id}.card${i}.body">${esc(it.body)}</p></div></article>`).join("")}</div>`, "", !!p.tint);
+  },
+
   "feature-tabs": (s, ctx) => {
     const p = s.props, id = s.id; const tabs = (p.tabs ?? []) as any[];
     return wrap(s, `${head(id, p)}<div class="tabs reveal" data-tabs>

@@ -5,7 +5,7 @@ export type SectionType =
   | "logo-cloud" | "feature-bento" | "feature-rows" | "metrics" | "steps"
   | "testimonials" | "pricing" | "faq" | "cta-band" | "footer-columns"
   | "feature-tabs" | "feature-showcase" | "comparison" | "integrations" | "quote-feature"
-  | "testimonial-wall" | "steps-timeline" | "cta-split" | "metrics-spark" | "faq-split";
+  | "testimonial-wall" | "feature-grid" | "steps-timeline" | "cta-split" | "metrics-spark" | "faq-split";
 
 export interface Cta { label: string; href: string }
 export interface SectionSpec { id: string; type: SectionType; props: Record<string, any> }

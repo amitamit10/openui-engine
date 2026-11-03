@@ -58,12 +58,21 @@ var els=d.querySelectorAll('.reveal');
 if(reduce||!('IntersectionObserver' in window)||root.getAttribute('data-motion')==='0'){els.forEach(function(e){e.classList.add('in')});}
 else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});els.forEach(function(e){io.observe(e)});
 window.addEventListener('beforeprint',function(){els.forEach(function(e){e.classList.add('in')})});}
+var nums=d.querySelectorAll('.metric strong');
+if(!reduce&&root.getAttribute('data-motion')!=='0'&&'IntersectionObserver' in window&&nums.length){
+function com(n){var s=String(n),o='';for(var i=0;i<s.length;i++){if(i&&(s.length-i)%3===0)o+=',';o+=s.charAt(i)}return o}
+var cu=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;cu.unobserve(e.target);var el=e.target,t=el.textContent,m=t.match(/^([^0-9]*)([0-9][0-9,]*[.]?[0-9]*)(.*)$/);if(!m)return;var raw=m[2],num=parseFloat(raw.split(',').join(''));if(!isFinite(num)||num<=0)return;var dec=(raw.split('.')[1]||'').length,comma=raw.indexOf(',')>-1,t0=null;
+function fmt(v){var s=v.toFixed(dec).split('.');if(comma)s[0]=com(s[0]);return m[1]+s.join('.')+m[3]}
+function step(ts){if(t0===null)t0=ts;var k=Math.min(1,(ts-t0)/1100),z=1-Math.pow(1-k,3);el.textContent=fmt(num*z);if(k<1)requestAnimationFrame(step);else el.textContent=t}
+el.textContent=fmt(0);requestAnimationFrame(step)})},{threshold:.4});nums.forEach(function(n){cu.observe(n)})}
 })();`;
 
 export interface BuiltSite { files: Record<string, string> }
 
 /** Render a full static site (HTML + tokens.css + styles.css + overrides.css + app.js). */
+import { setIllustrationIcons } from "./illustrate.js";
 export function buildSite(spec: PageSpec, tokens: DesignTokens, overrides: Overrides = {}, icons: Record<string, string> = {}): BuiltSite {
+  setIllustrationIcons(icons);
   const ctx = { tokens, spec, icons };
   const body = spec.sections.map((s) => {
     const r = RENDERERS[s.type];

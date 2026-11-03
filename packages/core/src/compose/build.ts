@@ -5,14 +5,28 @@ import type { PageSpec, SectionSpec } from "./types.js";
 import type { VisualKind, VisualSpec } from "./visuals.js";
 
 /** The one structured document a small model has to write. Everything else is decided by the engine. */
+import { searchIcons } from "../assets/icons.js";
+
+const MOTIF_BY_STYLE: Record<string, string[]> = {
+  "aurora-dark": ["contour", "rings", "dots"], "clarity-light": ["dots", "stack", "rings"], "editorial-paper": ["arches", "rings", "scallop"],
+  "terminal-dev": ["dots", "contour", "stripes"], "warm-human": ["blobs", "waves", "dunes"], "field-notes": ["dunes", "contour", "scallop"], "neo-brutal": ["stripes", "rays", "scallop"],
+};
+const ICON_REF = /^(lucide|tabler|heroicons|phosphor):[a-z0-9-]+$/;
+/** Best icon for a feature: the brief's own choice, else an offline search over the title then the body. */
+function iconRefFor(f: { title: string; body?: string; icon?: string }): string | undefined {
+  if (f.icon && ICON_REF.test(f.icon)) return f.icon;
+  const t = searchIcons({ query: f.title, set: "lucide", limit: 1 })[0]?.ref;
+  return t ?? searchIcons({ query: (f.body ?? "").split(/\s+/).slice(0, 8).join(" "), set: "lucide", limit: 1 })[0]?.ref;
+}
+
 export interface SiteBrief {
   name: string;
   /** Hero headline. Wrap the key outcome in *asterisks*. */
   headline: string;
   subheadline: string;
   category: SiteCategory;
-  /** How features with visuals are laid out. Default "rows": every product visual is on screen at once (tabs hide all but one). */
-  featureLayout?: "rows" | "tabs";
+  /** How features with visuals are laid out. Default "mix": the strongest 2 features get a full data-visual row, the rest become illustrated cards (every feature visible at once). "rows" = all as data-visual rows; "tabs" = interactive tabs. */
+  featureLayout?: "mix" | "rows" | "tabs";
   audience?: string;
   /** Tone words steer art direction and accent: calm, bold, premium, playful, technical… */
   tone?: string[];
@@ -93,8 +107,10 @@ export function planSite(input: SiteBrief): PlannedSite {
   add("nav", "navbar-glass", { links: brief.nav?.links ?? links, signIn: brief.nav?.signIn === false ? undefined : (brief.nav?.signIn ?? { label: "Sign in", href: primaryHref }), cta: cta(brief.primaryCta, primaryHref) }, "wayfinding + primary CTA");
 
   const hv = brief.heroVisual;
+  const heroIcons = [...new Set(brief.features.map((f) => iconRefFor(f)).filter(Boolean) as string[])].slice(0, 4);
+  const heroScene = { motif: (MOTIF_BY_STYLE[style] ?? ["blobs"])[0], seed: brief.name, icons: heroIcons.length ? heroIcons : undefined, badge: hv ? undefined : brief.heroFloats?.[0] };
   const heroType = !hv && comp.heroVariant === "editorial" ? "hero-editorial" : hv && WIDE.includes(hv.kind) ? "hero-centered-product" : hv ? "hero-split" : comp.heroVariant === "split" ? "hero-split" : "hero-centered-product";
-  add("hero", heroType, { title: brief.headline, subtitle: brief.subheadline, primaryCta: cta(brief.primaryCta, primaryHref), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined, note: brief.heroNote, floats: brief.heroFloats?.slice(0, 3), ...(hv ? { visual: hv } : {}), ...(heroType === "hero-editorial" ? { stats: (brief.metrics ?? []).slice(0, 3).map((m) => ({ value: m.value, label: m.label })) } : {}) },
+  add("hero", heroType, { title: brief.headline, subtitle: brief.subheadline, primaryCta: cta(brief.primaryCta, primaryHref), secondaryCta: brief.secondaryCta ? cta(brief.secondaryCta, "#features") : undefined, note: brief.heroNote, floats: hv ? brief.heroFloats?.slice(0, 3) : brief.heroFloats?.slice(1, 3), scene: heroScene, big: brief.headline.replace(/\*/g, "").trim().split(/\s+/).length <= 8, ...(hv ? { visual: hv } : {}), ...(heroType === "hero-editorial" ? { stats: (brief.metrics ?? []).slice(0, 3).map((m) => ({ value: m.value, label: m.label })) } : {}) },
     hv ? `hero shows the product itself (${hv.kind}); ${WIDE.includes(hv.kind) ? "wide visual → centered layout" : "narrow visual → split layout"}` : `no hero visual given → ${heroType}`);
 
   if (brief.logos?.length) add("logos", "logo-cloud", { label: brief.logosLabel ?? "Trusted by teams at", logos: brief.logos, marquee: brief.logos.length >= 7 }, "social proof directly under the hero");
@@ -102,14 +118,21 @@ export function planSite(input: SiteBrief): PlannedSite {
   const withVis = brief.features.filter((f) => f.visual);
   if (has.features) {
     const title = brief.featuresTitle ?? "What it does";
-    if (withVis.length >= 3 && (brief.featureLayout ?? "rows") === "rows") add("features", "feature-rows", { anchor: "features", align: "left", eyebrow: "Product", title, items: brief.features.slice(0, 6).map((f, i) => ({ title: f.title, body: f.body, bullets: f.bullets, visual: f.visual ?? ["list", "chart", "ui", "table"][i % 4] })) }, "≥3 features have visuals → alternating rows so every product visual is visible at once (tabs hide all but one)");
-    else if (withVis.length >= 3) add("features", "feature-tabs", { anchor: "features", align: "left", eyebrow: "Product", title, tabs: brief.features.slice(0, 5).map((f) => ({ label: f.title, icon: f.icon, title: f.title, body: f.body, bullets: f.bullets, visual: f.visual })) }, "≥3 features have visuals → interactive tabs (depth without identical cards)");
+    const layoutMode = brief.featureLayout ?? "mix";
+    if (layoutMode === "mix") {
+      const rowItems = brief.features.filter((f) => f.visual).slice(0, 2);
+      const gridItems = brief.features.filter((f) => !rowItems.includes(f)).slice(0, 6);
+      const motifs = MOTIF_BY_STYLE[style] ?? ["blobs"];
+      if (rowItems.length) add("features", "feature-rows", { anchor: "features", align: "left", eyebrow: "Product", title, items: rowItems.map((f) => ({ title: f.title, body: f.body, bullets: f.bullets, visual: f.visual })) }, "the two strongest features get a full product-visual row");
+      if (gridItems.length) add(rowItems.length ? "more" : "features", "feature-grid", { anchor: rowItems.length ? "more" : "features", ...(rowItems.length ? {} : { eyebrow: "Product", title }), tint: !!rowItems.length, items: gridItems.map((f, i) => ({ title: f.title, body: f.body, icon: iconRefFor(f), bullets: f.bullets, motif: motifs[i % motifs.length] })) }, "remaining features as illustrated cards: every feature visible, none a dashboard clone");
+    } else if (withVis.length >= 3 && layoutMode === "rows") add("features", "feature-rows", { anchor: "features", align: "left", eyebrow: "Product", title, items: brief.features.slice(0, 6).map((f, i) => ({ title: f.title, body: f.body, bullets: f.bullets, visual: f.visual ?? ["list", "chart", "ui", "table"][i % 4] })) }, "≥3 features have visuals → alternating rows so every product visual is visible at once (tabs hide all but one)");
+    else if (withVis.length >= 3 && layoutMode === "tabs") add("features", "feature-tabs", { anchor: "features", align: "left", eyebrow: "Product", title, tabs: brief.features.slice(0, 5).map((f) => ({ label: f.title, icon: f.icon, title: f.title, body: f.body, bullets: f.bullets, visual: f.visual })) }, "≥3 features have visuals → interactive tabs (depth without identical cards)");
     else if (brief.showcase) { add("features", "feature-showcase", { anchor: "features", align: "left", eyebrow: "Product", title: brief.showcase.title, subtitle: brief.showcase.subtitle, visual: brief.showcase.visual, callouts: brief.showcase.callouts }, "one large product visual with callouts"); }
     else add("features", "feature-bento", { anchor: "features", align: "left", eyebrow: "Product", title, items: brief.features.slice(0, 5).map((f, i) => ({ title: f.title, body: f.body, icon: f.icon, visual: f.visual ?? ["bars", "list", "code", "toggle", "avatars"][i % 5], span: i === 0 ? 4 : i === 1 ? 2 : 2 })) }, "few visuals → bento with mini-visuals");
     if (brief.showcase && withVis.length >= 3) add("showcase", "feature-showcase", { eyebrow: "In depth", title: brief.showcase.title, subtitle: brief.showcase.subtitle, visual: brief.showcase.visual, callouts: brief.showcase.callouts, tint: true }, "extra depth section");
   }
   if (brief.comparison) add("comparison", "comparison", { align: "left", ...brief.comparison }, "makes the pain and the payoff explicit");
-  if (brief.how) add("how", brief.how.visual ? "steps-timeline" : "steps", { anchor: "how", eyebrow: "How it works", ...brief.how, items: brief.how.steps }, brief.how.visual ? "steps with a sticky product visual" : "three simple steps");
+  if (brief.how) add("how", brief.how.visual ? "steps-timeline" : "steps", { soft: true, anchor: "how", eyebrow: "How it works", ...brief.how, items: brief.how.steps }, brief.how.visual ? "steps with a sticky product visual" : "three simple steps");
   if (brief.integrations) add("integrations", "integrations", brief.integrations, "shows fit with the stack");
   const sparkish = (brief.metrics ?? []).some((m) => Array.isArray(m.spark) && m.spark.length > 2);
   if (brief.metrics?.length) add("metrics", sparkish ? "metrics-spark" : "metrics", { tint: true, ink: !sparkish, items: brief.metrics.slice(0, 4) }, sparkish ? "metric cards with sparklines" : "plain stat band");

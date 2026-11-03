@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { MOTIFS, motifSvg, renderScene, renderSpot } from "./compose/illustrate.js";
 import {
   ALL_COMPONENTS, BUZZWORDS, contrast as contrastRatio, RENDERERS, STYLE_IDS, VISUAL_KINDS, briefTemplate, buildSite, collectIconRefs, discover, generateTokens, hexToHsl, indexedComponents, lintCopy,
   styleGuide, findComponent, lintVisuals, normalizeCategory, normalizeVisual, suggestComponentIds, matchStyles, pickAccent, planSite, renderVisual, sanitizeSvg, searchIcons, searchableComponents, type PageSpec, type SiteBrief, type SiteCategory,
@@ -87,7 +88,7 @@ describe("planner", () => {
     const wide = planSite(brief({ heroVisual: { kind: "table", columns: ["a"], rows: [["b"]] } as any }));
     expect(wide.layout.find((l) => l.id === "hero")!.type).toBe("hero-centered-product");
     const few = planSite(brief({ features: briefTemplate().features.map((f) => ({ ...f, visual: undefined })) }));
-    expect(few.layout.find((l) => l.id === "features")!.type).toBe("feature-bento");
+    expect(few.layout.find((l) => l.id === "features")!.type).toBe("feature-grid");
   });
   it("builds a complete site from the template for every category with unique ids and one h1", () => {
     for (const c of CATS) {
@@ -222,5 +223,38 @@ describe("v0.4.1: pricing badge and template guidance", () => {
     const t: any = briefTemplate("saas");
     expect(t.featuresTitle).toBeTruthy(); expect(t.nav.links.length).toBe(4);
     expect(t.pricing.currency).toBeTruthy(); expect(t.pricing.tiers[0].unit).toBeTruthy();
+  });
+});
+
+describe("v0.5.0: illustration layer", () => {
+  const brief = (): SiteBrief => ({ ...briefTemplate("saas"), name: "Pawpath", headline: "Same-day vet care", features: [
+    { title: "Same-day appointments", body: "See a vet today.", icon: "lucide:calendar", visual: { kind: "list", items: ["a"] } as any, bullets: ["Under 4 hours"] },
+    { title: "One shared record", body: "Every clinic sees the same history.", visual: { kind: "table", columns: ["a"], rows: [["b"]] } as any },
+    { title: "Night line", body: "Phone triage after hours.", bullets: ["<img src=x onerror=alert(1)>"] },
+    { title: "Care plans", body: "Vaccines and dental bundled." }, { title: "Reminders", body: "We nudge you in time." },
+  ] }) as SiteBrief;
+  it("motifs are deterministic and every motif renders palette-driven SVG with no external refs", () => {
+    for (const m of MOTIFS) {
+      const a = motifSvg(m, "seed"), b = motifSvg(m, "seed");
+      expect(a).toBe(b); expect(a.length).toBeGreaterThan(40); expect(a).not.toMatch(/https?:|<script|href=/);
+    }
+    expect(motifSvg("blobs", "x")).not.toBe(motifSvg("blobs", "y"));
+  });
+  it("spot and scene render, escape pill text and never throw on missing data", () => {
+    const html = renderSpot({ icon: "lucide:anchor", pills: ["<b>x</b>"] }, "s");
+    expect(html).toContain("spot__badge"); expect(html).not.toContain("<b>x</b>");
+    expect(() => renderSpot({}, "s")).not.toThrow(); expect(() => renderScene({}, "h")).not.toThrow();
+    expect(renderScene({ icons: ["lucide:anchor", "lucide:ship"] }, "h")).toContain("scene__sat");
+  });
+  it("default feature layout is rows for the strongest 2 plus an illustrated grid for the rest, and the hero gets a scene", () => {
+    const p = planSite(brief());
+    expect(p.layout.find((l) => l.id === "features")!.type).toBe("feature-rows");
+    expect(p.layout.find((l) => l.id === "more")!.type).toBe("feature-grid");
+    const hero: any = p.spec.sections.find((x) => x.id === "hero")!;
+    expect(hero.props.scene.motif).toBeTruthy(); expect(hero.props.scene.icons?.length).toBeGreaterThan(0);
+    const html = buildSite(p.spec, p.tokens, {}, {}).files["index.html"]!;
+    expect((html.match(/class="spot /g) ?? []).length).toBe(3);
+    expect(html).not.toContain("<img src=x");
+    expect(buildSite(p.spec, p.tokens, {}, {}).files["app.js"]).toContain("requestAnimationFrame");
   });
 });

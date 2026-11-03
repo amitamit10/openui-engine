@@ -4,7 +4,7 @@ import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, styleGuide, collectIconRefs, normalizeCategory, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
-  loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, getSources, setTokenPath, suggestLayout, applyTweaks,
+  loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, reviewDesign, getSources, setTokenPath, suggestLayout, applyTweaks,
   type DesignTokens, type PageSpec, type SectionSpec, type SectionType, type SiteCategory, type StyleId,
 } from "@openui-engine/core";
 import { auditTarget, capture, serveDir, VIEWPORTS, formatReport, detectSlop, getBrowser } from "@openui-engine/verify";
@@ -359,6 +359,8 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
       style_choice: { used: planned.tokens.meta.style, alternatives: matchStyles({ name: brief.name, description: `${brief.subheadline} ${(brief.tone ?? []).join(" ")}`, category: planned.tokens.meta.category }).filter((m) => m.style !== planned.tokens.meta.style).slice(0, 2).map((m) => m.style), how_to_change: "build_site with patch {\"style\":\"<id>\"}; see brief_template.styleGuide" },
       project: relative(ctx.workdir, dir) || ".", notes: [...planned.notes, ...(a.deployDir ? [`${a.deployDir}/ is regenerated on every build_site call — hand edits there are lost; change the brief (patch) instead.`] : [])], style: planned.tokens.meta.style, accent: planned.tokens.color.accent, deployed,
       layout: planned.layout.map((l) => `${l.id}: ${l.type} — ${l.why}`),
+      design_review: reviewDesign(planned.spec, brief),
+      inspiration: searchPatterns({ category: planned.tokens.meta.category as SiteCategory, style: planned.tokens.meta.style as StyleId, limit: 3 }).map((p) => ({ pattern: p.name, principles: p.principles.slice(0, 2), pitfall: p.pitfalls[0] })),
       icons: `${Object.keys(icons).length}/${collectIconRefs(planned.spec).size} fetched${Object.keys(icons).length < collectIconRefs(planned.spec).size ? " (others use built-in fallbacks)" : ""}`,
       copy_lint: { errors: copy.filter((c) => c.severity === "error").length, warnings: copy.filter((c) => c.severity === "warning").length, top: [...copy.filter((c) => c.severity === "error"), ...copy.filter((c) => c.severity === "warning")].slice(0, 12).map((c) => `[${c.rule}] ${c.where}: ${c.message} → ${c.fix}`) },
     };

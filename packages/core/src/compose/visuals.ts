@@ -4,8 +4,9 @@ import { esc } from "./util.js";
  * Domain visuals: original HTML/SVG "product screenshots" driven by the brief's own data, so a page about
  * incidents shows incidents and a page about invoicing shows an invoice. All values are escaped.
  */
-export type VisualKind = "ui" | "dashboard" | "timeline" | "chat" | "code" | "terminal" | "kanban" | "table" | "chart" | "invoice" | "schedule" | "gallery" | "product-cards" | "checklist" | "metrics";
-export const VISUAL_KINDS: VisualKind[] = ["ui", "dashboard", "timeline", "chat", "code", "terminal", "kanban", "table", "chart", "invoice", "schedule", "gallery", "product-cards", "checklist", "metrics"];
+import { renderScene, renderSpot } from "./illustrate.js";
+export type VisualKind = "ui" | "dashboard" | "timeline" | "chat" | "code" | "terminal" | "kanban" | "table" | "chart" | "invoice" | "schedule" | "gallery" | "product-cards" | "checklist" | "metrics" | "spot" | "scene";
+export const VISUAL_KINDS: VisualKind[] = ["ui", "dashboard", "timeline", "chat", "code", "terminal", "kanban", "table", "chart", "invoice", "schedule", "gallery", "product-cards", "checklist", "metrics", "spot", "scene"];
 
 export interface VisualSpec { kind: VisualKind; title?: string; [k: string]: any }
 type Tone = "ok" | "warn" | "bad" | "info" | "now" | "muted";
@@ -135,6 +136,8 @@ export function renderVisual(input: VisualSpec | undefined, id = "v"): string {
   if (!v || !v.kind) return "";
   const uid = id.replace(/[^a-z0-9]/gi, "");
   switch (v.kind) {
+    case "spot": return renderSpot(v as any, uid);
+    case "scene": return renderScene(v as any, uid);
     case "timeline": {
       const items: any[] = (v.items ?? []).slice(0, 7);
       return `<div class="vz vz-timeline" role="img" aria-label="${esc(v.title ?? "Activity timeline")}">${bar(v.title ?? "Timeline", v.right)}<ol class="vz-tl">${items.map((it) => `<li class="vz-${tone(it.status)}"><time>${esc(it.time ?? "")}</time><div><b>${esc(it.title)}</b>${it.detail ? `<small>${esc(it.detail)}</small>` : ""}</div>${it.tag ? pill(it.tag, it.status) : ""}</li>`).join("")}</ol></div>`;

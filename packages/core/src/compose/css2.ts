@@ -159,4 +159,37 @@ h4.vz-b{font-family:var(--f-display);font-size:var(--t-h4);font-weight:var(--fw-
 @media(prefers-reduced-motion:reduce){.marq{overflow:auto}}
 .fqs{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,6vw,80px);align-items:start}.fqs__head{position:sticky;top:96px;display:grid;gap:var(--s-4);justify-items:start}.fqs .faq{max-width:none;margin:0}
 @media(max-width:860px){.fqs{grid-template-columns:minmax(0,1fr)}.fqs__head{position:static}}
+
+/* ── v0.5 illustration layer ── */
+.spot,.scene{position:relative;overflow:hidden;isolation:isolate;border-radius:var(--r-lg);background:linear-gradient(160deg,var(--c-surface),var(--c-bg));border:var(--bw) solid var(--c-border)}
+.spot{aspect-ratio:4/3}
+.spot__bg,.scene .spot__bg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.spot__badge,.scene__main{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;background:var(--c-bg);color:var(--c-accent-text);border:var(--bw) solid var(--c-border);box-shadow:var(--sh-md);z-index:1}
+.spot__badge{width:34%;aspect-ratio:1;border-radius:28%}.spot__badge .ico,.scene__main .ico{width:52%;height:52%;stroke-width:1.5}
+.spot__pill{position:absolute;z-index:2;padding:6px 12px;border-radius:999px;background:var(--c-bg);border:var(--bw) solid var(--c-border);box-shadow:var(--sh-sm);font-size:var(--t-caption);font-weight:600;color:var(--c-text);white-space:nowrap;max-width:70%;overflow:hidden;text-overflow:ellipsis}
+.spot__pill--1{left:7%;bottom:10%;transform:rotate(-2deg)}.spot__pill--2{right:7%;top:10%;transform:rotate(2deg)}
+.fgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-5)}
+.fcard{display:grid;gap:var(--s-4);padding:var(--s-3) var(--s-3) var(--s-5);align-content:start;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.fcard:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c-accent) 45%,var(--c-border));box-shadow:var(--sh-md)}
+.fcard__text{display:grid;gap:var(--s-2);padding:0 var(--s-3)}.fcard__text p{color:var(--c-muted);font-size:var(--t-small);line-height:var(--lh-small)}
+.fcard .spot{border-radius:calc(var(--r-lg) - 4px)}
+@media(max-width:980px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.fgrid{grid-template-columns:minmax(0,1fr)}}
+.scene{aspect-ratio:5/4}.scene__main{width:30%;aspect-ratio:1;border-radius:30%}
+.scene__sat{position:absolute;z-index:1;display:grid;place-items:center;width:15%;aspect-ratio:1;border-radius:34%;background:var(--c-bg);color:var(--c-accent-text);border:var(--bw) solid var(--c-border);box-shadow:var(--sh-md)}.scene__sat .ico{width:50%;height:50%}
+.scene__sat--1{left:12%;top:16%}.scene__sat--2{right:12%;top:22%}.scene__sat--3{left:22%;bottom:14%}
+.scene__stat{position:absolute;right:8%;bottom:9%;z-index:2}
+.hero__backdrop{position:absolute;inset:-10% -8%;z-index:0;overflow:hidden;border-radius:var(--r-xl,32px);opacity:.9;pointer-events:none;-webkit-mask-image:radial-gradient(ellipse at 55% 50%,#000 55%,transparent 100%);mask-image:radial-gradient(ellipse at 55% 50%,#000 55%,transparent 100%)}
+.hero__backdrop .spot__bg{opacity:.85}
+.hero__visual>.vz,.hero__visual>.hero__mock,.hero__visual>div:not(.hero__backdrop):not(.hero__floats){position:relative;z-index:1}
+.hero__visual>.scene__sat{width:58px;border-radius:30%;z-index:3}.scene__sat--c1{left:-30px;top:16%}.scene__sat--c2{right:-22px;bottom:30%}
+@media(max-width:940px){.hero__backdrop{inset:-4% -2%;opacity:.7}.hero__visual>.scene__sat{display:none}}
+.hero--display .h1{font-size:var(--t-display);line-height:var(--lh-display)}
+h1,h2,.h2{text-wrap:balance}
+.section--soft{background:var(--c-accent-soft)}.section--soft .card{background:var(--c-bg)}
+@media(prefers-reduced-motion:no-preference){
+  html:not([data-motion="0"]) .scene__sat,html:not([data-motion="0"]) .scene__main{animation:bob 7s ease-in-out infinite}
+  html:not([data-motion="0"]) .scene__sat--2{animation-delay:-2.3s}html:not([data-motion="0"]) .scene__sat--3,html:not([data-motion="0"]) .scene__sat--c2{animation-delay:-4.6s}
+  html:not([data-motion="0"]) .spot__pill--1{animation:bob 8s ease-in-out infinite}html:not([data-motion="0"]) .spot__pill--2{animation:bob 9s ease-in-out -3s infinite}
+  @keyframes bob{50%{translate:0 -8px}}
+}
 `;

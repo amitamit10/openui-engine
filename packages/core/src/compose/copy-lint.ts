@@ -54,7 +54,7 @@ export function lintCopy(spec: PageSpec): LintFinding[] {
       if (GENERIC_PRAISE.test(quote) || wc(quote) < 8) f.push({ severity: "warning", rule: "generic-testimonial", where: `${s.id}`, message: `Vague testimonial: "${quote.slice(0, 60)}"`, fix: "Quote a concrete outcome with a number or a before/after." });
       else if (!/\d/.test(quote)) f.push({ severity: "info", rule: "testimonial-specifics", where: `${s.id}`, message: `Testimonial has no number: "${quote.slice(0, 50)}"`, fix: "Add a measurable result." });
     }
-    if (["feature-bento", "feature-tabs", "feature-rows", "feature-showcase"].includes(s.type)) {
+    if (["feature-bento", "feature-tabs", "feature-rows", "feature-grid", "feature-showcase"].includes(s.type)) {
       const titles = ((s.props.items ?? s.props.tabs ?? s.props.callouts ?? []) as any[]).map((i) => String(i.title ?? i.label ?? ""));
       const first = titles.map((t) => t.split(/\s+/)[0]?.toLowerCase()).filter(Boolean);
       const dup = first.find((w, i) => first.indexOf(w) !== i && first.filter((x) => x === w).length >= 3);

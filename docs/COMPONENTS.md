@@ -1,6 +1,6 @@
 # Component inventory
 
-> Generated from `packages/core/src/registry/components.ts`. 57 curated entries (quality over registry size — the MCP never returns the whole list).
+> Generated from `packages/core/src/registry/components.ts`. 58 curated entries (quality over registry size — the MCP never returns the whole list).
 
 | ID | Slot | Source | Framework | Runtimes | Motion | Styles | Licence |
 |---|---|---|---|---|---|---|---|
@@ -10,6 +10,7 @@
 | `openui/hero-editorial` | hero | openui | html | none | 1/3 | editorial-paper, neo-brutal | Apache-2.0 |
 | `openui/logo-cloud` | logos | openui | html | none | 1/3 | aurora-dark, clarity-light, editorial-paper, terminal-dev, warm-human, neo-brutal, field-notes | Apache-2.0 |
 | `openui/feature-bento` | features | openui | html | none | 1/3 | aurora-dark, clarity-light, editorial-paper, terminal-dev, warm-human, neo-brutal, field-notes | Apache-2.0 |
+| `openui/feature-grid` | features | openui | html | none | 2/3 | aurora-dark, clarity-light, editorial-paper, terminal-dev, warm-human, neo-brutal, field-notes | Apache-2.0 |
 | `openui/feature-rows` | features | openui | html | none | 1/3 | aurora-dark, clarity-light, editorial-paper, terminal-dev, warm-human, neo-brutal, field-notes | Apache-2.0 |
 | `openui/metrics` | metrics | openui | html | none | 0/3 | aurora-dark, clarity-light, editorial-paper, terminal-dev, warm-human, neo-brutal, field-notes | Apache-2.0 |
 | `openui/steps` | steps | openui | html | none | 0/3 | aurora-dark, clarity-light, editorial-paper, terminal-dev, warm-human, neo-brutal, field-notes | Apache-2.0 |

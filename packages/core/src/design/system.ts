@@ -70,7 +70,7 @@ function typeScale(ratio: number, displayWeight: number, tracking: string): Reco
   const r = (n: number, base: number) => Math.round(base * Math.pow(ratio, n));
   // Desktop = base 17, mobile = base 16, with display steps compressed on mobile so headlines never overflow.
   return {
-    display: { min: r(4, 16) - 4 < 40 ? 40 : r(4, 16) - 4, max: Math.round(17 * Math.pow(ratio, 5)), lineHeight: 1.04, weight: displayWeight, tracking },
+    display: { min: r(4, 16) - 4 < 40 ? 40 : r(4, 16) - 4, max: Math.round(17 * Math.pow(ratio, 5) * 1.22), lineHeight: 1.04, weight: displayWeight, tracking },
     h1: { min: 34, max: Math.round(17 * Math.pow(ratio, 4)), lineHeight: 1.08, weight: displayWeight, tracking },
     h2: { min: 28, max: Math.round(17 * Math.pow(ratio, 3)), lineHeight: 1.12, weight: displayWeight, tracking },
     h3: { min: 20, max: Math.round(17 * Math.pow(ratio, 2)), lineHeight: 1.25, weight: Math.max(500, displayWeight - 100), tracking: "-0.01em" },

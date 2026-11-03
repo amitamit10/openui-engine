@@ -1,5 +1,6 @@
 import { ICON, btn, ctaRow, esc, head, rich, wrap } from "./util.js";
 import type { Cta, Renderer, SectionType } from "./types.js";
+import { renderBackdrop, renderScene } from "./illustrate.js";
 import { iconSvg } from "../assets/icons.js";
 import { RENDERERS_2 } from "./sections2.js";
 import { renderVisual } from "./visuals.js";
@@ -107,7 +108,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
 
   "hero-split": (s, { tokens, spec }) => {
     const p = s.props, id = s.id;
-    return `<section class="hero hero--split" data-openui-section="${id}" data-openui-variant="hero-split" data-openui-id="${id}" id="top">
+    return `<section class="hero hero--split${p.big ? " hero--display" : ""}" data-openui-section="${id}" data-openui-variant="hero-split" data-openui-id="${id}" id="top">
   <div class="hero__grid" aria-hidden="true"></div>
   <div class="container hero__row">
     <div class="hero__copy">
@@ -117,7 +118,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
       ${ctaRow(p, id, tokens.composition.ctaHierarchy)}
       ${p.note ? `<p class="hero__note" data-openui-id="${id}.note">${esc(p.note)}</p>` : ""}
     </div>
-    <div class="hero__visual">${p.visual ? renderVisual(p.visual, `${id}hv`) : dashboardMock(id, spec.brand.name, p.mock)}${Array.isArray(p.floats) && p.floats.length ? `<div class="hero__floats">${p.floats.map((f: any, i: number) => `<div class="hfloat hfloat--${esc(f.tone ?? "info")}" data-openui-id="${id}.float${i}"><span>${esc(f.label)}</span><strong>${esc(f.value)}</strong></div>`).join("")}</div>` : ""}</div>
+    <div class="hero__visual">${p.scene && p.visual ? renderBackdrop(p.scene, `${id}bd`) : ""}${p.visual ? renderVisual(p.visual, `${id}hv`) : (p.scene ? renderScene(p.scene, `${id}sc`) : dashboardMock(id, spec.brand.name, p.mock))}${Array.isArray(p.floats) && p.floats.length ? `<div class="hero__floats">${p.floats.map((f: any, i: number) => `<div class="hfloat hfloat--${esc(f.tone ?? "info")}" data-openui-id="${id}.float${i}"><span>${esc(f.label)}</span><strong>${esc(f.value)}</strong></div>`).join("")}</div>` : ""}</div>
   </div>
 </section>`;
   },
@@ -178,7 +179,7 @@ const RENDERERS_1: Partial<Record<SectionType, Renderer>> = {
   steps: (s, ctx) => {
     const p = s.props, id = s.id;
     const items = (p.items ?? []) as Array<{ title: string; body: string }>;
-    return wrap(s, `${head(id, p)}<div class="steps">${items.map((st, i) => `<div class="step card reveal" data-openui-id="${id}.step${i}">${(st as any).icon ? `<span class="ico-chip">${iconSvg((st as any).icon, ctx.icons)}</span>` : ""}<h3 class="h3">${esc(st.title)}</h3><p>${esc(st.body)}</p></div>`).join("")}</div>`, "", true);
+    return wrap(s, `${head(id, p)}<div class="steps">${items.map((st, i) => `<div class="step card reveal" data-openui-id="${id}.step${i}">${(st as any).icon ? `<span class="ico-chip">${iconSvg((st as any).icon, ctx.icons)}</span>` : ""}<h3 class="h3">${esc(st.title)}</h3><p>${esc(st.body)}</p></div>`).join("")}</div>`, p.soft ? "section--soft" : "", true);
   },
 
   testimonials: (s) => {
