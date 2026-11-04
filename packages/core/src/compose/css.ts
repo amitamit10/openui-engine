@@ -205,7 +205,7 @@ ul,ol{padding:0;list-style:none}
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-4);counter-reset:s}
 .step{display:grid;gap:var(--s-3);align-content:start}
-.step::before{counter-increment:s;content:"0" counter(s);font-family:var(--f-mono);font-size:var(--t-small);color:var(--c-accent-text);font-weight:500}
+.step:not(:has(.step__n,.step__num,.num,[data-step-number]))::before{counter-increment:s;content:"0" counter(s);font-family:var(--f-mono);font-size:var(--t-small);color:var(--c-accent-text);font-weight:500}
 .step p{color:var(--c-muted)}
 @media (max-width:820px){.steps{grid-template-columns:minmax(0,1fr)}}
 

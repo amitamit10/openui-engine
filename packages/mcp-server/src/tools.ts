@@ -3,7 +3,7 @@ import { join, relative } from "node:path";
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
-  ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, styleGuide, collectIconRefs, normalizeCategory, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
+  ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, styleGuide, collectIconRefs, normalizeCategory, resolveStyle, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
   loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, reviewDesign, buildSite, getStyle, imageStatus, IMAGE_EXTS, searchPhotos, photoUrl, PHOTOS, LOGO_MARKS, pickMark, logoFiles, legalDoc, pickAccent, hexToHsl, hslToHex, contrast, OBJECTS, PALETTE_VARS, SCENE_IDS, sceneSvg, getSources, setTokenPath, suggestLayout, applyTweaks,
   type DesignTokens, type PageSpec, type SectionSpec, type SectionType, type SiteCategory, type StyleId,
 } from "@openui-engine/core";
@@ -11,7 +11,7 @@ import { auditTarget, capture, serveDir, VIEWPORTS, formatReport, detectSlop, ge
 import { applyPending } from "@openui-engine/editor";
 import type { ServerContext } from "./context.js";
 
-const STYLE = z.enum(STYLE_IDS as [StyleId, ...StyleId[]]);
+const STYLE = z.string().transform((v) => resolveStyle(v).style).describe("art direction: an id (" + STYLE_IDS.join(", ") + ") or loose words such as 'warm editorial'; unknown words fall back to the closest match");
 /** Any text is accepted and mapped to the nearest of the eight categories (small models write "services", "surf school", "vet clinic"). */
 const CATEGORY = z.string().describe("any text; mapped to the nearest of: saas, ai-product, devtool, fintech, agency, portfolio, ecommerce, consumer-app").transform((s) => normalizeCategory(s));
 /** Small models guess argument names; accept the obvious aliases for `target`. */
@@ -358,8 +358,10 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("style_pack", {
     title: "Style pack for a hand-written page",
     description: "TOOLKIT MODE: write the page YOURSELF and let the engine supply the pieces. Pick a style (or let the brief choose) and get a folder with: tokens.css (colours, type, spacing, radii), styles.css (the component classes), app.js (accessible mobile menu, pricing toggle, accordion, tabs and reveals, driven by data attributes), DESIGN.md (the art direction and its don'ts), snippets/ (ready-made, tested HTML for every section type with the right classes and data attributes) and reference.html (a complete sample page). Copy a snippet, rewrite its copy, restructure it, and draw your own hero object, then run validate_design. The more specific and unusual your hero object and layout, the better: the snippets are a starting point, not a template to leave untouched.",
-    inputSchema: { outDir: z.string().describe("folder to write into, e.g. 'pack'"), name: z.string().default("Brand"), description: z.string().default("").describe("what the business does and its tone: used to choose the style and accent"), category: CATEGORY.default("saas"), style: STYLE.optional(), accent: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(), lang: z.string().optional() },
-  }, async (a) => {
+    inputSchema: { outDir: z.string().describe("folder to write into, e.g. 'pack'"), name: z.string().default("Brand"), description: z.string().default("").describe("what the business does and its tone: used to choose the style and accent"), category: CATEGORY.default("saas"), style: z.string().optional().describe("an id (" + STYLE_IDS.join(", ") + ") or loose words like 'warm editorial' or 'dark techy'; unknown words fall back to the closest match, never an error"), accent: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(), lang: z.string().optional() },
+  }, async (a0) => {
+    const res = resolveStyle(a0.style, { name: a0.name, description: a0.description, category: a0.category as SiteCategory });
+    const a = { ...a0, style: res.style };
     const dir = ctx.safePath(a.outDir); mkdirSync(join(dir, "snippets"), { recursive: true });
     const brief: any = { ...briefTemplate(a.category as SiteCategory), name: a.name, subheadline: a.description || a.name, category: a.category, style: a.style, accent: a.accent, lang: a.lang };
     const planned = planSite(brief);
@@ -370,12 +372,14 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     for (const f of ["tokens.css", "styles.css", "app.js"]) w(f, site.files[f]!);
     w("reference.html", site.files["index.html"]!.replace(/<link rel="stylesheet" href="overrides\.css">\s*/, ""));
     w("DESIGN.md", renderDesignMd(planned.tokens));
+    const bodyTag = /<body[^>]*>/.exec(site.files["index.html"]!)?.[0] ?? "<body>";
+    const htmlTag = /<html[^>]*>/.exec(site.files["index.html"]!)?.[0] ?? "<html>";
     const rctx = { tokens: planned.tokens, spec: planned.spec, icons };
     for (const s of planned.spec.sections) { const r = (RENDERERS as any)[s.type]; if (r) w(`snippets/${s.id}.${s.type}.html`, `<!-- ${s.type}: copy this block, rewrite the copy, restructure freely. Classes come from styles.css; data-* attributes are used by app.js. -->\n${r(s, rctx)}\n`); }
     const fonts = /<link rel="preconnect"[\s\S]*?(?=<link rel="stylesheet" href="tokens.css">)/.exec(site.files["index.html"]!)?.[0]?.trim() ?? "";
     const st = getStyle(planned.tokens.meta.style as StyleId);
-    w("README.md", `# Style pack: ${st.name}\n\n${st.summary}\n\n## Use it\n1. Put these files next to your index.html: tokens.css, styles.css, app.js.\n2. In <head>, add the font links below, then <link rel="stylesheet" href="tokens.css"> and <link rel="stylesheet" href="styles.css">; before </body> add <script src="app.js" defer></script>.\n3. Build your sections from snippets/*.html (copy, rewrite, restructure). Keep the data-* attributes the snippet uses; app.js wires them (menu, billing toggle, accordion, tabs, reveal, form).\n4. Draw something specific for the hero (your own inline SVG or an HTML product card with real data) rather than leaving a generic visual.\n5. Run validate_design on your site folder and fix what it reports.\n\n## Fonts\n\`\`\`html\n${fonts}\n\`\`\`\n\n## Signatures of this style\n${st.signatures.map((x) => "- " + x).join("\n")}\n\n## Do not\n${st.doNot.map((x) => "- " + x).join("\n")}\n\n## Palette\naccent ${planned.tokens.color.accent}, secondary ${planned.tokens.color.accent2}, bg ${planned.tokens.color.bg}, text ${planned.tokens.color.text}\n`);
-    return text({ style: planned.tokens.meta.style, why: st.summary, accent: planned.tokens.color.accent, outDir: a.outDir, files: written, next: "Read README.md and DESIGN.md, copy the snippets you need into your own index.html, make the hero specific, then validate_design." });
+    w("README.md", `# Style pack: ${st.name}\n\n${st.summary}\n\n## Use it\n1. Put these files next to your index.html: tokens.css, styles.css, app.js.\n2. USE THESE EXACT TAGS (the CSS keys off data-style / data-mode-ui; without them the glow, surfaces and pricing rules of the style do not apply):\n   ${htmlTag}\n   ${bodyTag}\n3. In <head>, add the font links below, then <link rel="stylesheet" href="tokens.css"> and <link rel="stylesheet" href="styles.css">; before </body> add <script src="app.js" defer></script>.\n4. Build your sections from snippets/*.html (copy, rewrite, restructure). Keep the data-* attributes the snippet uses; app.js wires them (menu, billing toggle, accordion, tabs, reveal, form). Steps: .step gets an automatic 01/02/03 number unless it contains your own .step__n or .num element. Never put more than one auto-number on a step. The featured pricing tier (.tier--featured) is an inverted dark card: put any markup in it, text colours follow automatically.\n5. Draw something specific for the hero (your own inline SVG or an HTML product card with real data) rather than leaving a generic visual.\n6. Run validate_design on your site folder and fix what it reports.\n\n## Fonts\n\`\`\`html\n${fonts}\n\`\`\`\n\n## Signatures of this style\n${st.signatures.map((x) => "- " + x).join("\n")}\n\n## Do not\n${st.doNot.map((x) => "- " + x).join("\n")}\n\n## Palette\naccent ${planned.tokens.color.accent}, secondary ${planned.tokens.color.accent2}, bg ${planned.tokens.color.bg}, text ${planned.tokens.color.text}\n`);
+    return text({ style: planned.tokens.meta.style, styleNote: res.note, why: st.summary, accent: planned.tokens.color.accent, outDir: a.outDir, files: written, next: "Read README.md and DESIGN.md, copy the snippets you need into your own index.html, make the hero specific, then validate_design." });
   });
 
   // ── assets: photos, logo, colour, legal ────────────────────────────────────

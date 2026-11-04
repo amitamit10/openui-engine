@@ -366,3 +366,37 @@ ${s.doNot.map((x) => `- ❌ ${x}`).join("\n")}
 `;
   return yaml + "\n" + body;
 }
+
+const STYLE_ALIASES: Record<string, StyleId> = {
+  dark: "aurora-dark", aurora: "aurora-dark", neon: "aurora-dark", midnight: "aurora-dark",
+  light: "clarity-light", clean: "clarity-light", clarity: "clarity-light", minimal: "clarity-light", corporate: "clarity-light",
+  editorial: "editorial-paper", paper: "editorial-paper", magazine: "editorial-paper", serif: "editorial-paper", elegant: "editorial-paper",
+  terminal: "terminal-dev", dev: "terminal-dev", developer: "terminal-dev", hacker: "terminal-dev", mono: "terminal-dev", code: "terminal-dev",
+  warm: "warm-human", friendly: "warm-human", human: "warm-human", cozy: "warm-human", organic: "warm-human",
+  brutal: "neo-brutal", brutalist: "neo-brutal", neobrutalism: "neo-brutal", bold: "neo-brutal",
+  notes: "field-notes", field: "field-notes", handmade: "field-notes", craft: "field-notes",
+  shadcn: "shadcn-mono", "shadcn-ui": "shadcn-mono", monochrome: "shadcn-mono",
+  material: "material-tonal", tonal: "material-tonal", google: "material-tonal",
+  swiss: "swiss-grid", grid: "swiss-grid", international: "swiss-grid",
+  noir: "noir-luxe", luxe: "noir-luxe", luxury: "noir-luxe", premium: "noir-luxe", black: "noir-luxe",
+  pastel: "pastel-play", playful: "pastel-play", fun: "pastel-play", kids: "pastel-play", candy: "pastel-play",
+};
+
+export interface StyleResolution { style?: StyleId; note?: string }
+
+/** Accepts an exact id, a loosely-typed id, an alias word or free text ("warm editorial, like a magazine"), and returns the closest art direction. Never throws: no usable signal returns undefined so the engine chooses from the brief. */
+export function resolveStyle(input: unknown, context: Pick<DesignBrief, "description" | "category" | "name"> = { name: "" }): StyleResolution {
+  if (input === undefined || input === null || String(input).trim() === "") return {};
+  const raw = String(input).trim().toLowerCase();
+  const slug = raw.replace(/[\s_]+/g, "-").replace(/[^a-z0-9-]/g, "");
+  if ((STYLE_IDS as string[]).includes(slug)) return { style: slug as StyleId };
+  const words = raw.split(/[^a-z0-9]+/).filter(Boolean);
+  const loose = STYLE_IDS.find((id) => id.replace(/-/g, "") === slug.replace(/-/g, "") || id.split("-").every((p) => words.includes(p)));
+  if (loose) return { style: loose, note: `style "${input}" read as "${loose}"` };
+  const hits = new Map<StyleId, number>();
+  for (const w of [slug, ...words]) { const a = STYLE_ALIASES[w]; if (a) hits.set(a, (hits.get(a) ?? 0) + 1); }
+  if (hits.size) { const best = [...hits.entries()].sort((a, b) => b[1] - a[1])[0]![0]; return { style: best, note: `style "${input}" matched "${best}"` }; }
+  const ranked = matchStyles({ name: context.name, description: `${raw} ${context.description ?? ""}`, category: context.category });
+  if (ranked[0] && ranked[0].score > 1.5) return { style: ranked[0].style, note: `style "${input}" is not a known id; closest art direction by keywords: "${ranked[0].style}". Known: ${STYLE_IDS.join(", ")}` };
+  return { note: `style "${input}" is not a known id and matched nothing; the engine chose from the brief. Known: ${STYLE_IDS.join(", ")}` };
+}

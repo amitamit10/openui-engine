@@ -558,3 +558,26 @@ describe("ui mockup layout", () => {
     expect(css).toMatch(/\.vz-uigrid\.two\{align-items:start\}/);
   });
 });
+
+describe("resolveStyle (loose style names)", () => {
+  it("accepts exact, loosely typed and alias names and never throws", async () => {
+    const { resolveStyle } = await import("./index.js");
+    expect(resolveStyle("warm-human").style).toBe("warm-human");
+    expect(resolveStyle("Warm Human").style).toBe("warm-human");
+    expect(resolveStyle("terminaldev").style).toBe("terminal-dev");
+    expect(resolveStyle("brutalist").style).toBe("neo-brutal");
+    expect(resolveStyle("warm editorial, like a magazine").style).toBeDefined();
+    expect(resolveStyle("luxury").style).toBe("noir-luxe");
+    expect(resolveStyle(undefined).style).toBeUndefined();
+    expect(() => resolveStyle("zzz qqq")).not.toThrow();
+    expect(resolveStyle("zzz qqq").style).toBeUndefined();
+    expect(resolveStyle("zzz qqq").note).toMatch(/Known:/);
+  });
+  it("featured pricing tier uses an inverted token scope", async () => {
+    const { buildSite, planSite, briefTemplate } = await import("./index.js");
+    const p = planSite({ ...briefTemplate("saas"), name: "Inv" } as any);
+    const css = buildSite(p.spec, p.tokens, {}, {}).files["styles.css"]!;
+    expect(css).toMatch(/--inv-bg/);
+    expect(css).toMatch(/\.tier--featured\{--c-bg:var\(--inv-bg\)/);
+  });
+});
