@@ -590,3 +590,23 @@ describe("inferCategory", () => {
     expect(inferCategory("online school teaching languages").category).toBe("consumer-app");
   });
 });
+
+describe("showcase library", () => {
+  it("every hero and showcase renders, escapes injected markup, and is scoped", async () => {
+    const { ALL_SHOWCASES, renderShowcase, listShowcases } = await import("./index.js");
+    expect(ALL_SHOWCASES.length).toBeGreaterThanOrEqual(12);
+    for (const s of ALL_SHOWCASES) {
+      const r = renderShowcase(s.id, {}, { accent: "#123456" });
+      expect(r.html.length).toBeGreaterThan(200);
+      expect(r.html).toContain("oui-sc");
+      expect(r.css).toContain("--sc-accent:#123456");
+      expect(r.css).toContain(`oui-sc--${s.id}`);
+      expect(r.html).not.toMatch(/undefined|\[object/);
+    }
+    const x = renderShowcase("docket", { title: "<img src=x onerror=alert(1)>" });
+    expect(x.html).not.toContain("<img src=x");
+    expect(listShowcases("photographer wedding portraits")[0]!.id).toBe("contact-sheet");
+    expect(listShowcases("api developer platform")[0]!.id).toBe("transcript");
+    expect(() => renderShowcase("zzz")).toThrow(/Unknown showcase/);
+  });
+});

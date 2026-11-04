@@ -72,7 +72,7 @@ export async function measureLook(o: OpenedSections): Promise<void> {
   }
 }
 
-const SKIP = /faq|question|footer|legal|newsletter|cta|final/i;
+const SKIP = /faq|question|ask|footer|legal|newsletter|cta|final|trial|contact|book|enquir|join|reserve|subscribe|get in touch/i;
 
 /** Rank sections by how generic they look from measurable signals. Hero is weighted most. */
 export function weakestSections(facts: SectionFact[], vp: { height: number; width: number }, n = 3): Weak[] {
@@ -95,7 +95,7 @@ export function weakestSections(facts: SectionFact[], vp: { height: number; widt
       if (f.heightPx < 160 && f.tag === "section" && !stripOrMetrics) { score += 1; why.push("very short strip"); }
     }
     const px = f.pixels;
-    if (px && !stripOrMetrics) {
+    if (px && !stripOrMetrics && !SKIP.test(`${f.id ?? ""} ${f.heading ?? ""}`)) {
       if (px.inkPct < 9) { score += 2.5; why.push(`looks empty: ${px.inkPct}% of the section is anything but background`); tryIt.push("fill the space with the one thing this section is about: a specific object, a larger heading with a supporting number, or tighten the padding"); }
       else if (px.colors <= 3 && px.edgePct < 3) { score += 1.5; why.push("looks flat: almost one colour and little detail"); tryIt.push("add a tint, a rule, a dark band or a detailed visual so the section has a focal point"); }
     }
@@ -122,4 +122,34 @@ export async function reviewDigest(url: string, outDir: string, n = 3, withMobil
     }
     return { summary: weak.length ? { weakest_sections: weak.map((w) => ({ section: w.section, why: w.why.join("; "), try: w.try.slice(0, 2) })), mobile: mobile.length ? mobile : undefined, images: "one image per weak section follows (desktop)", next: "Fix these, then run validate_design again. Do not stop while the hero has no specific artefact." } : { weakest_sections: [], note: "no section scored as generic by the measurable checks; still LOOK at the full-page screenshot and ask whether each section is distinct and specific" } , images };
   } finally { await d.close(); }
+}
+
+/** What the page's identity is made of, read from computed styles (not guessed): palette, fonts and rhythm. */
+export async function pageIdentity(o: OpenedSections): Promise<{ palette: Record<string, string>; fonts: { display: string; body: string; mono: string }; generic: string[]; notes: string[] }> {
+  const r = await o.page.evaluate(() => {
+    const cs = (e: Element | null) => (e ? getComputedStyle(e) : null);
+    const first = (sel: string) => document.querySelector(sel);
+    const h1 = first("h1"), body = document.body, btn = first("a.btn, .btn, button.btn, a[class*=btn], button[class*=btn], header a[class*=cta], a[class*=cta]") || first("main a");
+    const fam = (e: Element | null) => (cs(e)?.fontFamily ?? "").split(",")[0]!.replace(/["']/g, "").trim();
+    const lum = (c: string) => { const m = c.match(/\d+(\.\d+)?/g)?.map(Number) ?? [0, 0, 0]; return (0.2126 * m[0]! + 0.7152 * m[1]! + 0.0722 * m[2]!) / 255; };
+    const sat = (c: string) => { const m = c.match(/\d+(\.\d+)?/g)?.map(Number) ?? [0, 0, 0]; const mx = Math.max(m[0]!, m[1]!, m[2]!), mn = Math.min(m[0]!, m[1]!, m[2]!); return mx === 0 ? 0 : (mx - mn) / mx; };
+    const hex = (c: string) => { const m = c.match(/\d+(\.\d+)?/g)?.map(Number) ?? [0, 0, 0]; return "#" + [0, 1, 2].map((i) => Math.round(m[i]!).toString(16).padStart(2, "0")).join(""); };
+    // most saturated, reasonably common fill among buttons/links/svg paths = the accent
+    const counts = new Map<string, number>();
+    document.querySelectorAll("a, button, .btn, svg *, [class*=accent], h1 em, h2 em, i, em").forEach((e) => { const st = getComputedStyle(e); for (const c of [st.backgroundColor, st.color, st.fill]) { if (!c || c.startsWith("rgba(0, 0, 0, 0)") || c === "none") continue; if (sat(c) > 0.35 && lum(c) > 0.12 && lum(c) < 0.85) counts.set(c, (counts.get(c) ?? 0) + 1); } });
+    const accent = [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? cs(btn)?.backgroundColor ?? "rgb(180,73,43)";
+    const bg = cs(body)!.backgroundColor; const bgv = bg.startsWith("rgba(0, 0, 0, 0)") ? "rgb(255,255,255)" : bg;
+    const surface = (() => { const c = first(".card, article, [class*=card]"); const b = c ? cs(c)!.backgroundColor : ""; return b && !b.startsWith("rgba(0, 0, 0, 0)") ? b : bgv; })();
+    const bgs = new Set<string>(); document.querySelectorAll("body > section, main > section, main > *").forEach((e) => bgs.add(getComputedStyle(e).backgroundColor));
+    const italicAccent = !!document.querySelector("h1 em, h1 i, h1 [style*=italic], h2 em");
+    const mono = (() => { const e = document.querySelector("code, pre, [class*=mono], small, .eyebrow"); const f = e ? getComputedStyle(e).fontFamily : ""; return /mono|courier|consolas|menlo/i.test(f) ? f.split(",")[0]!.replace(/["']/g, "").trim() : ""; })();
+    return { accent: hex(accent), bg: hex(bgv), ink: hex(cs(body)!.color), surface: hex(surface), line: hex(cs(first("hr, .card, article, footer") ?? body)!.borderTopColor || "rgb(217,208,191)"), display: fam(h1), body: fam(body), mono, sectionBackgrounds: bgs.size, italicAccent, h1Weight: cs(h1)?.fontWeight ?? "", h1Style: cs(h1)?.fontStyle ?? "" };
+  });
+  const generic: string[] = []; const notes: string[] = [];
+  const GENERIC_SANS = /^(inter|arial|helvetica|roboto|system-ui|-apple-system|segoe ui|open sans|sans-serif|figtree|manrope|dm sans|poppins)$/i;
+  if (GENERIC_SANS.test(r.display)) { generic.push(`headline set in ${r.display}, a very common sans`); notes.push("Judges consistently preferred a committed display serif (Fraunces, Newsreader, Instrument Serif, Playfair) with ONE italic accent word in the headline, over a default sans."); }
+  if (!r.italicAccent) notes.push("The headline has no emphasised word: put one phrase in <em> (italic, accent colour) for a confident voice.");
+  if (r.sectionBackgrounds <= 2) { generic.push("sections share one or two backgrounds"); notes.push("Add rhythm: alternate paper, tint and one dark band (metrics or final CTA)."); }
+  const palette: Record<string, string> = { accent: r.accent, bg: r.bg, ink: r.ink, surface: r.surface, line: r.line };
+  return { palette, fonts: { display: r.display, body: r.body, mono: r.mono || "ui-monospace" }, generic, notes };
 }

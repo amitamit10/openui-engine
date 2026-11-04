@@ -3,14 +3,14 @@ import { join, relative } from "node:path";
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
-  ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, styleGuide, collectIconRefs, normalizeCategory, inferCategory, resolveStyle, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
+  ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, styleGuide, collectIconRefs, normalizeCategory, inferCategory, resolveStyle, listShowcases, renderShowcase, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
   loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, reviewDesign, buildSite, getStyle, imageStatus, IMAGE_EXTS, searchPhotos, photoUrl, PHOTOS, LOGO_MARKS, pickMark, logoFiles, legalDoc, pickAccent, hexToHsl, hslToHex, contrast, OBJECTS, PALETTE_VARS, SCENE_IDS, sceneSvg, getSources, setTokenPath, suggestLayout, applyTweaks,
   type DesignTokens, type PageSpec, type SectionSpec, type SectionType, type SiteCategory, type StyleId,
 } from "@openui-engine/core";
 import { auditTarget, capture, serveDir, VIEWPORTS, formatReport, detectSlop, getBrowser } from "@openui-engine/verify";
 import { applyPending } from "@openui-engine/editor";
 import type { ServerContext } from "./context.js";
-import { openSections, shootSection, reviewDigest } from "./section-review.js";
+import { openSections, shootSection, reviewDigest, measureLook, weakestSections, pageIdentity } from "./section-review.js";
 
 const STYLE = z.string().transform((v) => resolveStyle(v).style).describe("art direction: an id (" + STYLE_IDS.join(", ") + ") or loose words such as 'warm editorial'; unknown words fall back to the closest match");
 /** Any text is accepted and mapped to the nearest of the eight categories (small models write "services", "surf school", "vet clinic"). */
@@ -261,6 +261,57 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
         const facts = o.facts; const dir = join(ctx.workdir, ".openui", "sections"); mkdirSync(dir, { recursive: true });
         const content: any[] = [{ type: "text", text: JSON.stringify({ viewport: `${a.viewport} ${o.vp.width}px`, sections: facts.length, images: `${a.from}..${Math.min(a.from + a.limit, facts.length) - 1}`, next: a.from + a.limit < facts.length ? `call again with from=${a.from + a.limit}` : "all sections returned", facts, ask_for_each_image: ["Is this deliberately designed for THIS business, or a default card grid/band?", "Does it show something specific (real data, an object, a diagram) rather than generic icons and filler?", "Is the type scale, colour and spacing consistent with the rest of the page and distinctive?", "Name the single change that would most improve it, then make it."] }, null, 1) }];
         for (let i = a.from; i < Math.min(a.from + a.limit, facts.length); i++) { const file = join(dir, `section-${a.viewport}-${i}.jpg`); if (await shootSection(o, i, file)) content.push({ type: "image", data: readFileSync(file).toString("base64"), mimeType: "image/jpeg" }); }
+        return { content };
+      } finally { await o.close(); }
+    } finally { await srv?.close(); }
+  });
+
+  // get_showcase ──────────────────────────────────────────────────────────────
+  server.registerTool("get_showcase", {
+    title: "Hero artefacts and product showcases",
+    description: "A small library of tested, original hero artefacts and product showcases you paste into YOUR OWN page: drawing-sheet (technical elevation with callouts), survey-sheet (field survey), docket (receipt/booking ticket), contact-sheet (photo roll), session-screen (live class/call), transcript (terminal + response), instrument-panel (telemetry), itinerary (timed programme), plus spec-table, before-after, timeline-data and quote-document for the sections below the hero. Without `id` it ranks them for your `query` (business words). With `id` it returns html + css (+ writes a file) that already uses your palette variables; pass `fields` to replace the sample text and numbers with the real ones for THIS business (replace everything: the defaults are placeholders). Pass `palette` (accent, bg, ink, muted, surface, line, display font) from your own page so it matches.",
+    inputSchema: { id: z.string().optional(), query: z.string().optional().describe("business/category words used to rank the library"), kind: z.enum(["hero", "showcase"]).optional(), fields: z.record(z.any()).optional().describe("override any default field, e.g. {title:'…', lines:[{name:'…',price:'…'}]}"), palette: z.object({ accent: z.string().optional(), bg: z.string().optional(), ink: z.string().optional(), muted: z.string().optional(), surface: z.string().optional(), line: z.string().optional(), display: z.string().optional(), body: z.string().optional(), mono: z.string().optional() }).optional(), outDir: z.string().default(".openui/showcases") },
+  }, async (a) => {
+    if (!a.id) return text({ ranked_for: a.query ?? "(no query)", items: listShowcases(a.query ?? "", a.kind).slice(0, 12), next: "call get_showcase again with an id and your real fields; paste the html where the hero/section goes and add the css to your stylesheet" });
+    const r = renderShowcase(a.id, a.fields ?? {}, a.palette ?? {});
+    const dir = ctx.safePath(a.outDir); mkdirSync(dir, { recursive: true });
+    const file = join(dir, `${r.id}.html`);
+    writeFileSync(file, `<!-- ${r.id}: REPLACE every sample text and number with this business's real content -->\n<style>\n${r.css}\n</style>\n${r.html}\n`);
+    return text({ id: r.id, kind: r.kind, file: relative(ctx.workdir, file), fields_you_can_set: r.fields, css_chars: r.css.length, html: r.html, css: r.css, use: "Paste html into your page and the css into your stylesheet (or paste the whole file). Keep the .oui-sc wrapper class; it reads --sc-* variables, so set them from your own palette. Replace all sample copy." });
+  });
+
+  // enhance_page ───────────────────────────────────────────────────────────────
+  server.registerTool("enhance_page", {
+    title: "Enhance a hand-written page (hybrid mode)",
+    description: "HYBRID MODE: write the page yourself, then call this on your site folder. It renders the page and returns a design-director review: the page's identity read from computed styles (palette, fonts, section rhythm and what is generic about it), the three weakest sections (with images) and what to try, the original hero artefacts and showcases that fit THIS business (already written to files using your own palette), and the order to apply them. Nothing is replaced for you: you stay in control of the code. Re-run after each round of changes.",
+    inputSchema: { target: z.string().optional().describe("site dir (default 'site')"), url: z.string().optional(), path: z.string().optional(), dir: z.string().optional(), name: z.string().default(""), description: z.string().default("").describe("what the business does: used to choose hero artefacts"), category: z.string().default("") },
+  }, async (a) => {
+    const t0 = tgt(a); const isUrl = /^https?:/.test(t0);
+    let srv: Awaited<ReturnType<typeof serveDir>> | null = null; let url = t0;
+    if (!isUrl) { const dir = ctx.safePath(t0); srv = await serveDir(existsSync(join(dir, "dist")) ? join(dir, "dist") : dir); url = srv.url + "/"; }
+    try {
+      const o = await openSections(url, "desktop");
+      try {
+        await measureLook(o);
+        const weak = weakestSections(o.facts, o.vp, 3); const id = await pageIdentity(o);
+        const content: any[] = []; const imgDir = join(ctx.workdir, ".openui", "review"); mkdirSync(imgDir, { recursive: true });
+        const q = `${a.name} ${a.description} ${a.category}`;
+        const heroes = listShowcases(q, "hero").slice(0, 3);
+        const pal = { accent: id.palette.accent, bg: id.palette.bg, ink: id.palette.ink, surface: id.palette.surface, line: id.palette.line, display: id.fonts.display ? `'${id.fonts.display}', Georgia, serif` : undefined, body: id.fonts.body ? `'${id.fonts.body}', system-ui, sans-serif` : undefined };
+        const outDir = join(ctx.workdir, ".openui", "showcases"); mkdirSync(outDir, { recursive: true });
+        const write = (sid: string) => { const r = renderShowcase(sid, {}, pal); const f = join(outDir, `${sid}.html`); writeFileSync(f, `<!-- ${sid}: REPLACE every sample text and number with this business's real content -->\n<style>\n${r.css}\n</style>\n${r.html}\n`); return relative(ctx.workdir, f); };
+        const SEC: Array<[RegExp, string, string]> = [[/process|how|step|journey|method|programme|works/i, "timeline-data", "steps with a measured duration and a concrete note each"], [/pric|plan|fee|ticket|tier|package|course|gift|give|donat/i, "spec-table", "one comparison table with a recommended column instead of identical cards"], [/testimon|stories|say|clients|review|voices|speakers/i, "quote-document", "a dated letter with a named source and the outcome number pulled out"], [/result|outcome|impact|difference|retrofit|transform/i, "before-after", "a before/after split with measured numbers"]];
+        const recs: any[] = [];
+        for (const w of weak) {
+          const f = o.facts[w.index]!; const isHero = w.index === o.facts.findIndex((x) => x.tag === "section");
+          if (isHero) { for (const h of heroes) recs.push({ section: w.section, use: h.id, why: h.summary, file: write(h.id) }); }
+          else { const m = SEC.find(([re]) => re.test(`${f.id ?? ""} ${f.heading ?? ""}`)); if (m) recs.push({ section: w.section, use: m[1], why: m[2], file: write(m[1]) }); }
+          const file = join(imgDir, `weak-desktop-${w.index}.jpg`);
+          if (await shootSection(o, w.index, file)) { content.push({ type: "text", text: `weak section: ${w.section}` }); content.push({ type: "image", data: readFileSync(file).toString("base64"), mimeType: "image/jpeg" }); }
+        }
+        if (!recs.length && heroes[0]) recs.push({ section: "hero", use: heroes[0].id, why: `${heroes[0].summary} (offered because no section scored as weak; use only if your hero is not already a specific artefact)`, file: write(heroes[0].id) });
+        const summary = { identity: { fonts: id.fonts, palette: id.palette, generic: id.generic.length ? id.generic : "nothing generic detected from computed styles", advice: id.notes }, weakest_sections: weak.map((w) => ({ section: w.section, why: w.why.join("; "), try: w.try.slice(0, 2) })), recommended_components: recs, workflow: ["1. Fix the identity advice first (type and palette drive the first impression).", "2. Replace the weakest hero/section with a recommended artefact: open its file, replace ALL sample text and numbers with this business's real content, paste html + css into your page.", "3. Re-run enhance_page; stop only when the hero is a specific object and no section scores as generic."], note: "Components are starting points written with your palette; you own the code. Do not paste them untouched." };
+        content.unshift({ type: "text", text: JSON.stringify(summary, null, 1) });
         return { content };
       } finally { await o.close(); }
     } finally { await srv?.close(); }

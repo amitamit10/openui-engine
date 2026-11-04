@@ -69,6 +69,23 @@ describe("MCP tool surface", () => {
     expect(withNoReview.json.design_review).toBeUndefined();
   }, 150000);
 
+  it("get_showcase ranks and renders original artefacts that adopt a palette; enhance_page reviews a page", async () => {
+    const l = await call("get_showcase", { query: "architecture studio low energy homes" });
+    expect(l.json.items.length).toBeGreaterThanOrEqual(8);
+    expect(l.json.items[0].id).toBe("drawing-sheet");
+    const r = await call("get_showcase", { id: "docket", fields: { title: "Saturday supper" }, palette: { accent: "#0f6e7a" } });
+    expect(r.isError).toBe(false);
+    expect(r.json.html).toContain("Saturday supper");
+    expect(r.json.css).toContain("--sc-accent:#0f6e7a");
+    expect(existsSync(join(work, r.json.file))).toBe(true);
+    const bad = await call("get_showcase", { id: "nope" });
+    expect(bad.isError).toBe(true);
+    const e = await call("enhance_page", { target: "revsite", name: "Quay Bakery", description: "neighbourhood bakery" });
+    expect(e.isError).toBe(false);
+    expect(e.json.identity.palette.accent).toMatch(/^#[0-9a-f]{6}$/);
+    expect(e.json.recommended_components.length).toBeGreaterThanOrEqual(1);
+  }, 150000);
+
   it("discover_components returns a short ranked list, never the full registry", async () => {
     const r = await call("discover_components", { slot: "pricing", style: "aurora-dark", limit: 3 });
     expect(r.json.results.length).toBeLessThanOrEqual(3);

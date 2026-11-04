@@ -22,7 +22,7 @@ it hands the agent a **curated, compatibility-checked component registry**, a **
 | [`@openui-engine/editor`](packages/editor) | Browser editor: select, comment, live-tweak typography/spacing/colour/radius/shadow/layout, switch component variants, natural-language requests → agent. Token-authenticated sessions |
 | [`@openui-engine/mcp-server`](packages/mcp-server) | The MCP server (`openui-engine-mcp`) and a protocol-level CLI client (`openui-engine-call`) |
 
-### MCP tools (28)
+### MCP tools (30)
 
 | Tool | Purpose |
 |---|---|
@@ -36,6 +36,8 @@ it hands the agent a **curated, compatibility-checked component registry**, a **
 | `validate_design` | The QA gate (desktop/tablet/mobile) with fix-oriented issues that carry the element selector, its visible text and the section id. `quick: true` runs a faster desktop-only check without axe-core while iterating. It also flags near-invisible text, large empty holes in card grids and, on right-to-left pages, physical left/right CSS |
 | `capture_preview` | Real screenshots returned as images so a multimodal model can *look* |
 | `review_sections` | One image per section plus measured facts, flags and design-director questions: the section-by-section review loop (the lever the v0.15.0 control showed matters; not yet shown to help in a benchmark) |
+| `enhance_page` | **Hybrid mode driver.** You write the page; it reads your real palette and fonts, flags what is generic, shows the three weakest sections and writes fitting hero artefacts/showcases (with your palette) to files |
+| `get_showcase` | Library of 8 original hero artefacts (drawing sheet, survey sheet, order docket, contact sheet, live session screen, terminal+response, instrument panel, itinerary) and 4 showcases (spec table, before/after, timeline with data, quote as a document) |
 | `style_pack` | Toolkit mode: tokens, CSS, JS, snippets and a reference page for hand-writing a page in a chosen art direction; accepts loose style names |
 | `analyze_visual_quality` | Evidence-backed scores (measured vs heuristic labelled) |
 | `create_review_session` | Starts the editor, returns a private tokenised URL |
