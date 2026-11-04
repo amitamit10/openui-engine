@@ -581,3 +581,12 @@ describe("resolveStyle (loose style names)", () => {
     expect(css).toMatch(/\.tier--featured\{--c-bg:var\(--inv-bg\)/);
   });
 });
+
+describe("inferCategory", () => {
+  it("flags guesses so a default category never acts as a strong style prior", async () => {
+    const { inferCategory } = await import("./index.js");
+    expect(inferCategory("conference on ocean technology").confident).toBe(false);
+    expect(inferCategory("fintech").confident).toBe(true);
+    expect(inferCategory("online school teaching languages").category).toBe("consumer-app");
+  });
+});

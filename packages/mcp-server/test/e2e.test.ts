@@ -44,6 +44,17 @@ describe("MCP tool surface", () => {
     expect(ref).not.toContain("overrides.css");
   });
 
+  it("tools tolerate the argument slips small models make (no outDir, loose style, unknown category)", async () => {
+    const r = await call("style_pack", { name: "Kelpline Summit", description: "two-day conference on ocean technology, curious and practical", category: "conference", style: "warm editorial like a magazine" });
+    expect(r.isError).toBe(false);
+    expect(r.json.outDir).toBe("pack");
+    expect(r.json.style).not.toBe("clarity-light");
+    const d = await call("generate_design_system", { description: "wood-fire restaurant, warm and smoky" });
+    expect(d.isError).toBe(false);
+    const l = await call("suggest_layout", { category: "consumer-app" });
+    expect(l.isError).toBe(false);
+  }, 60000);
+
   it("discover_components returns a short ranked list, never the full registry", async () => {
     const r = await call("discover_components", { slot: "pricing", style: "aurora-dark", limit: 3 });
     expect(r.json.results.length).toBeLessThanOrEqual(3);

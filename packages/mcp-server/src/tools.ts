@@ -3,7 +3,7 @@ import { join, relative } from "node:path";
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
-  ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, styleGuide, collectIconRefs, normalizeCategory, resolveStyle, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
+  ALL_COMPONENTS, ICON_SETS, INDEX_GENERATED_AT, LIBRARIES, RENDERERS, VISUAL_KINDS, VISUAL_SUGGESTIONS, briefTemplate, styleGuide, collectIconRefs, normalizeCategory, inferCategory, resolveStyle, suggestComponentIds, fetchIcons, findComponent, lintCopy, lintVisuals, planSite, searchIcons, searchableComponents, STYLES, STYLE_IDS, checkComposition, defaultPageSpec, discover, fetchLiveItem, generateTokens, isProject, lintTokens,
   loadProject, matchStyles, rebuild, renderDesignMd, renderTokensCss, renderTokensJson, saveProject, searchPatterns, reviewDesign, buildSite, getStyle, imageStatus, IMAGE_EXTS, searchPhotos, photoUrl, PHOTOS, LOGO_MARKS, pickMark, logoFiles, legalDoc, pickAccent, hexToHsl, hslToHex, contrast, OBJECTS, PALETTE_VARS, SCENE_IDS, sceneSvg, getSources, setTokenPath, suggestLayout, applyTweaks,
   type DesignTokens, type PageSpec, type SectionSpec, type SectionType, type SiteCategory, type StyleId,
 } from "@openui-engine/core";
@@ -15,7 +15,7 @@ const STYLE = z.string().transform((v) => resolveStyle(v).style).describe("art d
 /** Any text is accepted and mapped to the nearest of the eight categories (small models write "services", "surf school", "vet clinic"). */
 const CATEGORY = z.string().describe("any text; mapped to the nearest of: saas, ai-product, devtool, fintech, agency, portfolio, ecommerce, consumer-app").transform((s) => normalizeCategory(s));
 /** Small models guess argument names; accept the obvious aliases for `target`. */
-const tgt = (a: Record<string, any>): string => { const t = a.target ?? a.url ?? a.path ?? a.dir ?? a.projectDir ?? a.site; if (typeof t !== "string") throw new Error("target is required (project dir, built-site dir or http(s) URL)"); return t.replace(/^file:\/\//, ""); };
+const tgt = (a: Record<string, any>): string => { const t = a.target ?? a.url ?? a.path ?? a.dir ?? a.projectDir ?? a.site; if (typeof t !== "string") return "site"; return t.replace(/^file:\/\//, ""); };
 const text = (obj: unknown) => ({ content: [{ type: "text" as const, text: typeof obj === "string" ? obj : JSON.stringify(obj, null, 1) }] });
 const fail = (msg: string) => ({ isError: true, content: [{ type: "text" as const, text: msg }] });
 
@@ -101,7 +101,7 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("generate_design_system", {
     title: "Generate design system",
     description: "Pick an art direction from the brief (or use `style`) and generate a complete, WCAG-checked design system: DESIGN.md (Google DESIGN.md spec), tokens.json (DTCG), tokens.css and openui.tokens.json written to outDir. Returns the chosen style, runner-up styles, lint findings and token summary. Every section later composed uses these tokens exclusively.",
-    inputSchema: { name: z.string(), description: z.string().optional(), category: CATEGORY.optional(), style: STYLE.optional(), accent: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional().describe("brand accent hex"), motion: z.number().int().min(0).max(3).optional(), outDir: z.string().describe("project directory (relative to the server workdir)") },
+    inputSchema: { name: z.string().default("Brand"), description: z.string().optional(), category: CATEGORY.optional(), style: STYLE.optional(), accent: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional().describe("brand accent hex"), motion: z.number().int().min(0).max(3).optional(), outDir: z.string().default("design").describe("project directory (default 'design'; relative to the server workdir)") },
   }, async (a) => {
     const dir = ctx.safePath(a.outDir);
     const matches = matchStyles({ name: a.name, description: a.description, category: a.category as SiteCategory | undefined });
@@ -115,8 +115,8 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("suggest_layout", {
     title: "Suggest layout",
     description: "Surface-first page layout: names the surface archetype and returns the ordered section sequence with component ids and the reason each earns its place.",
-    inputSchema: { category: CATEGORY, style: STYLE, goal: z.string().default("convert") },
-  }, async (a) => text(suggestLayout(a.category as SiteCategory, a.style as StyleId, a.goal)));
+    inputSchema: { category: CATEGORY.default("saas"), style: STYLE.optional().describe("art direction; chosen from category when omitted"), goal: z.string().default("convert") },
+  }, async (a) => text(suggestLayout(a.category as SiteCategory, (a.style ?? matchStyles({ name: "", category: a.category as SiteCategory })[0]!.style) as StyleId, a.goal)));
 
   // 6 ────────────────────────────────────────────────────────────────────────
   server.registerTool("compose_page", {
@@ -358,10 +358,14 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("style_pack", {
     title: "Style pack for a hand-written page",
     description: "TOOLKIT MODE: write the page YOURSELF and let the engine supply the pieces. Pick a style (or let the brief choose) and get a folder with: tokens.css (colours, type, spacing, radii), styles.css (the component classes), app.js (accessible mobile menu, pricing toggle, accordion, tabs and reveals, driven by data attributes), DESIGN.md (the art direction and its don'ts), snippets/ (ready-made, tested HTML for every section type with the right classes and data attributes) and reference.html (a complete sample page). Copy a snippet, rewrite its copy, restructure it, and draw your own hero object, then run validate_design. The more specific and unusual your hero object and layout, the better: the snippets are a starting point, not a template to leave untouched.",
-    inputSchema: { outDir: z.string().describe("folder to write into, e.g. 'pack'"), name: z.string().default("Brand"), description: z.string().default("").describe("what the business does and its tone: used to choose the style and accent"), category: CATEGORY.default("saas"), style: z.string().optional().describe("an id (" + STYLE_IDS.join(", ") + ") or loose words like 'warm editorial' or 'dark techy'; unknown words fall back to the closest match, never an error"), accent: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(), lang: z.string().optional() },
+    inputSchema: { outDir: z.string().default("pack").describe("folder to write into (default 'pack')"), name: z.string().default("Brand"), description: z.string().default("").describe("what the business does and its tone: used to choose the style and accent"), category: z.string().optional().describe("any words (conference, charity, restaurant, studio…); mapped to the nearest engine category, inferred from name+description when omitted"), style: z.string().optional().describe("an id (" + STYLE_IDS.join(", ") + ") or loose words like 'warm editorial' or 'dark techy'; unknown words fall back to the closest match, never an error"), accent: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(), lang: z.string().optional() },
   }, async (a0) => {
-    const res = resolveStyle(a0.style, { name: a0.name, description: a0.description, category: a0.category as SiteCategory });
-    const a = { ...a0, style: res.style };
+    const inferred = inferCategory(`${a0.category ?? ""} ${a0.name} ${a0.description}`);
+    const cat = inferred.category;
+    const res = resolveStyle(a0.style, { name: a0.name, description: a0.description, category: inferred.confident ? cat : undefined });
+    // category is only a weak prior: when it was a guess, choose the style from the tone words alone
+    const style = res.style ?? (inferred.confident ? undefined : matchStyles({ name: a0.name, description: a0.description })[0]?.style);
+    const a = { ...a0, category: cat, style };
     const dir = ctx.safePath(a.outDir); mkdirSync(join(dir, "snippets"), { recursive: true });
     const brief: any = { ...briefTemplate(a.category as SiteCategory), name: a.name, subheadline: a.description || a.name, category: a.category, style: a.style, accent: a.accent, lang: a.lang };
     const planned = planSite(brief);

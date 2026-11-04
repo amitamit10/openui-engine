@@ -104,6 +104,13 @@ const CATEGORY_WORDS: Array<[RegExp, SiteCategory]> = [
   [/saas|b2b|software|platform|crm|hr\b|productivity|collaborat|project|analytics|operations/, "saas"],
 ];
 /** Free-text category → one of the 8 engine categories (small models write "wellness", "data observability"…). */
+/** Like normalizeCategory, but says whether any word actually matched (false = the "saas" default was a guess). */
+export function inferCategory(input: unknown): { category: SiteCategory; confident: boolean } {
+  const t = String(input ?? "").toLowerCase().trim();
+  const hit = CATEGORY_WORDS.find(([re]) => re.test(t));
+  const exact = (["saas", "ai-product", "devtool", "fintech", "agency", "portfolio", "ecommerce", "consumer-app"] as const).find((c) => t.split(/\s+/).includes(c));
+  return exact ? { category: exact, confident: true } : hit ? { category: hit[1], confident: true } : { category: "saas", confident: false };
+}
 export function normalizeCategory(input: unknown): SiteCategory {
   const t = String(input ?? "").toLowerCase().trim();
   const exact = (["saas", "ai-product", "devtool", "fintech", "agency", "portfolio", "ecommerce", "consumer-app"] as const).find((c) => c === t);
