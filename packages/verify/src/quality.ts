@@ -49,6 +49,21 @@ export function analyzePng(path: string, bandH = 40): BandStats {
   return { deadZones: zones, contentRatio: 1 - empty.filter(Boolean).length / bands, bands };
 }
 
+/** Look-based statistics of a rendered section (PNG buffer): how much of it is ink vs empty background, how many distinct colours it uses, how much edge detail it has. */
+export function pixelStats(buf: Buffer): { inkPct: number; colors: number; edgePct: number } {
+  const png = PNG.sync.read(buf); const { width, height, data } = png;
+  const hist = new Map<number, number>(); let total = 0; let edges = 0; let pairs = 0;
+  const key = (i: number) => ((data[i]! >> 4) << 8) | ((data[i + 1]! >> 4) << 4) | (data[i + 2]! >> 4);
+  for (let y = 0; y < height; y += 2) for (let x = 0; x < width - 3; x += 3) {
+    const i = (y * width + x) * 4; const k = key(i);
+    hist.set(k, (hist.get(k) ?? 0) + 1); total++;
+    const j = (y * width + x + 3) * 4; pairs++;
+    if (Math.abs(data[i]! - data[j]!) + Math.abs(data[i + 1]! - data[j + 1]!) + Math.abs(data[i + 2]! - data[j + 2]!) > 60) edges++;
+  }
+  const top = Math.max(...hist.values());
+  return { inkPct: Math.round((1 - top / total) * 100), colors: [...hist.values()].filter((v) => v / total > 0.004).length, edgePct: Math.round((edges / Math.max(1, pairs)) * 1000) / 10 };
+}
+
 const clamp = (n: number) => Math.max(0, Math.min(100, Math.round(n)));
 const mean = (a: number[]) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0);
 const sd = (a: number[]) => { const m = mean(a); return Math.sqrt(mean(a.map((x) => (x - m) ** 2))); };

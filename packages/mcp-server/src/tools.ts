@@ -10,6 +10,7 @@ import {
 import { auditTarget, capture, serveDir, VIEWPORTS, formatReport, detectSlop, getBrowser } from "@openui-engine/verify";
 import { applyPending } from "@openui-engine/editor";
 import type { ServerContext } from "./context.js";
+import { openSections, shootSection, reviewDigest } from "./section-review.js";
 
 const STYLE = z.string().transform((v) => resolveStyle(v).style).describe("art direction: an id (" + STYLE_IDS.join(", ") + ") or loose words such as 'warm editorial'; unknown words fall back to the closest match");
 /** Any text is accepted and mapped to the nearest of the eight categories (small models write "services", "surf school", "vet clinic"). */
@@ -193,7 +194,7 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("validate_design", {
     title: "Validate design",
     description: "Run the automated QA gate in a real Chromium: desktop/tablet/mobile overflow, axe accessibility, console + network errors, broken images/anchors, interaction tests (accordion, nav, toggles, keyboard focus), reduced-motion behaviour, invisible-content detection and design-token compliance. Returns pass/fail with prioritised, fix-oriented issues (with data-openui-id so you can target them).",
-    inputSchema: { target: z.string().optional().describe("OpenUI project dir, a built-site dir, or http(s) URL (aliases accepted: url, path, dir)"), url: z.string().optional(), path: z.string().optional(), dir: z.string().optional(), viewports: z.array(z.enum(["desktop", "tablet", "mobile"])).default(["desktop", "mobile"]), maxIssues: z.number().int().default(15), quick: z.boolean().default(false).describe("faster iterative check while building: desktop only and skips axe-core (about a third less time in a measured run, mostly browser start-up and interaction tests remain). Run the full gate before you finish.") },
+    inputSchema: { target: z.string().optional().describe("OpenUI project dir, a built-site dir, or http(s) URL (aliases accepted: url, path, dir)"), url: z.string().optional(), path: z.string().optional(), dir: z.string().optional(), viewports: z.array(z.enum(["desktop", "tablet", "mobile"])).default(["desktop", "mobile"]), maxIssues: z.number().int().default(15), review: z.boolean().default(true).describe("append the three weakest sections (with images) and what to try; set false for a pure gate result"), quick: z.boolean().default(false).describe("faster iterative check while building: desktop only and skips axe-core (about a third less time in a measured run, mostly browser start-up and interaction tests remain). Run the full gate before you finish.") },
   }, async (a) => {
     const t0 = tgt(a); const target = /^https?:/.test(t0) ? t0 : ctx.safePath(t0);
     const vps = a.quick ? VIEWPORTS.filter((v) => v.name === "desktop") : VIEWPORTS.filter((v) => a.viewports.includes(v.name as "desktop"));
@@ -201,14 +202,26 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     const issues = r.audit.viewports.flatMap((v) => v.issues.map((i) => ({ viewport: v.viewport.name, ...i }))).filter((i) => i.severity !== "info");
     const order = { error: 0, warning: 1, info: 2 } as const;
     issues.sort((x, y) => order[x.severity] - order[y.severity]);
-    return text({
+    let review: { summary: any; images: Array<{ file: string; label: string }> } | null = null;
+    if (a.review) {
+      let srv2: Awaited<ReturnType<typeof serveDir>> | null = null;
+      try {
+        const u = /^https?:/.test(t0) ? t0 : (srv2 = await serveDir(existsSync(join(target, "dist")) ? join(target, "dist") : target)).url + "/";
+        review = await reviewDigest(u, join(ctx.workdir, ".openui", "review"), 3, !a.quick);
+      } catch (e) { review = { summary: { note: `section review skipped: ${(e as Error).message.slice(0, 120)}` }, images: [] }; } finally { await srv2?.close(); }
+    }
+    const mainJson = {
       passed: r.audit.passed, totals: r.audit.totals,
       interactions: Object.fromEntries(r.audit.viewports.map((v) => [v.viewport.name, `${v.interactions.filter((i) => i.passed).length}/${v.interactions.length}`])),
       token_compliance: r.audit.viewports[0]?.compliance ? Object.fromEntries(Object.entries(r.audit.viewports[0].compliance).map(([k, c]) => [k, `${(c.ratio * 100).toFixed(0)}%`])) : "n/a (no tokens)",
       issues: issues.slice(0, a.maxIssues).map((i) => ({ sev: i.severity, vp: i.viewport, cat: i.category, msg: i.message.slice(0, 300), selector: i.selector, text: i.snippet, id: i.openuiId, fix: i.fix })),
       ...(a.quick ? { mode: "quick (desktop only, axe-core skipped): run validate_design without quick for the full gate before finishing" } : {}),
       truncated: Math.max(0, issues.length - a.maxIssues),
-    });
+      ...(review ? { design_review: review.summary } : {}),
+    };
+    const content: any[] = [{ type: "text", text: JSON.stringify(mainJson, null, 1) }];
+    if (review) for (const im of review.images) { content.push({ type: "text", text: `weak section: ${im.label}` }); content.push({ type: "image", data: readFileSync(im.file).toString("base64"), mimeType: "image/jpeg" }); }
+    return { content };
   });
 
   // 9 ────────────────────────────────────────────────────────────────────────
@@ -236,57 +249,20 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   // review_sections ───────────────────────────────────────────────────────────
   server.registerTool("review_sections", {
     title: "Review the page section by section",
-    description: "THE SECTION-BY-SECTION REVIEW LOOP: renders your site in Chromium and returns ONE IMAGE PER SECTION (header, each section, footer) plus measured facts and the design-director questions to answer for each one. Full-page screenshots hide weak sections; looking at each section at reading size does not. Call it after your first build, LOOK at every image, answer the questions in your head (is this section deliberately designed or a default card grid? does it show something specific to THIS business? is the type and colour distinctive?), fix the weakest three sections, and call it again. Repeat at least twice, once for viewport=mobile. Use `from`/`limit` to page through long pages.",
+    description: "Renders your site in Chromium and returns ONE IMAGE PER SECTION (header, each section, footer) plus measured facts and the design-director questions to answer for each one. validate_design already returns the three weakest sections automatically; use this to look at every section. Use `from`/`limit` to page through long pages and viewport=mobile for the phone view.",
     inputSchema: { target: z.string().optional().describe("site dir or http(s) URL (default 'site')"), url: z.string().optional(), path: z.string().optional(), dir: z.string().optional(), viewport: z.enum(["desktop", "mobile"]).default("desktop"), from: z.number().int().min(0).default(0).describe("index of the first section to return as an image"), limit: z.number().int().min(1).max(6).default(4) },
   }, async (a) => {
     const t0 = tgt(a); const isUrl = /^https?:/.test(t0);
     let srv: Awaited<ReturnType<typeof serveDir>> | null = null; let url = t0;
     if (!isUrl) { const dir = ctx.safePath(t0); if (isProject(dir)) rebuild(dir); srv = await serveDir(existsSync(join(dir, "dist")) ? join(dir, "dist") : dir); url = srv.url + "/"; }
-    const vp = VIEWPORTS.find((v) => v.name === a.viewport)!;
     try {
-      const browser = await getBrowser();
-      const bctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, isMobile: !!vp.mobile, hasTouch: !!vp.mobile });
-      const page = await bctx.newPage();
-      await page.goto(url, { waitUntil: "networkidle", timeout: 45_000 });
-      await page.evaluate(() => document.fonts?.ready);
-      await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 500) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 60)); } window.scrollTo(0, 0); });
-      const handles = await page.evaluateHandle(() => {
-        const seen = new Set<Element>(); const out: Element[] = [];
-        const push = (e: Element) => { const r = e.getBoundingClientRect(); if (!seen.has(e) && r.height > 40 && getComputedStyle(e).display !== "none") { seen.add(e); out.push(e); } };
-        document.querySelectorAll("body > header, body > nav, main > *, body > section, body > footer, body > main > footer").forEach(push);
-        return out;
-      });
-      const props = await handles.getProperties(); const els = [...props.values()].map((h) => h.asElement()!).filter(Boolean);
-      const facts: any[] = []; let prevSig = "";
-      for (let i = 0; i < els.length; i++) {
-        const f = await els[i]!.evaluate((el) => {
-          const cs = getComputedStyle(el); const txt = (el as HTMLElement).innerText || "";
-          const words = txt.trim().split(/\s+/).filter(Boolean).length;
-          let best = 0; el.querySelectorAll("*").forEach((c: Element) => { const d = getComputedStyle(c).display; if ((d === "grid" || d === "flex") && c.children.length > best) best = c.children.length; });
-          const h = el.querySelector("h1,h2,h3"); const rect = el.getBoundingClientRect();
-          return { id: (el as HTMLElement).id || null, tag: el.tagName.toLowerCase(), heading: h?.textContent?.trim().slice(0, 70) ?? null, heightPx: Math.round(rect.height), words, svgs: el.querySelectorAll("svg").length, imgs: el.querySelectorAll("img").length, buttons: el.querySelectorAll("a.btn,button,.btn").length, repeatedChildren: best, background: cs.backgroundColor };
-        });
-        const sig = `${f.repeatedChildren}x${f.svgs > 0}`; const flags: string[] = [];
-        if (f.svgs === 0 && f.imgs === 0 && f.tag === "section") flags.push("no visual element: text only");
-        if (f.repeatedChildren >= 3 && sig === prevSig) flags.push("same repeated-card layout as the previous section: vary it");
-        if (f.heightPx > vp.height * 1.8) flags.push(`taller than 1.8 screens (${f.heightPx}px): trim or split`);
-        if (f.heightPx < 160 && f.tag === "section") flags.push("very short: does it earn its place?");
-        prevSig = sig; facts.push({ index: i, ...f, flags });
-      }
-      const dir = join(ctx.workdir, ".openui", "sections"); mkdirSync(dir, { recursive: true });
-      const content: any[] = [{ type: "text", text: JSON.stringify({ viewport: `${a.viewport} ${vp.width}px`, sections: facts.length, images: `${a.from}..${Math.min(a.from + a.limit, facts.length) - 1}`, next: a.from + a.limit < facts.length ? `call again with from=${a.from + a.limit}` : "all sections returned", facts, ask_for_each_image: ["Is this deliberately designed for THIS business, or a default card grid/band?", "Does it show something specific (real data, an object, a diagram) rather than generic icons and filler?", "Is the type scale, colour and spacing consistent with the rest of the page and distinctive?", "Name the single change that would most improve it, then make it."], rule: "Fix the weakest three sections, rebuild, and call this tool again. At least two passes, one on viewport=mobile." }, null, 1) }];
-      for (let i = a.from; i < Math.min(a.from + a.limit, els.length); i++) {
-        const file = join(dir, `section-${a.viewport}-${i}.jpg`);
-        await els[i]!.scrollIntoViewIfNeeded().catch(() => {});
-        const isChrome = ["header", "nav"].includes(facts[i].tag);
-        // sticky/fixed bars would be drawn over every section capture; hide them unless this IS the bar
-        const hidden = isChrome ? 0 : await page.evaluate(() => { let n = 0; document.querySelectorAll("*").forEach((e) => { const p = getComputedStyle(e).position; if ((p === "fixed" || p === "sticky") && (e as HTMLElement).style.visibility !== "hidden") { (e as HTMLElement).dataset.ouiHid = "1"; (e as HTMLElement).style.visibility = "hidden"; n++; } }); return n; });
-        await els[i]!.screenshot({ path: file, type: "jpeg", quality: 70 }).catch(() => {});
-        if (hidden) await page.evaluate(() => document.querySelectorAll("[data-oui-hid]").forEach((e) => { (e as HTMLElement).style.visibility = ""; delete (e as HTMLElement).dataset.ouiHid; }));
-        if (existsSync(file)) content.push({ type: "image", data: readFileSync(file).toString("base64"), mimeType: "image/jpeg" });
-      }
-      await bctx.close();
-      return { content };
+      const o = await openSections(url, a.viewport);
+      try {
+        const facts = o.facts; const dir = join(ctx.workdir, ".openui", "sections"); mkdirSync(dir, { recursive: true });
+        const content: any[] = [{ type: "text", text: JSON.stringify({ viewport: `${a.viewport} ${o.vp.width}px`, sections: facts.length, images: `${a.from}..${Math.min(a.from + a.limit, facts.length) - 1}`, next: a.from + a.limit < facts.length ? `call again with from=${a.from + a.limit}` : "all sections returned", facts, ask_for_each_image: ["Is this deliberately designed for THIS business, or a default card grid/band?", "Does it show something specific (real data, an object, a diagram) rather than generic icons and filler?", "Is the type scale, colour and spacing consistent with the rest of the page and distinctive?", "Name the single change that would most improve it, then make it."] }, null, 1) }];
+        for (let i = a.from; i < Math.min(a.from + a.limit, facts.length); i++) { const file = join(dir, `section-${a.viewport}-${i}.jpg`); if (await shootSection(o, i, file)) content.push({ type: "image", data: readFileSync(file).toString("base64"), mimeType: "image/jpeg" }); }
+        return { content };
+      } finally { await o.close(); }
     } finally { await srv?.close(); }
   });
 

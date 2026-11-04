@@ -63,7 +63,11 @@ describe("MCP tool surface", () => {
     expect(q.json.sections).toBeGreaterThanOrEqual(5);
     expect(q.json.facts[1]).toHaveProperty("flags");
     expect(q.content.filter((c: any) => c.type === "image").length).toBe(2);
-  }, 90000);
+    const v = await call("validate_design", { target: "revsite", quick: true });
+    expect(v.json.design_review).toBeDefined();
+    const withNoReview = await call("validate_design", { target: "revsite", quick: true, review: false });
+    expect(withNoReview.json.design_review).toBeUndefined();
+  }, 150000);
 
   it("discover_components returns a short ranked list, never the full registry", async () => {
     const r = await call("discover_components", { slot: "pricing", style: "aurora-dark", limit: 3 });
