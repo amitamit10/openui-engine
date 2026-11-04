@@ -1,4 +1,4 @@
-import { mkdtempSync, readFileSync, existsSync, writeFileSync } from "node:fs";
+import { cpSync, mkdtempSync, readFileSync, existsSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -54,6 +54,16 @@ describe("MCP tool surface", () => {
     const l = await call("suggest_layout", { category: "consumer-app" });
     expect(l.isError).toBe(false);
   }, 60000);
+
+  it("review_sections returns one image per section with measured facts and flags", async () => {
+    cpSync(join(work, "pack"), join(work, "revsite"), { recursive: true });
+    cpSync(join(work, "pack", "reference.html"), join(work, "revsite", "index.html"));
+    const q = await call("review_sections", { target: "revsite", limit: 2 });
+    expect(q.isError).toBe(false);
+    expect(q.json.sections).toBeGreaterThanOrEqual(5);
+    expect(q.json.facts[1]).toHaveProperty("flags");
+    expect(q.content.filter((c: any) => c.type === "image").length).toBe(2);
+  }, 90000);
 
   it("discover_components returns a short ranked list, never the full registry", async () => {
     const r = await call("discover_components", { slot: "pricing", style: "aurora-dark", limit: 3 });

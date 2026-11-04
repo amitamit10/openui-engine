@@ -233,6 +233,63 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     } finally { await srv?.close(); }
   });
 
+  // review_sections ───────────────────────────────────────────────────────────
+  server.registerTool("review_sections", {
+    title: "Review the page section by section",
+    description: "THE REVIEW LOOP THAT MEASURABLY IMPROVES PAGES: renders your site in Chromium and returns ONE IMAGE PER SECTION (header, each section, footer) plus measured facts and the design-director questions to answer for each one. Full-page screenshots hide weak sections; looking at each section at reading size does not. Call it after your first build, LOOK at every image, answer the questions in your head (is this section deliberately designed or a default card grid? does it show something specific to THIS business? is the type and colour distinctive?), fix the weakest three sections, and call it again. Repeat at least twice, once for viewport=mobile. Use `from`/`limit` to page through long pages.",
+    inputSchema: { target: z.string().optional().describe("site dir or http(s) URL (default 'site')"), url: z.string().optional(), path: z.string().optional(), dir: z.string().optional(), viewport: z.enum(["desktop", "mobile"]).default("desktop"), from: z.number().int().min(0).default(0).describe("index of the first section to return as an image"), limit: z.number().int().min(1).max(6).default(4) },
+  }, async (a) => {
+    const t0 = tgt(a); const isUrl = /^https?:/.test(t0);
+    let srv: Awaited<ReturnType<typeof serveDir>> | null = null; let url = t0;
+    if (!isUrl) { const dir = ctx.safePath(t0); if (isProject(dir)) rebuild(dir); srv = await serveDir(existsSync(join(dir, "dist")) ? join(dir, "dist") : dir); url = srv.url + "/"; }
+    const vp = VIEWPORTS.find((v) => v.name === a.viewport)!;
+    try {
+      const browser = await getBrowser();
+      const bctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, isMobile: !!vp.mobile, hasTouch: !!vp.mobile });
+      const page = await bctx.newPage();
+      await page.goto(url, { waitUntil: "networkidle", timeout: 45_000 });
+      await page.evaluate(() => document.fonts?.ready);
+      await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 500) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 60)); } window.scrollTo(0, 0); });
+      const handles = await page.evaluateHandle(() => {
+        const seen = new Set<Element>(); const out: Element[] = [];
+        const push = (e: Element) => { const r = e.getBoundingClientRect(); if (!seen.has(e) && r.height > 40 && getComputedStyle(e).display !== "none") { seen.add(e); out.push(e); } };
+        document.querySelectorAll("body > header, body > nav, main > *, body > section, body > footer, body > main > footer").forEach(push);
+        return out;
+      });
+      const props = await handles.getProperties(); const els = [...props.values()].map((h) => h.asElement()!).filter(Boolean);
+      const facts: any[] = []; let prevSig = "";
+      for (let i = 0; i < els.length; i++) {
+        const f = await els[i]!.evaluate((el) => {
+          const cs = getComputedStyle(el); const txt = (el as HTMLElement).innerText || "";
+          const words = txt.trim().split(/\s+/).filter(Boolean).length;
+          let best = 0; el.querySelectorAll("*").forEach((c: Element) => { const d = getComputedStyle(c).display; if ((d === "grid" || d === "flex") && c.children.length > best) best = c.children.length; });
+          const h = el.querySelector("h1,h2,h3"); const rect = el.getBoundingClientRect();
+          return { id: (el as HTMLElement).id || null, tag: el.tagName.toLowerCase(), heading: h?.textContent?.trim().slice(0, 70) ?? null, heightPx: Math.round(rect.height), words, svgs: el.querySelectorAll("svg").length, imgs: el.querySelectorAll("img").length, buttons: el.querySelectorAll("a.btn,button,.btn").length, repeatedChildren: best, background: cs.backgroundColor };
+        });
+        const sig = `${f.repeatedChildren}x${f.svgs > 0}`; const flags: string[] = [];
+        if (f.svgs === 0 && f.imgs === 0 && f.tag === "section") flags.push("no visual element: text only");
+        if (f.repeatedChildren >= 3 && sig === prevSig) flags.push("same repeated-card layout as the previous section: vary it");
+        if (f.heightPx > vp.height * 1.8) flags.push(`taller than 1.8 screens (${f.heightPx}px): trim or split`);
+        if (f.heightPx < 160 && f.tag === "section") flags.push("very short: does it earn its place?");
+        prevSig = sig; facts.push({ index: i, ...f, flags });
+      }
+      const dir = join(ctx.workdir, ".openui", "sections"); mkdirSync(dir, { recursive: true });
+      const content: any[] = [{ type: "text", text: JSON.stringify({ viewport: `${a.viewport} ${vp.width}px`, sections: facts.length, images: `${a.from}..${Math.min(a.from + a.limit, facts.length) - 1}`, next: a.from + a.limit < facts.length ? `call again with from=${a.from + a.limit}` : "all sections returned", facts, ask_for_each_image: ["Is this deliberately designed for THIS business, or a default card grid/band?", "Does it show something specific (real data, an object, a diagram) rather than generic icons and filler?", "Is the type scale, colour and spacing consistent with the rest of the page and distinctive?", "Name the single change that would most improve it, then make it."], rule: "Fix the weakest three sections, rebuild, and call this tool again. At least two passes, one on viewport=mobile." }, null, 1) }];
+      for (let i = a.from; i < Math.min(a.from + a.limit, els.length); i++) {
+        const file = join(dir, `section-${a.viewport}-${i}.jpg`);
+        await els[i]!.scrollIntoViewIfNeeded().catch(() => {});
+        const isChrome = ["header", "nav"].includes(facts[i].tag);
+        // sticky/fixed bars would be drawn over every section capture; hide them unless this IS the bar
+        const hidden = isChrome ? 0 : await page.evaluate(() => { let n = 0; document.querySelectorAll("*").forEach((e) => { const p = getComputedStyle(e).position; if ((p === "fixed" || p === "sticky") && (e as HTMLElement).style.visibility !== "hidden") { (e as HTMLElement).dataset.ouiHid = "1"; (e as HTMLElement).style.visibility = "hidden"; n++; } }); return n; });
+        await els[i]!.screenshot({ path: file, type: "jpeg", quality: 70 }).catch(() => {});
+        if (hidden) await page.evaluate(() => document.querySelectorAll("[data-oui-hid]").forEach((e) => { (e as HTMLElement).style.visibility = ""; delete (e as HTMLElement).dataset.ouiHid; }));
+        if (existsSync(file)) content.push({ type: "image", data: readFileSync(file).toString("base64"), mimeType: "image/jpeg" });
+      }
+      await bctx.close();
+      return { content };
+    } finally { await srv?.close(); }
+  });
+
   // 10 ───────────────────────────────────────────────────────────────────────
   server.registerTool("analyze_visual_quality", {
     title: "Analyze visual quality",

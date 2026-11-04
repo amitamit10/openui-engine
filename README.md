@@ -22,7 +22,7 @@ it hands the agent a **curated, compatibility-checked component registry**, a **
 | [`@openui-engine/editor`](packages/editor) | Browser editor: select, comment, live-tweak typography/spacing/colour/radius/shadow/layout, switch component variants, natural-language requests → agent. Token-authenticated sessions |
 | [`@openui-engine/mcp-server`](packages/mcp-server) | The MCP server (`openui-engine-mcp`) and a protocol-level CLI client (`openui-engine-call`) |
 
-### MCP tools (26)
+### MCP tools (28)
 
 | Tool | Purpose |
 |---|---|
@@ -35,6 +35,8 @@ it hands the agent a **curated, compatibility-checked component registry**, a **
 | `update_design_tokens` / `rebuild_project` | Change tokens by path and re-render |
 | `validate_design` | The QA gate (desktop/tablet/mobile) with fix-oriented issues that carry the element selector, its visible text and the section id. `quick: true` runs a faster desktop-only check without axe-core while iterating. It also flags near-invisible text, large empty holes in card grids and, on right-to-left pages, physical left/right CSS |
 | `capture_preview` | Real screenshots returned as images so a multimodal model can *look* |
+| `review_sections` | One image per section plus measured facts, flags and design-director questions: the section-by-section review loop (the lever the v0.15.0 control showed matters; not yet shown to help in a benchmark) |
+| `style_pack` | Toolkit mode: tokens, CSS, JS, snippets and a reference page for hand-writing a page in a chosen art direction; accepts loose style names |
 | `analyze_visual_quality` | Evidence-backed scores (measured vs heuristic labelled) |
 | `create_review_session` | Starts the editor, returns a private tokenised URL |
 | `get_visual_feedback` | Comments, requests and pending tweaks as CSS patches; long-poll supported |
