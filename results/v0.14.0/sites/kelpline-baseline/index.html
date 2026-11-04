@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kelpline Summit | Ocean technology conference, Aberdeen</title>
+  <meta name="description" content="Kelpline Summit is a two-day ocean technology conference in Aberdeen: underwater robotics, seaweed farming, coastal sensing and marine data. 40 talks, 6 workshops and a harbour boat session.">
+  <meta name="theme-color" content="#0B2B3D">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Kelpline Summit home">
+        <svg class="brand-mark" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="15" fill="#8FE3CB"/>
+          <path d="M11 24 C 8 18, 14 14, 11 8" stroke="#0B2B3D" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          <path d="M16 24 C 13 17, 19 13, 16 6" stroke="#0B2B3D" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          <path d="M21 24 C 18 18, 24 14, 21 9" stroke="#0B2B3D" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-text">Kelpline <span>Summit</span></span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="nav-links">
+          <li><a href="#programme">Programme</a></li>
+          <li><a href="#speakers">Speakers</a></li>
+          <li><a href="#tickets">Tickets</a></li>
+          <li><a href="#venue">Venue</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="nav-signin" href="#member-access">Member sign-in</a>
+          <a class="btn btn-primary btn-sm" href="#tickets">Get tickets</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 2. Hero -->
+    <section class="hero dark" id="top" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Aberdeen &middot; 12&ndash;13 October 2027</p>
+          <h1 id="hero-title">Ocean technology, tested in cold water.</h1>
+          <p class="hero-sub">Kelpline Summit brings underwater robotics, seaweed farming, coastal sensing and marine data into one two-day conference on Aberdeen&rsquo;s harbour. Forty talks, six hands-on workshops and a boat trip out to a live sensor buoy, led by the people who run the kit.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#tickets">Get tickets</a>
+            <a class="btn btn-ghost" href="#programme">Explore the programme</a>
+          </div>
+          <p class="hero-note">Early bird passes close 15 July 2027.</p>
+        </div>
+
+        <figure class="hero-visual">
+          <svg class="hero-art" viewBox="0 0 600 500" role="img" aria-label="Illustration of a remotely operated vehicle with a camera and manipulator arm surveying a kelp forest, with sonar rings from a surface buoy above.">
+            <defs>
+              <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#1D7480"/>
+                <stop offset="0.55" stop-color="#0E4A5A"/>
+                <stop offset="1" stop-color="#082636"/>
+              </linearGradient>
+              <radialGradient id="beam" cx="0" cy="0.5" r="1">
+                <stop offset="0" stop-color="#FFF6CC" stop-opacity="0.45"/>
+                <stop offset="1" stop-color="#FFF6CC" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="600" height="500" fill="url(#seaGrad)"/>
+            <path d="M0 62 Q 40 48 80 62 T 160 62 T 240 62 T 320 62 T 400 62 T 480 62 T 560 62 T 640 62 V0 H0Z" fill="#2E9AA3" opacity="0.5"/>
+            <path d="M0 72 Q 40 60 80 72 T 160 72 T 240 72 T 320 72 T 400 72 T 480 72 T 560 72 T 640 72" fill="none" stroke="#8FE3CB" stroke-width="2" opacity="0.6"/>
+            <g fill="none" stroke="#8FE3CB" stroke-width="1.6">
+              <circle cx="455" cy="48" r="26" opacity="0.7"/>
+              <circle cx="455" cy="48" r="58" opacity="0.5"/>
+              <circle cx="455" cy="48" r="96" opacity="0.32"/>
+              <circle cx="455" cy="48" r="140" opacity="0.18"/>
+            </g>
+            <rect x="446" y="40" width="18" height="16" rx="3" fill="#F2B632"/>
+            <path d="M0 430 Q 120 400 240 425 T 480 418 T 600 432 V500 H0Z" fill="#04171F"/>
+            <g fill="none" stroke="#2FA37A" stroke-width="11" stroke-linecap="round">
+              <path d="M70 500 C 52 410, 104 350, 84 262 C 70 200, 102 160, 92 118"/>
+              <path d="M150 500 C 170 420, 126 370, 146 300 C 158 260, 136 220, 150 176"/>
+              <path d="M528 500 C 512 430, 560 380, 536 300 C 524 250, 552 200, 540 150"/>
+              <path d="M470 500 C 486 440, 452 400, 470 340"/>
+            </g>
+            <g fill="#43C189" opacity="0.85">
+              <ellipse cx="78" cy="330" rx="16" ry="6" transform="rotate(-30 78 330)"/>
+              <ellipse cx="112" cy="270" rx="15" ry="5" transform="rotate(25 112 270)"/>
+              <ellipse cx="96" cy="190" rx="14" ry="5" transform="rotate(-25 96 190)"/>
+              <ellipse cx="160" cy="330" rx="16" ry="6" transform="rotate(25 160 330)"/>
+              <ellipse cx="140" cy="240" rx="14" ry="5" transform="rotate(-20 140 240)"/>
+              <ellipse cx="540" cy="260" rx="16" ry="6" transform="rotate(-28 540 260)"/>
+              <ellipse cx="520" cy="200" rx="15" ry="5" transform="rotate(22 520 200)"/>
+              <ellipse cx="478" cy="380" rx="15" ry="5" transform="rotate(-26 478 380)"/>
+            </g>
+            <path d="M440 70 C 430 110, 330 130, 300 240" fill="none" stroke="#E9E4D3" stroke-width="2.5" stroke-dasharray="6 5" opacity="0.8"/>
+            <polygon points="300,300 470,250 470,350" fill="url(#beam)" transform="translate(-10,-30)"/>
+            <g transform="translate(300 290)">
+              <rect x="-74" y="-40" width="148" height="80" rx="24" fill="#F2B632"/>
+              <rect x="-88" y="-50" width="176" height="100" rx="18" fill="none" stroke="#14402F" stroke-width="5"/>
+              <circle cx="-88" cy="-50" r="11" fill="#14402F"/>
+              <circle cx="88" cy="-50" r="11" fill="#14402F"/>
+              <circle cx="-88" cy="50" r="11" fill="#14402F"/>
+              <circle cx="88" cy="50" r="11" fill="#14402F"/>
+              <circle cx="46" cy="-4" r="18" fill="#0B2B3D" stroke="#F5F1E8" stroke-width="4"/>
+              <circle cx="46" cy="-4" r="7" fill="#8FE3CB"/>
+              <path d="M-74 16 L -118 34 L -132 24" fill="none" stroke="#E9E4D3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M-132 24 L -144 14 M -132 24 L -146 34" stroke="#E9E4D3" stroke-width="4" stroke-linecap="round"/>
+              <rect x="-30" y="-58" width="60" height="12" rx="4" fill="#E9E4D3"/>
+            </g>
+            <g fill="none" stroke="#8FE3CB" stroke-width="2">
+              <circle cx="372" cy="318" r="4"/>
+              <circle cx="386" cy="262" r="6"/>
+              <circle cx="360" cy="214" r="3"/>
+            </g>
+            <g stroke="#8FE3CB" stroke-width="2" opacity="0.7">
+              <line x1="560" y1="110" x2="560" y2="400"/>
+              <line x1="552" y1="130" x2="560" y2="130"/>
+              <line x1="548" y1="180" x2="560" y2="180"/>
+              <line x1="552" y1="230" x2="560" y2="230"/>
+              <line x1="548" y1="280" x2="560" y2="280"/>
+              <line x1="552" y1="330" x2="560" y2="330"/>
+              <line x1="548" y1="380" x2="560" y2="380"/>
+            </g>
+            <text x="28" y="36" fill="#8FE3CB" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" letter-spacing="1.2">DEPTH 18.4 M &middot; TRACK B</text>
+          </svg>
+
+          <figcaption class="float-card float-card-a">
+            <span class="float-label">Live on Track B</span>
+            <strong>Kelp lines under load</strong>
+            <span class="float-meta">Room 2 &middot; 14:10 &middot; Practitioner</span>
+          </figcaption>
+          <div class="float-card float-card-b" aria-hidden="true">
+            <span class="float-label">Buoy 07 telemetry</span>
+            <span class="float-stats"><b>11.2&deg;C</b> sea temp &middot; <b>6.2 kn</b> current</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3. Social proof -->
+    <section class="proof" aria-labelledby="proof-title">
+      <div class="container">
+        <h2 class="proof-title" id="proof-title">Teams from the North Sea to the Hebrides bring their work here</h2>
+        <ul class="proof-list">
+          <li class="proof-name proof-a">Kestrel Subsea</li>
+          <li class="proof-name proof-b">Tidewrack Labs</li>
+          <li class="proof-name proof-c">Glenmoray Kelp Co.</li>
+          <li class="proof-name proof-d">Ardmair Coastal Trust</li>
+          <li class="proof-name proof-e">Brightwater Marine Data</li>
+          <li class="proof-name proof-f">Saltcross Robotics</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. Features / offer -->
+    <section class="section" id="programme" aria-labelledby="programme-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow eyebrow-kelp">The programme</p>
+          <h2 id="programme-title">Two days, three tracks, and one harbour.</h2>
+          <p class="lead">Talks cover Robotics, Farming and Sensing. Workshops use real kit, so you leave with a working prototype, a cleaned dataset or a plan for your own site.</p>
+        </header>
+
+        <ul class="feature-grid">
+          <li class="feature-card">
+            <svg class="feature-art" viewBox="0 0 120 80" aria-hidden="true">
+              <rect width="120" height="80" rx="10" fill="#E3EDE6"/>
+              <rect x="10" y="14" width="78" height="10" rx="5" fill="#1F5C49"/>
+              <rect x="30" y="34" width="70" height="10" rx="5" fill="#2F8F6A"/>
+              <rect x="18" y="54" width="54" height="10" rx="5" fill="#8FBFA6"/>
+              <circle cx="100" cy="19" r="5" fill="#B5482A"/>
+              <circle cx="104" cy="39" r="5" fill="#B5482A"/>
+              <circle cx="82" cy="59" r="5" fill="#B5482A"/>
+            </svg>
+            <p class="feature-tag">Robotics &middot; Farming &middot; Sensing</p>
+            <h3>Forty talks from people in the water</h3>
+            <p>Field reports from operators of ROVs, kelp longlines and tide gauges. Each talk runs 25 minutes with ten left for questions from the floor.</p>
+          </li>
+
+          <li class="feature-card">
+            <svg class="feature-art" viewBox="0 0 120 80" aria-hidden="true">
+              <rect width="120" height="80" rx="10" fill="#E3EDE6"/>
+              <path d="M20 22 H50 V40 H78 V58 H100" fill="none" stroke="#1F5C49" stroke-width="3"/>
+              <rect x="14" y="16" width="14" height="14" rx="3" fill="#0B2B3D"/>
+              <rect x="44" y="34" width="14" height="14" rx="3" fill="#2F8F6A"/>
+              <rect x="72" y="52" width="14" height="14" rx="3" fill="#B5482A"/>
+              <circle cx="100" cy="58" r="4" fill="#1F5C49"/>
+            </svg>
+            <p class="feature-tag">Six workshops &middot; up to 24 seats</p>
+            <h3>Hands-on sessions with real kit</h3>
+            <p>Half-day workshops on ROV piloting, kelp line tension modelling, low-cost sonar and quality checks for coastal sensors.</p>
+          </li>
+
+          <li class="feature-card">
+            <svg class="feature-art" viewBox="0 0 120 80" aria-hidden="true">
+              <rect width="120" height="80" rx="10" fill="#DCEBF0"/>
+              <path d="M24 40 H96 L86 56 H34 Z" fill="#0B2B3D"/>
+              <rect x="50" y="26" width="22" height="14" fill="#F5F1E8"/>
+              <path d="M8 66 Q 20 60 32 66 T 56 66 T 80 66 T 104 66 T 116 66" fill="none" stroke="#2A8A93" stroke-width="3"/>
+              <path d="M4 74 Q 16 68 28 74 T 52 74 T 76 74 T 100 74" fill="none" stroke="#8FBFA6" stroke-width="2"/>
+            </svg>
+            <p class="feature-tag">Thursday afternoon &middot; 90 min</p>
+            <h3>Harbour boat session</h3>
+            <p>Two boats leave Aberdeen Harbour to see a deployed sensor buoy and a small ROV in use. Life jackets are fitted on the quay.</p>
+          </li>
+
+          <li class="feature-card">
+            <svg class="feature-art" viewBox="0 0 120 80" aria-hidden="true">
+              <rect width="120" height="80" rx="10" fill="#E3EDE6"/>
+              <rect x="18" y="38" width="12" height="28" rx="2" fill="#8FBFA6"/>
+              <rect x="38" y="26" width="12" height="40" rx="2" fill="#2F8F6A"/>
+              <rect x="58" y="44" width="12" height="22" rx="2" fill="#8FBFA6"/>
+              <rect x="78" y="16" width="12" height="50" rx="2" fill="#1F5C49"/>
+              <path d="M18 22 L 42 16 L 66 30 L 90 10" fill="none" stroke="#B5482A" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
+            <p class="feature-tag">30-minute slots</p>
+            <h3>Marine data clinic</h3>
+            <p>Bring a survey or sensor dataset and spend half an hour with a data engineer from our partner labs on cleaning and QA.</p>
+          </li>
+
+          <li class="feature-card">
+            <svg class="feature-art" viewBox="0 0 120 80" aria-hidden="true">
+              <rect width="120" height="80" rx="10" fill="#E3EDE6"/>
+              <path d="M60 10 L 96 66 L 24 66 Z" fill="#F2B632" opacity="0.35"/>
+              <rect x="40" y="62" width="40" height="8" rx="3" fill="#0B2B3D"/>
+              <circle cx="60" cy="40" r="7" fill="#B5482A"/>
+              <path d="M60 40 L 60 62" stroke="#0B2B3D" stroke-width="2"/>
+            </svg>
+            <p class="feature-tag">Six seed-stage teams</p>
+            <h3>Founder pitch dock</h3>
+            <p>Five minutes on the main stage, then a feedback session with procurement leads from coastal authorities and harbour trusts.</p>
+          </li>
+
+          <li class="feature-card">
+            <svg class="feature-art" viewBox="0 0 120 80" aria-hidden="true">
+              <rect width="120" height="80" rx="10" fill="#E3EDE6"/>
+              <g stroke="#2F8F6A" stroke-width="2">
+                <line x1="60" y1="40" x2="60" y2="14"/>
+                <line x1="60" y1="40" x2="86" y2="30"/>
+                <line x1="60" y1="40" x2="82" y2="62"/>
+                <line x1="60" y1="40" x2="38" y2="62"/>
+                <line x1="60" y1="40" x2="34" y2="28"/>
+              </g>
+              <circle cx="60" cy="40" r="7" fill="#1F5C49"/>
+              <g fill="#B5482A"><circle cx="60" cy="14" r="5"/><circle cx="86" cy="30" r="5"/><circle cx="82" cy="62" r="5"/><circle cx="38" cy="62" r="5"/><circle cx="34" cy="28" r="5"/></g>
+            </svg>
+            <p class="feature-tag">Closed session &middot; by invitation</p>
+            <h3>Coastal authority roundtable</h3>
+            <p>Councils and harbour trusts compare permitting timelines and agree how to share monitoring data without duplicating survey work.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. How attending works -->
+    <section class="section section-alt" aria-labelledby="how-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow eyebrow-kelp">Attending</p>
+          <h2 id="how-title">How attending works</h2>
+          <p class="lead">Three steps from ticket to the quayside. Most delegates finish step two in under ten minutes.</p>
+        </header>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Pick your pass</h3>
+            <p>Choose a Day Pass, a Full Summit or a Team of Five. Every pass includes lunch on the day and the Summit app for scheduling and messaging.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>Build your programme</h3>
+            <p>Save talks and choose a first and second workshop. Workshop seats are allocated by ballot on 1 September 2027, and you will hear by 8 September.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Collect your badge</h3>
+            <p>Badges are issued from 08:00 each morning at the venue. Show the QR code from your confirmation email and you are in.</p>
+          </li>
+        </ol>
+
+        <div class="venue" id="venue">
+          <div class="venue-copy">
+            <h3>The Net Loft, Footdee</h3>
+            <p>A former net store on Aberdeen&rsquo;s harbour front, a 15-minute walk from the railway station. Talks run on the ground floor, which is step-free throughout, and the quiet room is on the first floor.</p>
+            <p class="venue-travel">Parking on Footdee is limited, so the bus and rail are the easiest options. Accessible parking bays can be booked when you register.</p>
+          </div>
+          <dl class="venue-facts">
+            <div><dt>Main stage</dt><dd>Net Loft, ground floor</dd></div>
+            <div><dt>Workshops</dt><dd>Harbour rooms 1&ndash;6</dd></div>
+            <div><dt>Boat session</dt><dd>Leaves from the Harbour pontoon</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Metrics band -->
+    <section class="metrics dark" aria-labelledby="metrics-title">
+      <div class="container">
+        <h2 class="visually-hidden" id="metrics-title">Kelpline Summit in numbers</h2>
+        <dl class="metrics-grid">
+          <div class="metric"><dt>Talks</dt><dd><span class="metric-value">40</span></dd></div>
+          <div class="metric"><dt>Workshops</dt><dd><span class="metric-value">6</span></dd></div>
+          <div class="metric"><dt>Countries represented</dt><dd><span class="metric-value">12</span></dd></div>
+          <div class="metric"><dt>Years running</dt><dd><span class="metric-value">9</span></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 7. Testimonials (also the Speakers anchor) -->
+    <section class="section" id="speakers" aria-labelledby="speakers-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow eyebrow-kelp">Speakers and delegates</p>
+          <h2 id="speakers-title">What the Summit changed for them</h2>
+        </header>
+
+        <div class="quote-grid">
+          <figure class="quote-card">
+            <blockquote>
+              <p>The harbour session was the first time our buoy data and the council&rsquo;s tide gauges were on the same screen. We left with a shared monitoring plan.</p>
+            </blockquote>
+            <figcaption>
+              <span class="avatar avatar-a" aria-hidden="true">AF</span>
+              <span><strong>Dr Ailsa Farquhar</strong><br>Lead engineer, Tidewrack Labs</span>
+            </figcaption>
+          </figure>
+          <figure class="quote-card">
+            <blockquote>
+              <p>I came for the kelp tension workshop and left with a rig design we are now testing on two lines in Loch Fyne. The room was full of people who had already broken things.</p>
+            </blockquote>
+            <figcaption>
+              <span class="avatar avatar-b" aria-hidden="true">TB</span>
+              <span><strong>Tomas Berglund</strong><br>Founder, Saltcross Robotics</span>
+            </figcaption>
+          </figure>
+          <figure class="quote-card">
+            <blockquote>
+              <p>Most conferences give you slides. Kelpline gave our team a dataset to clean, a half-hour clinic and the contact who now signs off our survey permits.</p>
+            </blockquote>
+            <figcaption>
+              <span class="avatar avatar-c" aria-hidden="true">PN</span>
+              <span><strong>Priya Nair</strong><br>Marine data officer, Ardmair Coastal Trust</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Pricing -->
+    <section class="section section-alt" id="tickets" aria-labelledby="tickets-title">
+      <div class="container">
+        <header class="section-head section-head-split">
+          <div>
+            <p class="eyebrow eyebrow-kelp">Tickets</p>
+            <h2 id="tickets-title">Choose the pass that fits your team</h2>
+            <p class="lead">Early bird prices run until 15 July 2027. Switch to standard prices to see what passes cost from 16 July.</p>
+          </div>
+          <div class="price-toggle" role="group" aria-label="Price period">
+            <button class="price-toggle-btn" type="button" data-period="early" aria-pressed="true">Early bird</button>
+            <button class="price-toggle-btn" type="button" data-period="standard" aria-pressed="false">Standard</button>
+          </div>
+        </header>
+        <p class="price-status" id="price-status" role="status" aria-live="polite">Showing early bird prices, valid until 15 July 2027.</p>
+
+        <div class="pricing-grid">
+          <article class="price-card">
+            <h3>Day Pass</h3>
+            <p class="price-desc">One conference day of your choice, for people who want a focused visit.</p>
+            <p class="price"><span class="amount" data-early="145" data-standard="185">&pound;145</span><span class="per">per day</span></p>
+            <ul class="price-list">
+              <li>All talks on the day you choose</li>
+              <li>Marine data clinic booking</li>
+              <li>Lunch and the Summit app</li>
+              <li class="muted">Harbour boat session, available for &pound;40</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#tickets-title">Choose Day Pass</a>
+          </article>
+
+          <article class="price-card price-card-featured">
+            <p class="badge">Most booked</p>
+            <h3>Full Summit</h3>
+            <p class="price-desc">Both days, both workshops, and the boat trip out to the buoy.</p>
+            <p class="price"><span class="amount" data-early="310" data-standard="380">&pound;310</span><span class="per">both days</span></p>
+            <ul class="price-list">
+              <li>All 40 talks across both days</li>
+              <li>Two workshops from the six on offer</li>
+              <li>Harbour boat session on Thursday</li>
+              <li>Dinner at the Net Loft on Day One</li>
+            </ul>
+            <a class="btn btn-primary btn-block" href="#tickets-title">Choose Full Summit</a>
+          </article>
+
+          <article class="price-card">
+            <h3>Team of Five</h3>
+            <p class="price-desc">Five Full Summit passes for a team, with one private roundtable slot.</p>
+            <p class="price"><span class="amount" data-early="1,275" data-standard="1,520">&pound;1,275</span><span class="per">for five</span></p>
+            <ul class="price-list">
+              <li>Five Full Summit passes</li>
+              <li>A private roundtable slot for up to five</li>
+              <li>Named passes, transferable within the team</li>
+              <li>Invoice and purchase order support</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#tickets-title">Choose Team of Five</a>
+          </article>
+        </div>
+
+        <p class="price-note" id="member-access">Returning delegates can <a href="mailto:delegates@kelpline.example?subject=Member%20sign-in">sign in to manage a pass</a>, reassign a seat or download receipts. Prices are in pounds sterling.</p>
+      </div>
+    </section>
+
+    <!-- 9. FAQ -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container faq-wrap">
+        <header class="section-head">
+          <p class="eyebrow eyebrow-kelp">Questions</p>
+          <h2 id="faq-title">Frequently asked questions</h2>
+        </header>
+
+        <div class="accordion">
+          <div class="accordion-item">
+            <h3><button class="accordion-trigger" type="button" aria-expanded="true" aria-controls="faq-1">Can I transfer my pass if my plans change?</button></h3>
+            <div class="accordion-panel" id="faq-1">
+              <p>Yes. Passes can be transferred to a named colleague up to 14 days before the Summit at no charge. After that date, transfers cost &pound;25.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3><button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-2">Do I need to be a marine specialist to attend?</button></h3>
+            <div class="accordion-panel" id="faq-2" hidden>
+              <p>No. About a third of delegates are founders, planners or coastal-authority staff. Every talk is labelled Intro, Practitioner or Deep Dive so you can pick the right level.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3><button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-3">What happens if a workshop is full?</button></h3>
+            <div class="accordion-panel" id="faq-3" hidden>
+              <p>Workshops are allocated by ballot on 1 September 2027. Anyone not allocated a seat goes on a waitlist and is told the outcome by 8 September.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3><button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-4">Is the harbour boat session suitable if I do not sail?</button></h3>
+            <div class="accordion-panel" id="faq-4" hidden>
+              <p>Yes. Boats are run by an accredited skipper, life jackets are fitted on the quay, and the trip is cancelled if the forecast sea state exceeds our limit. You will get a refund or a seat on the rescheduled trip.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3><button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-5">Are sessions recorded?</button></h3>
+            <div class="accordion-panel" id="faq-5" hidden>
+              <p>Main-stage talks are recorded and shared with delegates within two weeks, unless the speaker has asked for slides only. Workshops are not recorded, so you can speak freely.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3><button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-6">Can I bring a team or pay by invoice?</button></h3>
+            <div class="accordion-panel" id="faq-6" hidden>
+              <p>Yes. Team of Five orders and invoice requests go to <a href="mailto:hello@kelpline.example">hello@kelpline.example</a>. Public bodies can pay by purchase order on 30-day terms.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Final CTA -->
+    <section class="cta-band dark" aria-labelledby="cta-title">
+      <div class="container cta-inner">
+        <div>
+          <h2 id="cta-title">Get your pass before early bird closes on 15 July.</h2>
+          <p>Twelve countries, forty talks and one harbour. Seats for the boat session and both workshops go fastest.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="#tickets">Get tickets</a>
+          <a class="btn btn-ghost" href="mailto:hello@kelpline.example?subject=Group%20rates">Ask about group rates</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 11. Footer -->
+  <footer class="site-footer dark">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <p class="brand-text footer-brand-name">Kelpline <span>Summit</span></p>
+        <p>A two-day ocean technology conference in Aberdeen, every October.</p>
+      </div>
+      <nav class="footer-col" aria-labelledby="foot-summit">
+        <h3 id="foot-summit">Summit</h3>
+        <ul>
+          <li><a href="#programme">Programme</a></li>
+          <li><a href="#speakers">Speakers</a></li>
+          <li><a href="#venue">Venue</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-labelledby="foot-attend">
+        <h3 id="foot-attend">Attend</h3>
+        <ul>
+          <li><a href="#tickets">Tickets</a></li>
+          <li><a href="#member-access">Member sign-in</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-labelledby="foot-contact">
+        <h3 id="foot-contact">Contact</h3>
+        <ul>
+          <li><a href="mailto:hello@kelpline.example">hello@kelpline.example</a></li>
+          <li><a href="mailto:press@kelpline.example">Press enquiries</a></li>
+          <li><a href="mailto:partners@kelpline.example">Sponsorship</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container legal">
+      <p>&copy; 2026 Kelpline Summit Ltd. Kelpline Summit is a fictional event used for this website. Registered office: The Net Loft, Footdee, Aberdeen. Tickets are transferable up to 14 days before the event.</p>
+    </div>
+  </footer>
+</body>
+</html>

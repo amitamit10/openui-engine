@@ -1,0 +1,33 @@
+name: CI
+on:
+  push: { branches: [main] }
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10.28.0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: npx playwright-core install --with-deps chromium
+      - run: pnpm build
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test
+      - name: Docs inventories are up to date
+        run: pnpm run docs:build && git diff --exit-code docs/SOURCES.md docs/COMPONENTS.md
+      - name: Generated DESIGN.md files pass the official linter
+        run: |
+          node -e "
+          const c=require('node:fs');import('./packages/core/dist/index.js').then(m=>{for(const s of m.STYLE_IDS){c.mkdirSync('/tmp/dmd/'+s,{recursive:true});c.writeFileSync('/tmp/dmd/'+s+'/DESIGN.md',m.renderDesignMd(m.generateTokens({name:'Acme',style:s})))}})"
+          for s in aurora-dark clarity-light editorial-paper terminal-dev warm-human neo-brutal field-notes; do
+            npx -y @google/design.md lint /tmp/dmd/$s/DESIGN.md | node -e "let d='';process.stdin.on('data',x=>d+=x).on('end',()=>{const r=JSON.parse(d);console.log('$s',r.summary);process.exit(r.summary.errors||r.summary.warnings?1:0)})"
+          done
+      - name: Example site passes the browser QA gate
+        run: |
+          node packages/mcp-server/dist/call.js validate_design '{"target":"examples/saas-landing"}' --workdir "$PWD" | tee /tmp/v.json
+          grep -q '"passed": true' /tmp/v.json

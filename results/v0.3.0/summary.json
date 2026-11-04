@@ -1,0 +1,115 @@
+{
+  "release": "v0.3.0",
+  "note": "Design-identity pass: tone-driven art direction (new field-notes style), composable product screens (`ui` visual), non-violet accents. CONFOUND: 5 of 6 agents hand-patched a real engine CSS bug (the split hero ignored its mobile breakpoint, so the product panel overlapped the headline at 390px) in the delivered site; the atelier agent also hand-edited price formatting and copy. The bug is fixed in source afterwards (see v0.3.1 / commit da2cb88) but these results measure the sites as delivered, hand edits included.",
+  "briefs": [
+    "atelier",
+    "fieldnote",
+    "gridwise",
+    "kilnco",
+    "ledgerline",
+    "minutewise"
+  ],
+  "judgements": 12,
+  "wins": {
+    "baseline": 12,
+    "engine": 0
+  },
+  "engineWinRatePct": 0,
+  "engineJudgedMoreTemplateLike": 11,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 8,
+      "typography": 8.2,
+      "spacing": 7.6,
+      "colour": 8,
+      "product_visual": 8.2,
+      "mobile": 7.3,
+      "polish": 7.9,
+      "originality": 7.5
+    },
+    "engine": {
+      "hierarchy": 6,
+      "typography": 6.3,
+      "spacing": 5.3,
+      "colour": 6.1,
+      "product_visual": 6,
+      "mobile": 6.1,
+      "polish": 5.5,
+      "originality": 5.1
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.8,
+    "engine": 5.8
+  },
+  "automated": {
+    "baseline": {
+      "sites": 6,
+      "quality": 88.7,
+      "originalityScore": 95,
+      "slopScore": 95,
+      "slopFindings": 0.8,
+      "auditErrors": 1.8,
+      "auditWarnings": 7.2,
+      "neutralChecksPassed": "17/18",
+      "svgs": 6.8,
+      "fontFamilies": 2.3,
+      "distinctColors": 18.2,
+      "spacingOn4px": 85.6,
+      "sourceKB": 53.6
+    },
+    "engine": {
+      "sites": 6,
+      "quality": 94.7,
+      "originalityScore": 100,
+      "slopScore": 100,
+      "slopFindings": 0,
+      "auditErrors": 0,
+      "auditWarnings": 0,
+      "neutralChecksPassed": "18/18",
+      "svgs": 39.5,
+      "fontFamilies": 2.8,
+      "distinctColors": 12.2,
+      "spacingOn4px": 91.3,
+      "sourceKB": 87.4
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 6,
+    "tokens": "88,456-104,393",
+    "toolCalls": "23-40",
+    "seconds": "222-415",
+    "perAgent": {
+      "fieldnote": {
+        "tokens": 89773,
+        "toolCalls": 26,
+        "seconds": 377
+      },
+      "ledgerline": {
+        "tokens": 88456,
+        "toolCalls": 23,
+        "seconds": 258
+      },
+      "minutewise": {
+        "tokens": 99681,
+        "toolCalls": 40,
+        "seconds": 415
+      },
+      "atelier": {
+        "tokens": 104393,
+        "toolCalls": 35,
+        "seconds": 357
+      },
+      "kilnco": {
+        "tokens": 89415,
+        "toolCalls": 25,
+        "seconds": 258
+      },
+      "gridwise": {
+        "tokens": 91189,
+        "toolCalls": 27,
+        "seconds": 222
+      }
+    }
+  }
+}

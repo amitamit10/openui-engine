@@ -1,0 +1,81 @@
+{
+  "release": "v0.2.0",
+  "note": "First engine-guided run with the 19-tool surface. Engine agents needed many calls to get a passing build.",
+  "briefs": [
+    "fieldnote",
+    "ledgerline",
+    "minutewise"
+  ],
+  "judgements": 6,
+  "wins": {
+    "baseline": 6,
+    "engine": 0
+  },
+  "engineWinRatePct": 0,
+  "engineJudgedMoreTemplateLike": 6,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 8,
+      "typography": 8.3,
+      "spacing": 7.3,
+      "colour": 8,
+      "product_visual": 8.8,
+      "mobile": 7.3,
+      "polish": 8,
+      "originality": 7.8
+    },
+    "engine": {
+      "hierarchy": 6.3,
+      "typography": 5.7,
+      "spacing": 6.3,
+      "colour": 5.5,
+      "product_visual": 5.2,
+      "mobile": 6.3,
+      "polish": 6.3,
+      "originality": 3.5
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.9,
+    "engine": 5.6
+  },
+  "automated": {
+    "baseline": {
+      "sites": 3,
+      "quality": 87,
+      "originalityScore": 94.7,
+      "slopScore": 94.7,
+      "slopFindings": 0.7,
+      "auditErrors": 3,
+      "auditWarnings": 7.3,
+      "neutralChecksPassed": "9/9",
+      "svgs": 6.7,
+      "fontFamilies": 2.3,
+      "distinctColors": 18,
+      "spacingOn4px": 85.1,
+      "sourceKB": 55.6
+    },
+    "engine": {
+      "sites": 3,
+      "quality": 94,
+      "originalityScore": 100,
+      "slopScore": 100,
+      "slopFindings": 0,
+      "auditErrors": 0,
+      "auditWarnings": 0,
+      "neutralChecksPassed": "9/9",
+      "svgs": 43,
+      "fontFamilies": 3,
+      "distinctColors": 10.7,
+      "spacingOn4px": 79.9,
+      "sourceKB": 80.2
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 3,
+    "tokens": "118,871-145,517",
+    "toolCalls": "42-62",
+    "seconds": "321-519",
+    "perAgent": null
+  }
+}

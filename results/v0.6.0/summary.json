@@ -1,0 +1,103 @@
+{
+  "release": "v0.6.0",
+  "note": "Controlled benchmark of the v0.6.0 engine (model-drawn bespoke SVG for hero and feature cards, illustration_kit, supplied mockups never overridden). Haiku 5.5 without vs with the MCP, identical SPEC.md, same 60-call budget, four never-seen domains (quillstone bookbindery, bluebell nursery school, rivet bike shop, tallyho expense software), engine frozen at 15c928f. RESULT: engine 1/8, judged more template-like in 7/8; mean about 6.3 vs 7.5. The single win (bluebell r2) was praised for bespoke feature-card illustrations. Judges still prefer baselines on specific product visuals in the hero, dark metrics bands, palette distinctiveness and polish. DEFECTS found: Quillstone engine page showed an empty black block where the ink metrics band should be plus a clipped trust strip; model-drawn art overflowed its column on mobile; preserveAspectRatio slice cropped drawings; closing-form label 'Work email' is generic for non-SaaS. CONFOUNDS: Bluebell MCP agent hand-edited the closing-form label; Rivet MCP agent made two hand edits (a style block for .vz-art width, and preserveAspectRatio changed to meet); the Rivet baseline agent left a stray http.server on port 8765; several agents shared a scratchpad and some check scripts or briefs were overwritten. NOT deployed to Vercel (no VERCEL_TOKEN in this environment).",
+  "briefs": [
+    "bluebell",
+    "quillstone",
+    "rivet",
+    "tallyho"
+  ],
+  "judgements": 8,
+  "wins": {
+    "baseline": 7,
+    "engine": 1
+  },
+  "engineWinRatePct": 13,
+  "engineJudgedMoreTemplateLike": 7,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 7.9,
+      "typography": 7.8,
+      "spacing": 7.3,
+      "colour": 7.8,
+      "product_visual": 7.9,
+      "mobile": 7.1,
+      "polish": 7.6,
+      "originality": 7.4
+    },
+    "engine": {
+      "hierarchy": 6.8,
+      "typography": 6.8,
+      "spacing": 6.1,
+      "colour": 6.5,
+      "product_visual": 6,
+      "mobile": 6.4,
+      "polish": 6,
+      "originality": 5.6
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.6,
+    "engine": 6.3
+  },
+  "automated": {
+    "baseline": {
+      "sites": 4,
+      "quality": 88.5,
+      "originalityScore": 94.8,
+      "slopScore": 94.8,
+      "slopFindings": 1.5,
+      "auditErrors": 4.8,
+      "auditWarnings": 4,
+      "neutralChecksPassed": "8/12",
+      "svgs": 9.3,
+      "fontFamilies": 2.3,
+      "distinctColors": 17.3,
+      "spacingOn4px": 89.4,
+      "sourceKB": 55.3
+    },
+    "engine": {
+      "sites": 4,
+      "quality": 94.3,
+      "originalityScore": 98.5,
+      "slopScore": 98.5,
+      "slopFindings": 0.3,
+      "auditErrors": 0.3,
+      "auditWarnings": 0,
+      "neutralChecksPassed": "8/12",
+      "svgs": 30,
+      "fontFamilies": 3,
+      "distinctColors": 10,
+      "spacingOn4px": 92.2,
+      "sourceKB": 94.3
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 4,
+    "tokens": "108,281-112,685 (baseline arm in the same run: 104,727-141,711)",
+    "toolCalls": "17-32 (baseline arm: 14-30)",
+    "seconds": "221-305 (baseline arm: 233-299)",
+    "perAgent": {
+      "quillstone": {
+        "tokens": 112685,
+        "toolCalls": 17,
+        "seconds": 221
+      },
+      "bluebell": {
+        "tokens": 110176,
+        "toolCalls": 20,
+        "seconds": 273
+      },
+      "rivet": {
+        "tokens": 108281,
+        "toolCalls": 32,
+        "seconds": 305
+      },
+      "tallyho": {
+        "tokens": 111884,
+        "toolCalls": 22,
+        "seconds": 274
+      }
+    }
+  }
+}

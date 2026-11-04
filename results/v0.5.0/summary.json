@@ -1,0 +1,103 @@
+{
+  "release": "v0.5.0",
+  "note": "The controlled benchmark you specified, on the v0.5.0 engine (art-director pass: generative illustration layer, illustrated feature cards, hero scene, count-up metrics, design_review loop). Haiku 5.5 WITHOUT the MCP vs Haiku 5.5 WITH the MCP, the exact same specification (identical SPEC.md), the same 60-tool-call budget, four never-seen domains (fernwood dental practice, skyplot satellite-imagery API, heronfinch interior design studio, kinfolk in-home care), engine frozen for the run, no hand edits by any MCP-arm agent. Blind Sonnet judges, both label orders. NOT deployed to Vercel (no VERCEL_TOKEN in this environment); screenshots are in the data folder and the side-by-side pages. Observed afterwards: the engine's hero is still an app-window mockup even for non-software briefs, which judges call template-like; fixes for that, a dark featured pricing tier, bigger headline tiers and balanced hero cards follow in v0.5.1. Defects the MCP agents reported (fixed afterwards): prices without thousands separators, footer tagline truncated with an ellipsis, footer links 29px tall.",
+  "briefs": [
+    "fernwood",
+    "heronfinch",
+    "kinfolk",
+    "skyplot"
+  ],
+  "judgements": 8,
+  "wins": {
+    "baseline": 7,
+    "engine": 1
+  },
+  "engineWinRatePct": 13,
+  "engineJudgedMoreTemplateLike": 6,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 7.9,
+      "typography": 7.9,
+      "spacing": 7.4,
+      "colour": 7.8,
+      "product_visual": 7.6,
+      "mobile": 7,
+      "polish": 7.8,
+      "originality": 6.8
+    },
+    "engine": {
+      "hierarchy": 6.8,
+      "typography": 6.9,
+      "spacing": 6.1,
+      "colour": 6.6,
+      "product_visual": 7.5,
+      "mobile": 6.4,
+      "polish": 6.3,
+      "originality": 6.3
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.5,
+    "engine": 6.6
+  },
+  "automated": {
+    "baseline": {
+      "sites": 4,
+      "quality": 89.3,
+      "originalityScore": 96.8,
+      "slopScore": 96.8,
+      "slopFindings": 0.8,
+      "auditErrors": 4,
+      "auditWarnings": 4.5,
+      "neutralChecksPassed": "10/12",
+      "svgs": 6.8,
+      "fontFamilies": 2,
+      "distinctColors": 22.5,
+      "spacingOn4px": 83.8,
+      "sourceKB": 53.1
+    },
+    "engine": {
+      "sites": 4,
+      "quality": 93.5,
+      "originalityScore": 94,
+      "slopScore": 94,
+      "slopFindings": 1,
+      "auditErrors": 0,
+      "auditWarnings": 0,
+      "neutralChecksPassed": "10/12",
+      "svgs": 35.5,
+      "fontFamilies": 2.8,
+      "distinctColors": 13.5,
+      "spacingOn4px": 88.1,
+      "sourceKB": 101.9
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 4,
+    "tokens": "85,541-125,121 (baseline arm in the same run: 100,053-123,576)",
+    "toolCalls": "18-50 (baseline arm: 16-24)",
+    "seconds": "195-512 (baseline arm: 187-263)",
+    "perAgent": {
+      "fernwood": {
+        "tokens": 113188,
+        "toolCalls": 32,
+        "seconds": 302
+      },
+      "skyplot": {
+        "tokens": 93129,
+        "toolCalls": 24,
+        "seconds": 201
+      },
+      "heronfinch": {
+        "tokens": 85541,
+        "toolCalls": 18,
+        "seconds": 195
+      },
+      "kinfolk": {
+        "tokens": 125121,
+        "toolCalls": 50,
+        "seconds": 512
+      }
+    }
+  }
+}

@@ -1,0 +1,362 @@
+[
+ {
+  "pair": "minutewise-baseline-vs-engine-r1",
+  "brief": "minutewise",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 6,
+   "spacing": 7,
+   "colour": 6,
+   "product_visual": 5,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 3
+  }
+ },
+ {
+  "pair": "fieldnote-baseline-vs-engine-r2",
+  "brief": "fieldnote",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 6,
+   "spacing": 7,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 3
+  }
+ },
+ {
+  "pair": "ledgerline-baseline-vs-engine-r2",
+  "brief": "ledgerline",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 7,
+   "originality": 3
+  }
+ },
+ {
+  "pair": "ledgerline-baseline-vs-engine-r1",
+  "brief": "ledgerline",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 4
+  }
+ },
+ {
+  "pair": "gridwise-baseline-vs-engine-r2",
+  "brief": "gridwise",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 5,
+   "spacing": 6,
+   "colour": 5,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 3
+  }
+ },
+ {
+  "pair": "minutewise-baseline-vs-engine-r2",
+  "brief": "minutewise",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 5,
+   "product_visual": 4,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 3
+  }
+ },
+ {
+  "pair": "kilnco-baseline-vs-engine-r2",
+  "brief": "kilnco",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 2,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 3
+  }
+ },
+ {
+  "pair": "atelier-baseline-vs-engine-r2",
+  "brief": "atelier",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 6,
+   "polish": 7,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 4,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 4
+  }
+ },
+ {
+  "pair": "kilnco-baseline-vs-engine-r1",
+  "brief": "kilnco",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 6,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 6
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 7,
+   "spacing": 5,
+   "colour": 5,
+   "product_visual": 2,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 3
+  }
+ },
+ {
+  "pair": "fieldnote-baseline-vs-engine-r1",
+  "brief": "fieldnote",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 5,
+   "spacing": 6,
+   "colour": 5,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 3
+  }
+ },
+ {
+  "pair": "gridwise-baseline-vs-engine-r1",
+  "brief": "gridwise",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 6,
+   "spacing": 7,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 4
+  }
+ },
+ {
+  "pair": "atelier-baseline-vs-engine-r1",
+  "brief": "atelier",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 5,
+   "product_visual": 3,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 3
+  }
+ }
+]

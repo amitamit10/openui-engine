@@ -1,0 +1,84 @@
+{
+  "release": "v0.2.1",
+  "note": "Reliability pass: fewer calls, fewer tokens, build_site one-shot. Design identity unchanged.",
+  "briefs": [
+    "minutewise",
+    "fieldnote",
+    "ledgerline",
+    "gridwise",
+    "kilnco",
+    "atelier"
+  ],
+  "judgements": 12,
+  "wins": {
+    "baseline": 12,
+    "engine": 0
+  },
+  "engineWinRatePct": 0,
+  "engineJudgedMoreTemplateLike": 12,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 7.9,
+      "typography": 8.3,
+      "spacing": 7.7,
+      "colour": 7.9,
+      "product_visual": 8.2,
+      "mobile": 7.3,
+      "polish": 7.9,
+      "originality": 7.6
+    },
+    "engine": {
+      "hierarchy": 6.4,
+      "typography": 6.1,
+      "spacing": 6.2,
+      "colour": 5.6,
+      "product_visual": 4.5,
+      "mobile": 6.4,
+      "polish": 6,
+      "originality": 3.3
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.9,
+    "engine": 5.6
+  },
+  "automated": {
+    "baseline": {
+      "sites": 6,
+      "quality": 88.7,
+      "originalityScore": 95,
+      "slopScore": 95,
+      "slopFindings": 0.8,
+      "auditErrors": 1.8,
+      "auditWarnings": 7.2,
+      "neutralChecksPassed": "17/18",
+      "svgs": 6.8,
+      "fontFamilies": 2.3,
+      "distinctColors": 18.2,
+      "spacingOn4px": 85.7,
+      "sourceKB": 53.6
+    },
+    "engine": {
+      "sites": 6,
+      "quality": 94.2,
+      "originalityScore": 100,
+      "slopScore": 100,
+      "slopFindings": 0,
+      "auditErrors": 0,
+      "auditWarnings": 0,
+      "neutralChecksPassed": "17/18",
+      "svgs": 46.7,
+      "fontFamilies": 3,
+      "distinctColors": 13.5,
+      "spacingOn4px": 89.7,
+      "sourceKB": 83.5
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 6,
+    "tokens": "75,739-96,362",
+    "toolCalls": "17-36",
+    "seconds": "177-358",
+    "perAgent": null
+  }
+}

@@ -1,0 +1,397 @@
+{
+  "title": "Northstar — AI-assisted incident management for engineering teams",
+  "description": "Northstar detects incidents from monitoring signals, pages the right on-call engineer, drafts the timeline and postmortem, and tracks MTTR and SLO burn.",
+  "brand": {
+    "name": "Northstar"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "type": "navbar-glass",
+      "props": {
+        "links": [
+          {
+            "label": "Features",
+            "href": "#features"
+          },
+          {
+            "label": "How it works",
+            "href": "#how"
+          },
+          {
+            "label": "Pricing",
+            "href": "#pricing"
+          },
+          {
+            "label": "FAQ",
+            "href": "#faq"
+          }
+        ],
+        "signIn": {
+          "label": "Sign in",
+          "href": "#"
+        },
+        "cta": {
+          "label": "Start free trial",
+          "href": "#pricing"
+        }
+      }
+    },
+    {
+      "id": "hero",
+      "type": "hero-centered-product",
+      "props": {
+        "badge": {
+          "tag": "New",
+          "text": "Postmortem drafts are now written during the incident"
+        },
+        "title": "Know what broke, who owns it, and *what changed* in minutes",
+        "subtitle": "Northstar turns monitoring signals into one clear incident, pages the right on-call engineer, and drafts the timeline and postmortem as your team works. MTTR and SLO burn stay in view the whole time.",
+        "primaryCta": {
+          "label": "Start free trial",
+          "href": "#pricing"
+        },
+        "secondaryCta": {
+          "label": "See how it works",
+          "href": "#how"
+        },
+        "note": "14-day free trial · No credit card required · Cancel anytime"
+      }
+    },
+    {
+      "id": "logo-cloud",
+      "type": "logo-cloud",
+      "props": {
+        "label": "Trusted by fictional engineering teams who ship every week",
+        "logos": [
+          "Halcyon Labs",
+          "Kestrel Works",
+          "Brightline Systems",
+          "Tessera Cloud",
+          "Marrow & Vale",
+          "Quillon Health"
+        ]
+      }
+    },
+    {
+      "id": "feature-bento",
+      "type": "feature-bento",
+      "props": {
+        "anchor": "features",
+        "eyebrow": "Capabilities",
+        "title": "Everything from first alert to final review",
+        "subtitle": "Northstar keeps the signal, the people and the record in one calm place, so responders spend their time on the fix.",
+        "items": [
+          {
+            "title": "Incident detection",
+            "body": "Related alerts from your monitoring stack are grouped into a single incident, with the evidence attached.",
+            "visual": "bars",
+            "span": 4
+          },
+          {
+            "title": "Smart paging",
+            "body": "Routes to the right engineer using service ownership, schedules and current load.",
+            "visual": "list",
+            "span": 2
+          },
+          {
+            "title": "Live timeline",
+            "body": "Deploys, messages and actions are recorded as they happen, with no manual note-taking.",
+            "visual": "code",
+            "span": 2
+          },
+          {
+            "title": "Approval guardrails",
+            "body": "Risky rollbacks and escalations ask for sign-off, and only when the change warrants it.",
+            "visual": "toggle",
+            "span": 2
+          },
+          {
+            "title": "Postmortems in draft",
+            "body": "A reviewable first draft with timeline, contributing factors and follow-ups, ready within minutes.",
+            "visual": "avatars",
+            "span": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "feature-rows",
+      "type": "feature-rows",
+      "props": {
+        "title": "Built for the hard parts of on-call",
+        "items": [
+          {
+            "eyebrow": "Reliability",
+            "title": "See your *error budget* before it runs out",
+            "body": "Track MTTR, incident frequency and SLO burn per service, with alerts that fire while there is still room to act.",
+            "bullets": [
+              "Burn-rate alerts across 1-hour, 6-hour and 3-day windows",
+              "MTTR broken down by severity and owning team",
+              "A weekly reliability digest for leadership"
+            ],
+            "visual": "bars"
+          },
+          {
+            "eyebrow": "Accountability",
+            "title": "A record your *review board* can trust",
+            "body": "Everything Northstar captures stays linked to its incident, so reviews start from facts rather than memory.",
+            "bullets": [
+              "An audit log of every action and approval",
+              "Exports that line up with SOC 2 evidence requests",
+              "Follow-up items tracked until they are closed"
+            ],
+            "visual": "list"
+          }
+        ]
+      }
+    },
+    {
+      "id": "how",
+      "type": "steps",
+      "props": {
+        "title": "How it works",
+        "subtitle": "Northstar sits between your monitoring and your team, and keeps the record so nobody has to.",
+        "items": [
+          {
+            "title": "Detect",
+            "body": "Northstar reads alerts and SLO signals from your monitoring tools and groups related ones into a single incident."
+          },
+          {
+            "title": "Page",
+            "body": "The right on-call engineer is paged with the context they need: affected services, recent deploys and likely causes."
+          },
+          {
+            "title": "Document",
+            "body": "The timeline and a postmortem draft are written as the incident unfolds, ready for review once service is restored."
+          }
+        ]
+      }
+    },
+    {
+      "id": "metrics",
+      "type": "metrics",
+      "props": {
+        "tint": true,
+        "items": [
+          {
+            "value": "41%",
+            "label": "Lower MTTR across pilot teams in their first 90 days"
+          },
+          {
+            "value": "12 min",
+            "label": "Median time from alert to an engaged responder"
+          },
+          {
+            "value": "3 in 4",
+            "label": "Postmortems completed within seven days"
+          },
+          {
+            "value": "2,400+",
+            "label": "Incidents documented automatically each month"
+          }
+        ]
+      }
+    },
+    {
+      "id": "testimonials",
+      "type": "testimonials",
+      "props": {
+        "eyebrow": "Testimonials",
+        "title": "What on-call teams say",
+        "items": [
+          {
+            "quote": "Pages used to go to whoever shouted loudest. Now the right engineer gets the right alert, and the rotation feels fair again.",
+            "name": "Dana Okafor",
+            "role": "Director of Engineering, Halcyon Labs"
+          },
+          {
+            "quote": "The first postmortem draft was better than the one we wrote by hand, and it was ready before the call ended.",
+            "name": "Tomas Brandt",
+            "role": "SRE Lead, Kestrel Works"
+          },
+          {
+            "quote": "SLO burn now sits next to our incidents. Planning reliability work stopped being a debate about feelings.",
+            "name": "Aisha Rahman",
+            "role": "VP Platform, Brightline Systems"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pricing",
+      "type": "pricing",
+      "props": {
+        "anchor": "pricing",
+        "eyebrow": "Pricing",
+        "title": "Plans that grow with your rotation",
+        "subtitle": "Start free and upgrade when more teams join the rotation. Yearly billing saves 20%.",
+        "tiers": [
+          {
+            "name": "Starter",
+            "monthly": 0,
+            "yearly": 0,
+            "desc": "For a single team getting started with on-call.",
+            "features": [
+              "Up to 2 services",
+              "Alert grouping and routing",
+              "7-day incident history",
+              "Community support"
+            ],
+            "cta": {
+              "label": "Start free",
+              "href": "#"
+            }
+          },
+          {
+            "name": "Team",
+            "monthly": 24,
+            "yearly": 19,
+            "desc": "For teams running on-call across several services.",
+            "features": [
+              "Unlimited services",
+              "Smart paging and schedules",
+              "Postmortem drafts",
+              "1-year incident history",
+              "Reliability dashboards"
+            ],
+            "cta": {
+              "label": "Start 14-day trial",
+              "href": "#"
+            },
+            "featured": true
+          },
+          {
+            "name": "Enterprise",
+            "monthly": "Custom",
+            "yearly": "Custom",
+            "desc": "For organisations with advanced security and scale needs.",
+            "features": [
+              "SSO and SCIM provisioning",
+              "Audit log export",
+              "Custom data retention",
+              "99.99% uptime commitment"
+            ],
+            "cta": {
+              "label": "Talk to sales",
+              "href": "#"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faq",
+      "type": "faq",
+      "props": {
+        "anchor": "faq",
+        "eyebrow": "FAQ",
+        "title": "Questions, answered",
+        "items": [
+          {
+            "q": "How quickly can we connect our monitoring tools?",
+            "a": "Most teams connect their first source in under twenty minutes. Common alerting and metrics integrations are included out of the box."
+          },
+          {
+            "q": "Does Northstar replace our paging tool?",
+            "a": "It can. Northstar includes on-call schedules and escalation policies, or it can sit alongside an existing pager and route through it."
+          },
+          {
+            "q": "How does the AI decide which engineer to page?",
+            "a": "It uses service ownership, schedules and escalation rules. Every routing decision lists the inputs it used, and you can override it at any time."
+          },
+          {
+            "q": "Is our incident data secure?",
+            "a": "Data is encrypted in transit and at rest. SOC 2 Type II and GDPR documentation are available on request."
+          },
+          {
+            "q": "Can we edit the AI-drafted postmortems?",
+            "a": "Yes. Drafts are a starting point. Your team edits, approves and publishes the final version, and every change is recorded."
+          },
+          {
+            "q": "What happens if we go over our plan?",
+            "a": "We never switch off alerting. We email you before any change to your plan takes effect."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cta-band",
+      "type": "cta-band",
+      "props": {
+        "title": "Your next incident deserves a *clearer* response",
+        "subtitle": "Start free in minutes. No credit card required, and your existing alerts keep working.",
+        "primaryCta": {
+          "label": "Start free trial",
+          "href": "#pricing"
+        },
+        "secondaryCta": {
+          "label": "Book a demo",
+          "href": "#"
+        }
+      }
+    },
+    {
+      "id": "footer",
+      "type": "footer-columns",
+      "props": {
+        "tagline": "AI-assisted incident management for engineering teams. Northstar detects, pages, documents and measures, so your team can focus on the fix.",
+        "columns": [
+          {
+            "title": "Product",
+            "links": [
+              {
+                "label": "Features",
+                "href": "#features"
+              },
+              {
+                "label": "How it works",
+                "href": "#how"
+              },
+              {
+                "label": "Pricing",
+                "href": "#pricing"
+              }
+            ]
+          },
+          {
+            "title": "Company",
+            "links": [
+              {
+                "label": "About",
+                "href": "#"
+              },
+              {
+                "label": "Careers",
+                "href": "#"
+              },
+              {
+                "label": "Contact",
+                "href": "#"
+              }
+            ]
+          },
+          {
+            "title": "Resources",
+            "links": [
+              {
+                "label": "FAQ",
+                "href": "#faq"
+              },
+              {
+                "label": "Status",
+                "href": "#"
+              },
+              {
+                "label": "Security",
+                "href": "#"
+              }
+            ]
+          }
+        ],
+        "legal": "© 2026 Northstar Systems, Inc. All rights reserved. Privacy · Terms",
+        "note": ""
+      }
+    }
+  ]
+}

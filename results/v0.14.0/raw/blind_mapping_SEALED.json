@@ -1,0 +1,74 @@
+{
+ "kelpline-baseline-vs-engine-r1": {
+  "brief": "kelpline",
+  "round": 1,
+  "X": "engine",
+  "Y": "baseline"
+ },
+ "kelpline-baseline-vs-engine-r2": {
+  "brief": "kelpline",
+  "round": 2,
+  "X": "baseline",
+  "Y": "engine"
+ },
+ "clearwater-baseline-vs-engine-r1": {
+  "brief": "clearwater",
+  "round": 1,
+  "X": "baseline",
+  "Y": "engine"
+ },
+ "clearwater-baseline-vs-engine-r2": {
+  "brief": "clearwater",
+  "round": 2,
+  "X": "engine",
+  "Y": "baseline"
+ },
+ "ines-baseline-vs-engine-r1": {
+  "brief": "ines",
+  "round": 1,
+  "X": "baseline",
+  "Y": "engine"
+ },
+ "ines-baseline-vs-engine-r2": {
+  "brief": "ines",
+  "round": 2,
+  "X": "engine",
+  "Y": "baseline"
+ },
+ "halden-baseline-vs-engine-r1": {
+  "brief": "halden",
+  "round": 1,
+  "X": "engine",
+  "Y": "baseline"
+ },
+ "halden-baseline-vs-engine-r2": {
+  "brief": "halden",
+  "round": 2,
+  "X": "baseline",
+  "Y": "engine"
+ },
+ "tilde-baseline-vs-engine-r1": {
+  "brief": "tilde",
+  "round": 1,
+  "X": "engine",
+  "Y": "baseline"
+ },
+ "tilde-baseline-vs-engine-r2": {
+  "brief": "tilde",
+  "round": 2,
+  "X": "baseline",
+  "Y": "engine"
+ },
+ "ember-baseline-vs-engine-r1": {
+  "brief": "ember",
+  "round": 1,
+  "X": "baseline",
+  "Y": "engine"
+ },
+ "ember-baseline-vs-engine-r2": {
+  "brief": "ember",
+  "round": 2,
+  "X": "engine",
+  "Y": "baseline"
+ }
+}

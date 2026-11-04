@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halden &amp; Voss Architects | Low-energy homes and school extensions, Leeds</title>
+<meta name="description" content="Halden &amp; Voss is a nine-person architecture studio in Leeds designing low-energy homes, school extensions and barn conversions, with a fixed-fee design stage and an in-house structural engineer.">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ---------- Tokens ---------- */
+:root{
+  --paper:#F2EEE6;
+  --paper-2:#E9E3D5;
+  --paper-3:#DCD3BF;
+  --ink:#1B2220;
+  --ink-2:#4B5350;
+  --moss:#25403A;
+  --moss-2:#2F5049;
+  --mist:#B9C7BF;
+  --brick:#9E4426;
+  --brass:#8F6B2E;
+  --glass:#C3D2C6;
+  --rule:#BDB4A0;
+  --focus:#9E4426;
+
+  --font-display:"Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-body:"Instrument Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* 8px spacing system */
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:48px; --s6:64px; --s7:96px;
+  --gutter:16px;
+  --wrap:1240px;
+  --section-pad:clamp(64px, 9vw, 112px);
+  --radius:2px;
+}
+@media (min-width:720px){ :root{ --gutter:40px; } }
+
+/* ---------- Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:1.0625rem;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+@media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+img,svg{display:block;max-width:100%}
+p{margin:0 0 var(--s2)}
+h1,h2,h3{margin:0;font-weight:400}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.dark :focus-visible{outline-color:var(--paper)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:var(--gutter);top:-100px;z-index:100;background:var(--ink);color:var(--paper);padding:12px 18px;min-height:44px;display:inline-flex;align-items:center;text-decoration:none}
+.skip:focus{top:8px}
+
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
+section{scroll-margin-top:72px}
+.section{padding:var(--section-pad) 0;position:relative}
+
+/* Type */
+.display{font-family:var(--font-display);font-optical-sizing:auto;letter-spacing:-0.018em}
+.h1{font-size:clamp(2.5rem, 1rem + 3.7vw, 4.6rem);line-height:1.02;letter-spacing:-0.025em}
+.h2{font-size:clamp(2rem, 1.2rem + 2.6vw, 3.4rem);line-height:1.06;letter-spacing:-0.02em;max-width:18ch}
+.h3{font-family:var(--font-display);font-size:1.5rem;line-height:1.2;font-weight:500;letter-spacing:-0.01em}
+.kicker{
+  font-family:var(--font-mono);font-size:.78rem;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);
+  margin:0 0 var(--s2);
+}
+.lede{font-size:clamp(1.1rem, 1rem + .4vw, 1.3rem);line-height:1.55;color:var(--ink-2);max-width:36em}
+.muted{color:var(--ink-2)}
+.on-dark .kicker,.on-dark .muted{color:var(--mist)}
+
+/* Section header: a drawing-sheet title block */
+.sheet-head{display:grid;gap:var(--s3);margin-bottom:var(--s6)}
+@media (min-width:900px){
+  .sheet-head{grid-template-columns:200px 1fr;gap:var(--s5);align-items:start}
+}
+.sheet-index{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+  border-top:2px solid currentColor;padding-top:var(--s1);color:var(--ink-2);
+}
+.sheet-index b{display:block;font-weight:500;color:var(--ink);font-size:.92rem;margin-top:4px}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:48px;padding:12px 22px;border-radius:var(--radius);
+  border:1.5px solid var(--ink);background:transparent;color:var(--ink);
+  font-family:var(--font-body);font-weight:600;font-size:1rem;line-height:1.2;
+  text-decoration:none;cursor:pointer;white-space:nowrap;
+}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn-primary{background:var(--brick);border-color:var(--brick);color:#FFF9F1}
+.btn-primary:hover{background:#86381C;border-color:#86381C;color:#FFF9F1}
+.btn-light{background:var(--paper);border-color:var(--paper);color:var(--ink)}
+.btn-light:hover{background:#FFFFFF;border-color:#FFFFFF;color:var(--ink)}
+.btn-ghost-light{border-color:var(--paper);color:var(--paper)}
+.btn-ghost-light:hover{background:var(--paper);color:var(--ink)}
+.btn .arr{font-family:var(--font-mono);font-weight:500}
+.text-link{
+  display:inline-flex;align-items:center;min-height:44px;font-weight:600;
+  text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:5px;
+}
+
+/* ---------- Navigation ---------- */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(242,238,230,.94);
+  -webkit-backdrop-filter:saturate(1.2) blur(8px);backdrop-filter:saturate(1.2) blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);min-height:72px}
+.brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;min-height:44px;min-width:0}
+.brand-mark{flex:none;width:30px;height:30px}
+.brand-name{font-family:var(--font-display);font-size:1.3rem;line-height:1;letter-spacing:-.01em;white-space:nowrap}
+.brand-name small{display:block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-top:4px}
+.nav-panel{display:none}
+.nav-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.nav-links a{
+  display:flex;align-items:center;min-height:48px;min-width:44px;padding:0 12px 0 4px;text-decoration:none;font-weight:500;
+  border-bottom:1px solid var(--rule);font-size:1.05rem;
+}
+.nav-links a:hover{color:var(--brick)}
+.nav-actions{display:flex;flex-direction:column;gap:var(--s2);padding-top:var(--s2)}
+.nav-actions .btn{width:100%}
+.menu-toggle{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-width:44px;min-height:44px;padding:0 10px;background:none;border:1.5px solid var(--ink);border-radius:var(--radius);cursor:pointer;
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+}
+.menu-toggle .bars{position:relative;width:18px;height:12px}
+.menu-toggle .bars::before,.menu-toggle .bars::after,.menu-toggle .bars i{
+  content:"";position:absolute;left:0;right:0;height:1.5px;background:var(--ink);
+}
+.menu-toggle .bars::before{top:0}
+.menu-toggle .bars i{top:5px}
+.menu-toggle .bars::after{bottom:0}
+.menu-toggle[aria-expanded="true"] .bars i{opacity:0}
+.menu-toggle[aria-expanded="true"] .bars::before{top:5px;transform:rotate(45deg)}
+.menu-toggle[aria-expanded="true"] .bars::after{bottom:5px;transform:rotate(-45deg)}
+.nav-cta-mobile{min-height:44px;padding:10px 14px;font-size:.92rem}
+
+.nav-right{display:flex;align-items:center;gap:var(--s2)}
+
+@media (max-width:899px){
+  .nav-panel[hidden]{display:none}
+  .nav-panel{
+    display:block;position:absolute;left:0;right:0;top:100%;
+    background:var(--paper);border-bottom:1px solid var(--rule);
+    padding:var(--s2) var(--gutter) var(--s4);
+    box-shadow:0 18px 30px -24px rgba(27,34,32,.5);
+    max-height:calc(100vh - 72px);overflow-y:auto;
+  }
+}
+@media (min-width:900px){
+  .menu-toggle{display:none}
+  .nav-panel{display:flex !important;align-items:center;gap:var(--s4)}
+  .nav-links{flex-direction:row;gap:var(--s4)}
+  .nav-links a{border-bottom:0;min-height:44px;min-width:44px;padding:0 10px;position:relative}
+  .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:1.5px;background:var(--brick);transform:scaleX(0);transform-origin:left}
+  .nav-links a:hover::after{transform:scaleX(1)}
+  .nav-actions{flex-direction:row;padding-top:0;align-items:center;gap:var(--s3)}
+  .nav-actions .btn{width:auto;min-height:44px;padding:10px 18px}
+  .nav-cta-mobile{display:none}
+  .nav-actions .sign-in{font-weight:500;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px;min-height:44px;display:inline-flex;align-items:center}
+}
+@media (min-width:900px) and (prefers-reduced-motion:no-preference){ .nav-links a::after{transition:transform .25s ease} }
+@media (max-width:899px){ .nav-actions .sign-in{display:flex;min-height:48px;align-items:center;font-weight:500} }
+@media (max-width:899px){ .nav-actions .btn-primary{display:none} }
+
+/* ---------- Hero ---------- */
+.hero{padding:clamp(40px,6vw,88px) 0 var(--section-pad);position:relative;overflow:hidden}
+.hero-grid{display:grid;gap:var(--s5);align-items:center}
+@media (min-width:960px){ .hero-grid{grid-template-columns:1.02fr .98fr;gap:var(--s6)} }
+.hero h1{margin-bottom:var(--s3)}
+.hero h1 em{font-style:italic;color:var(--brick)}
+.hero .lede{margin-bottom:var(--s4)}
+.cta-row{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center}
+.hero-facts{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2);margin:var(--s5) 0 0;padding:var(--s3) 0 0;
+  border-top:1px solid var(--rule);list-style:none;
+}
+.hero-facts li{font-size:.92rem;color:var(--ink-2);line-height:1.4}
+.hero-facts strong{display:block;font-family:var(--font-display);font-size:1.6rem;font-weight:500;color:var(--ink);line-height:1.1;margin-bottom:4px}
+
+.sheet{
+  background:var(--paper-2);border:1.5px solid var(--ink);border-radius:var(--radius);
+  padding:clamp(12px,2.4vw,24px);position:relative;
+  box-shadow:10px 10px 0 -1px var(--paper-3);
+}
+.sheet-svg{width:100%;height:auto}
+.sheet-legend{list-style:none;margin:var(--s3) 0 0;padding:var(--s2) 0 0;border-top:1px solid var(--rule);display:grid;gap:10px;font-size:.92rem;line-height:1.4}
+.sheet-legend li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}
+.sheet-legend .n{
+  width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);
+  font-family:var(--font-mono);font-size:.78rem;display:inline-flex;align-items:center;justify-content:center;margin-top:1px;
+}
+.title-block{
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;
+  margin-top:var(--s3);padding-top:var(--s2);border-top:1.5px solid var(--ink);
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);
+}
+.title-block b{color:var(--ink);font-weight:500}
+
+/* SVG parts */
+.ln{fill:none;stroke:var(--ink);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.ln-thin{fill:none;stroke:var(--ink);stroke-width:1.2}
+.ln-dim{fill:none;stroke:var(--ink);stroke-width:1.2}
+.fp3{fill:var(--paper-3)}
+.fglass{fill:var(--glass)}
+.fmoss{fill:var(--moss)}
+.fpaper{fill:var(--paper)}
+.fbrick{fill:none;stroke:var(--brick);stroke-width:5}
+.fdash{fill:none;stroke:var(--brass);stroke-width:2;stroke-dasharray:6 6}
+.tx{font-family:var(--font-mono);font-size:17px;fill:var(--ink)}
+.tx-s{font-family:var(--font-mono);font-size:14px;fill:var(--ink-2);letter-spacing:.04em}
+.tx-mk{font-family:var(--font-mono);font-size:15px;font-weight:500;fill:var(--paper)}
+.badge{fill:var(--ink)}
+
+/* ---------- Strip ---------- */
+.strip{background:var(--paper-2);border-block:1px solid var(--rule);padding:var(--s4) 0}
+.strip-inner{display:grid;gap:var(--s3);align-items:center}
+@media (min-width:900px){ .strip-inner{grid-template-columns:200px 1fr} }
+.strip-names{
+  list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2) var(--s3);
+}
+@media (min-width:720px){ .strip-names{grid-template-columns:repeat(3,1fr)} }
+@media (min-width:1080px){ .strip-names{grid-template-columns:repeat(6,auto);justify-content:space-between;gap:var(--s3)} }
+.strip-names li{font-family:var(--font-display);font-size:1.2rem;line-height:1.25;font-style:italic;color:var(--ink);letter-spacing:-.005em}
+
+/* ---------- Work / Features ---------- */
+.offer-grid{display:grid;gap:0;list-style:none;margin:0;padding:0;border-top:1.5px solid var(--ink)}
+@media (min-width:720px){ .offer-grid{grid-template-columns:1fr 1fr} }
+@media (min-width:1080px){ .offer-grid{grid-template-columns:repeat(3,1fr)} }
+.offer{padding:var(--s4) var(--s3) var(--s4) 0;border-bottom:1px solid var(--rule);display:flex;flex-direction:column;gap:var(--s2)}
+@media (min-width:720px){ .offer{padding-right:var(--s4)} .offer:nth-child(odd){border-right:1px solid var(--rule)} }
+@media (min-width:1080px){ .offer:nth-child(odd){border-right:1px solid var(--rule)} .offer:nth-child(3n){border-right:0} .offer:nth-child(3n+1){padding-left:0} .offer{padding-left:var(--s4)} .offer:nth-child(3n+1){padding-left:0} }
+.offer .ico{width:100%;max-width:220px;height:auto;margin-bottom:var(--s1)}
+.offer p{margin:0;color:var(--ink-2);font-size:1rem}
+.offer .tag{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--brick)}
+
+/* ---------- Process ---------- */
+.process{background:var(--paper)}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:var(--s5);counter-reset:none;position:relative}
+@media (min-width:900px){ .steps{grid-template-columns:repeat(3,1fr);gap:var(--s4)} }
+.step{position:relative;padding-top:var(--s4);border-top:1.5px solid var(--ink)}
+.step-num{font-family:var(--font-display);font-style:italic;font-size:clamp(3.2rem,2.2rem + 3vw,4.6rem);line-height:.9;color:var(--brick);display:block;margin-bottom:var(--s3);letter-spacing:-.03em}
+.step-time{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);display:block;margin-bottom:var(--s1)}
+.step p{color:var(--ink-2);margin:var(--s2) 0 0}
+.step-list{list-style:none;margin:var(--s2) 0 0;padding:0;font-size:.95rem;color:var(--ink)}
+.step-list li{padding:8px 0;border-top:1px dashed var(--rule);display:flex;gap:10px}
+.step-list li::before{content:"";flex:none;width:8px;height:8px;margin-top:9px;background:var(--moss)}
+
+/* ---------- Metrics ---------- */
+.metrics{background:var(--moss);color:var(--paper)}
+.metrics .h2{color:var(--paper)}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5) var(--s3);list-style:none;margin:0;padding:0}
+@media (min-width:900px){ .metric-grid{grid-template-columns:repeat(4,1fr);gap:0} }
+.metric{padding:var(--s3) 0 0;border-top:1px solid rgba(242,238,230,.35)}
+@media (min-width:900px){ .metric{padding:var(--s3) var(--s3) 0} .metric:first-child{padding-left:0} .metric+.metric{border-left:1px solid rgba(242,238,230,.2)} }
+.metric-fig{font-family:var(--font-display);font-size:clamp(3.4rem,2.4rem + 3.6vw,5.6rem);line-height:.95;letter-spacing:-.035em;display:flex;align-items:baseline;gap:4px;font-weight:400}
+.metric-fig span.unit{font-size:.42em;letter-spacing:0}
+.metric-label{color:var(--mist);font-size:.98rem;margin-top:var(--s2);max-width:20ch}
+.metrics-note{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.04em;color:var(--mist);margin-top:var(--s4);text-transform:uppercase}
+
+/* ---------- Testimonials ---------- */
+.quotes{list-style:none;margin:0;padding:0;display:grid;gap:var(--s4)}
+@media (min-width:900px){ .quotes{grid-template-columns:1.25fr 1fr 1fr;gap:var(--s4);align-items:start} }
+.quote{margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)}
+.quote blockquote{margin:0;font-family:var(--font-display);font-size:clamp(1.3rem,1.1rem + .6vw,1.6rem);line-height:1.34;letter-spacing:-.01em;text-wrap:pretty}
+.quotes>li:first-child .quote blockquote{font-size:clamp(1.55rem,1.2rem + 1vw,2.1rem);line-height:1.22}
+.quotes>li:first-child .quote blockquote::before{content:"\201C";display:block;font-size:4.2rem;line-height:.7;height:.42em;color:var(--brick);margin:0 0 .18em}
+.quote figcaption{border-top:1px solid var(--rule);padding-top:var(--s2);font-size:.95rem;color:var(--ink-2)}
+.quote figcaption strong{display:block;color:var(--ink);font-weight:600;font-size:1rem}
+
+/* ---------- Pricing ---------- */
+.fees-controls{display:flex;flex-direction:column;gap:var(--s2);margin-bottom:var(--s5)}
+@media (min-width:720px){ .fees-controls{flex-direction:row;align-items:center;justify-content:space-between} }
+.segment{
+  display:inline-flex;border:1.5px solid var(--ink);border-radius:var(--radius);padding:4px;gap:4px;background:var(--paper-2);width:100%;max-width:560px;
+}
+@media (min-width:720px){ .segment{width:auto} }
+.segment button{
+  flex:1;min-height:48px;padding:10px 20px;border:0;background:transparent;border-radius:1px;cursor:pointer;
+  font-weight:600;font-size:.98rem;color:var(--ink);white-space:nowrap;
+}
+.segment button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.segment button:not([aria-pressed="true"]):hover{background:var(--paper-3)}
+.fee-note{font-size:.95rem;color:var(--ink-2);max-width:44ch;margin:0}
+
+.tiers{list-style:none;margin:0;padding:0;display:grid;gap:var(--s3)}
+@media (min-width:960px){ .tiers{grid-template-columns:repeat(3,1fr);gap:0;align-items:stretch;border-top:1.5px solid var(--ink)} }
+.tier{display:flex;flex-direction:column;padding:var(--s4) var(--s3);border:1px solid var(--rule);border-radius:var(--radius);background:var(--paper);position:relative}
+@media (min-width:960px){ .tier{border-radius:0;border:0;border-right:1px solid var(--rule)} .tier:last-child{border-right:0} }
+.tier.featured{background:var(--moss);color:var(--paper);border-color:var(--moss)}
+.tier.featured .muted,.tier.featured .tier-desc{color:var(--mist)}
+.tier-flag{position:absolute;top:-12px;left:var(--s3);background:var(--brick);color:#FFF9F1;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px}
+.tier-desc{color:var(--ink-2);font-size:.98rem;margin:var(--s1) 0 var(--s3);min-height:4.2em}
+.price{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;padding-bottom:var(--s2);border-bottom:1px solid var(--rule)}
+.tier.featured .price{border-color:rgba(242,238,230,.3)}
+.price .amt{font-family:var(--font-display);font-size:clamp(2.6rem,2rem + 2vw,3.4rem);line-height:1;letter-spacing:-.03em}
+.price .per{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
+.tier.featured .price .per{color:var(--mist)}
+.price-basis{font-size:.92rem;color:var(--ink-2);min-height:3em;margin:var(--s1) 0 var(--s2)}
+.tier.featured .price-basis{color:var(--mist)}
+.tier ul{list-style:none;margin:0 0 var(--s4);padding:0;display:grid;gap:10px;font-size:.98rem}
+.tier li{display:grid;grid-template-columns:20px 1fr;gap:10px;line-height:1.4}
+.tier li::before{content:"";width:12px;height:12px;margin:5px 0 0 4px;border-right:2px solid var(--brick);border-bottom:2px solid var(--brick);transform:rotate(45deg) translate(-2px,-2px)}
+.tier.featured li::before{border-color:var(--brass)}
+.tier .btn{margin-top:auto;width:100%}
+.tier.featured .btn-primary{background:var(--paper);border-color:var(--paper);color:var(--ink)}
+.tier.featured .btn-primary:hover{background:#fff;border-color:#fff;color:var(--ink)}
+.tier.featured .btn-primary{}
+.fees-foot{margin-top:var(--s4);font-size:.92rem;color:var(--ink-2);max-width:70ch}
+
+/* ---------- FAQ ---------- */
+.faq{display:grid;gap:0;grid-template-columns:1fr;border-top:1.5px solid var(--ink)}
+@media (min-width:900px){ .faq-wrap{display:grid;grid-template-columns:200px 1fr;gap:var(--s5)} }
+.faq-item{border-bottom:1px solid var(--rule)}
+.faq-h{margin:0}
+.faq-q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
+  min-height:64px;padding:var(--s2) 0;background:none;border:0;cursor:pointer;text-align:left;
+  font-family:var(--font-display);font-size:clamp(1.2rem,1.05rem + .5vw,1.45rem);line-height:1.25;letter-spacing:-.01em;
+}
+.faq-q .pm{
+  flex:none;position:relative;width:36px;height:36px;border:1.5px solid var(--ink);border-radius:50%;
+}
+.faq-q .pm::before,.faq-q .pm::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%)}
+.faq-q .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq-q[aria-expanded="true"] .pm::after{transform:translate(-50%,-50%) rotate(0deg);opacity:0}
+.faq-q:hover .pm{background:var(--paper-2)}
+.faq-a{padding:0 var(--s5) var(--s3) 0;color:var(--ink-2);max-width:68ch}
+.faq-a[hidden]{display:none}
+.faq-a p:last-child{margin-bottom:0}
+@media (prefers-reduced-motion:no-preference){ .faq-q .pm::after{transition:transform .2s ease,opacity .2s ease} }
+
+/* ---------- Final CTA ---------- */
+.final{background:var(--ink);color:var(--paper);padding:var(--section-pad) 0;position:relative;overflow:hidden}
+.final-grid{display:grid;gap:var(--s4);align-items:end}
+@media (min-width:900px){ .final-grid{grid-template-columns:1.3fr .7fr;gap:var(--s6)} }
+.final .h2{color:var(--paper);max-width:16ch;font-size:clamp(2.3rem,1.4rem + 3vw,4.4rem)}
+.final .h2 em{color:#E4A87C;font-style:italic}
+.final p{color:var(--mist);max-width:44ch}
+.final-actions{display:flex;flex-direction:column;gap:var(--s2)}
+@media (min-width:480px){ .final-actions{flex-direction:row;flex-wrap:wrap} }
+.final-actions .btn{width:100%}
+@media (min-width:480px){ .final-actions .btn{width:auto} }
+.final-contact{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid rgba(242,238,230,.2);display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);font-size:.98rem}
+.final-contact a{display:inline-flex;align-items:center;min-height:44px;color:var(--paper);text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px}
+.final-contact span{color:var(--mist)}
+
+/* ---------- Footer ---------- */
+.site-footer{background:#141A18;color:var(--mist);padding:var(--s6) 0 var(--s4);font-size:.95rem}
+.foot-grid{display:grid;gap:var(--s5) var(--s4)}
+@media (min-width:720px){ .foot-grid{grid-template-columns:1.4fr 1fr 1fr 1fr} }
+.foot-brand .brand-name{color:var(--paper);font-size:1.6rem}
+.foot-brand p{margin:var(--s2) 0 0;max-width:34ch;color:var(--mist)}
+.foot-h{font-family:var(--font-mono);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--paper);margin:0 0 var(--s2)}
+.foot-links{list-style:none;margin:0;padding:0}
+.foot-links a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;color:var(--mist);text-decoration:none}
+.foot-brand .brand-name small{color:var(--mist)}
+.foot-links a:hover{color:var(--paper);text-decoration:underline;text-underline-offset:4px}
+.legal{margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid rgba(242,238,230,.14);display:flex;flex-direction:column;gap:var(--s1);font-size:.82rem;color:#9AA7A1}
+@media (min-width:720px){ .legal{flex-direction:row;justify-content:space-between;flex-wrap:wrap} }
+.legal p{margin:0}
+.site-footer .brand:focus-visible,.site-footer a:focus-visible{outline-color:var(--paper)}
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .reveal{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .sheet-svg .draw{stroke-dasharray:1200;stroke-dashoffset:0;animation:draw 1.6s ease-out both}
+  @keyframes draw{from{stroke-dashoffset:1200}to{stroke-dashoffset:0}}
+}
+@media (prefers-reduced-motion:reduce){ *{animation:none !important;transition:none !important} html{scroll-behavior:auto} }
+
+/* Small phones: tighten the header so brand, CTA and menu all fit */
+@media (max-width:479px){
+  .nav{gap:12px}
+  .nav-right{gap:12px}
+  .brand-name{font-size:1.2rem}
+  .brand-name small{display:none}
+  .nav-cta-mobile{padding:10px 12px;font-size:.9rem}
+  .menu-toggle{width:44px;padding:0;justify-content:center}
+  .menu-toggle .menu-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+}
+/* Small phones: tighten */
+@media (max-width:389px){
+  .brand-name small{display:none}
+  .btn{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- Shared SVG patterns -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="ground" width="12" height="12" patternUnits="userSpaceOnUse">
+      <path d="M0 12 L12 0" stroke="#1B2220" stroke-width="1.2" fill="none"/>
+    </pattern>
+    <pattern id="insul" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="10" height="10" fill="#E6DECB"/>
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#8D8268" stroke-width="2.2"/>
+    </pattern>
+    <pattern id="coursing" width="40" height="10" patternUnits="userSpaceOnUse">
+      <path d="M0 9.5 H40" stroke="#8D8268" stroke-width="1" fill="none" opacity=".55"/>
+    </pattern>
+    <pattern id="brick" width="16" height="8" patternUnits="userSpaceOnUse">
+      <rect width="16" height="8" fill="#D9CFB8"/>
+      <path d="M0 0.5 H16 M0 7.5 H16 M0 0 V8 M8 0 V8" stroke="#A39779" stroke-width="1" fill="none"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8F6B2E"/>
+    </marker>
+  </defs>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Halden and Voss Architects, home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <rect x="1" y="1" width="30" height="30" fill="none" stroke="#1B2220" stroke-width="1.6"/>
+        <path d="M1 31 L16 9 L31 31" fill="none" stroke="#9E4426" stroke-width="2"/>
+        <path d="M9 31 V20 M23 31 V20" stroke="#1B2220" stroke-width="1.4"/>
+      </svg>
+      <span class="brand-name">Halden &amp; Voss<small>Architects, Leeds</small></span>
+    </a>
+
+    <div class="nav-right">
+      <a class="btn btn-primary nav-cta-mobile" href="#visit">Book a visit</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-panel">
+        <span class="bars" aria-hidden="true"><i></i></span>
+        <span class="menu-label">Menu</span>
+      </button>
+    </div>
+
+    <div class="nav-panel" id="nav-panel" hidden>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#fees">Fees</a></li>
+          <li><a href="#studio">Studio</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a class="sign-in" href="#contact">Client sign-in</a>
+        <a class="btn btn-primary" href="#visit">Book a site visit</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 2. HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <p class="kicker">Architects in Leeds since 2011</p>
+      <h1 class="h1 display" id="hero-title">Low-energy homes and school extensions, <em>drawn to a fee you can read on one page.</em></h1>
+      <p class="lede">Halden &amp; Voss is a nine-person studio designing low-energy homes, school extensions and barn conversions across West Yorkshire. The design stage is a fixed fee agreed before we start, and our structural engineer works in the studio, not on a retainer.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#visit">Book a site visit <span class="arr" aria-hidden="true">&rarr;</span></a>
+        <a class="btn" href="#projects">See finished work</a>
+      </div>
+      <ul class="hero-facts">
+        <li><strong>0.13</strong>W/m²K target for external walls</li>
+        <li><strong>9 wks</strong>average from brief to planning</li>
+        <li><strong>Fixed</strong>design-stage fee, in writing</li>
+      </ul>
+    </div>
+
+    <figure class="sheet reveal" style="margin:0">
+      <svg class="sheet-svg" viewBox="0 0 640 430" role="img" aria-labelledby="fig-t fig-d">
+        <title id="fig-t">South elevation, Hollin Lane barn conversion</title>
+        <desc id="fig-d">Dimensioned drawing of a converted stone barn with a timber-framed triple-glazed south face, a rooflight in the north slope, and a winter sun path. Numbered markers show wall, glazing and roof performance targets.</desc>
+
+        <!-- Sun -->
+        <g class="ln-thin">
+          <circle cx="60" cy="62" r="18" class="ln"/>
+          <path d="M60 32V18 M60 92V106 M30 62H16 M90 62H104 M38 40L28 30 M82 40L92 30 M38 84L28 94 M82 84L92 94" />
+        </g>
+        <text class="tx-s" x="24" y="132">WINTER SUN</text>
+
+        <!-- Ground -->
+        <line x1="24" y1="380" x2="616" y2="380" class="ln"/>
+        <rect x="24" y="381" width="592" height="16" fill="url(#ground)"/>
+
+        <!-- Roof band -->
+        <path class="ln fp3" d="M96 256 L320 104 L544 256 L544 276 L320 124 L96 276 Z"/>
+        <!-- Rooflight -->
+        <path class="ln fglass" d="M352 132 L384 153 L384 163 L352 142 Z"/>
+
+        <!-- Walls (insulated, brick coursing) -->
+        <rect x="112" y="276" width="40" height="104" fill="url(#brick)" class="ln"/>
+        <rect x="488" y="276" width="40" height="104" fill="url(#brick)" class="ln"/>
+
+        <!-- Plinth -->
+        <rect x="112" y="364" width="416" height="16" class="fp3 ln"/>
+
+        <!-- Glazing -->
+        <rect x="196" y="236" width="248" height="128" class="fglass ln-thin"/>
+        <path class="ln-thin" d="M262 236V364 M328 236V364 M394 236V364 M196 300H444"/>
+        <!-- Timber reveal -->
+        <rect x="192" y="232" width="256" height="136" class="fbrick"/>
+
+        <!-- Interior hint: ceiling beam -->
+        <path class="ln-thin" d="M152 276 H488" stroke-dasharray="4 5"/>
+
+        <!-- Markers -->
+        <g>
+          <circle cx="132" cy="330" r="12" class="badge"/><text class="tx-mk" x="132" y="335" text-anchor="middle">1</text>
+          <circle cx="320" cy="200" r="12" class="badge"/><text class="tx-mk" x="320" y="205" text-anchor="middle">2</text>
+          <circle cx="410" cy="160" r="12" class="badge"/><text class="tx-mk" x="410" y="165" text-anchor="middle">3</text>
+        </g>
+
+        <!-- Dimension: width -->
+        <g class="ln-dim">
+          <path d="M112 404 H528 M112 398 V410 M528 398 V410"/>
+        </g>
+        <text class="tx" x="320" y="428" text-anchor="middle">13.20 m</text>
+
+        <!-- Dimension: height -->
+        <g class="ln-dim">
+          <path d="M566 104 V380 M560 104 H572 M560 380 H572"/>
+        </g>
+        <text class="tx" x="0" y="0" transform="translate(592 250) rotate(-90)" text-anchor="middle">5.40 m</text>
+      </svg>
+
+      <ol class="sheet-legend" aria-label="Drawing key">
+        <li><span class="n" aria-hidden="true">1</span><span>External walls, 380 mm solid brick with internal insulation. U-value <strong>0.13 W/m²K</strong>.</span></li>
+        <li><span class="n" aria-hidden="true">2</span><span>Timber-framed triple glazing to the south face. g-value <strong>0.50</strong>, shaded by the eaves in summer.</span></li>
+        <li><span class="n" aria-hidden="true">3</span><span>Roof with a single rooflight. Airtightness tested at <strong>1.8 ac/h</strong> at 50 Pa.</span></li>
+      </ol>
+      <figcaption class="title-block">
+        <span>Dwg <b>0412-A-101</b></span>
+        <span>Hollin Lane barn</span>
+        <span>South elev. <b>1:100</b></span>
+        <span>Rev <b>C</b></span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 3. SOCIAL PROOF STRIP -->
+<section class="strip" aria-labelledby="strip-title">
+  <div class="wrap strip-inner">
+    <h2 class="kicker" id="strip-title">Clients and partners</h2>
+    <ul class="strip-names">
+      <li>Aire Valley Academies Trust</li>
+      <li>Kirkgate Developments</li>
+      <li>Meanwood Community Homes</li>
+      <li>Calder Brook Estates</li>
+      <li>Hollin Ridge Ecology</li>
+      <li>Sowerby Timber Frame</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 4. FEATURES / OFFER -->
+<section class="section" id="projects" aria-labelledby="projects-title">
+  <div class="wrap">
+    <header class="sheet-head">
+      <p class="sheet-index">01 &mdash; The work<b>What we take on</b></p>
+      <div>
+        <h2 class="h2 display" id="projects-title">Six kinds of project, one studio, and a fee that is agreed up front.</h2>
+        <p class="lede" style="margin-top:var(--s3)">We take on a small number of jobs at a time so that every project keeps the same architect from first site visit to planning decision.</p>
+      </div>
+    </header>
+
+    <ul class="offer-grid">
+      <li class="offer">
+        <svg class="ico" viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+          <path class="ln-thin" d="M14 20 H146 M14 76 H146"/>
+          <rect x="22" y="28" width="116" height="12" class="fp3 ln-thin"/>
+          <rect x="22" y="46" width="86" height="12" class="fp3 ln-thin"/>
+          <rect x="22" y="64" width="54" height="12" class="fmoss"/>
+          <text x="146" y="75" text-anchor="end" class="tx-s" style="font-size:11px">FIXED</text>
+        </svg>
+        <span class="tag">Design stage</span>
+        <h3 class="h3">A fixed fee for RIBA stages 2 to 4</h3>
+        <p>The price for concept, developed design and planning drawings is written into the appointment. Hourly timesheets are not part of our contract, so changes to the brief are quoted before we draw them.</p>
+      </li>
+      <li class="offer">
+        <svg class="ico" viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+          <rect x="20" y="16" width="8" height="64" class="fp3 ln-thin"/>
+          <rect x="28" y="16" width="16" height="64" fill="url(#insul)" class="ln-thin"/>
+          <rect x="44" y="16" width="34" height="64" fill="url(#insul)" class="ln-thin"/>
+          <rect x="78" y="16" width="8" height="64" fill="#EEE8DA" class="ln-thin"/>
+          <rect x="86" y="16" width="26" height="64" fill="url(#brick)" class="ln-thin"/>
+          <path d="M20 90 H112" class="ln-thin"/>
+          <path d="M122 16 V80 M118 16 H126 M118 80 H126" class="ln-thin"/>
+          <text x="128" y="52" class="tx-s" style="font-size:11px">380</text>
+        </svg>
+        <span class="tag">Fabric first</span>
+        <h3 class="h3">Wall build-ups we model before we draw</h3>
+        <p>Every external wall, roof and floor is modelled in-house against Part L and our own low-energy target. On most of our homes the external walls reach 0.13 W/m²K with insulation placed inside the solid wall.</p>
+      </li>
+      <li class="offer">
+        <svg class="ico" viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+          <path d="M22 44 H138" class="ln" stroke-width="5"/>
+          <path d="M14 56 L22 44 L30 56 Z M130 56 L138 44 L146 56 Z" class="fmoss"/>
+          <path d="M22 44 Q 80 56 138 44" class="ln-thin" stroke-dasharray="3 4"/>
+          <path d="M50 22 V40 M50 16 L46 22 M50 16 L54 22 M80 22 V38 M80 16 L76 22 M80 16 L84 22 M110 22 V40 M110 16 L106 22 M110 16 L114 22" class="ln-thin" stroke="#9E4426" stroke-width="1.6"/>
+          <path d="M14 80 H146" class="ln-thin"/>
+        </svg>
+        <span class="tag">In-house engineering</span>
+        <h3 class="h3">A structural engineer in the studio</h3>
+        <p>Ibrahim Osei sizes beams, lintels and steel for every job in the same room as the architect. Clashes with services are found while the plan is still moving, not after the tender has gone out.</p>
+      </li>
+      <li class="offer">
+        <svg class="ico" viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+          <path d="M44 10 H102 L116 24 V86 H44 Z" class="fpaper ln"/>
+          <path d="M102 10 V24 H116" class="ln-thin"/>
+          <path d="M54 36 H104 M54 48 H104 M54 60 H92" class="ln-thin"/>
+          <circle cx="118" cy="72" r="18" class="fmoss"/>
+          <path d="M110 72 L116 78 L127 66" fill="none" stroke="#F2EEE6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="tag">Planning</span>
+        <h3 class="h3">Planning submission in nine weeks</h3>
+        <p>The average from first brief to a validated planning application across our last forty projects. We prepare heritage statements, ecology scoping and the drawing set together, so the council receives one complete application.</p>
+      </li>
+      <li class="offer">
+        <svg class="ico" viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+          <rect x="14" y="12" width="132" height="72" class="fpaper ln"/>
+          <path d="M14 46 H84 M84 12 V84 M84 60 H146" class="ln-thin"/>
+          <path d="M22 20 H76 V40 H22 Z" class="fp3 ln-thin"/>
+          <path d="M92 20 H138 V52 H92 Z" class="fglass ln-thin"/>
+          <path d="M96 66 H132" class="ln-thin" stroke-dasharray="3 3"/>
+          <path d="M30 56 Q 40 44 52 56 T 74 56" class="fdash" style="stroke-width:1.5"/>
+        </svg>
+        <span class="tag">Barn conversions</span>
+        <h3 class="h3">Historic frames, rural policy, bat surveys</h3>
+        <p>We start with the frame, the roof and the protected species survey, then plan the rooms around what the building can take. Our conversions in the Dales and Calder valley have been approved on the first submission in nine out of ten cases.</p>
+      </li>
+      <li class="offer">
+        <svg class="ico" viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+          <path d="M12 76 V44 L36 26 L60 44 V30 L84 14 L108 30 V44 L132 26 L146 36 V76 Z" class="fp3 ln"/>
+          <path d="M12 76 H146" class="ln"/>
+          <rect x="62" y="56" width="20" height="20" class="fglass ln-thin"/>
+          <path d="M28 76 V58 H40 V76" class="ln-thin"/>
+          <path d="M108 76 V60 H124 V76" class="ln-thin"/>
+          <path d="M20 40 H30 M40 40 H50" class="ln-thin" stroke="#8F6B2E" stroke-width="2"/>
+        </svg>
+        <span class="tag">School extensions</span>
+        <h3 class="h3">Phased builds that keep classrooms open</h3>
+        <p>Working with four academy trusts across West Yorkshire, we phase extensions around the timetable and the Ofsted calendar. Sawtooth rooflights bring north light into the teaching spaces without overheating in June.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- 5. PROCESS -->
+<section class="section process" id="process" aria-labelledby="process-title">
+  <div class="wrap">
+    <header class="sheet-head">
+      <p class="sheet-index">02 &mdash; The process<b>Three stages</b></p>
+      <div>
+        <h2 class="h2 display" id="process-title">How a project runs, from first visit to planning.</h2>
+      </div>
+    </header>
+
+    <ol class="steps">
+      <li class="step">
+        <span class="step-num" aria-hidden="true">01</span>
+        <span class="step-time">Weeks 0 to 2</span>
+        <h3 class="h3">Site visit and written brief</h3>
+        <p>We walk the site with you, measure the existing building and check the planning history. Within ten working days you receive the brief and a fixed fee in writing.</p>
+        <ul class="step-list">
+          <li>Measured survey and photo record</li>
+          <li>Planning constraints note</li>
+          <li>Written fee and programme</li>
+        </ul>
+      </li>
+      <li class="step">
+        <span class="step-num" aria-hidden="true">02</span>
+        <span class="step-time">Weeks 2 to 9</span>
+        <h3 class="h3">Design stage, fixed fee</h3>
+        <p>Concept, developed design and planning drawings. You approve at three named gates, and nothing is drawn twice because each gate is checked against the energy model.</p>
+        <ul class="step-list">
+          <li>Gate A: concept and massing</li>
+          <li>Gate B: developed design and energy model</li>
+          <li>Gate C: planning drawing set</li>
+        </ul>
+      </li>
+      <li class="step">
+        <span class="step-num" aria-hidden="true">03</span>
+        <span class="step-time">Week 9 onward</span>
+        <h3 class="h3">Submission, then tender</h3>
+        <p>We submit to Leeds City Council or your local authority and manage questions from the case officer. While the application is decided, we prepare tender packs for the contractors you choose.</p>
+        <ul class="step-list">
+          <li>Validated planning application</li>
+          <li>Tender pack and specification</li>
+          <li>Building control liaison on full service</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 6. METRICS -->
+<section class="section metrics on-dark" id="studio" aria-labelledby="studio-title">
+  <div class="wrap">
+    <header class="sheet-head">
+      <p class="sheet-index" style="color:var(--mist)">03 &mdash; The studio<b style="color:var(--paper)">Nine people, one drawing office</b></p>
+      <div>
+        <h2 class="h2 display" id="studio-title">The studio in numbers.</h2>
+      </div>
+    </header>
+    <ul class="metric-grid">
+      <li class="metric">
+        <div class="metric-fig">212</div>
+        <p class="metric-label">Projects completed since the studio opened in 2011</p>
+      </li>
+      <li class="metric">
+        <div class="metric-fig">61<span class="unit">%</span></div>
+        <p class="metric-label">Average modelled energy saving against a Part L 2013 baseline</p>
+      </li>
+      <li class="metric">
+        <div class="metric-fig">14</div>
+        <p class="metric-label">Awards, including two for school extensions and one for a barn</p>
+      </li>
+      <li class="metric">
+        <div class="metric-fig">9<span class="unit">wks</span></div>
+        <p class="metric-label">Average from first brief to planning submission, across our last 40 projects</p>
+      </li>
+    </ul>
+    <p class="metrics-note">Figures are studio records as at 31 October 2026</p>
+  </div>
+</section>
+
+<!-- 7. TESTIMONIALS -->
+<section class="section" aria-labelledby="testimonials-title">
+  <div class="wrap">
+    <header class="sheet-head">
+      <p class="sheet-index">04 &mdash; In their words<b>Clients</b></p>
+      <div>
+        <h2 class="h2 display" id="testimonials-title">What clients say after the planning decision.</h2>
+      </div>
+    </header>
+
+    <ul class="quotes">
+      <li>
+        <figure class="quote">
+          <blockquote>They measured the stone walls three times before they drew a single line. When the structural beam came back heavier than we hoped, the fee did not move.</blockquote>
+          <figcaption><strong>Ruth Okafor</strong>Homeowner, barn conversion on Hollin Lane, Headingley</figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure class="quote">
+          <blockquote>We needed the extension open by September without losing a single classroom. They phased the works around the timetable and kept to it.</blockquote>
+          <figcaption><strong>Priya Sandhu</strong>Estates Director, Aire Valley Academies Trust</figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure class="quote">
+          <blockquote>Their engineer found a clash between a steel beam and our plant routes two weeks before tender. That is the difference between a variation and a delay.</blockquote>
+          <figcaption><strong>Tom Aldridge</strong>Director, Kirkgate Developments, Leeds</figcaption>
+        </figure>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- 8. PRICING -->
+<section class="section" id="fees" aria-labelledby="fees-title" style="padding-top:0">
+  <div class="wrap">
+    <header class="sheet-head">
+      <p class="sheet-index">05 &mdash; Fees<b>Three tiers</b></p>
+      <div>
+        <h2 class="h2 display" id="fees-title">Fixed fees, shown in full before you commit.</h2>
+      </div>
+    </header>
+
+    <div class="fees-controls">
+      <div class="segment" role="group" aria-label="Fee basis">
+        <button type="button" data-mode="design" aria-pressed="true">Design stage</button>
+        <button type="button" data-mode="full" aria-pressed="false">Full service</button>
+      </div>
+      <p class="fee-note" id="fee-note" aria-live="polite">Design stage fees cover RIBA stages 1 to 4. Construction stage is quoted separately.</p>
+    </div>
+
+    <ul class="tiers">
+      <li class="tier">
+        <h3 class="h3">Feasibility</h3>
+        <p class="tier-desc">A fixed-fee study to test whether your site, budget and planning position work before you commit to a design.</p>
+        <div class="price">
+          <span class="amt" data-price data-design="1,450" data-full="1,650">&pound;1,450</span>
+          <span class="per">+ VAT, fixed</span>
+        </div>
+        <p class="price-basis" data-basis-design="Site visit, survey and options report." data-basis-full="Adds a contractor cost check on the preferred option.">Site visit, survey and options report.</p>
+        <ul>
+          <li>Measured survey and site visit</li>
+          <li>Planning constraints report</li>
+          <li>Two massing options with cost range</li>
+          <li>Written go or no-go recommendation</li>
+        </ul>
+        <a class="btn" href="#visit">Book a feasibility visit</a>
+      </li>
+
+      <li class="tier featured">
+        <span class="tier-flag">Most commissioned</span>
+        <h3 class="h3">Design Stage</h3>
+        <p class="tier-desc">RIBA stages 2 to 4: concept, developed design and a planning-ready drawing set with energy model.</p>
+        <div class="price">
+          <span class="amt" data-price data-design="7,900" data-full="10,400">&pound;7,900</span>
+          <span class="per">+ VAT, fixed</span>
+        </div>
+        <p class="price-basis" data-basis-design="Paid across three approval gates." data-basis-full="Includes the tender pack and contractor appointment support.">Paid across three approval gates.</p>
+        <ul>
+          <li>Concept and developed design</li>
+          <li>Planning application drawings and forms</li>
+          <li>Energy model and Part L report</li>
+          <li>In-house structural design to planning</li>
+        </ul>
+        <a class="btn btn-primary" href="#visit">Book a site visit</a>
+      </li>
+
+      <li class="tier">
+        <h3 class="h3">Full Service</h3>
+        <p class="tier-desc">Design stage plus tender, contractor appointment and construction-stage administration to practical completion.</p>
+        <div class="price">
+          <span class="amt" data-price data-design="9,300" data-full="16,800">&pound;9,300</span>
+          <span class="per">+ VAT, fixed</span>
+        </div>
+        <p class="price-basis" data-basis-design="Design stage fee for the full-service scope." data-basis-full="Includes construction administration to practical completion.">Design stage fee for the full-service scope.</p>
+        <ul>
+          <li>Everything in Design Stage</li>
+          <li>Tender and contractor appointment</li>
+          <li>Site inspections during construction</li>
+          <li>Building control liaison and handover pack</li>
+        </ul>
+        <a class="btn" href="#visit">Talk through full service</a>
+      </li>
+    </ul>
+
+    <p class="fees-foot">Fees exclude planning application fees, surveys we commission on your behalf, and VAT at the prevailing rate. We confirm every figure in writing at the site visit.</p>
+  </div>
+</section>
+
+<!-- 9. FAQ -->
+<section class="section" id="faq" aria-labelledby="faq-title" style="padding-top:0">
+  <div class="wrap faq-wrap">
+    <header>
+      <p class="sheet-index" style="border-top-width:2px">06 &mdash; Questions<b>Frequently asked</b></p>
+      <h2 class="h2 display" id="faq-title" style="font-size:clamp(1.9rem,1.2rem + 2vw,2.8rem);margin-top:var(--s3)">Before the site visit.</h2>
+    </header>
+    <div class="faq" style="margin-top:var(--s4)">
+      <div class="faq-item">
+        <h3 class="faq-h"><button class="faq-q" type="button" id="faq-b1" aria-expanded="true" aria-controls="faq-p1">Is the design stage really a fixed fee?<span class="pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="faq-p1" role="region" aria-labelledby="faq-b1"><p>Yes. The fee for RIBA stages 2 to 4 is written into the appointment before we start. We only revise it if the brief changes after Gate A, and any change is quoted in writing before we do the work.</p></div>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-h"><button class="faq-q" type="button" id="faq-b2" aria-expanded="false" aria-controls="faq-p2">What does the fixed fee leave out?<span class="pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="faq-p2" role="region" aria-labelledby="faq-b2" hidden><p>Planning application fees, surveys we commission on your behalf such as topographical, bat and drainage surveys, and VAT. Each of these is listed at the site visit with an estimate.</p></div>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-h"><button class="faq-q" type="button" id="faq-b3" aria-expanded="false" aria-controls="faq-p3">Do you deal with building regulations?<span class="pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="faq-p3" role="region" aria-labelledby="faq-b3" hidden><p>Full service includes liaison with building control from the first inspection to the completion certificate. On design stage appointments we prepare the Part B and Part L information so that your chosen inspector has everything at the start.</p></div>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-h"><button class="faq-q" type="button" id="faq-b4" aria-expanded="false" aria-controls="faq-p4">Can you design to Passivhaus standard?<span class="pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="faq-p4" role="region" aria-labelledby="faq-b4" hidden><p>We design to a Passivhaus-equivalent fabric standard as a matter of course. Formal Passivhaus certification is optional and is quoted separately, because the certifier needs its own modelling and site-testing fee.</p></div>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-h"><button class="faq-q" type="button" id="faq-b5" aria-expanded="false" aria-controls="faq-p5">How long does planning take once we submit?<span class="pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="faq-p5" role="region" aria-labelledby="faq-b5" hidden><p>We submit around nine weeks after the first brief. Councils usually decide minor applications within eight weeks of validation, though a case officer can ask for more time, and we handle those questions while you wait.</p></div>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-h"><button class="faq-q" type="button" id="faq-b6" aria-expanded="false" aria-controls="faq-p6">Do you work outside Leeds?<span class="pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="faq-p6" role="region" aria-labelledby="faq-b6" hidden><p>Most of our work is within an hour of Leeds, across West and North Yorkshire. We take projects further afield when the school trust or client already works with us, and we tell you at the first call if the distance changes the fee.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. FINAL CTA -->
+<section class="final dark" id="visit" aria-labelledby="final-title">
+  <div class="wrap final-grid">
+    <div>
+      <p class="kicker" style="color:var(--mist)">Next step</p>
+      <h2 class="h2 display" id="final-title">Start with a site visit, <em>not a sales call.</em></h2>
+    </div>
+    <div>
+      <p>Tell us where the building is and what you want it to do. We will reply within one working day with dates for a site visit, and a fee in writing after we have walked the site with you.</p>
+      <div class="final-actions">
+        <a class="btn btn-primary" href="mailto:studio@halden-voss.example?subject=Site%20visit%20request">Book a site visit</a>
+        <a class="btn btn-ghost-light" href="#fees">Compare fees</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="final-contact" id="contact">
+      <a href="tel:+441130000142">0113 000 0142</a>
+      <a href="mailto:studio@halden-voss.example">studio@halden-voss.example</a>
+      <span>Studio at 14 Lower Basinghall Yard, Leeds LS1</span>
+      <span>Client portal invitations are sent after the site visit</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top" aria-label="Halden and Voss Architects, back to top">
+          <span class="brand-name">Halden &amp; Voss<small>Architects, Leeds</small></span>
+        </a>
+        <p>Low-energy homes, school extensions and barn conversions, designed in Leeds with a fixed-fee design stage.</p>
+      </div>
+      <nav aria-label="Footer, work">
+        <h2 class="foot-h">Work</h2>
+        <ul class="foot-links">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#process">How a project runs</a></li>
+          <li><a href="#fees">Fees</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Footer, studio">
+        <h2 class="foot-h">Studio</h2>
+        <ul class="foot-links">
+          <li><a href="#studio">The studio in numbers</a></li>
+          <li><a href="#studio">Nine people, one office</a></li>
+          <li><a href="#faq">Questions</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Footer, clients">
+        <h2 class="foot-h">Clients</h2>
+        <ul class="foot-links">
+          <li><a href="#contact">Client sign-in</a></li>
+          <li><a href="#visit">Book a site visit</a></li>
+          <li><a href="#contact">Contact the studio</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="legal">
+      <p>&copy; 2026 Halden &amp; Voss Architects Limited. Registered in England and Wales, company no. 09120436.</p>
+      <p>Architects registered with the Architects Registration Board. Privacy and cookie notice available on request.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---- Mobile menu ---- */
+  var toggle = document.querySelector('.menu-toggle');
+  var panel = document.getElementById('nav-panel');
+  var label = toggle.querySelector('.menu-label');
+  var desktop = window.matchMedia('(min-width: 900px)');
+
+  function setMenu(open, returnFocus) {
+    toggle.setAttribute('aria-expanded', String(open));
+    label.textContent = open ? 'Close' : 'Menu';
+    panel.hidden = !open;
+    if (!open && returnFocus) toggle.focus();
+  }
+  toggle.addEventListener('click', function () {
+    setMenu(toggle.getAttribute('aria-expanded') !== 'true', false);
+  });
+  panel.addEventListener('click', function (e) {
+    if (e.target.closest('a')) setMenu(false, false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') setMenu(false, true);
+  });
+  desktop.addEventListener('change', function () { setMenu(false, false); panel.hidden = false; });
+  if (desktop.matches) panel.hidden = false;
+
+  /* ---- Fee basis toggle ---- */
+  var modeButtons = document.querySelectorAll('[data-mode]');
+  var amounts = document.querySelectorAll('[data-price]');
+  var bases = document.querySelectorAll('.price-basis');
+  var note = document.getElementById('fee-note');
+  var notes = {
+    design: 'Design stage fees cover RIBA stages 1 to 4. Construction stage is quoted separately.',
+    full: 'Full service fees include construction administration to practical completion.'
+  };
+
+  function setMode(mode) {
+    modeButtons.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-mode') === mode));
+    });
+    amounts.forEach(function (el) {
+      el.textContent = '£' + el.getAttribute('data-' + mode);
+    });
+    bases.forEach(function (el) {
+      el.textContent = el.getAttribute('data-basis-' + mode);
+    });
+    note.textContent = notes[mode];
+  }
+  modeButtons.forEach(function (b) {
+    b.addEventListener('click', function () { setMode(b.getAttribute('data-mode')); });
+  });
+
+  /* ---- FAQ accordion ---- */
+  document.querySelectorAll('.faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      document.getElementById(btn.getAttribute('aria-controls')).hidden = open;
+    });
+  });
+})();
+</script>
+</body>
+</html>
