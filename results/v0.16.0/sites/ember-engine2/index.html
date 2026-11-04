@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ember &amp; Rye | Wood-fire restaurant and bar, Bristol</title>
+  <meta name="description" content="Ember &amp; Rye is a wood-fire restaurant and bar on Hollow Mill Lane, Bristol. Whole fish and aged lamb cooked over oak and apple wood, sourdough and rye baked daily, a short natural-wine list and a 24-seat private room.">
+  <meta name="theme-color" content="#1d1915">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <path d="M16 2.5c3.2 4.6 7.5 7.4 7.5 13.2a7.5 7.5 0 0 1-15 0c0-3.4 1.7-5.6 3.6-7.4.4 2.4 1.4 3.9 2.9 4.9-.5-3.9.3-7.6 1-10.7Z" fill="#c2410c"/>
+          <path d="M16 15.5c1.5 2.1 3.4 3.4 3.4 6a3.4 3.4 0 0 1-6.8 0c0-1.6.8-2.6 1.7-3.4.2 1.1.6 1.8 1.4 2.2-.2-1.8.1-3.4.3-4.8Z" fill="#ffb45c"/>
+        </svg>
+        <span>Ember &amp; Rye</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+          <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="sr-only">Open menu</span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#private-dining">Private dining</a></li>
+          <li><a href="#visit">Visit</a></li>
+          <li><a href="#gift-cards">Gift cards</a></li>
+          <li class="nav-member"><a href="#members">Member sign-in</a></li>
+        </ul>
+      </nav>
+
+      <a class="btn btn-primary btn-sm nav-cta" href="#book">Book a table</a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 2. Hero -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Wood-fire restaurant and bar, Bristol</p>
+          <h1 id="hero-title">Cooked over oak. Baked before dawn. Made for long tables.</h1>
+          <p class="lede">Whole sea bream and aged lamb come off our grate, cooked over oak and apple wood. Sourdough and rye leave our oven every morning, and the wine list is short because we know every grower on it. Tuesday to Saturday, lunch and dinner, on Hollow Mill Lane.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#book">Book a table</a>
+            <a class="btn btn-ghost" href="#menu">See the menu</a>
+          </div>
+          <p class="hero-note">Walk-ins are welcome at the bar and the counter, every service.</p>
+        </div>
+
+        <figure class="hero-visual">
+          <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="hero-art-title hero-art-desc">
+            <title id="hero-art-title">A whole sea bream on the oak-fired grate</title>
+            <desc id="hero-art-desc">A whole sea bream with a lemon and thyme resting on a grate above oak embers, inside a dark brick arch.</desc>
+            <defs>
+              <radialGradient id="bgGlow" cx="50%" cy="82%" r="75%">
+                <stop offset="0" stop-color="#8a3211"/>
+                <stop offset=".5" stop-color="#2d1d14"/>
+                <stop offset="1" stop-color="#120d0a"/>
+              </radialGradient>
+              <linearGradient id="flame" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0" stop-color="#c2410c"/>
+                <stop offset=".55" stop-color="#ff7a2e"/>
+                <stop offset="1" stop-color="#ffd27a"/>
+              </linearGradient>
+              <linearGradient id="fishSkin" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#f2a35a"/>
+                <stop offset=".5" stop-color="#c8632a"/>
+                <stop offset="1" stop-color="#7a3414"/>
+              </linearGradient>
+              <linearGradient id="archFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#3a2b22"/>
+                <stop offset="1" stop-color="#1a130f"/>
+              </linearGradient>
+            </defs>
+
+            <rect width="400" height="500" fill="url(#bgGlow)"/>
+            <path d="M46 500V240Q46 86 200 86Q354 86 354 240V500Z" fill="url(#archFill)" stroke="#4d3d31" stroke-width="3"/>
+            <path d="M74 500V246Q74 114 200 114Q326 114 326 246V500" fill="none" stroke="#5b4737" stroke-width="2" stroke-dasharray="2 12" stroke-linecap="round"/>
+
+            <g class="flames">
+              <path d="M112 452C96 384 138 352 128 268C178 326 176 362 194 382C206 326 242 298 234 206C282 290 294 360 292 452Z" fill="url(#flame)" opacity=".92"/>
+              <path d="M162 452C150 404 178 384 172 336C204 370 214 398 226 408C238 376 256 362 252 336C276 372 284 404 282 452Z" fill="#ffb45c" opacity=".78"/>
+            </g>
+
+            <rect x="96" y="452" width="208" height="22" rx="11" fill="#4a2c18"/>
+            <rect x="116" y="468" width="168" height="16" rx="8" fill="#6b3f22"/>
+
+            <rect x="80" y="318" width="240" height="8" rx="4" fill="#8a857a"/>
+            <g stroke="#8a857a" stroke-width="3" stroke-linecap="round">
+              <line x1="104" y1="318" x2="104" y2="332"/><line x1="130" y1="318" x2="130" y2="332"/>
+              <line x1="156" y1="318" x2="156" y2="332"/><line x1="182" y1="318" x2="182" y2="332"/>
+              <line x1="208" y1="318" x2="208" y2="332"/><line x1="234" y1="318" x2="234" y2="332"/>
+              <line x1="260" y1="318" x2="260" y2="332"/><line x1="286" y1="318" x2="286" y2="332"/>
+              <line x1="312" y1="318" x2="312" y2="332"/>
+            </g>
+
+            <g transform="translate(110 212)">
+              <path d="M16 50C46 12 124 8 160 46C128 92 46 92 16 50Z" fill="url(#fishSkin)"/>
+              <path d="M70 20C90 4 120 6 130 22Z" fill="#a84d20"/>
+              <path d="M156 47C170 36 184 26 196 18C190 38 190 62 196 82C184 74 170 64 156 53Z" fill="#c2410c"/>
+              <path d="M40 40C70 26 110 24 140 38" fill="none" stroke="#ffd9a8" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+              <path d="M58 40L76 62M80 36L98 60M102 34L118 58M124 40L134 60" stroke="#5a2410" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+              <path d="M118 26C108 44 108 60 118 74" fill="none" stroke="#6a2c12" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="42" cy="44" r="4.5" fill="#17140f"/>
+              <circle cx="43.5" cy="42.5" r="1.4" fill="#fff"/>
+              <path d="M30 60q6 6 14 2M58 26q6-4 12 0" fill="none" stroke="#2a1208" stroke-width="2" opacity=".5" stroke-linecap="round"/>
+            </g>
+
+            <g>
+              <circle cx="92" cy="296" r="20" fill="#ffd65a" stroke="#f2b632" stroke-width="3"/>
+              <path d="M92 296L92 280M92 296L106 303M92 296L78 303M92 296L104 288M92 296L80 288" stroke="#f2b632" stroke-width="2"/>
+              <path d="M300 208q-14-10-6-26q14 8 6 26Z" fill="#6f8f3a"/>
+              <path d="M308 200q12-8 14-22q-14 4-14 22Z" fill="#8aa84e"/>
+            </g>
+
+            <g class="sparks" fill="#ffb45c">
+              <circle class="spark s1" cx="150" cy="260" r="2.5"/>
+              <circle class="spark s2" cx="210" cy="200" r="2"/>
+              <circle class="spark s3" cx="262" cy="232" r="2.5"/>
+              <circle class="spark s4" cx="180" cy="160" r="1.8"/>
+              <circle class="spark s5" cx="284" cy="166" r="2.2"/>
+            </g>
+          </svg>
+
+          <figcaption class="ticket">
+            <span>
+              <span class="ticket-kicker">On the grate tonight</span>
+              <strong>Sea bream for two</strong>
+              <span class="ticket-sub">Oak, lemon, thyme, salsa verde</span>
+            </span>
+            <span class="ticket-price">£58</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3. Social proof -->
+    <section class="proof" aria-labelledby="proof-title">
+      <div class="container">
+        <h2 class="eyebrow proof-title" id="proof-title">Written about by the people who eat here</h2>
+        <ul class="proof-list">
+          <li>The Avon Table</li>
+          <li>Brunel Review</li>
+          <li>Stokes Croft Post</li>
+          <li>Clifton Hill Weekly</li>
+          <li>Kingsdown Dining Guide</li>
+          <li>Harbour Supper Club</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. Features / offer -->
+    <section class="section" id="menu" aria-labelledby="menu-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">What comes off the fire</p>
+          <h2 id="menu-title">Six things we cook every service</h2>
+          <p class="lede">The menu changes with the market every week. These are the parts that do not change, because they are what people book for.</p>
+        </header>
+
+        <div class="offer-grid">
+          <article class="offer-card">
+            <div class="offer-art">
+              <svg viewBox="0 0 240 150" aria-hidden="true" focusable="false">
+                <rect width="240" height="150" fill="#efe6d4"/>
+                <path d="M0 128h240v22H0z" fill="#e4d5bb"/>
+                <g stroke="#7a6a58" stroke-width="3" stroke-linecap="round"><line x1="30" y1="104" x2="210" y2="104"/></g>
+                <g stroke="#7a6a58" stroke-width="2" stroke-linecap="round"><line x1="50" y1="104" x2="50" y2="112"/><line x1="90" y1="104" x2="90" y2="112"/><line x1="130" y1="104" x2="130" y2="112"/><line x1="170" y1="104" x2="170" y2="112"/></g>
+                <path d="M40 76C70 38 140 34 178 70C142 112 70 116 40 76Z" fill="#d9822b"/>
+                <path d="M174 70C186 60 198 52 210 46C204 66 204 84 210 104C198 96 186 84 174 74Z" fill="#c2410c"/>
+                <path d="M64 50L78 80M90 44L104 78M116 46L128 78" stroke="#7a3414" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+                <path d="M104 48C96 60 96 76 104 90" fill="none" stroke="#7a3414" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="62" cy="70" r="4" fill="#17140f"/>
+                <path d="M110 128q-6-10 0-20M136 124q-6-10 0-20M160 126q-5-10 0-18" fill="none" stroke="#c2410c" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+              </svg>
+            </div>
+            <div class="offer-body">
+              <h3>Whole sea bream over oak</h3>
+              <p>Scored, rubbed with lemon and thyme, and finished over the grate. Served whole at the table with salsa verde and a knife for each guest.</p>
+            </div>
+          </article>
+
+          <article class="offer-card">
+            <div class="offer-art">
+              <svg viewBox="0 0 240 150" aria-hidden="true" focusable="false">
+                <rect width="240" height="150" fill="#e9d9c2"/>
+                <ellipse cx="120" cy="82" rx="74" ry="40" fill="#8e2f14"/>
+                <ellipse cx="120" cy="82" rx="58" ry="30" fill="#a63b1a" opacity=".7"/>
+                <g stroke="#f3e9d6" stroke-width="7" stroke-linecap="round">
+                  <line x1="70" y1="82" x2="34" y2="54"/><line x1="90" y1="106" x2="58" y2="124"/>
+                  <line x1="122" y1="116" x2="116" y2="144"/><line x1="160" y1="110" x2="180" y2="134"/>
+                  <line x1="176" y1="66" x2="210" y2="44"/>
+                </g>
+                <g fill="#f3e9d6"><circle cx="34" cy="54" r="5"/><circle cx="58" cy="124" r="5"/><circle cx="116" cy="144" r="5"/><circle cx="180" cy="134" r="5"/><circle cx="210" cy="44" r="5"/></g>
+                <path d="M78 74q18-10 34 0M124 92q16-8 32 2" fill="none" stroke="#17140f" stroke-width="2" opacity=".35" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="offer-body">
+              <h3>Aged lamb shoulder</h3>
+              <p>Twenty-eight days in the cold room, then six hours over apple wood with rosemary and garlic. It comes off the bone at the first touch of a fork.</p>
+            </div>
+          </article>
+
+          <article class="offer-card">
+            <div class="offer-art">
+              <svg viewBox="0 0 240 150" aria-hidden="true" focusable="false">
+                <rect width="240" height="150" fill="#f1e4cc"/>
+                <path d="M34 112C30 62 68 36 112 36C158 36 194 62 190 112Z" fill="#c98a4b"/>
+                <path d="M74 80Q92 60 124 66M122 56Q142 46 164 62" fill="none" stroke="#f6e3c0" stroke-width="5" stroke-linecap="round"/>
+                <ellipse cx="170" cy="118" rx="44" ry="20" fill="#5a3a22"/>
+                <path d="M140 116Q160 98 196 110" fill="none" stroke="#8a5a33" stroke-width="3" stroke-linecap="round"/>
+                <path d="M54 104Q80 92 110 100" fill="none" stroke="#a8692f" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+              </svg>
+            </div>
+            <div class="offer-body">
+              <h3>Sourdough and rye, baked daily</h3>
+              <p>Two starters, mixed the night before and baked from six every morning. The rye is dense, dark and sour, and it is sold until it runs out.</p>
+            </div>
+          </article>
+
+          <article class="offer-card">
+            <div class="offer-art">
+              <svg viewBox="0 0 240 150" aria-hidden="true" focusable="false">
+                <rect width="240" height="150" fill="#e6dccb"/>
+                <rect x="84" y="30" width="16" height="30" rx="4" fill="#6b2d12"/>
+                <rect x="72" y="58" width="40" height="78" rx="10" fill="#6b2d12"/>
+                <rect x="78" y="84" width="28" height="22" rx="3" fill="#f6f1e7"/>
+                <path d="M82 93h20M82 99h14" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M146 58h38q0 36-19 40q-19-4-19-40Z" fill="none" stroke="#17140f" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M149 80h32q-2 16-16 18q-14-2-16-18Z" fill="#7b1f2e"/>
+                <line x1="165" y1="98" x2="165" y2="126" stroke="#17140f" stroke-width="3"/>
+                <ellipse cx="165" cy="128" rx="20" ry="4" fill="#17140f"/>
+              </svg>
+            </div>
+            <div class="offer-body">
+              <h3>A short natural-wine list</h3>
+              <p>Forty bottles from growers we have visited, most of them poured by the glass. Ask for the carafe of the week, which is always a surprise.</p>
+            </div>
+          </article>
+
+          <article class="offer-card">
+            <div class="offer-art">
+              <svg viewBox="0 0 240 150" aria-hidden="true" focusable="false">
+                <rect width="240" height="150" fill="#2b2119"/>
+                <circle cx="120" cy="22" r="8" fill="#ffb45c" opacity=".9"/>
+                <path d="M120 0v14" stroke="#c9b99e" stroke-width="2"/>
+                <path d="M120 30v0" stroke="#ffb45c" stroke-width="2"/>
+                <rect x="40" y="70" width="160" height="14" rx="7" fill="#8a5a33"/>
+                <g fill="#c9b99e">
+                  <rect x="48" y="50" width="16" height="12" rx="4"/><rect x="78" y="50" width="16" height="12" rx="4"/>
+                  <rect x="108" y="50" width="16" height="12" rx="4"/><rect x="138" y="50" width="16" height="12" rx="4"/>
+                  <rect x="168" y="50" width="16" height="12" rx="4"/>
+                  <rect x="48" y="90" width="16" height="12" rx="4"/><rect x="78" y="90" width="16" height="12" rx="4"/>
+                  <rect x="108" y="90" width="16" height="12" rx="4"/><rect x="138" y="90" width="16" height="12" rx="4"/>
+                  <rect x="168" y="90" width="16" height="12" rx="4"/>
+                </g>
+                <rect x="196" y="102" width="24" height="34" rx="2" fill="#4a3a2c"/>
+                <circle cx="212" cy="120" r="2" fill="#ffb45c"/>
+              </svg>
+            </div>
+            <div class="offer-body">
+              <h3>The 24-seat private room</h3>
+              <p>A room with its own door and a single long oak table. The chef talks you through each course from the pass, which is a few steps away.</p>
+            </div>
+          </article>
+
+          <article class="offer-card">
+            <div class="offer-art">
+              <svg viewBox="0 0 240 150" aria-hidden="true" focusable="false">
+                <rect width="240" height="150" fill="#efe6d4"/>
+                <path d="M76 56h88q0 46-44 50q-44-4-44-50Z" fill="#c2410c" opacity=".92"/>
+                <path d="M84 62h72" stroke="#ffd9a8" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+                <line x1="120" y1="106" x2="120" y2="130" stroke="#17140f" stroke-width="3"/>
+                <ellipse cx="120" cy="132" rx="28" ry="5" fill="#17140f"/>
+                <path d="M120 44c-10-14 0-26-10-40M120 44c8-12 2-24 10-38" fill="none" stroke="#b9a989" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+                <circle cx="168" cy="46" r="13" fill="#e7d08a" stroke="#c9ad5a" stroke-width="2"/>
+                <path d="M168 33v26M155 46h26M160 38l16 16M176 38l-16 16" stroke="#c9ad5a" stroke-width="1.5" opacity=".7"/>
+              </svg>
+            </div>
+            <div class="offer-body">
+              <h3>Smoked-apple negroni</h3>
+              <p>Bristol gin, sweet vermouth, and a rinse of apple-wood smoke under a glass dome. Made to order, and the apple slice is cut from the morning's fruit.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. How a visit works -->
+    <section class="section section-tint" id="visit" aria-labelledby="visit-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">How a visit works</p>
+          <h2 id="visit-title">Three steps from the door to the fire</h2>
+        </header>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num" aria-hidden="true">01</span>
+            <h3>Book, or walk in at the bar</h3>
+            <p>Reserve through the button above, or call the restaurant on 0117 555 0142. We keep a third of the tables free for walk-ins until seven on Fridays and Saturdays.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">02</span>
+            <h3>Start with the bread</h3>
+            <p>A loaf of sourdough and a piece of rye arrive warm with cultured butter while you read the menu. Ask for a second rye if the first one disappears.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">03</span>
+            <h3>Share what comes off the grate</h3>
+            <p>Dishes come when they are ready, not in a fixed order. Whole fish and lamb are carved at the table, and the kitchen will tell you what is best that night.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 6. Metrics -->
+    <section class="metrics-band" aria-label="Ember and Rye in numbers">
+      <div class="container">
+        <ul class="metrics">
+          <li><span class="metric-value">1,850</span><span class="metric-label">covers a week, across lunch and dinner</span></li>
+          <li><span class="metric-value">6 hrs</span><span class="metric-label">of oak and apple fire before the first service</span></li>
+          <li><span class="metric-value">23</span><span class="metric-label">local suppliers, most within 30 miles of the restaurant</span></li>
+          <li><span class="metric-value">9</span><span class="metric-label">years open on Hollow Mill Lane</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7. Testimonials -->
+    <section class="section" aria-labelledby="stories-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">From the tables</p>
+          <h2 id="stories-title">What people say after they leave</h2>
+        </header>
+        <div class="quotes">
+          <figure class="quote">
+            <blockquote><p>We came for a birthday and stayed for three hours. The lamb pulled apart as if it had been thinking about it all afternoon.</p></blockquote>
+            <figcaption><strong>Priya Nair</strong>, Clifton, booked for six</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote><p>We hosted 22 people from our team in the private room. The only thing anyone talked about on the train home was the rye.</p></blockquote>
+            <figcaption><strong>Tom Okafor</strong>, Bedminster, corporate dinner</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote><p>The sourdough alone is worth the walk over the bridge. Sit at the counter, ask for the first loaf out of the oven, and let them choose the wine.</p></blockquote>
+            <figcaption><strong>Ruth Ellery</strong>, Southville, regular since 2019</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Pricing -->
+    <section class="section section-tint" id="private-dining" aria-labelledby="pricing-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Set lunch, tasting menu, private room</p>
+          <h2 id="pricing-title">Three ways to eat with us</h2>
+          <p class="lede">Set lunch runs Wednesday to Friday, 12 to 2.30pm. The tasting menu is seven courses for dinner. The private room seats up to 24 for a sit-down meal.</p>
+        </header>
+
+        <div class="pricing-controls">
+          <div class="segmented" role="group" aria-label="Show prices">
+            <button type="button" data-mode="pp" aria-pressed="true">Per person</button>
+            <button type="button" data-mode="table" aria-pressed="false">Per table of four</button>
+          </div>
+          <p class="sr-only" id="price-status" aria-live="polite"></p>
+        </div>
+
+        <div class="tiers">
+          <article class="tier">
+            <p class="tier-tag">Lunch, Wed to Fri</p>
+            <h3>Set Lunch</h3>
+            <p class="tier-desc">Three courses from the grate and the bakery, at lunchtime pace.</p>
+            <p class="price-line">
+              <span class="price" data-pp="£34" data-table="£136">£34</span>
+              <span class="unit" data-pp-unit="per person" data-table-unit="for a table of four">per person</span>
+            </p>
+            <ul class="tier-list">
+              <li>Sourdough and cultured butter</li>
+              <li>Whole mackerel or a lamb salad, your choice</li>
+              <li>Apple-wood custard with rye crumb</li>
+            </ul>
+            <a class="btn btn-ghost tier-cta" href="#book">Book set lunch</a>
+          </article>
+
+          <article class="tier tier--featured">
+            <p class="tier-tag">Most booked</p>
+            <h3>Tasting Menu</h3>
+            <p class="tier-desc">Seven courses from the fire, written around what came in that morning.</p>
+            <p class="price-line">
+              <span class="price" data-pp="£84" data-table="£336">£84</span>
+              <span class="unit" data-pp-unit="per person" data-table-unit="for a table of four">per person</span>
+            </p>
+            <ul class="tier-list">
+              <li>Oak-grilled sea bream and aged lamb</li>
+              <li>Three breads and the day's rye</li>
+              <li>Natural-wine pairing available, from £45 a person</li>
+            </ul>
+            <a class="btn btn-primary tier-cta" href="#book">Book the tasting menu</a>
+          </article>
+
+          <article class="tier">
+            <p class="tier-tag">Up to 24 guests</p>
+            <h3>Private Room</h3>
+            <p class="tier-desc">Our own room with a long oak table, its own door and a dedicated server for the evening.</p>
+            <p class="price-line">
+              <span class="price" data-pp="£60" data-table="£1,450">£60</span>
+              <span class="unit" data-pp-unit="per guest at a full table of 24" data-table-unit="room hire, up to 24 guests">per guest at a full table of 24</span>
+            </p>
+            <ul class="tier-list">
+              <li>Set menu or the tasting menu for the whole room</li>
+              <li>Projector, speakers and a private entrance</li>
+              <li>Room hire is waived with a £1,500 food minimum</li>
+            </ul>
+            <a class="btn btn-ghost tier-cta" href="#book">Enquire about the room</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. FAQ -->
+    <section class="section" aria-labelledby="faq-title">
+      <div class="container faq">
+        <header class="faq-head">
+          <p class="eyebrow">Before you come</p>
+          <h2 id="faq-title">Questions we hear most</h2>
+          <p class="lede">Anything else, call the restaurant or write to hello@emberandrye.example and a person will reply.</p>
+        </header>
+
+        <div class="accordion">
+          <div class="faq-item">
+            <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-1" id="faq-b1"><span>Do you take walk-ins?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="faq-1" role="region" aria-labelledby="faq-b1" hidden>
+              <p>Yes. A third of the tables stay free for walk-ins until seven on Friday and Saturday, and the bar and the counter by the bread oven are always first come, first served.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-2" id="faq-b2"><span>How far ahead should I book the private room?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="faq-2" role="region" aria-labelledby="faq-b2" hidden>
+              <p>Four weeks for a weekday evening, and eight weeks for a Saturday in December. We will hold a provisional date for seven days without a deposit.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-3" id="faq-b3"><span>Can you cater for allergies and dietary needs?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="faq-3" role="region" aria-labelledby="faq-b3" hidden>
+              <p>Tell us when you book. We can plan vegetarian and coeliac-friendly menus, and we will take shellfish and nut allergies seriously. Everything is cooked over shared oak, so tell us about any smoke sensitivity too.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-4" id="faq-b4"><span>Is there a corkage fee if I bring my own wine?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="faq-4" role="region" aria-labelledby="faq-b4" hidden>
+              <p>Corkage is £25 a bottle for wine that is not on our list, up to two bottles a table. We will open anything from a small grower, and we ask that you let us pour it first.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-5" id="faq-b5"><span>Are dogs welcome?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="faq-5" role="region" aria-labelledby="faq-b5" hidden>
+              <p>Dogs are welcome in the bar and at the front tables by the window. They are not allowed in the dining room behind the fire doors, for the sake of the grill and the staff.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-6" id="faq-b6"><span>Do you cook for children?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="faq-6" role="region" aria-labelledby="faq-b6" hidden>
+              <p>Yes. Children under 12 have a set plate for £14, with the fish flaked, the lamb cut small and a slice of bread with honey. Let us know their age when you book.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Final CTA -->
+    <section class="cta-band" id="book" aria-labelledby="cta-title">
+      <div class="container cta-inner">
+        <p class="eyebrow">Tables for Tuesday to Sunday</p>
+        <h2 id="cta-title">Save a seat by the fire.</h2>
+        <p class="cta-lede">Bookings open 30 days ahead. For the private room, or a table for more than eight, call us and we will hold it for you.</p>
+        <div class="hero-actions">
+          <a class="btn btn-light" href="#book-form-note">Book a table</a>
+          <a class="btn btn-outline-light" href="tel:+441175550142">Call 0117 555 0142</a>
+        </div>
+        <p id="book-form-note" class="cta-note">Online booking confirms by email within the hour. If you are arriving after 9pm, tell us so the grill can keep your fish warm.</p>
+
+        <div class="gift" id="gift-cards">
+          <h3>Gift cards</h3>
+          <p>From £25, valid for a year. Sent by email the same day, or in a small oak box with a loaf of rye if you order before noon.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 11. Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <nav class="footer-col" aria-labelledby="foot-visit">
+          <p class="footer-title" id="foot-visit">Visit</p>
+          <address>27 Hollow Mill Lane<br>Bristol BS3 4DX</address>
+          <p class="footer-hours">Tuesday to Saturday, 12pm to late<br>Sunday, 12pm to 6pm<br>Closed Mondays</p>
+          <ul>
+            <li><a href="#visit">How a visit works</a></li>
+            <li><a href="tel:+441175550142">0117 555 0142</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="foot-eat">
+          <p class="footer-title" id="foot-eat">Eat and drink</p>
+          <ul>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#private-dining">Private dining</a></li>
+            <li><a href="#gift-cards">Gift cards</a></li>
+            <li><a href="#menu">Natural-wine list</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" id="members" aria-labelledby="foot-members">
+          <p class="footer-title" id="foot-members">Members</p>
+          <ul>
+            <li><a href="#members">Member sign-in</a></li>
+            <li><a href="#book">Book a table</a></li>
+            <li><a href="mailto:hello@emberandrye.example">hello@emberandrye.example</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="legal">&copy; 2026 Ember &amp; Rye Ltd. Registered in England and Wales, company no. 13480211. Registered office at 27 Hollow Mill Lane, Bristol BS3 4DX. We use no tracking cookies on this site.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

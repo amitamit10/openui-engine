@@ -100,7 +100,7 @@ Component and inspiration sources were audited with real HTTP probes — **inclu
 
 ## Benchmark (read before quoting it)
 
-**Latest result (v0.15.0, read this too):** on six unseen categories Haiku with the engine's tools beat plain Haiku 10 of 12 (v0.14.0), but a no-engine control required to review its own screenshots beat that engine arm 9 of 12 (v0.15.0). The v0.14.0 win is explained by iteration depth, not engine content.
+**Latest result (v0.15.0, read this too):** on six unseen categories Haiku with the engine's tools beat plain Haiku 10 of 12 (v0.14.0), but a no-engine control required to review its own screenshots beat that engine arm 9 of 12 (v0.15.0). The v0.14.0 win is explained by iteration depth, not engine content. A third round (v0.16.0, with the new `review_sections` tool, which only 1 of 6 agents used) lost to the same control 11-1.
 
 **Earlier headline:** across fifteen controlled runs, an unguided Haiku 5.5 beat the same model using the engine's page generator in blind pairwise judging in 117 of 130 judgements (see the table below). The last four runs went 0, 0, 3 and 1 wins of 8 for the engine (4 of 32): v0.11.0's 3 of 8 did not repeat in v0.12.0 (7 to 1), so it was most likely a favourable draw, not a step change. Between them, a change meant to help colour (brand-tinted surfaces) made colour worse and was reverted, and a bug that stripped the size from rectangle-based icons in every build was fixed, so the improvement cannot be attributed to any single change. The engine's own gate scores (95 to 100) do not predict the blind judgements. Where the engine did win, the hero was a specific product mockup. Every run used a **substitute model** (`claude-haiku-5-5`; GPT-6 Luna is unavailable here), small samples (n = 8 judgements per run) and sealed, position-swapped Sonnet judges. Nothing was deployed to Vercel (no credentials in the session), so no live URLs are claimed.
 
@@ -134,6 +134,7 @@ Each release is tested the same way (same spec, clean workspace, Haiku 5.5 build
 | [v0.12.0](results/v0.12.0/REPORT.md) (+ section-title fields, brief key aliases; 4 new domains; spec forbids external images) | 8 | 1 | 7.6 / 6.7 | 6.3 | 6.5 | 99,128-124,032 | 16-25 |
 | [v0.14.0](results/v0.14.0/REPORT.md) (6 new categories; free-choice engine tools, mostly hand-written pages; baseline = Haiku alone) | 12 | 10 | 7.0 / 7.6 (baseline / engine arm) | - | - | 103k-143k | 18-33 |
 | [v0.15.0](results/v0.15.0/REPORT.md) (same briefs: **no-engine control told to iterate** vs the v0.14.0 engine arm; **control won 9-3**) | 12 | 3 | 7.6 / 7.0 (control / engine arm) | - | - | 125k-162k (control) | 22-36 (control) |
+| [v0.16.0](results/v0.16.0/REPORT.md) (fresh engine agents with `review_sections` available vs the iterating control; **control won 11-1**; only 1 of 6 agents used the new tool) | 12 | 1 | 8.0 / 6.9 (control / engine arm) | - | - | 103k-148k | 16-39 |
 | [hybrid v0.4.1](results/hybrid-v0.4.1/REPORT.md) (hand-written page + engine QA tools; 4 more new domains; "engine" columns = hybrid arm) | 8 | 7 | 6.9 / 7.6 | 7.6 | 7.6 | 104,474-125,480 | 18-29 |
 | [control v0.4.1](results/control-v0.4.1/REPORT.md) (same, **no engine tools**): vs hybrid 4-4, vs baseline 4-4 | 16 | n/a | 7.17 / 7.33 (baseline/control) | - | - | 110k-144k | 13-40 |
 
