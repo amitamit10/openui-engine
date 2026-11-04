@@ -1,3 +1,5 @@
+> **UPDATE: superseded by [v0.15.0](../v0.15.0/REPORT.md).** A no-engine control that was required to iterate as deeply beat the engine arm 9-3 on the same briefs, so the 10/12 below should be attributed to iteration depth, not to the engine.
+
 # v0.14.0 — controlled A/B: Haiku alone vs Haiku + OpenUI Engine (6 unseen categories)
 
 Engine frozen at `d944bf8`. Same model (Haiku 5.5), same SPEC.md per brief, same 60-call limit, same normal coding tools and Playwright screenshot feedback in both arms. The only difference: the engine arm also had the OpenUI Engine MCP tools and was free to use them however it liked. Briefs were written fresh for this run (conference, charity, photographer, architecture studio, language school, restaurant); nothing in the engine was tuned to them. Raw outputs, screenshots, sealed mapping, judge JSON, prompts and the generated sites are in this folder.
