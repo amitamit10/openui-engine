@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ines Okafor Photography | Lisboa weddings, portraits and commercial work</title>
+<meta name="description" content="Ines Okafor is an independent photographer in Lisboa shooting weddings, editorial portraits and commercial work for restaurants and boutique hotels, on film and digital.">
+<meta name="theme-color" content="#F5F0E8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --paper: #F5F0E8;
+  --paper-2: #EDE5D8;
+  --paper-3: #FBF8F2;
+  --ink: #1D1A17;
+  --ink-2: #4F4840;
+  --clay: #8E4A2E;
+  --clay-hover: #743A22;
+  --clay-soft: #E7C6AE;
+  --green: #1E2B25;
+  --line: #D5CABA;
+  --font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --s-1: 8px; --s-2: 16px; --s-3: 24px; --s-4: 32px; --s-5: 48px; --s-6: 64px;
+  --radius: 4px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+p { margin: 0; }
+section[id], [id="main"] { scroll-margin-top: 80px; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.05;
+  margin: 0;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+h1 { font-size: clamp(2.75rem, 7vw, 5.5rem); }
+h2 { font-size: clamp(2.1rem, 4.4vw, 3.4rem); }
+h3 { font-size: 1.625rem; line-height: 1.15; }
+
+:focus-visible { outline: 3px solid var(--clay); outline-offset: 3px; border-radius: 2px; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 768px) { .container { padding: 0 40px; } }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: 16px; top: -100px; z-index: 100;
+  background: var(--ink); color: var(--paper); padding: 12px 18px; border-radius: 999px;
+  text-decoration: none; font-weight: 600;
+}
+.skip-link:focus { top: 16px; }
+
+.kicker {
+  font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--clay); margin: 0 0 var(--s-2);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 12px 26px; border-radius: 999px;
+  font: 600 1rem/1 var(--font-body); text-decoration: none;
+  border: 1.5px solid transparent; cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+.btn-primary { background: var(--clay); color: var(--paper); }
+.btn-primary:hover { background: var(--clay-hover); }
+.btn-ghost { background: transparent; border-color: var(--ink); color: var(--ink); }
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+.btn-sm { min-height: 44px; padding: 10px 18px; font-size: 0.9375rem; }
+.btn-block { width: 100%; }
+.btn-light { background: var(--paper); color: var(--ink); }
+.btn-light:hover { background: #FFFFFF; }
+.btn-outline-light { background: transparent; border-color: var(--paper); color: var(--paper); }
+.btn-outline-light:hover { background: var(--paper); color: var(--clay); }
+
+/* Header and navigation */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(245, 240, 232, 0.95);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 72px; gap: 16px;
+}
+.brand { display: flex; flex-direction: column; text-decoration: none; line-height: 1.1; }
+.brand-name { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; }
+.brand-sub { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); margin-top: 2px; }
+.menu-toggle {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 44px; min-width: 44px; padding: 8px 14px;
+  background: none; border: 1px solid var(--ink); border-radius: 999px;
+  font: 600 0.9375rem/1 var(--font-body); color: var(--ink); cursor: pointer;
+}
+.menu-icon {
+  width: 18px; height: 10px;
+  background:
+    linear-gradient(currentColor, currentColor) top / 100% 2px no-repeat,
+    linear-gradient(currentColor, currentColor) bottom / 100% 2px no-repeat;
+}
+.site-nav {
+  position: absolute; top: 100%; left: 0; right: 0;
+  display: none; flex-direction: column;
+  background: var(--paper); border-bottom: 1px solid var(--line);
+  padding: 8px 16px 28px;
+}
+.site-nav.is-open { display: flex; }
+.nav-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.nav-links a {
+  display: flex; align-items: center; min-height: 52px;
+  font-family: var(--font-display); font-size: 1.6rem; text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+.nav-actions { display: flex; flex-direction: column; gap: 12px; margin-top: var(--s-3); }
+.nav-signin {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px;
+  text-decoration: underline; text-underline-offset: 4px; font-weight: 500;
+}
+
+@media (min-width: 900px) {
+  .menu-toggle { display: none; }
+  .site-nav, .site-nav.is-open {
+    position: static; display: flex; flex-direction: row; align-items: center;
+    gap: 32px; background: none; border: 0; padding: 0;
+  }
+  .nav-links { flex-direction: row; gap: 28px; }
+  .nav-links a {
+    min-height: 44px; font-family: var(--font-body); font-size: 0.96875rem;
+    font-weight: 500; border: 0; padding: 0 2px;
+  }
+  .nav-actions { flex-direction: row; align-items: center; gap: 20px; margin-top: 0; }
+}
+
+/* Hero */
+.hero { padding: clamp(48px, 7vw, 96px) 0 clamp(72px, 9vw, 120px); }
+.hero-grid { display: grid; gap: 56px; align-items: center; }
+@media (min-width: 960px) { .hero-grid { grid-template-columns: 1.05fr 0.95fr; gap: 72px; } }
+.lede {
+  font-size: clamp(1.125rem, 1.6vw, 1.3rem); color: var(--ink-2);
+  max-width: 34em; margin-top: var(--s-3);
+}
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: var(--s-4); }
+.hero-note { margin-top: var(--s-3); font-size: 0.9375rem; color: var(--ink-2); }
+.hero-visual { margin: 0; position: relative; }
+.hero-visual svg {
+  width: 100%; height: auto; border-radius: var(--radius);
+  box-shadow: 0 32px 60px -32px rgba(29, 26, 23, 0.5);
+}
+.frame-tag {
+  position: absolute; left: 16px; bottom: 16px;
+  background: var(--paper); color: var(--ink);
+  padding: 10px 14px; border-radius: 2px;
+  font-size: 0.8125rem; letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.frame-tag strong { font-weight: 600; color: var(--clay); margin-right: 6px; }
+
+/* Social proof */
+.proof { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 32px 0; }
+.proof-label {
+  text-align: center; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-2); margin-bottom: 18px;
+}
+.proof-list {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 40px;
+}
+.proof-list li {
+  font-family: var(--font-display); font-style: italic; font-size: 1.4rem; line-height: 1.2;
+}
+
+/* Sections */
+.section { padding: clamp(72px, 10vw, 128px) 0; }
+.section-head { max-width: 720px; margin-bottom: clamp(40px, 6vw, 64px); }
+.section-intro { margin-top: var(--s-3); color: var(--ink-2); max-width: 36em; }
+
+/* Features */
+.feature-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .feature-grid { grid-template-columns: repeat(2, 1fr); column-gap: 48px; } }
+@media (min-width: 1000px) { .feature-grid { grid-template-columns: repeat(3, 1fr); } }
+.feature { padding: 36px 0; border-top: 1px solid var(--line); }
+.feature-art {
+  width: 56px; height: 56px; margin-bottom: 22px;
+  fill: none; stroke: var(--clay); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.feature-art .soft { fill: var(--clay-soft); stroke: none; }
+.feature-art .solid { fill: var(--clay); stroke: none; }
+.feature h3 { margin-bottom: 12px; }
+.feature p { color: var(--ink-2); font-size: 0.96875rem; }
+
+/* How a shoot works */
+.section--about { background: var(--paper-3); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 44px; }
+@media (min-width: 900px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 48px; } }
+.step { padding-top: 24px; border-top: 2px solid var(--ink); }
+.step-num {
+  display: block; font-family: var(--font-display); font-style: italic;
+  font-size: 3.5rem; line-height: 1; color: var(--clay); margin-bottom: 18px;
+}
+.step h3 { margin-bottom: 12px; }
+.step p { color: var(--ink-2); }
+
+/* Metrics */
+.metrics-band { background: var(--green); color: var(--paper); padding: clamp(56px, 7vw, 88px) 0; }
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 44px 24px; margin: 0; }
+@media (min-width: 900px) { .metrics { grid-template-columns: repeat(4, 1fr); } }
+.metrics > div {
+  display: flex; flex-direction: column-reverse; gap: 10px;
+  border-left: 1px solid rgba(245, 240, 232, 0.28); padding-left: 20px;
+}
+.metrics dd {
+  margin: 0; font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(3.25rem, 6vw, 5rem); line-height: 1; color: var(--paper);
+}
+.metrics dt { font-size: 0.96875rem; color: #D6CEBF; line-height: 1.35; }
+
+/* Testimonials */
+.quotes { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
+@media (min-width: 900px) { .quotes { grid-template-columns: repeat(3, 1fr); gap: 28px; } }
+.quote {
+  margin: 0; background: var(--paper-2); border-radius: var(--radius);
+  padding: 36px 32px; display: flex; flex-direction: column; gap: 28px; height: 100%;
+}
+.quote blockquote { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 1.45rem; line-height: 1.3; }
+.quote figcaption {
+  margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line);
+  font-size: 0.9375rem; color: var(--ink-2);
+}
+.quote figcaption strong { display: block; color: var(--ink); font-weight: 600; }
+
+/* Pricing */
+.toggle {
+  display: inline-flex; padding: 4px; border: 1px solid var(--ink);
+  border-radius: 999px; background: var(--paper); margin-bottom: 44px;
+}
+.toggle-btn {
+  min-height: 44px; min-width: 124px; padding: 8px 22px; border: 0; border-radius: 999px;
+  background: transparent; color: var(--ink); cursor: pointer;
+  font: 600 0.96875rem/1 var(--font-body);
+}
+.toggle-btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.tiers { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
+@media (min-width: 960px) { .tiers { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
+.tier {
+  position: relative; display: flex; flex-direction: column;
+  padding: 40px 32px 32px; background: var(--paper-3);
+  border: 1px solid var(--line); border-radius: var(--radius);
+}
+.tier--featured { background: var(--green); border-color: var(--green); color: var(--paper); }
+.tier--featured h3 { color: var(--paper); }
+.tier-badge {
+  position: absolute; top: -13px; left: 32px;
+  background: var(--clay); color: var(--paper); border-radius: 999px;
+  padding: 6px 14px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.tier h3 { font-size: 2.4rem; margin-bottom: 8px; }
+.tier-kicker { color: var(--ink-2); font-size: 0.96875rem; margin-bottom: 24px; min-height: 3em; }
+.tier--featured .tier-kicker { color: #D6CEBF; }
+.tier-price {
+  display: flex; flex-direction: column; gap: 6px; padding: 20px 0;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 24px;
+}
+.tier--featured .tier-price { border-color: rgba(245, 240, 232, 0.25); }
+.amount { font-family: var(--font-display); font-size: 3.6rem; font-weight: 500; line-height: 1; }
+.duration { font-size: 0.9375rem; color: var(--ink-2); }
+.tier--featured .duration { color: #D6CEBF; }
+.tier ul { list-style: none; margin: 0 0 32px; padding: 0; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.tier li { position: relative; padding-left: 26px; font-size: 0.96875rem; }
+.tier li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 12px; height: 2px; background: var(--clay); }
+.tier--featured li::before { background: var(--clay-soft); }
+.pricing-note { margin-top: 28px; font-size: 0.9375rem; color: var(--ink-2); max-width: 46em; }
+
+/* FAQ */
+.faq-layout { display: grid; gap: 40px; }
+@media (min-width: 900px) { .faq-layout { grid-template-columns: 1fr 1.6fr; gap: 88px; } }
+.faq-list { border-top: 1px solid var(--ink); }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-q {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  min-height: 64px; padding: 20px 0; background: none; border: 0; text-align: left; cursor: pointer;
+  font-family: var(--font-display); font-size: 1.5rem; line-height: 1.25; color: var(--ink);
+}
+.faq-icon {
+  flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--ink);
+  background:
+    linear-gradient(var(--ink), var(--ink)) center / 12px 1.5px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) center / 1.5px 12px no-repeat;
+}
+.faq-q[aria-expanded="true"] .faq-icon {
+  background: linear-gradient(var(--ink), var(--ink)) center / 12px 1.5px no-repeat;
+}
+.faq-a { padding: 0 48px 26px 0; color: var(--ink-2); max-width: 40em; }
+
+/* Final CTA */
+.cta-band { background: var(--clay); color: var(--paper); padding: clamp(72px, 9vw, 112px) 0; }
+.cta-band h2 { color: var(--paper); max-width: 16em; }
+.cta-band .kicker { color: #F3D9C5; }
+.cta-band p { color: #F7E9DE; max-width: 36em; margin-top: var(--s-3); font-size: 1.125rem; }
+.cta-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: var(--s-4); }
+.cta-band :focus-visible { outline-color: var(--paper); }
+
+/* Footer */
+.site-footer { background: var(--ink); color: #D9D1C4; padding: 72px 0 32px; }
+.site-footer a { color: var(--paper); text-underline-offset: 4px; }
+.foot-grid { display: grid; gap: 44px; }
+@media (min-width: 768px) { .foot-grid { grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; } }
+.foot-brand { font-family: var(--font-display); font-size: 2rem; color: var(--paper); line-height: 1.1; }
+.foot-blurb { margin-top: 14px; max-width: 26em; color: #D9D1C4; font-size: 0.96875rem; }
+.foot-title {
+  font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--clay-soft); margin-bottom: 16px;
+}
+.foot-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.foot-links a { display: inline-flex; align-items: center; min-height: 40px; }
+.legal {
+  margin-top: 56px; padding-top: 24px; border-top: 1px solid #3A3430;
+  font-size: 0.875rem; color: #BDB4A6; line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body id="top">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a class="brand" href="#top" aria-label="Ines Okafor Photography, back to top">
+      <span class="brand-name">Ines Okafor</span>
+      <span class="brand-sub">Photography · Lisboa</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="menu-label">Menu</span>
+      <span class="menu-icon" aria-hidden="true"></span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#journal">Journal</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-signin" href="#contact">Client sign-in</a>
+        <a class="btn btn-primary btn-sm" href="#contact">Check my dates</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 2. Hero -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="kicker">Lisboa · Film and digital · Natural light</p>
+      <h1 id="hero-title">Quiet pictures of people in good light.</h1>
+      <p class="lede">Ines Okafor photographs weddings, editorial portraits and commercial work for restaurants and boutique hotels. She works with the light a room already has and keeps direction calm, so the pictures look like the day, not a set.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#contact">Check my dates</a>
+        <a class="btn btn-ghost" href="#work">See the work</a>
+      </div>
+      <p class="hero-note">Replies within one working day. Based in Lisboa, travelling across Portugal and Europe.</p>
+    </div>
+
+    <figure class="hero-visual">
+      <svg viewBox="0 0 600 720" role="img" aria-labelledby="hero-art-title" preserveAspectRatio="xMidYMid slice">
+        <title id="hero-art-title">Late window light falls across two people standing in a stone-walled room</title>
+        <defs>
+          <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#E6D8C3"/>
+            <stop offset="1" stop-color="#C7AF94"/>
+          </linearGradient>
+          <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#FFFAF0"/>
+            <stop offset="1" stop-color="#F1D9B6"/>
+          </linearGradient>
+          <linearGradient id="pool" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFF1D6" stop-opacity="0.75"/>
+            <stop offset="1" stop-color="#FFF1D6" stop-opacity="0.05"/>
+          </linearGradient>
+          <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#A88E71"/>
+            <stop offset="1" stop-color="#7E6A52"/>
+          </linearGradient>
+          <pattern id="holes" width="44" height="44" patternUnits="userSpaceOnUse">
+            <rect x="12" y="10" width="20" height="13" rx="2" fill="#F5F0E8" opacity="0.45"/>
+            <rect x="12" y="30" width="20" height="13" rx="2" fill="#F5F0E8" opacity="0.45"/>
+          </pattern>
+        </defs>
+        <rect width="600" height="720" fill="url(#wall)"/>
+        <rect x="46" y="150" width="82" height="108" fill="#EADCC6" stroke="#A8906F" stroke-width="3"/>
+        <path d="M58 240 L70 210 L84 226 L98 200 L116 240 Z" fill="#B9A285" opacity="0.7"/>
+        <path d="M140 530 V270 Q140 110 305 110 Q470 110 470 270 V530 Z" fill="url(#glow)"/>
+        <path d="M305 110 V530 M140 330 H470" stroke="#B49B7C" stroke-width="6" fill="none"/>
+        <path d="M140 530 V270 Q140 110 305 110 Q470 110 470 270 V530 Z" fill="none" stroke="#B49B7C" stroke-width="8"/>
+        <rect y="530" width="600" height="190" fill="url(#floor)"/>
+        <path d="M140 530 L470 530 L560 720 L50 720 Z" fill="url(#pool)"/>
+        <path d="M140 530 L470 530 L500 500 L170 500 Z" fill="#FFF6E2" opacity="0.5"/>
+        <g>
+          <circle cx="240" cy="382" r="30" fill="#3B2A22"/>
+          <path d="M204 422 Q240 404 276 422 L304 720 L178 720 Z" fill="#3B2A22"/>
+        </g>
+        <g>
+          <circle cx="374" cy="360" r="28" fill="#6B4B3A"/>
+          <path d="M338 398 Q374 382 410 398 L436 720 L318 720 Z" fill="#6B4B3A"/>
+          <path d="M352 408 L346 500 L372 506" fill="none" stroke="#4F3A2E" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <rect x="552" y="0" width="48" height="720" fill="#1D1A17" opacity="0.9"/>
+        <rect x="552" y="0" width="48" height="720" fill="url(#holes)"/>
+      </svg>
+      <figcaption class="frame-tag"><strong>Frame 14</strong>1/250 s · f/2.8 · Portra 400</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 3. Social proof -->
+<section class="proof" aria-labelledby="proof-title">
+  <h2 id="proof-title" class="sr-only">Clients and publications</h2>
+  <div class="container">
+    <p class="proof-label" aria-hidden="true">Recent clients, hosts and publications</p>
+    <ul class="proof-list">
+      <li>Hotel Alvorada Gris</li>
+      <li>Revista Maré Alta</li>
+      <li>Lume Coffee Co.</li>
+      <li>Quinta do Figueiral Sul</li>
+      <li>Atelier Corvo</li>
+      <li>Mesa Azul, Lisboa</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 4. Features / offer -->
+<section id="work" class="section" aria-labelledby="work-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="kicker">Work and what comes with it</p>
+      <h2 id="work-title">Six kinds of pictures, one calm way of making them.</h2>
+      <p class="section-intro">Every commission starts with a walk through the space and ends with a gallery you can actually use. This is what sits inside a booking.</p>
+    </header>
+
+    <ul class="feature-grid">
+      <li class="feature">
+        <svg class="feature-art" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <circle class="soft" cx="32" cy="36" r="10"/>
+          <path d="M6 48 H58"/>
+          <path d="M12 48 A20 20 0 0 1 52 48"/>
+          <path d="M32 10 V14 M12 20 L15 23 M52 20 L49 23"/>
+        </svg>
+        <h3>Window-light sessions</h3>
+        <p>We plan around the sun's path through your rooms. A 40-minute pre-scout maps where the light falls at nine, noon and five, and the shot list follows it.</p>
+      </li>
+      <li class="feature">
+        <svg class="feature-art" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <rect x="10" y="12" width="44" height="40" rx="3"/>
+          <rect x="18" y="20" width="28" height="24" rx="1"/>
+          <path d="M13 19 H17 M13 45 H17 M47 19 H51 M47 45 H51" stroke-width="3"/>
+          <rect class="soft" x="22" y="26" width="20" height="12"/>
+        </svg>
+        <h3>Film and digital, side by side</h3>
+        <p>Medium-format 6×7 and 35 mm film, with two digital bodies running alongside. Film scans arrive in the same private gallery as the digital files.</p>
+      </li>
+      <li class="feature">
+        <svg class="feature-art" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <circle cx="32" cy="32" r="22"/>
+          <path d="M32 18 V32 L42 38"/>
+          <path d="M32 5 V9 M32 55 V59 M5 32 H9 M55 32 H59"/>
+        </svg>
+        <h3>Timeline planning</h3>
+        <p>A shot list built with your planner and your timings. On weddings a second shooter joins from the first look, so the ceremony and the room are covered at once.</p>
+      </li>
+      <li class="feature">
+        <svg class="feature-art" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <path d="M10 44 C22 14, 34 54, 54 18"/>
+          <circle class="solid" cx="10" cy="44" r="3.5"/>
+          <circle class="solid" cx="54" cy="18" r="3.5"/>
+          <path d="M10 54 H54" opacity="0.45"/>
+        </svg>
+        <h3>Restrained retouching</h3>
+        <p>Colour and skin stay close to how they looked in the room. Two rounds of edits are included, and faces and bodies are never reshaped.</p>
+      </li>
+      <li class="feature">
+        <svg class="feature-art" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <rect class="soft" x="8" y="26" width="32" height="26" rx="2"/>
+          <rect x="12" y="18" width="32" height="24" rx="2"/>
+          <rect x="16" y="10" width="32" height="24" rx="2"/>
+        </svg>
+        <h3>Prints and print-ready files</h3>
+        <p>Archival cotton-rag prints for the home, and 300 dpi files with colour profiles agreed before delivery for magazines and menus.</p>
+      </li>
+      <li class="feature">
+        <svg class="feature-art" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <circle cx="32" cy="32" r="22"/>
+          <circle cx="32" cy="32" r="15" stroke-dasharray="2 3.5"/>
+          <path d="M24 33 L30 39 L41 27"/>
+        </svg>
+        <h3>Usage licences for hospitality</h3>
+        <p>Licences for menus, websites and booking platforms, priced per year and written in plain language before the shoot, not after it.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- 5. How a shoot works -->
+<section id="about" class="section section--about" aria-labelledby="about-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="kicker">About the studio</p>
+      <h2 id="about-title">How a shoot works, in three steps.</h2>
+      <p class="section-intro">Ines trained in Porto in a film lab and has worked in Lisboa since 2012. She talks less on set than most photographers do, because the best frames usually come after people forget the camera is there.</p>
+    </header>
+
+    <ol class="steps">
+      <li class="step">
+        <span class="step-num" aria-hidden="true">01</span>
+        <h3>Talk and scout</h3>
+        <p>A 45-minute call, then a walk through the room or the route. We agree which light we want, who needs to be in frame and what can be cut.</p>
+      </li>
+      <li class="step">
+        <span class="step-num" aria-hidden="true">02</span>
+        <h3>Shoot calmly</h3>
+        <p>Short, quiet instructions and room to move. Weddings run from a shot list, portraits stay in one location, and commercial work follows your service schedule.</p>
+      </li>
+      <li class="step">
+        <span class="step-num" aria-hidden="true">03</span>
+        <h3>Edit and deliver</h3>
+        <p>A first edit arrives within 21 days, followed by two rounds of changes. Film scans and print-ready files go into the same private gallery.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 6. Metrics band -->
+<section class="metrics-band" aria-labelledby="metrics-title">
+  <div class="container">
+    <h2 id="metrics-title" class="sr-only">The studio in numbers</h2>
+    <dl class="metrics">
+      <div>
+        <dt>Weddings shot</dt>
+        <dd>212</dd>
+      </div>
+      <div>
+        <dt>Magazines published in</dt>
+        <dd>38</dd>
+      </div>
+      <div>
+        <dt>Years behind the camera</dt>
+        <dd>14</dd>
+      </div>
+      <div>
+        <dt>Average days to deliver a full gallery</dt>
+        <dd>21</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<!-- 7. Testimonials -->
+<section id="journal" class="section" aria-labelledby="journal-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="kicker">Journal · Letters from clients</p>
+      <h2 id="journal-title">What couples, editors and hosts say after the edit.</h2>
+    </header>
+
+    <ul class="quotes">
+      <li>
+        <figure class="quote">
+          <blockquote>“She photographed our wedding in Sintra as if she were a guest who happened to own a very good camera. The 6×7 prints hang by the front door now.”</blockquote>
+          <figcaption><strong>Marta Vieira and Tiago Lopes</strong>Wedding in Sintra, 2025</figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure class="quote">
+          <blockquote>“Ines booked one morning, worked around our staff and came back with a set that ran for six pages without a single over-retouched hand. Our next issue opens with her portrait of the baker.”</blockquote>
+          <figcaption><strong>Helena Duarte</strong>Art director, Revista Maré Alta</figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure class="quote">
+          <blockquote>“Three seasons of menu and room pictures later, our booking page is the first thing guests mention. She knows exactly when the light is kind to a plate of grilled sardines.”</blockquote>
+          <figcaption><strong>Rui Albuquerque</strong>Owner, Mesa Azul, Lisboa</figcaption>
+        </figure>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- 8. Pricing -->
+<section id="packages" class="section" aria-labelledby="packages-title" style="padding-top:0">
+  <div class="container">
+    <header class="section-head">
+      <p class="kicker">Packages</p>
+      <h2 id="packages-title">Three ways to work together, priced by the time we spend.</h2>
+      <p class="section-intro">Choose a half day or a full day to see the prices for that length of shoot.</p>
+    </header>
+
+    <div class="toggle" role="group" aria-label="Shoot length">
+      <button class="toggle-btn" type="button" aria-pressed="true" data-mode="half">Half day</button>
+      <button class="toggle-btn" type="button" aria-pressed="false" data-mode="full">Full day</button>
+    </div>
+    <p id="price-status" class="sr-only" aria-live="polite"></p>
+
+    <ul class="tiers">
+      <li class="tier">
+        <h3>Editorial</h3>
+        <p class="tier-kicker">For magazine portraits, founders and small editorial stories.</p>
+        <div class="tier-price">
+          <span class="amount" data-half="950" data-full="1,600">€950</span>
+          <span class="duration" data-half="Half day, up to 4 hours" data-full="Full day, up to 9 hours">Half day, up to 4 hours</span>
+        </div>
+        <ul>
+          <li>One location, two looks</li>
+          <li>Natural light with one reflector</li>
+          <li>Up to 40 edited frames</li>
+          <li>Film or digital, your choice</li>
+        </ul>
+        <a class="btn btn-ghost btn-block" href="#contact">Ask about Editorial</a>
+      </li>
+
+      <li class="tier tier--featured">
+        <span class="tier-badge">Most booked</span>
+        <h3>Wedding</h3>
+        <p class="tier-kicker">From the first look to the last dance, or a quiet elopement.</p>
+        <div class="tier-price">
+          <span class="amount" data-half="1,900" data-full="3,400">€1,900</span>
+          <span class="duration" data-half="Half day, up to 4 hours" data-full="Full day, up to 10 hours">Half day, up to 4 hours</span>
+        </div>
+        <ul>
+          <li>Second shooter from the first look</li>
+          <li>Film on 35 mm and 6×7 alongside digital</li>
+          <li>Shot list built with your planner</li>
+          <li>350 to 500 edited frames in a private gallery</li>
+          <li>Print-ready album file</li>
+        </ul>
+        <a class="btn btn-light btn-block" href="#contact">Ask about Wedding</a>
+      </li>
+
+      <li class="tier">
+        <h3>Commercial</h3>
+        <p class="tier-kicker">For restaurants, cafés and boutique hotels.</p>
+        <div class="tier-price">
+          <span class="amount" data-half="1,150" data-full="1,980">€1,150</span>
+          <span class="duration" data-half="Half day, up to 4 hours" data-full="Full day, up to 9 hours">Half day, up to 4 hours</span>
+        </div>
+        <ul>
+          <li>Menu, room and team imagery</li>
+          <li>One-year usage licence for web and print</li>
+          <li>Shot list drawn from your service schedule</li>
+          <li>Priority delivery in 10 days</li>
+        </ul>
+        <a class="btn btn-ghost btn-block" href="#contact">Ask about Commercial</a>
+      </li>
+    </ul>
+    <p class="pricing-note">Prices are in euros and exclude IVA. Travel within Portugal up to 120 km from Lisboa is included.</p>
+  </div>
+</section>
+
+<!-- 9. FAQ -->
+<section id="faq" class="section" aria-labelledby="faq-title" style="padding-top:0">
+  <div class="container faq-layout">
+    <header>
+      <p class="kicker">Questions</p>
+      <h2 id="faq-title">What people ask before they book.</h2>
+    </header>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3 style="font-size:inherit;margin:0">
+          <button class="faq-q" type="button" aria-expanded="true" aria-controls="faq-1">
+            Do you only use natural light?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="faq-a" id="faq-1">
+          <p>Mostly, yes. I plan around the light in the room or on the route, and I carry one soft reflector and a small flash for ceremonies held indoors after dark. You will not see a studio backdrop unless you ask for one.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3 style="font-size:inherit;margin:0">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-2">
+            Do you shoot on film as well as digital?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="faq-a" id="faq-2" hidden>
+          <p>Yes. I shoot 35 mm and 6×7 on film alongside two digital bodies. Film scans are delivered in the same private gallery as the digital files, so nothing stays in a drawer.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3 style="font-size:inherit;margin:0">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-3">
+            How far will you travel from Lisboa?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="faq-a" id="faq-3" hidden>
+          <p>Within Portugal there is no travel charge up to 120 km from Lisboa. Beyond that, travel and accommodation are quoted on the first call. I have worked in the Douro, the Algarve and on Madeira.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3 style="font-size:inherit;margin:0">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-4">
+            When will we receive our pictures?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="faq-a" id="faq-4" hidden>
+          <p>A first edit arrives within 21 days for weddings and portraits, and within 10 days for commercial menu and room work. Film scans follow in a second batch about a week later.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3 style="font-size:inherit;margin:0">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-5">
+            Can a restaurant or hotel use the pictures on its website and menus?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="faq-a" id="faq-5" hidden>
+          <p>Yes, under a usage licence agreed before the shoot. The standard commercial licence covers one year of web, print and booking-platform use, and I will explain the terms in plain language.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3 style="font-size:inherit;margin:0">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-6">
+            What happens if we need to move the date?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="faq-a" id="faq-6" hidden>
+          <p>Tell me as soon as you know. If I am free, one move is free of charge. After that the booking retainer applies, and wedding retainers are credited against the final invoice.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. Final CTA -->
+<section id="contact" class="cta-band" aria-labelledby="cta-title">
+  <div class="container">
+    <p class="kicker">Check my dates</p>
+    <h2 id="cta-title">Your light is already in the room. Let us find it together.</h2>
+    <p>Send the date, the place and the kind of pictures you want. I reply within one working day with availability, a short quote and a time for a 45-minute call. Client galleries are opened from the same thread.</p>
+    <div class="cta-actions">
+      <a class="btn btn-light" href="mailto:studio@inesokafor.example?subject=Check%20my%20dates">Check my dates</a>
+      <a class="btn btn-outline-light" href="mailto:studio@inesokafor.example?subject=Commercial%20shoot%20enquiry">Ask about a commercial shoot</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- 11. Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <p class="foot-brand">Ines Okafor Photography</p>
+        <p class="foot-blurb">Independent photography in Lisboa: weddings, editorial portraits and commercial work, on film and digital.</p>
+      </div>
+      <nav aria-labelledby="foot-work">
+        <p class="foot-title" id="foot-work">Work</p>
+        <ul class="foot-links">
+          <li><a href="#packages">Weddings</a></li>
+          <li><a href="#packages">Editorial portraits</a></li>
+          <li><a href="#work">Restaurants and hotels</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="foot-studio">
+        <p class="foot-title" id="foot-studio">Studio</p>
+        <ul class="foot-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#journal">Journal</a></li>
+          <li><a href="#packages">Packages</a></li>
+          <li><a href="#faq">Questions</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="foot-contact">
+        <p class="foot-title" id="foot-contact">Contact</p>
+        <ul class="foot-links">
+          <li><a href="mailto:studio@inesokafor.example">studio@inesokafor.example</a></li>
+          <li><a href="#contact">Check my dates</a></li>
+          <li>Based in Lisboa, Portugal</li>
+        </ul>
+      </nav>
+    </div>
+    <p class="legal">© 2026 Ines Okafor Photography, Lisboa. All photographs and writing are the studio's own. Prices exclude IVA. Usage terms are sent with every quote.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  // Mobile menu
+  var toggle = document.querySelector('.menu-toggle');
+  var nav = document.getElementById('site-nav');
+
+  function setMenu(open) {
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.querySelector('.menu-label').textContent = open ? 'Close' : 'Menu';
+    nav.classList.toggle('is-open', open);
+  }
+
+  toggle.addEventListener('click', function () {
+    setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  nav.addEventListener('click', function (e) {
+    if (e.target.closest('a')) setMenu(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+      setMenu(false);
+      toggle.focus();
+    }
+  });
+  window.matchMedia('(min-width: 900px)').addEventListener('change', function (e) {
+    if (e.matches) setMenu(false);
+  });
+
+  // Half day / full day pricing
+  var modeButtons = document.querySelectorAll('.toggle-btn');
+  var priceFields = document.querySelectorAll('[data-half][data-full]');
+  var status = document.getElementById('price-status');
+
+  function formatEuro(n) {
+    return '€' + String(n);
+  }
+
+  function setMode(mode) {
+    modeButtons.forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-mode') === mode ? 'true' : 'false');
+    });
+    priceFields.forEach(function (el) {
+      var value = el.getAttribute('data-' + mode);
+      el.textContent = el.classList.contains('amount') ? formatEuro(value) : value;
+    });
+    status.textContent = mode === 'half' ? 'Showing half day prices.' : 'Showing full day prices.';
+  }
+
+  modeButtons.forEach(function (b) {
+    b.addEventListener('click', function () { setMode(b.getAttribute('data-mode')); });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      document.getElementById(btn.getAttribute('aria-controls')).hidden = expanded;
+    });
+  });
+})();
+</script>
+</body>
+</html>
