@@ -1,0 +1,50 @@
+{
+ "marrow-baseline-vs-engine-r1": {
+  "brief": "marrow",
+  "round": 1,
+  "X": "engine",
+  "Y": "baseline"
+ },
+ "marrow-baseline-vs-engine-r2": {
+  "brief": "marrow",
+  "round": 2,
+  "X": "baseline",
+  "Y": "engine"
+ },
+ "willow-baseline-vs-engine-r1": {
+  "brief": "willow",
+  "round": 1,
+  "X": "baseline",
+  "Y": "engine"
+ },
+ "willow-baseline-vs-engine-r2": {
+  "brief": "willow",
+  "round": 2,
+  "X": "engine",
+  "Y": "baseline"
+ },
+ "nimbus-baseline-vs-engine-r1": {
+  "brief": "nimbus",
+  "round": 1,
+  "X": "baseline",
+  "Y": "engine"
+ },
+ "nimbus-baseline-vs-engine-r2": {
+  "brief": "nimbus",
+  "round": 2,
+  "X": "engine",
+  "Y": "baseline"
+ },
+ "tidewater-baseline-vs-engine-r1": {
+  "brief": "tidewater",
+  "round": 1,
+  "X": "engine",
+  "Y": "baseline"
+ },
+ "tidewater-baseline-vs-engine-r2": {
+  "brief": "tidewater",
+  "round": 2,
+  "X": "baseline",
+  "Y": "engine"
+ }
+}
