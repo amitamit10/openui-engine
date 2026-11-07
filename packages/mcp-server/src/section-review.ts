@@ -40,6 +40,9 @@ export async function openSections(url: string, viewport: "desktop" | "mobile"):
       // plus HTML "product cards" built from many positioned divs count as a visual when large and bordered/shadowed
       let bigCard = 0; el.querySelectorAll("div,figure,aside").forEach((d: Element) => { const r = d.getBoundingClientRect(); const s = getComputedStyle(d); if (r.width > 260 && r.height > 200 && (s.boxShadow !== "none" || parseFloat(s.borderTopWidth) > 0) && d.querySelectorAll("*").length > 12) bigCard = Math.max(bigCard, r.width * r.height); });
       const area = rect.width * rect.height || 1;
+      // bar/gauge visuals built from inline-styled elements (width/height/custom properties) count as a visual
+      const styledBars = el.querySelectorAll('[style*="width:"],[style*="height:"],[style*="--"]').length;
+      if (styledBars >= 4) bigCard = Math.max(bigCard, area * 0.2);
       return { id: (el as HTMLElement).id || null, tag: el.tagName.toLowerCase(), heading: h?.textContent?.trim().slice(0, 70) ?? null, heightPx: Math.round(rect.height), words, svgs, imgs: el.querySelectorAll("img").length, buttons: el.querySelectorAll("a.btn,button,.btn").length, repeatedChildren: best, numeric, background: cs.backgroundColor, maxVisualPct: Math.round((Math.max(maxA, bigCard) / area) * 100), tinyIcons: svgs >= 3 && vis.filter((v) => v.a > 0).every((v) => Math.max(v.w, v.h) <= 72) };
     });
     const sig = `${f.repeatedChildren}x${f.svgs > 0}`; const flags: string[] = [];

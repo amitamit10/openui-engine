@@ -103,7 +103,9 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
     title: "Generate design system",
     description: "Pick an art direction from the brief (or use `style`) and generate a complete, WCAG-checked design system: DESIGN.md (Google DESIGN.md spec), tokens.json (DTCG), tokens.css and openui.tokens.json written to outDir. Returns the chosen style, runner-up styles, lint findings and token summary. Every section later composed uses these tokens exclusively.",
     inputSchema: { name: z.string().default("Brand"), description: z.string().optional(), category: CATEGORY.optional(), style: STYLE.optional(), accent: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional().describe("brand accent hex"), motion: z.number().int().min(0).max(3).optional(), outDir: z.string().default("design").describe("project directory (default 'design'; relative to the server workdir)") },
-  }, async (a) => {
+  }, async (a0) => {
+    const inf = inferCategory(`${a0.name} ${a0.description ?? ""}`);
+    const a = { ...a0, category: a0.category ?? (inf.confident ? inf.category : undefined) };
     const dir = ctx.safePath(a.outDir);
     const matches = matchStyles({ name: a.name, description: a.description, category: a.category as SiteCategory | undefined });
     const tokens = generateTokens({ name: a.name, description: a.description, category: a.category as SiteCategory | undefined, style: a.style as StyleId | undefined, accent: a.accent, motion: a.motion as 0 | 1 | 2 | 3 | undefined });
@@ -270,8 +272,9 @@ export function registerTools(server: McpServer, ctx: ServerContext): void {
   server.registerTool("get_showcase", {
     title: "Hero artefacts and product showcases",
     description: "A small library of tested, original hero artefacts and product showcases you paste into YOUR OWN page: drawing-sheet (technical elevation with callouts), survey-sheet (field survey), docket (receipt/booking ticket), contact-sheet (photo roll), session-screen (live class/call), transcript (terminal + response), instrument-panel (telemetry), itinerary (timed programme), plus spec-table, before-after, timeline-data and quote-document for the sections below the hero. Without `id` it ranks them for your `query` (business words). With `id` it returns html + css (+ writes a file) that already uses your palette variables; pass `fields` to replace the sample text and numbers with the real ones for THIS business (replace everything: the defaults are placeholders). Pass `palette` (accent, bg, ink, muted, surface, line, display font) from your own page so it matches.",
-    inputSchema: { id: z.string().optional(), query: z.string().optional().describe("business/category words used to rank the library"), kind: z.enum(["hero", "showcase"]).optional(), fields: z.record(z.any()).optional().describe("override any default field, e.g. {title:'…', lines:[{name:'…',price:'…'}]}"), palette: z.object({ accent: z.string().optional(), bg: z.string().optional(), ink: z.string().optional(), muted: z.string().optional(), surface: z.string().optional(), line: z.string().optional(), display: z.string().optional(), body: z.string().optional(), mono: z.string().optional() }).optional(), outDir: z.string().default(".openui/showcases") },
-  }, async (a) => {
+    inputSchema: { id: z.string().optional(), name: z.string().optional().describe("alias of id"), query: z.string().optional().describe("business/category words used to rank the library"), kind: z.enum(["hero", "showcase"]).optional(), fields: z.record(z.any()).optional().describe("override any default field, e.g. {title:'…', lines:[{name:'…',price:'…'}]}"), palette: z.object({ accent: z.string().optional(), bg: z.string().optional(), ink: z.string().optional(), muted: z.string().optional(), surface: z.string().optional(), line: z.string().optional(), display: z.string().optional(), body: z.string().optional(), mono: z.string().optional() }).optional(), outDir: z.string().default(".openui/showcases") },
+  }, async (a0) => {
+    const a = { ...a0, id: a0.id ?? a0.name };
     if (!a.id) return text({ ranked_for: a.query ?? "(no query)", items: listShowcases(a.query ?? "", a.kind).slice(0, 12), next: "call get_showcase again with an id and your real fields; paste the html where the hero/section goes and add the css to your stylesheet" });
     const r = renderShowcase(a.id, a.fields ?? {}, a.palette ?? {});
     const dir = ctx.safePath(a.outDir); mkdirSync(dir, { recursive: true });

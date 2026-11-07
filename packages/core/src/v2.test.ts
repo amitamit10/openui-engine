@@ -610,3 +610,14 @@ describe("showcase library", () => {
     expect(() => renderShowcase("zzz")).toThrow(/Unknown showcase/);
   });
 });
+
+describe("style choice with no signal", () => {
+  it("falls back to a committed serif identity instead of the neutral sans", () => {
+    const m = matchStyles({ name: "Brightwater Solar", description: "a rooftop installer in the South West" });
+    expect(m[0]!.score).toBeLessThanOrEqual(1);
+    expect(m[0]!.style).toBe("editorial-paper");
+  });
+  it("still lets real signals win over the tie-break", () => {
+    expect(matchStyles({ name: "Forge", description: "developer cli sdk api for engineers" })[0]!.style).toBe("terminal-dev");
+  });
+});

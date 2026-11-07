@@ -78,6 +78,11 @@ describe("MCP tool surface", () => {
     expect(r.json.html).toContain("Saturday supper");
     expect(r.json.css).toContain("--sc-accent:#0f6e7a");
     expect(existsSync(join(work, r.json.file))).toBe(true);
+    const byName = await call("get_showcase", { name: "timeline-data" });
+    expect(byName.isError).toBe(false);
+    expect(byName.json.id).toBe("timeline-data");
+    const noCat = await call("generate_design_system", { name: "Brightwater Solar", description: "a rooftop installer in the South West", outDir: "ds-nocat" });
+    expect(noCat.json.style.id).not.toBe("clarity-light");
     const bad = await call("get_showcase", { id: "nope" });
     expect(bad.isError).toBe(true);
     const e = await call("enhance_page", { target: "revsite", name: "Quay Bakery", description: "neighbourhood bakery" });

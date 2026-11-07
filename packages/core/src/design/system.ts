@@ -90,8 +90,11 @@ export function matchStyles(brief: Pick<DesignBrief, "description" | "category" 
     if (technical && id === "terminal-dev") { score += 3; }
     if (/\b(light|bright|clean|simple)\b/.test(text) && s.mode === "light") { score += 1; reasons.push("brief asks for light/clean"); }
     return { style: id, score, reasons };
-  }).sort((a, b) => b.score - a.score);
+  }).sort((a, b) => b.score - a.score || PREFERENCE.indexOf(a.style) - PREFERENCE.indexOf(b.style));
 }
+
+/** Tie-break when the brief gives no signal: blind judging consistently preferred committed serif/editorial identities over the neutral sans, so those win ties. */
+const PREFERENCE: StyleId[] = ["editorial-paper", "warm-human", "field-notes", "swiss-grid", "noir-luxe", "material-tonal", "pastel-play", "clarity-light", "shadcn-mono", "neo-brutal", "terminal-dev", "aurora-dark"];
 
 function typeScale(ratio: number, displayWeight: number, tracking: string): Record<string, TypeStep> {
   const r = (n: number, base: number) => Math.round(base * Math.pow(ratio, n));
