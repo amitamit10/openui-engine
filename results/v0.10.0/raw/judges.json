@@ -1,0 +1,250 @@
+[
+ {
+  "pair": "driftwood-baseline-vs-engine-r1",
+  "brief": "driftwood",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y has a cohesive teal, cream and amber palette, confident serif headline, a specific tide-board hero card and consistent illustrated feature cards with a stronger closing CTA. X uses a flat orange hero illustration with some awkward floating chips, a weaker features grid with ambiguous placeholder-like icons, and a more generic SaaS card layout, so it feels more template-like."
+ },
+ {
+  "pair": "driftwood-baseline-vs-engine-r2",
+  "brief": "driftwood",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 6
+  },
+  "rationale": "X has a confident serif headline, a cohesive cream/teal/amber palette and specific, tide-led copy and UI (the slipway board, a return-time illustration, six distinct feature cards) that feel designed for the business. Y has a likeable hero illustration, but its feature grid has an unbalanced bottom row with a washed-out grey placeholder-like card, the pricing is inconsistent, and the orange-on-blush palette with the italic accent word is a familiar generated-SaaS pattern. Y is the more template-like of the two."
+ },
+ {
+  "pair": "formwell-baseline-vs-engine-r1",
+  "brief": "formwell",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 5
+  },
+  "rationale": "X has a warm cream and deep green palette with a high-contrast display serif, and its hero shows a specific leave-request form with conditional logic, approval route and signature, so it reads as a considered, product-specific design. Y is a more familiar mint-green SaaS template with icon-card features, and its hero mockup has an awkward empty floating chip and loose, gappy layout inside the card. Y's feature illustrations are clearer than X's, but X is the one a design director would ship."
+ },
+ {
+  "pair": "formwell-baseline-vs-engine-r2",
+  "brief": "formwell",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 5,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y has a warm cream and forest palette, a confident serif display, and a specific hero form UI (fields, conditional hint, signature, approval timeline), plus small realistic feature mockups and tidy sections. X is a pale-green mint look with generic cards, an awkward hero mock (empty floating tile, large gaps), a stray open FAQ item and uneven feature illustrations, so it reads more like a template."
+ },
+ {
+  "pair": "harvest-baseline-vs-engine-r1",
+  "brief": "harvest",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "rationale": "X has a deliberate editorial serif and warm cream, terracotta and forest palette, plus a specific farm-list card that reads as real product content, though the card covers the lunchbox illustration and the feature cards use only small icons. Y is a green-on-white SaaS template with a generic sans, a vague box illustration and mismatched illustration styles in the features, though it has richer illustrations and concrete pricing. A design director would ship X, and Y is the more template-like."
+ },
+ {
+  "pair": "harvest-baseline-vs-engine-r2",
+  "brief": "harvest",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 5,
+   "spacing": 5,
+   "colour": 5,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 4
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 7
+  },
+  "rationale": "Y uses a warm cream, terracotta and forest palette with a high-contrast serif headline and a specific farm-list card over a bento illustration, so it feels seasonal and distinctive. X is a mint-green SaaS-style layout with a generic lunchbox illustration, small stat chips and a mono-font logo strip that reads as template. X's hero stacks the CTAs awkwardly and its illustrations are less convincing, while Y is more cohesive and shippable."
+ },
+ {
+  "pair": "ironbark-baseline-vs-engine-r1",
+  "brief": "ironbark",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 5,
+   "colour": 5,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 4
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y has a warm cream, forest and amber palette, a strong serif headline, and a hero that pairs a tree illustration with a believable job-sheet card. It has six feature cards, a clear metrics band and a well-built final CTA. X is a monochrome mint-green page with a clean but generic SaaS feel, a cropped logo strip at the fold, an awkwardly wrapped hero button stack, and a weaker, more placeholder-like set of feature illustrations."
+ },
+ {
+  "pair": "ironbark-baseline-vs-engine-r2",
+  "brief": "ironbark",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 5
+  },
+  "rationale": "X has a warm cream, forest green and amber palette, a strong serif headline and a specific job-sheet card (IB-2291, exclusion zone) over the tree illustration, which reads as real work. Y is tidy, with good feature illustrations and a nice hero, but its mint-on-mint palette, pill buttons and card grid look more like a stock SaaS template. The hero in Y has a cramped stack of two CTAs and its client strip is clipped at the fold."
+ }
+]

@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Northstar: AI-assisted incident management for engineering teams</title>
+  <meta name="description" content="Northstar detects incidents from monitoring signals, pages the right on-call engineer, and drafts the timeline and postmortem automatically.">
+  <meta name="theme-color" content="#0B5F68">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Northstar home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect width="32" height="32" rx="9" fill="#0B5F68"/>
+          <path d="M16 6l2.6 7.4L26 16l-7.4 2.6L16 26l-2.6-7.4L6 16l7.4-2.6z" fill="#FFFFFF"/>
+        </svg>
+        <span>Northstar</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-toggle-label">Menu</span>
+        <span class="menu-toggle-icon" aria-hidden="true"><span></span><span></span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="nav-signin" href="#get-started">Sign in</a>
+          <a class="btn btn-primary btn-sm nav-cta" href="#pricing">Start free trial</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- 2. Hero -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">AI-assisted incident management</p>
+          <h1 id="hero-title">Incidents handled before they become emergencies.</h1>
+          <p class="lead">Northstar detects incidents from your monitoring signals, pages the right on-call engineer, and drafts the timeline and postmortem while your team stays on the fix.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#pricing">Start free trial</a>
+            <a class="btn btn-secondary" href="#how-it-works">See how it works</a>
+          </div>
+          <p class="fineprint">14-day trial on every plan. No credit card required.</p>
+        </div>
+
+        <div class="hero-visual" role="img" aria-label="Preview of the Northstar incident view: SEV-2 checkout latency incident, burn-rate chart, the primary on-call engineer paged and acknowledged, and a timeline updated automatically.">
+          <div class="mock" aria-hidden="true">
+            <div class="mock-bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="mock-url">northstar / incidents / INC-2841</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-head">
+                <div>
+                  <div class="mock-tags">
+                    <span class="sev">SEV-2</span>
+                    <span class="status"><span class="pulse"></span>Investigating</span>
+                  </div>
+                  <p class="mock-title">Checkout p99 latency above 2s</p>
+                  <p class="mock-meta">Detected 14:02 UTC · 3 signals correlated</p>
+                </div>
+              </div>
+
+              <div class="mock-grid">
+                <div class="mock-card">
+                  <div class="mock-card-head">
+                    <span>SLO burn rate</span>
+                    <span class="mono up">4.1×</span>
+                  </div>
+                  <svg class="burn-chart" viewBox="0 0 240 90" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="burnFill" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0" stop-color="#2DD4BF" stop-opacity="0.35"/>
+                        <stop offset="1" stop-color="#2DD4BF" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <line x1="0" x2="240" y1="30" y2="30" stroke="#F59E0B" stroke-dasharray="4 4" stroke-width="1"/>
+                    <path d="M0 74 L24 70 L48 72 L72 66 L96 68 L120 60 L144 56 L168 40 L186 28 L204 22 L240 18 L240 90 L0 90 Z" fill="url(#burnFill)"/>
+                    <polyline points="0,74 24,70 48,72 72,66 96,68 120,60 144,56 168,40 186,28 204,22 240,18" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+                  </svg>
+                  <p class="mock-caption">Threshold 1× · budget burning faster than planned</p>
+                </div>
+
+                <div class="mock-card">
+                  <div class="mock-card-head"><span>On-call</span><span class="chip-ok">Acked</span></div>
+                  <div class="person">
+                    <span class="avatar">PR</span>
+                    <div>
+                      <p class="person-name">Priya Raman</p>
+                      <p class="mock-meta">Primary · Payments</p>
+                    </div>
+                  </div>
+                  <p class="mock-meta">Paged 14:02 · acknowledged in 38 s</p>
+                </div>
+              </div>
+
+              <ol class="mock-timeline">
+                <li><span class="t-time mono">14:02</span><span>Latency monitor and error-rate signal correlated</span></li>
+                <li><span class="t-time mono">14:02</span><span>Primary on-call paged via chat and phone</span></li>
+                <li><span class="t-time mono">14:04</span><span>Priya Raman acknowledged and took ownership</span></li>
+                <li class="t-draft"><span class="t-time mono">14:09</span><span>Timeline draft updated from deploy and chat events</span></li>
+              </ol>
+            </div>
+            <div class="mock-float">
+              <span class="mono float-value">−42%</span>
+              <span class="float-label">MTTR, last 90 days</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Social proof -->
+    <section class="proof" aria-labelledby="proof-title">
+      <div class="container">
+        <h2 id="proof-title" class="proof-title">Trusted by engineering teams at</h2>
+        <ul class="proof-list">
+          <li>Quillstone</li>
+          <li>Harbor &amp; Pine</li>
+          <li>Lattice Works</li>
+          <li>Meridian Freight</li>
+          <li>Orbita Health</li>
+          <li>Fernwood Labs</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. Features -->
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Features</p>
+          <h2 id="features-title">Everything from the first alert to the final review</h2>
+          <p class="section-lead">Six capabilities that cover detection, response and learning, built to stay out of the way when things are calm.</p>
+        </header>
+
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="feature-art" aria-hidden="true">
+              <div class="bars">
+                <span style="height:30%"></span><span style="height:34%"></span><span style="height:28%"></span><span style="height:36%"></span><span style="height:32%"></span><span style="height:38%"></span><span style="height:34%"></span><span class="hot" style="height:82%"></span><span class="hot" style="height:90%"></span><span class="hot" style="height:76%"></span>
+              </div>
+              <span class="art-tag">3 signals → 1 incident</span>
+            </div>
+            <h3>Signal detection</h3>
+            <p>Correlates metrics, logs and error spikes into one incident, so one outage never becomes twelve alerts.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-art" aria-hidden="true">
+              <ul class="route">
+                <li class="route-primary"><span class="avatar sm">PR</span><span>Priya R. · Primary</span><span class="route-state">Acked</span></li>
+                <li><span class="avatar sm alt">JK</span><span>Jonah K. · Secondary</span><span class="route-state muted">Standby</span></li>
+              </ul>
+            </div>
+            <h3>Smart paging</h3>
+            <p>Routes to the engineer on call for the affected service, respecting schedules, overrides and escalation rules.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-art" aria-hidden="true">
+              <ol class="rail">
+                <li><span class="rail-dot"></span>Deploy 13:58 · checkout v4.12</li>
+                <li><span class="rail-dot"></span>Config flag changed 14:00</li>
+                <li class="rail-new"><span class="rail-dot"></span>Rollback proposed 14:06</li>
+              </ol>
+            </div>
+            <h3>Live timeline</h3>
+            <p>Builds a running timeline from deploys, chat messages and status changes, so nobody reconstructs it from memory later.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-art" aria-hidden="true">
+              <div class="doc">
+                <span class="doc-h"></span>
+                <span class="doc-line w90"></span>
+                <span class="doc-line w75"></span>
+                <span class="doc-chip">Drafted · review</span>
+                <span class="doc-line w60"></span>
+                <span class="doc-line w84"></span>
+              </div>
+            </div>
+            <h3>Postmortem drafts</h3>
+            <p>Turns the timeline into a structured postmortem with impact, contributing factors and follow-ups for your review.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-art" aria-hidden="true">
+              <div class="ring-wrap">
+                <svg viewBox="0 0 120 120" class="ring">
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="#E2E8F0" stroke-width="10"/>
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="#0B5F68" stroke-width="10" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="72" transform="rotate(-90 60 60)"/>
+                </svg>
+                <div class="ring-value"><span class="mono">99.92%</span><span>SLO, 30 days</span></div>
+              </div>
+            </div>
+            <h3>Reliability metrics</h3>
+            <p>Tracks MTTR, time to acknowledge and SLO error-budget burn per service, with the trend that matters for each team.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-art" aria-hidden="true">
+              <div class="chips">
+                <span>Chat</span><span>Metrics</span><span>Tracker</span><span>Status page</span><span>Deploys</span><span>Logs</span>
+              </div>
+            </div>
+            <h3>Works with your stack</h3>
+            <p>Connects to the chat, metrics, ticketing and deploy tools your team already uses. Setup takes an afternoon, not a quarter.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. How it works -->
+    <section class="section section-tint" id="how-it-works" aria-labelledby="how-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">How it works</p>
+          <h2 id="how-title">From signal to resolution in three steps</h2>
+        </header>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num mono" aria-hidden="true">01</span>
+            <h3>Connect your signals</h3>
+            <p>Point Northstar at the monitoring, deploy and chat sources you already run. It learns which signals usually belong together for each service.</p>
+          </li>
+          <li class="step">
+            <span class="step-num mono" aria-hidden="true">02</span>
+            <h3>Let Northstar route it</h3>
+            <p>When an incident is confirmed, the right engineer is paged with context: affected service, recent changes and suggested first checks.</p>
+          </li>
+          <li class="step">
+            <span class="step-num mono" aria-hidden="true">03</span>
+            <h3>Review the record</h3>
+            <p>The timeline is already written as the incident unfolds. Edit the draft postmortem, approve the follow-ups and close the loop in minutes.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 6. Metrics band -->
+    <section class="metrics" aria-labelledby="metrics-title">
+      <div class="container">
+        <header class="section-head section-head-light">
+          <p class="eyebrow">Results</p>
+          <h2 id="metrics-title">Reliability you can measure</h2>
+        </header>
+        <dl class="metric-grid">
+          <div class="metric">
+            <dt>Lower median time to resolve</dt>
+            <dd><span class="metric-value">38%</span><span class="metric-note">in the first 90 days</span></dd>
+          </div>
+          <div class="metric">
+            <dt>Median time from detection to page</dt>
+            <dd><span class="metric-value">62 s</span><span class="metric-note">down from 7 min</span></dd>
+          </div>
+          <div class="metric">
+            <dt>Postmortem drafts accepted with light edits</dt>
+            <dd><span class="metric-value">94%</span><span class="metric-note">of incidents</span></dd>
+          </div>
+          <div class="metric">
+            <dt>Fewer repeat incidents per quarter</dt>
+            <dd><span class="metric-value">27%</span><span class="metric-note">after first follow-up cycle</span></dd>
+          </div>
+        </dl>
+        <p class="metrics-note">Illustrative figures from fictional pilot teams.</p>
+      </div>
+    </section>
+
+    <!-- 7. Testimonials -->
+    <section class="section" id="testimonials" aria-labelledby="testimonials-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Testimonials</p>
+          <h2 id="testimonials-title">Trusted by the people who get paged</h2>
+        </header>
+        <div class="quote-grid">
+          <figure class="quote">
+            <blockquote>
+              <p>“Northstar paged the right person before our status page had anything to say. That alone paid for the first quarter.”</p>
+            </blockquote>
+            <figcaption class="quote-by">
+              <span class="avatar" aria-hidden="true">DO</span>
+              <span><strong>Dana Okafor</strong><br>VP Engineering, Quillstone</span>
+            </figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>
+              <p>“The draft timeline is what I wanted from every incident and never had time to write. I edit it now instead of starting from zero.”</p>
+            </blockquote>
+            <figcaption class="quote-by">
+              <span class="avatar alt" aria-hidden="true">ML</span>
+              <span><strong>Marcus Lind</strong><br>Staff SRE, Harbor &amp; Pine</span>
+            </figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>
+              <p>“The SLO burn view shows which services need work before on-call gets worn down by them. We fixed two of them in one sprint.”</p>
+            </blockquote>
+            <figcaption class="quote-by">
+              <span class="avatar alt2" aria-hidden="true">SM</span>
+              <span><strong>Sofia Mendes</strong><br>Engineering Manager, Orbita Health</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Pricing -->
+    <section class="section section-tint" id="pricing" aria-labelledby="pricing-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Pricing</p>
+          <h2 id="pricing-title">Plans that scale with your rotation</h2>
+          <p class="section-lead">Every plan includes a 14-day trial. Prices are per engineer on the rotation.</p>
+        </header>
+
+        <div class="billing">
+          <div class="segmented" role="group" aria-label="Billing period">
+            <button type="button" class="seg-btn" data-billing="monthly" aria-pressed="true">Monthly</button>
+            <button type="button" class="seg-btn" data-billing="yearly" aria-pressed="false">Yearly <span class="save">Save up to 20%</span></button>
+          </div>
+          <p class="sr-only" id="billing-status" aria-live="polite">Showing monthly prices</p>
+        </div>
+
+        <div class="tiers">
+          <article class="tier">
+            <h3>Starter</h3>
+            <p class="tier-desc">For small teams setting up structured on-call.</p>
+            <p class="price">
+              <span class="amount" data-monthly="$19" data-yearly="$15">$19</span>
+              <span class="per">/ engineer / month</span>
+            </p>
+            <ul class="check-list">
+              <li>Up to 25 engineers</li>
+              <li>Signals from 5 sources</li>
+              <li>Paging by chat and phone</li>
+              <li>30-day incident history</li>
+            </ul>
+            <a class="btn btn-secondary tier-cta" href="#get-started">Start free trial</a>
+          </article>
+
+          <article class="tier tier-featured">
+            <span class="badge">Most popular</span>
+            <h3>Team</h3>
+            <p class="tier-desc">For teams running production services around the clock.</p>
+            <p class="price">
+              <span class="amount" data-monthly="$49" data-yearly="$39">$49</span>
+              <span class="per">/ engineer / month</span>
+            </p>
+            <ul class="check-list">
+              <li>Up to 250 engineers</li>
+              <li>Unlimited signal sources</li>
+              <li>Automatic timeline and postmortem drafts</li>
+              <li>SLO burn and MTTR dashboards</li>
+              <li>Escalation policies</li>
+            </ul>
+            <a class="btn btn-primary tier-cta" href="#get-started">Start free trial</a>
+          </article>
+
+          <article class="tier">
+            <h3>Enterprise</h3>
+            <p class="tier-desc">For organisations with compliance and scale requirements.</p>
+            <p class="price">
+              <span class="amount custom">Custom</span>
+            </p>
+            <ul class="check-list">
+              <li>Unlimited engineers</li>
+              <li>SSO and SCIM provisioning</li>
+              <li>Audit log and data residency options</li>
+              <li>Dedicated success lead</li>
+              <li>99.95% uptime commitment</li>
+            </ul>
+            <a class="btn btn-secondary tier-cta" href="#get-started">Talk to sales</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. FAQ -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container narrow">
+        <header class="section-head">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">Questions, answered</h2>
+        </header>
+
+        <div class="accordion">
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-1">
+                <span>How does Northstar decide something is an incident?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-1" hidden>
+              <p>Northstar correlates alerts, error spikes and SLO breaches within a service. When several signals cross their thresholds together, it opens one incident and asks a human to confirm severity. You can tune thresholds per service at any time.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-2">
+                <span>Which tools does it connect to?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-2" hidden>
+              <p>Northstar connects to common chat, metrics, logging, ticketing and deploy tools through native integrations or a standard webhook. If your tool is not listed, a generic webhook and metrics import cover most cases.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-3">
+                <span>How does paging choose who to notify?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-3" hidden>
+              <p>Paging follows the on-call schedule for the affected service, including overrides and time-off. If the primary does not acknowledge within your window, the escalation policy moves to the secondary and then to the engineering manager.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-4">
+                <span>Are postmortem drafts written automatically? Who approves them?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-4" hidden>
+              <p>Yes. Northstar drafts the timeline, impact summary and contributing factors from the incident record. Nothing is published until an incident owner reviews and approves it, and every statement links back to the event it came from.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-5">
+                <span>Do you train shared models on our incident data?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-5" hidden>
+              <p>No. Your incident data is used only to serve your workspace. It is not used to train models shared with other customers, and you can request deletion of your data at any time.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-6">
+                <span>Can we try it before we commit?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-6" hidden>
+              <p>Every plan starts with a 14-day trial and needs no credit card. Connect one service, run a few real incidents through it, and decide with your own data.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Final CTA -->
+    <section class="final-cta" id="get-started" aria-labelledby="cta-title">
+      <div class="container final-cta-inner">
+        <h2 id="cta-title">Give your on-call rotation a calmer week</h2>
+        <p>Start a 14-day trial, connect one service and see your first draft timeline before the next alert fires.</p>
+        <div class="cta-row cta-center">
+          <a class="btn btn-inverse" href="#pricing">Start free trial</a>
+          <a class="btn btn-ghost" href="mailto:hello@northstar.example?subject=Book%20a%20demo">Book a demo</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 11. Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#top" aria-label="Northstar, back to top">
+            <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+              <rect width="32" height="32" rx="9" fill="#0B5F68"/>
+              <path d="M16 6l2.6 7.4L26 16l-7.4 2.6L16 26l-2.6-7.4L6 16l7.4-2.6z" fill="#FFFFFF"/>
+            </svg>
+            <span>Northstar</span>
+          </a>
+          <p>Calm, precise incident management for engineering teams.</p>
+        </div>
+
+        <nav class="footer-col" aria-labelledby="foot-product">
+          <p class="footer-title" id="foot-product">Product</p>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-labelledby="foot-company">
+          <p class="footer-title" id="foot-company">Company</p>
+          <ul>
+            <li><a href="#testimonials">Customers</a></li>
+            <li><a href="#metrics-title">Results</a></li>
+            <li><a href="mailto:hello@northstar.example">Contact</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-labelledby="foot-resources">
+          <p class="footer-title" id="foot-resources">Resources</p>
+          <ul>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#get-started">Sign in</a></li>
+            <li><a href="mailto:security@northstar.example">Security overview</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <p class="legal">© 2026 Northstar Systems, Inc. Northstar is a fictional product; customer names, figures and testimonials are fictional. Privacy and terms on request at <a href="mailto:legal@northstar.example">legal@northstar.example</a>.</p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

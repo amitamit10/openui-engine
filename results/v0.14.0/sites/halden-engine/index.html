@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Halden &amp; Voss Architects | Low-energy homes and school extensions, Leeds</title>
+  <meta name="description" content="Halden &amp; Voss is a nine-person architecture studio in Leeds designing low-energy homes, school extensions and barn conversions, with a fixed-fee design stage.">
+  <meta name="theme-color" content="#f6f1e7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%23f6f1e7%27/%3E%3Cpath d=%27M7 25V13l9-7 9 7v12z%27 fill=%27none%27 stroke=%27%2317140f%27 stroke-width=%272%27/%3E%3Crect x=%2714%27 y=%2716%27 width=%274%27 height=%274%27 fill=%27%23d4401f%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-name">Halden &amp; Voss</span>
+        <span class="brand-sub">Architects, Leeds</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+
+      <nav class="site-nav" id="site-menu" aria-label="Main">
+        <ul class="nav-links">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#fees">Fees</a></li>
+          <li><a href="#studio">Studio</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="nav-signin" href="#client-access">Client sign-in</a>
+          <a class="btn btn-primary btn-sm" href="#visit">Book a site visit</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 2. Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Architects &middot; Leeds &middot; Since 2011</p>
+          <h1 id="hero-title" class="hero-title">Buildings that <em>use less</em>, drawn to the last millimetre.</h1>
+          <p class="lede">Halden &amp; Voss is a nine-person studio designing low-energy homes, school extensions and barn conversions across West Yorkshire. We fix the design fee before we draw, and our own structural engineer checks every span.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="#visit">Book a site visit</a>
+            <a class="btn btn-secondary" href="#projects">See our projects</a>
+          </div>
+          <p class="hero-note">Feasibility visits from &pound;1,450 &middot; Enquiries answered within two working days</p>
+        </div>
+
+        <figure class="hero-figure">
+          <div class="drawing-sheet">
+            <svg class="hero-svg" viewBox="0 0 640 470" role="img" aria-labelledby="hero-svg-title hero-svg-desc">
+              <title id="hero-svg-title">South elevation of the Calder Lane house</title>
+              <desc id="hero-svg-desc">Two-storey timber-clad house with a full-height south glazed wall, a roof-mounted solar array and dimension annotations for wall, glazing, slab and airtightness performance.</desc>
+              <defs>
+                <pattern id="batten" width="14" height="20" patternUnits="userSpaceOnUse">
+                  <line x1="0" y1="0" x2="0" y2="20" class="batten"/>
+                </pattern>
+                <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <line x1="0" y1="0" x2="0" y2="10" class="hatch"/>
+                </pattern>
+                <clipPath id="wall-clip">
+                  <path d="M150 190 L480 150 L480 400 L150 400 Z"/>
+                </clipPath>
+              </defs>
+
+              <!-- Ground -->
+              <rect x="30" y="400" width="580" height="18" fill="url(#hatch)"/>
+              <line x1="30" y1="400" x2="610" y2="400" class="ink-strong"/>
+              <text x="36" y="390" class="annot">&plusmn;0.00</text>
+
+              <!-- Building volume -->
+              <path d="M150 190 L480 150 L480 400 L150 400 Z" class="wall"/>
+              <rect x="150" y="140" width="330" height="260" fill="url(#batten)" clip-path="url(#wall-clip)"/>
+              <path d="M150 190 L480 150 L480 400 L150 400 Z" class="outline"/>
+              <path d="M136 193 L494 147" class="roof-edge"/>
+
+              <!-- Solar array, drawn on the roof plane -->
+              <g transform="translate(150 190) rotate(-6.9)">
+                <rect class="pv" x="50" y="-26" width="44" height="14"/>
+                <rect class="pv" x="98" y="-26" width="44" height="14"/>
+                <rect class="pv" x="146" y="-26" width="44" height="14"/>
+                <rect class="pv" x="194" y="-26" width="44" height="14"/>
+                <rect class="pv" x="242" y="-26" width="44" height="14"/>
+                <rect class="pv" x="290" y="-26" width="44" height="14"/>
+              </g>
+
+              <!-- Upper floor windows -->
+              <g class="window">
+                <rect x="196" y="206" width="52" height="40"/>
+                <rect x="286" y="206" width="52" height="40"/>
+                <rect x="376" y="206" width="52" height="40"/>
+              </g>
+
+              <!-- Triple glazed south wall, ground floor -->
+              <g class="glazing">
+                <rect x="190" y="262" width="250" height="130"/>
+                <line x1="252" y1="262" x2="252" y2="392"/>
+                <line x1="314" y1="262" x2="314" y2="392"/>
+                <line x1="376" y1="262" x2="376" y2="392"/>
+                <line x1="190" y1="327" x2="440" y2="327"/>
+              </g>
+
+
+              <!-- Leaders and labels -->
+              <g class="leader">
+                <line x1="128" y1="300" x2="170" y2="300"/>
+                <line x1="128" y1="372" x2="170" y2="372"/>
+                <line x1="436" y1="354" x2="496" y2="354"/>
+                <line x1="446" y1="142" x2="496" y2="118"/>
+                <line x1="470" y1="384" x2="496" y2="384"/>
+              </g>
+              <g class="leader-dots">
+                <circle cx="170" cy="300" r="3"/>
+                <circle cx="170" cy="372" r="3"/>
+                <circle cx="436" cy="354" r="3"/>
+                <circle cx="446" cy="142" r="3"/>
+              </g>
+              <text x="124" y="296" class="annot" text-anchor="end">Walls U 0.12</text>
+              <text x="124" y="368" class="annot" text-anchor="end">Slab U 0.10</text>
+              <text x="500" y="350" class="annot">Glazing g 0.50</text>
+              <text x="500" y="114" class="annot">Solar 4.2 kWp</text>
+              <text x="500" y="389" class="annot">Air 0.6 ach</text>
+
+              <!-- Overall dimension -->
+              <g class="dim">
+                <line x1="150" y1="440" x2="480" y2="440"/>
+                <line x1="150" y1="430" x2="150" y2="450"/>
+                <line x1="480" y1="430" x2="480" y2="450"/>
+                <line x1="150" y1="404" x2="150" y2="446"/>
+                <line x1="480" y1="404" x2="480" y2="446"/>
+              </g>
+              <text x="315" y="462" class="annot" text-anchor="middle">18.4 m overall</text>
+            </svg>
+          </div>
+
+          <figcaption class="fig-caption">
+            <span class="fig-no">Fig. 01</span>
+            South elevation, Calder Lane house. Fabric-first timber frame, triple glazing and a roof-mounted array. Schematic, not to scale.
+          </figcaption>
+
+          <dl class="spec-list">
+            <div><dt>Heating demand</dt><dd>14 kWh/m²&middot;yr</dd></div>
+            <div><dt>Passivhaus target</dt><dd>15 kWh/m²&middot;yr</dd></div>
+            <div><dt>Airtightness</dt><dd>0.6 ach at 50 Pa</dd></div>
+            <div><dt>Solar array</dt><dd>4.2 kWp, south roof</dd></div>
+          </dl>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3. Social proof strip -->
+    <section class="proof" aria-label="Clients and collaborators">
+      <div class="wrap proof-inner">
+        <p class="proof-label">Clients and collaborators since 2011</p>
+        <ul class="proof-list">
+          <li>Calder Mill Homes</li>
+          <li>Greave Lane Academy Trust</li>
+          <li>Wharfedale Timber Co.</li>
+          <li>Kirkstall Community Housing</li>
+          <li>Northgate Quarter LLP</li>
+          <li>Marsh &amp; Lane Estates</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. Features / offer -->
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-no">01 &mdash; Projects</p>
+          <h2 id="projects-title">Five kinds of project we do well, and how we approach each.</h2>
+        </header>
+
+        <ul class="feature-grid">
+          <li class="feature">
+            <div class="feature-visual">
+              <svg viewBox="0 0 320 160" role="img" aria-label="Wall section showing timber cladding, ventilated cavity, wood-fibre insulation, timber frame and plasterboard">
+                <rect x="60" y="30" width="10" height="100" class="fx-clad"/>
+                <rect x="70" y="30" width="8" height="100" class="fx-cavity"/>
+                <rect x="78" y="30" width="80" height="100" class="fx-fibre"/>
+                <line x1="158" y1="30" x2="158" y2="130" class="fx-membrane"/>
+                <rect x="166" y="30" width="60" height="100" class="fx-frame"/>
+                <rect x="226" y="30" width="12" height="100" class="fx-board"/>
+                <line x1="40" y1="30" x2="40" y2="130" class="fx-dim"/>
+                <text x="30" y="84" class="fx-label" text-anchor="end">300 mm</text>
+                <text x="60" y="20" class="fx-label">Cladding</text>
+                <text x="200" y="20" class="fx-label">Frame</text>
+              </svg>
+            </div>
+            <h3>Low-energy homes</h3>
+            <p>Fabric first. We specify walls, roofs and glazing to a U-value of 0.15 W/m²K or better before any kit goes on the roof. Every design is modelled in PHPP and checked against SAP, so the numbers hold at handover.</p>
+            <p class="feature-meta">Typical programme: 9&ndash;12 weeks to planning</p>
+          </li>
+
+          <li class="feature">
+            <div class="feature-visual">
+              <svg viewBox="0 0 320 160" role="img" aria-label="Warren truss diagram with a downward load arrow">
+                <path d="M60 60 H240" class="fx-chord"/>
+                <path d="M30 130 H270" class="fx-chord"/>
+                <path d="M30 130 L60 60 L90 130 L120 60 L150 130 L180 60 L210 130 L240 60 L270 130" class="fx-web"/>
+                <circle cx="60" cy="60" r="3.5" class="fx-node"/>
+                <circle cx="120" cy="60" r="3.5" class="fx-node"/>
+                <circle cx="180" cy="60" r="3.5" class="fx-node"/>
+                <circle cx="240" cy="60" r="3.5" class="fx-node"/>
+                <path d="M150 14 V44" class="fx-load"/>
+                <path d="M144 38 L150 46 L156 38" class="fx-load"/>
+              </svg>
+            </div>
+            <h3>Structural engineering, in-house</h3>
+            <p>Our engineer sits in the studio and works in the same model as the architects. Steel, timber and CLT are designed together, so the frame shapes the plan rather than arriving as a late change at tender.</p>
+            <p class="feature-meta">No separate consultant needed for planning</p>
+          </li>
+
+          <li class="feature">
+            <div class="feature-visual feature-visual-price" aria-hidden="true">
+              <span class="price-big">&pound;7,800</span>
+              <span class="price-rule"></span>
+              <span class="price-note">Design stage, fixed</span>
+            </div>
+            <h3>Fixed-fee design stage</h3>
+            <p>One number, agreed before we start. The design stage has a written scope, three options, one developed scheme and two rounds of revisions. The fee does not drift when the design gets more interesting.</p>
+            <p class="feature-meta">Scope and fee confirmed in writing</p>
+          </li>
+
+          <li class="feature">
+            <div class="feature-visual">
+              <svg viewBox="0 0 320 160" role="img" aria-label="Site plan with a dashed red-line boundary, two house footprints, trees and a north arrow">
+                <path d="M30 26 H290 V140 H180 V100 H30 Z" class="fx-redline"/>
+                <rect x="60" y="40" width="90" height="46" class="fx-building"/>
+                <rect x="190" y="62" width="70" height="40" class="fx-building"/>
+                <circle cx="268" cy="118" r="10" class="fx-tree"/>
+                <circle cx="252" cy="56" r="7" class="fx-tree"/>
+                <circle cx="52" cy="122" r="9" class="fx-tree"/>
+                <g transform="translate(296 150)">
+                  <circle r="9" class="fx-north"/>
+                  <path d="M0 -6 L3 4 L0 2 L-3 4 Z" class="fx-north-arrow"/>
+                </g>
+              </svg>
+            </div>
+            <h3>Planning submissions</h3>
+            <p>Drawings that a planning officer can read on the first pass. Red-line plans, heritage and design access statements, and the application forms are produced by the team that designed the building.</p>
+            <p class="feature-meta">First-round decisions on most applications</p>
+          </li>
+
+          <li class="feature">
+            <div class="feature-visual">
+              <svg viewBox="0 0 320 160" role="img" aria-label="Gable barn outline with timber purlins, posts and a glazed opening">
+                <path d="M40 140 V70 L160 22 L280 70 V140 Z" class="fx-barn"/>
+                <path d="M40 104 H280" class="fx-timber"/>
+                <path d="M100 140 V82 M160 140 V56 M220 140 V82" class="fx-timber"/>
+                <rect x="124" y="104" width="72" height="36" class="fx-glass"/>
+                <path d="M60 70 L160 30 M260 70 L160 30" class="fx-rafter"/>
+              </svg>
+            </div>
+            <h3>Barn conversions</h3>
+            <p>Keeping the frame and adding the life. We repair historic timber, detail new openings so they read as honest additions, and prepare heritage evidence before the design is fixed rather than after.</p>
+            <p class="feature-meta">Common in the Dales and the Pennine edge</p>
+          </li>
+
+          <li class="feature">
+            <div class="feature-visual">
+              <svg viewBox="0 0 320 160" role="img" aria-label="Sawtooth north-light roof section over a classroom with daylight arrows">
+                <path d="M30 128 V76 L70 36 V128 L110 76 L110 36 H150 V128 L190 76 L190 36 L230 36 L230 128" class="fx-saw"/>
+                <line x1="30" y1="128" x2="290" y2="128" class="fx-floor"/>
+                <path d="M96 20 L96 60" class="fx-ray"/>
+                <path d="M136 20 L136 60" class="fx-ray"/>
+                <path d="M176 20 L176 60" class="fx-ray"/>
+                <path d="M210 60 V116 M244 60 V116 M270 60 V116" class="fx-desk"/>
+              </svg>
+            </div>
+            <h3>School extensions</h3>
+            <p>Classrooms with even daylight and no glare. North-light rooflights, phased works that keep the school open, and site rules on noise and deliveries agreed with the head before the first drawing.</p>
+            <p class="feature-meta">Designed to the trust brief where one exists</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. How a project runs -->
+    <section class="section section-rule" id="process" aria-labelledby="process-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-no">02 &mdash; Process</p>
+          <h2 id="process-title">How a project runs, in three steps.</h2>
+          <p class="section-intro">Most briefs reach planning submission in eleven weeks. Each step ends with a decision you make, not a deadline we set.</p>
+        </header>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="step-no" aria-hidden="true">01</span>
+            <h3>Brief and site visit</h3>
+            <p>We measure, photograph and test the site with you, then write a one-page brief that sets the budget ceiling and the energy target. You approve the brief before we draw anything.</p>
+            <div class="step-time" aria-label="Weeks 1 to 2">
+              <span class="step-bar" style="--from: 0%; --span: 18%"></span>
+              <span class="step-label">Weeks 1&ndash;2</span>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-no" aria-hidden="true">02</span>
+            <h3>Design stage</h3>
+            <p>Three options, each with cost and energy figures. You choose one, and we develop it to planning-ready drawings, with structural and energy calculations inside the fixed fee.</p>
+            <div class="step-time" aria-label="Weeks 3 to 9">
+              <span class="step-bar" style="--from: 18%; --span: 52%"></span>
+              <span class="step-label">Weeks 3&ndash;9</span>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-no" aria-hidden="true">03</span>
+            <h3>Planning submission</h3>
+            <p>We submit the application and answer the first round of officer queries ourselves. On full service we carry straight on to a tender pack and contractor shortlist.</p>
+            <div class="step-time" aria-label="Weeks 10 to 11">
+              <span class="step-bar" style="--from: 70%; --span: 30%"></span>
+              <span class="step-label">Weeks 10&ndash;11</span>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 6. Metrics band -->
+    <section class="metrics" id="studio" aria-labelledby="studio-title">
+      <div class="wrap">
+        <header class="metrics-head">
+          <p class="section-no">03 &mdash; Studio</p>
+          <h2 id="studio-title">Nine people, one drawing office, a long memory for buildings.</h2>
+          <p class="metrics-intro">We are a Leeds studio of architects, technologists and our in-house engineer. Most of our work comes from referrals, so the numbers below are the ones we are willing to be checked on.</p>
+        </header>
+        <dl class="metrics-grid">
+          <div class="metric">
+            <dt>Projects completed since 2011</dt>
+            <dd><span class="metric-value">148</span></dd>
+          </div>
+          <div class="metric">
+            <dt>Average reduction in space-heating demand against the regulatory baseline</dt>
+            <dd><span class="metric-value">61<span class="metric-unit">%</span></span></dd>
+          </div>
+          <div class="metric">
+            <dt>Regional and national awards</dt>
+            <dd><span class="metric-value">7</span></dd>
+          </div>
+          <div class="metric">
+            <dt>Weeks from brief to planning submission, median</dt>
+            <dd><span class="metric-value">11</span></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 7. Testimonials -->
+    <section class="section" aria-labelledby="testimonials-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-no">04 &mdash; Clients</p>
+          <h2 id="testimonials-title">What clients say after the keys change hands.</h2>
+        </header>
+        <div class="quote-grid">
+          <figure class="quote">
+            <blockquote>
+              <p>They told us the barn could not take a full glazed wall, then found a way to bring the light in through the roof. The planning officer approved it first time.</p>
+            </blockquote>
+            <figcaption><span class="quote-name">Imogen Ashworth</span><span class="quote-role">Owner, barn conversion in Wharfedale</span></figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>
+              <p>We had a fixed number in January and the same number in the final account. For a school trust, that predictability is the whole point of the appointment.</p>
+            </blockquote>
+            <figcaption><span class="quote-name">Tom Okafor</span><span class="quote-role">Estates Director, Greave Lane Academy Trust</span></figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>
+              <p>Our heating bills in the first winter were about a third of the old house's. The drawings were clear enough that the builder did not have to ring us once.</p>
+            </blockquote>
+            <figcaption><span class="quote-name">Ruth Penhaligon</span><span class="quote-role">Director, Calder Mill Homes</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Pricing with design stage / full service toggle -->
+    <section class="section section-rule" id="fees" aria-labelledby="fees-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-no">05 &mdash; Fees</p>
+          <h2 id="fees-title">Three fixed fees. No hourly clock running in the background.</h2>
+        </header>
+
+        <div class="fee-toggle-wrap">
+          <div class="fee-toggle" role="group" aria-labelledby="fee-toggle-label">
+            <span class="fee-toggle-label" id="fee-toggle-label">Show fees for</span>
+            <div class="segmented">
+              <button type="button" class="segment" data-basis="design" aria-pressed="true">Design stage only</button>
+              <button type="button" class="segment" data-basis="full" aria-pressed="false">Full service</button>
+            </div>
+          </div>
+          <p class="fee-toggle-note" id="fee-note">Design stage only shows the fixed fee for design work. Full service adds tender support and construction-stage administration.</p>
+        </div>
+
+        <div class="tiers">
+          <article class="tier" data-tier="feasibility">
+            <header>
+              <p class="tier-kicker">Tier 1</p>
+              <h3>Feasibility</h3>
+              <p class="tier-desc">Find out whether the site and the budget can work, before you commit to a design.</p>
+            </header>
+            <p class="price"><span class="price-amount" data-design="1450" data-full="1450">&pound;1,450</span><span class="price-unit">one-off, excl. VAT</span></p>
+            <ul class="tier-list">
+              <li>Measured survey and planning constraints check</li>
+              <li>Options report with cost and energy outline</li>
+              <li>Two-hour review call with a senior architect</li>
+              <li>Fee credited against design stage if you proceed within 90 days</li>
+            </ul>
+            <a class="btn btn-outline tier-cta" href="#visit">Book a site visit</a>
+          </article>
+
+          <article class="tier tier-featured" data-tier="design">
+            <header>
+              <p class="tier-kicker">Tier 2 &middot; Most chosen</p>
+              <h3>Design Stage</h3>
+              <p class="tier-desc">Three options, one developed scheme and planning-ready drawings for a single dwelling, barn or extension.</p>
+            </header>
+            <p class="price"><span class="price-amount" data-design="7800" data-full="9600">&pound;7,800</span><span class="price-unit" data-unit>fixed fee, excl. VAT</span></p>
+            <ul class="tier-list">
+              <li>Three options with cost and energy figures</li>
+              <li>Structural and energy calculations</li>
+              <li>Planning application forms and drawings</li>
+              <li>Two rounds of revisions agreed in writing</li>
+            </ul>
+            <a class="btn btn-primary tier-cta" href="#visit">Request a fee proposal</a>
+          </article>
+
+          <article class="tier" data-tier="full">
+            <header>
+              <p class="tier-kicker">Tier 3</p>
+              <h3>Full Service</h3>
+              <p class="tier-desc">We design it, get it permitted, tender it and see it through site to practical completion.</p>
+            </header>
+            <p class="price"><span class="price-amount" data-design="9400" data-full="21800">&pound;9,400</span><span class="price-unit" data-unit>fixed fee, excl. VAT</span></p>
+            <ul class="tier-list">
+              <li>Everything in Design Stage</li>
+              <li>Tender pack and contractor shortlist</li>
+              <li>Contract administration and fortnightly site visits</li>
+              <li>Practical completion certificate and handover file</li>
+            </ul>
+            <a class="btn btn-outline tier-cta" href="#visit">Request a fee proposal</a>
+          </article>
+        </div>
+        <p class="fee-footnote">Fees are fixed for the scope listed. Disbursements such as surveys, planning fees and structural testing are shown separately before we start.</p>
+      </div>
+    </section>
+
+    <!-- 9. FAQ accordion -->
+    <section class="section" aria-labelledby="faq-title">
+      <div class="wrap faq-grid">
+        <header class="faq-head">
+          <p class="section-no">06 &mdash; Questions</p>
+          <h2 id="faq-title">Questions we are asked before the first visit.</h2>
+          <p class="section-intro">If yours is not here, write to the studio. We answer every enquiry within two working days.</p>
+        </header>
+
+        <div class="accordion">
+          <div class="acc-item">
+            <h3 class="acc-heading"><button class="acc-trigger" type="button" aria-expanded="true" aria-controls="faq-1" id="faq-1-btn">What does the fixed-fee design stage include?<span class="acc-icon" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="faq-1" role="region" aria-labelledby="faq-1-btn">
+              <p>A measured survey, three options, one developed scheme taken to planning-ready drawings, the application forms and our structural and energy calculations. Two rounds of revisions are agreed in writing before you sign, so the fee does not drift.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading"><button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-2" id="faq-2-btn">Do you have a structural engineer in-house?<span class="acc-icon" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="faq-2" role="region" aria-labelledby="faq-2-btn" hidden>
+              <p>Yes. Dev Malik, our structural engineer, works in the same model as the architects. Most of our projects do not need a separate structural consultant at planning stage, and tender packs carry engineered details rather than sketches.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading"><button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-3" id="faq-3-btn">How do you measure energy performance?<span class="acc-icon" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="faq-3" role="region" aria-labelledby="faq-3-btn" hidden>
+              <p>Every design is modelled in PHPP for heat demand and in SAP for the regulatory check. We report space-heating demand in kWh/m²&middot;yr and airtightness at 50 Pa, and we test the finished building where the budget allows.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading"><button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-4" id="faq-4-btn">Can you work on listed buildings and in conservation areas?<span class="acc-icon" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="faq-4" role="region" aria-labelledby="faq-4-btn" hidden>
+              <p>Yes, and we say so early. Barn conversions in conservation areas usually need a heritage statement. We prepare it before the design is fixed, so the scheme is shaped by the evidence instead of defended against it afterwards.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading"><button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-5" id="faq-5-btn">How do school extensions differ from houses?<span class="acc-icon" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="faq-5" role="region" aria-labelledby="faq-5-btn" hidden>
+              <p>School work is phased so classes keep running. We agree site logistics, noise limits and handover dates with the head and the trust estates team, and we design to the trust's brief template where one exists.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading"><button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-6" id="faq-6-btn">What happens if planning is refused?<span class="acc-icon" aria-hidden="true"></span></button></h3>
+            <div class="acc-panel" id="faq-6" role="region" aria-labelledby="faq-6-btn" hidden>
+              <p>We go through the officer's report with you within a week and tell you plainly whether the reasons can be met with changes or need an appeal. The design stage fee includes one revised submission.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Final CTA band -->
+    <section class="cta-band" id="visit" aria-labelledby="cta-title">
+      <div class="wrap cta-inner">
+        <div>
+          <p class="eyebrow eyebrow-inverse">Start with the site</p>
+          <h2 id="cta-title">Bring us the site. We will bring back a plan you can price.</h2>
+          <p class="cta-text">Every project starts with a visit. Book one for &pound;1,450, or write to the studio and we will reply within two working days.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary btn-lg" href="mailto:studio@halden-voss.example?subject=Site%20visit%20enquiry">Book a site visit</a>
+          <a class="btn btn-outline" href="#fees">Compare fees</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 11. Footer -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="brand-name">Halden &amp; Voss</p>
+          <p class="footer-address">Architects<br>Unit 4, Tannery Yard<br>Leeds LS11 5QP</p>
+        </div>
+        <nav class="footer-col" aria-labelledby="foot-studio">
+          <h2 id="foot-studio" class="footer-heading">Studio</h2>
+          <ul>
+            <li><a href="#studio">About the studio</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#process">How a project runs</a></li>
+            <li><a href="#studio">Awards</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="foot-services">
+          <h2 id="foot-services" class="footer-heading">Services</h2>
+          <ul>
+            <li><a href="#projects">Low-energy homes</a></li>
+            <li><a href="#projects">School extensions</a></li>
+            <li><a href="#projects">Barn conversions</a></li>
+            <li><a href="#fees">Fixed-fee design stage</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" id="client-access" aria-labelledby="foot-clients">
+          <h2 id="foot-clients" class="footer-heading">Clients</h2>
+          <ul>
+            <li><a href="#visit">Book a site visit</a></li>
+            <li><a href="#client-access">Client sign-in</a></li>
+            <li><a href="mailto:studio@halden-voss.example">studio@halden-voss.example</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="legal">&copy; 2026 Halden &amp; Voss Architects Ltd. Registered in England and Wales. Fees exclude VAT. Privacy and cookie notice available on request from the studio.</p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

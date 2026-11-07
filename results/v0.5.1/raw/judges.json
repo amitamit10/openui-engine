@@ -1,0 +1,250 @@
+[
+ {
+  "pair": "ashby-baseline-vs-engine-r1",
+  "brief": "ashby",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y has a specific product visual (labelled bag, cupping panel, roast stamp), a warm roastery palette, a strong serif headline and varied feature illustrations, with a clear dark metrics band and CTA. X has a generic flat green cafe illustration, a hero that is mostly decoration, small cramped feature visuals and a more standard SaaS card layout, so it is the more template-like of the two."
+ },
+ {
+  "pair": "ashby-baseline-vs-engine-r2",
+  "brief": "ashby",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 4
+  },
+  "rationale": "X has a large editorial serif headline, a specific coffee bag and cupping-panel hero, a warm roastery palette, and concrete product details (roast dates, ratios, dial). Y is a clean but generic green SaaS layout with a flat illustration and small, sparse feature cards. X reads as more distinctive and finished, and Y is the more template-like."
+ },
+ {
+  "pair": "cadence-baseline-vs-engine-r1",
+  "brief": "cadence",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 7
+  },
+  "rationale": "Y shows a specific, believable product UI (a colour-coded weekly rota grid with labour stats and a swap log) and six distinct feature illustrations (bar chart, phone, line chart, availability dots, payroll table), plus a strong dark metrics band and amber accents. X is clean, with a nice italic-serif headline and floating cards, but its feature visuals are vague, its layout is more conventional, and the lower sections are sparse. Y's logo strip looks like it has overlapping or clipped names, which costs it polish, but overall it is the one to ship."
+ },
+ {
+  "pair": "cadence-baseline-vs-engine-r2",
+  "brief": "cadence",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a bold serif headline, a dense and specific rota grid with a swap log, and a strong dark metrics band, giving a distinctive and confident identity. Y is clean with a decent hero mockup and floating cards, but its feature illustrations are vague and the layout feels more like a standard SaaS template. X's hero is a little tall and its logo strip looks cramped."
+ },
+ {
+  "pair": "cornerstone-baseline-vs-engine-r1",
+  "brief": "cornerstone",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 5
+  },
+  "rationale": "X puts a specific, believable client-portal UI in the hero (14 Alder Close, stage timeline, named solicitor, searches status). Its navy, cream and gold palette and serif headline feel deliberate and reassuring. Y leads with a generic clip-art courthouse and scales illustration. The hero is weaker and the client-name strip looks to be clipped at the fold. The wide pale-green sections and thin illustrated feature cards are more template-like, though the search table and mid-page mock-ups add some product detail."
+ },
+ {
+  "pair": "cornerstone-baseline-vs-engine-r2",
+  "brief": "cornerstone",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y's hero shows a specific client-portal timeline for a named property and solicitor, which sells the product directly, and its navy, cream and amber palette and consistent card system feel deliberate. X leads with a generic courthouse and scales illustration, has a mismatched client strip with monospace names, and a weaker flow and pricing area, so it reads more like a template."
+ },
+ {
+  "pair": "oakhaven-baseline-vs-engine-r1",
+  "brief": "oakhaven",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 6,
+   "product_visual": 5,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 5
+  },
+  "rationale": "X has an earthy terracotta palette, a specific pottery-wheel and kiln illustration, and varied feature illustrations (glaze tiles, 25 kg clay bag, firing timeline), so it feels on-brief and distinct. Y's green palette and hero illustration (a loom-like grid) do not read as pottery, and its feature mockups are sparse generic UI cards, so it looks more like a stock SaaS template. Y also has a cramped logo strip and stacked hero CTAs."
+ },
+ {
+  "pair": "oakhaven-baseline-vs-engine-r2",
+  "brief": "oakhaven",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 5,
+   "colour": 5,
+   "product_visual": 4,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 4
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 7
+  },
+  "rationale": "Y has a warm terracotta and clay palette with a specific pottery-wheel and kiln illustration, a real six-card feature grid with illustrated tiles, and a strong brown metrics band and green CTA band. X's hero illustration (a loom-like grid with a plant) reads as abstract and does not clearly show pottery, and its green palette, 'Trusted by teams at' strip and sparse feature section feel generic. Y is the one a design director would ship, and X is more template-like."
+ }
+]

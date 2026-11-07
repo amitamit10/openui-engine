@@ -1,0 +1,1108 @@
+{
+  "foxglove-baseline": {
+    "source": {
+      "files": 3,
+      "bytes": {
+        "html": 27723,
+        "css": 20240,
+        "js": 2458,
+        "other": 0
+      },
+      "totalBytes": 50421,
+      "lines": 1540
+    },
+    "audit": {
+      "passed": false,
+      "totals": {
+        "errors": 6,
+        "warnings": 1,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 2,
+          "warnings": 1,
+          "interactions": "2/3",
+          "pageHeight": 7112
+        },
+        {
+          "vp": "tablet",
+          "errors": 2,
+          "warnings": 0,
+          "interactions": "2/3",
+          "pageHeight": 9308
+        },
+        {
+          "vp": "mobile",
+          "errors": 2,
+          "warnings": 0,
+          "interactions": "2/3",
+          "pageHeight": 11920
+        }
+      ],
+      "issues": [
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "layout",
+          "msg": "Large empty hole inside a 41% unfilled grid or column layout (uneven or missing cards)."
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe color-contrast (serious, 1×): Elements must meet minimum color contrast ratio thresholds. Fix any of the following:   Element has insufficient color contrast of 4.1 (foreground color: #b8437a, background color: #f8e1"
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe color-contrast (serious, 1×): Elements must meet minimum color contrast ratio thresholds. Fix any of the following:   Element has insufficient color contrast of 4.1 (foreground color: #b8437a, background color: #f8e1"
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe color-contrast (serious, 1×): Elements must meet minimum color contrast ratio thresholds. Fix any of the following:   Element has insufficient color contrast of 4.1 (foreground color: #b8437a, background color: #f8e1"
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        }
+      ]
+    },
+    "quality": {
+      "overall": 87,
+      "dimensions": {
+        "accessibility": 82,
+        "typography": 60,
+        "spacing": 100,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 80,
+        "originality": 93
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 93,
+      "findings": [
+        {
+          "rule": "icon-card-grids",
+          "severity": "info",
+          "message": "One grid of identical icon-cards; fine once, a tell when repeated.",
+          "evidence": "1"
+        },
+        {
+          "rule": "glow-overuse",
+          "severity": "info",
+          "message": "5 large coloured glows.",
+          "evidence": "5"
+        }
+      ]
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": false,
+        "detail": "prices identical in monthly and yearly modes"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "13 -> 19 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 19,
+      "fontFamilies": [
+        "Figtree",
+        "Fraunces"
+      ],
+      "distinctFontSizes": 18,
+      "distinctRadii": 6,
+      "spacingSamples": 356,
+      "spacingOn4pxGrid": 0.854,
+      "sections": 9,
+      "h2": 11,
+      "imgs": 0,
+      "svgs": 8,
+      "textLength": 5719
+    },
+    "deadZonesByViewport": {
+      "desktop": 20,
+      "tablet": 25,
+      "mobile": 22
+    },
+    "evalSeconds": 46.1
+  },
+  "foxglove-engine": {
+    "source": {
+      "files": 5,
+      "bytes": {
+        "html": 34302,
+        "css": 67935,
+        "js": 4031,
+        "other": 0
+      },
+      "totalBytes": 106268,
+      "lines": 811
+    },
+    "audit": {
+      "passed": true,
+      "totals": {
+        "errors": 0,
+        "warnings": 0,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "7/7",
+          "pageHeight": 6663
+        },
+        {
+          "vp": "tablet",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 9124
+        },
+        {
+          "vp": "mobile",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 11018
+        }
+      ],
+      "issues": []
+    },
+    "quality": {
+      "overall": 95,
+      "dimensions": {
+        "accessibility": 100,
+        "typography": 100,
+        "spacing": 80,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 100,
+        "originality": 100
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 100,
+      "findings": []
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": false,
+        "detail": "prices identical in monthly and yearly modes"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "11 -> 17 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 11,
+      "fontFamilies": [
+        "Inter",
+        "Fraunces",
+        "JetBrains Mono"
+      ],
+      "distinctFontSizes": 9,
+      "distinctRadii": 5,
+      "spacingSamples": 492,
+      "spacingOn4pxGrid": 0.937,
+      "sections": 9,
+      "h2": 6,
+      "imgs": 0,
+      "svgs": 28,
+      "textLength": 4877
+    },
+    "deadZonesByViewport": {
+      "desktop": 20,
+      "tablet": 24,
+      "mobile": 14
+    },
+    "evalSeconds": 33.3
+  },
+  "kestrel-baseline": {
+    "source": {
+      "files": 3,
+      "bytes": {
+        "html": 28486,
+        "css": 22249,
+        "js": 2712,
+        "other": 0
+      },
+      "totalBytes": 53447,
+      "lines": 1479
+    },
+    "audit": {
+      "passed": false,
+      "totals": {
+        "errors": 7,
+        "warnings": 4,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 3,
+          "warnings": 2,
+          "interactions": "2/3",
+          "pageHeight": 7175
+        },
+        {
+          "vp": "tablet",
+          "errors": 2,
+          "warnings": 1,
+          "interactions": "2/3",
+          "pageHeight": 8917
+        },
+        {
+          "vp": "mobile",
+          "errors": 2,
+          "warnings": 1,
+          "interactions": "2/3",
+          "pageHeight": 11128
+        }
+      ],
+      "issues": [
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "console",
+          "msg": "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "layout",
+          "msg": "Large empty hole inside a 34% unfilled grid or column layout (uneven or missing cards)."
+        },
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 1×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "tablet",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 1×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "mobile",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 1×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        }
+      ]
+    },
+    "quality": {
+      "overall": 86,
+      "dimensions": {
+        "accessibility": 82,
+        "typography": 65,
+        "spacing": 100,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 60,
+        "originality": 94
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 94,
+      "findings": [
+        {
+          "rule": "icon-card-grids",
+          "severity": "info",
+          "message": "One grid of identical icon-cards; fine once, a tell when repeated.",
+          "evidence": "1"
+        }
+      ]
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": false,
+        "detail": "prices identical in monthly and yearly modes"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "12 -> 18 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 14,
+      "fontFamilies": [
+        "Manrope",
+        "Fraunces"
+      ],
+      "distinctFontSizes": 16,
+      "distinctRadii": 5,
+      "spacingSamples": 377,
+      "spacingOn4pxGrid": 0.926,
+      "sections": 9,
+      "h2": 11,
+      "imgs": 0,
+      "svgs": 9,
+      "textLength": 6264
+    },
+    "deadZonesByViewport": {
+      "desktop": 24,
+      "tablet": 24,
+      "mobile": 16
+    },
+    "evalSeconds": 43.9
+  },
+  "kestrel-engine": {
+    "source": {
+      "files": 5,
+      "bytes": {
+        "html": 50070,
+        "css": 67935,
+        "js": 4031,
+        "other": 0
+      },
+      "totalBytes": 122036,
+      "lines": 811
+    },
+    "audit": {
+      "passed": true,
+      "totals": {
+        "errors": 0,
+        "warnings": 0,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "7/7",
+          "pageHeight": 6578
+        },
+        {
+          "vp": "tablet",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 9023
+        },
+        {
+          "vp": "mobile",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 10995
+        }
+      ],
+      "issues": []
+    },
+    "quality": {
+      "overall": 94,
+      "dimensions": {
+        "accessibility": 100,
+        "typography": 100,
+        "spacing": 80,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 100,
+        "originality": 94
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 94,
+      "findings": [
+        {
+          "rule": "icon-card-grids",
+          "severity": "info",
+          "message": "One grid of identical icon-cards; fine once, a tell when repeated.",
+          "evidence": "1"
+        }
+      ]
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": true,
+        "detail": "$5,$38,$4,$0,$58,$0,$2,$0,$1 | $5,$38,$4,$0,$58,$0,$2,$0,$1 | $5,$38,$4,$0,$58,$0,$2,$0,$1"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "12 -> 18 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 15,
+      "fontFamilies": [
+        "Inter",
+        "Fraunces",
+        "JetBrains Mono"
+      ],
+      "distinctFontSizes": 9,
+      "distinctRadii": 6,
+      "spacingSamples": 608,
+      "spacingOn4pxGrid": 0.891,
+      "sections": 9,
+      "h2": 6,
+      "imgs": 0,
+      "svgs": 36,
+      "textLength": 5416
+    },
+    "deadZonesByViewport": {
+      "desktop": 20,
+      "tablet": 23,
+      "mobile": 15
+    },
+    "evalSeconds": 33.5
+  },
+  "cadenza-baseline": {
+    "source": {
+      "files": 3,
+      "bytes": {
+        "html": 31196,
+        "css": 25198,
+        "js": 4401,
+        "other": 0
+      },
+      "totalBytes": 60795,
+      "lines": 1632
+    },
+    "audit": {
+      "passed": false,
+      "totals": {
+        "errors": 4,
+        "warnings": 3,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 2,
+          "warnings": 1,
+          "interactions": "2/2",
+          "pageHeight": 6649
+        },
+        {
+          "vp": "tablet",
+          "errors": 1,
+          "warnings": 1,
+          "interactions": "2/2",
+          "pageHeight": 9234
+        },
+        {
+          "vp": "mobile",
+          "errors": 1,
+          "warnings": 1,
+          "interactions": "2/2",
+          "pageHeight": 12053
+        }
+      ],
+      "issues": [
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "console",
+          "msg": "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 2×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "tablet",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 2×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "mobile",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 2×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        }
+      ]
+    },
+    "quality": {
+      "overall": 86,
+      "dimensions": {
+        "accessibility": 82,
+        "typography": 60,
+        "spacing": 100,
+        "color": 70,
+        "layout": 88,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 80,
+        "originality": 94
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 94,
+      "findings": [
+        {
+          "rule": "icon-card-grids",
+          "severity": "info",
+          "message": "One grid of identical icon-cards; fine once, a tell when repeated.",
+          "evidence": "1"
+        }
+      ]
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": false,
+        "detail": "prices identical in monthly and yearly modes"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "13 -> 19 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 23,
+      "fontFamilies": [
+        "Instrument Sans",
+        "Fraunces"
+      ],
+      "distinctFontSizes": 18,
+      "distinctRadii": 5,
+      "spacingSamples": 433,
+      "spacingOn4pxGrid": 0.915,
+      "sections": 9,
+      "h2": 7,
+      "imgs": 0,
+      "svgs": 11,
+      "textLength": 5670
+    },
+    "deadZonesByViewport": {
+      "desktop": 18,
+      "tablet": 16,
+      "mobile": 20
+    },
+    "evalSeconds": 30
+  },
+  "cadenza-engine": {
+    "source": {
+      "files": 5,
+      "bytes": {
+        "html": 29826,
+        "css": 67935,
+        "js": 4031,
+        "other": 0
+      },
+      "totalBytes": 101792,
+      "lines": 809
+    },
+    "audit": {
+      "passed": true,
+      "totals": {
+        "errors": 0,
+        "warnings": 1,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 0,
+          "warnings": 1,
+          "interactions": "7/7",
+          "pageHeight": 7049
+        },
+        {
+          "vp": "tablet",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 8676
+        },
+        {
+          "vp": "mobile",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 10303
+        }
+      ],
+      "issues": [
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "content",
+          "msg": "[slop:all-centered] 6 of 7 headings are centered; no left-aligned rhythm."
+        }
+      ]
+    },
+    "quality": {
+      "overall": 92,
+      "dimensions": {
+        "accessibility": 100,
+        "typography": 90,
+        "spacing": 80,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 100,
+        "originality": 88
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 88,
+      "findings": [
+        {
+          "rule": "all-centered",
+          "severity": "warning",
+          "message": "6 of 7 headings are centered; no left-aligned rhythm.",
+          "evidence": "6/7"
+        }
+      ]
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": false,
+        "detail": "prices identical in monthly and yearly modes"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "10 -> 16 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 17,
+      "fontFamilies": [
+        "Inter",
+        "Fraunces",
+        "JetBrains Mono"
+      ],
+      "distinctFontSizes": 9,
+      "distinctRadii": 5,
+      "spacingSamples": 513,
+      "spacingOn4pxGrid": 0.854,
+      "sections": 9,
+      "h2": 6,
+      "imgs": 0,
+      "svgs": 23,
+      "textLength": 4654
+    },
+    "deadZonesByViewport": {
+      "desktop": 22,
+      "tablet": 24,
+      "mobile": 16
+    },
+    "evalSeconds": 33.4
+  },
+  "podhaven-baseline": {
+    "source": {
+      "files": 3,
+      "bytes": {
+        "html": 26133,
+        "css": 30253,
+        "js": 5884,
+        "other": 0
+      },
+      "totalBytes": 62270,
+      "lines": 1903
+    },
+    "audit": {
+      "passed": false,
+      "totals": {
+        "errors": 7,
+        "warnings": 3,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 3,
+          "warnings": 1,
+          "interactions": "2/3",
+          "pageHeight": 7674
+        },
+        {
+          "vp": "tablet",
+          "errors": 2,
+          "warnings": 1,
+          "interactions": "2/3",
+          "pageHeight": 9662
+        },
+        {
+          "vp": "mobile",
+          "errors": 2,
+          "warnings": 1,
+          "interactions": "2/3",
+          "pageHeight": 13080
+        }
+      ],
+      "issues": [
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "console",
+          "msg": "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11.52px)."
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe color-contrast (serious, 3×): Elements must meet minimum color contrast ratio thresholds. Fix any of the following:   Element has insufficient color contrast of 2.6 (foreground color: #f07a4f, background color: #fbf8"
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "tablet",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11.52px)."
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe color-contrast (serious, 3×): Elements must meet minimum color contrast ratio thresholds. Fix any of the following:   Element has insufficient color contrast of 2.6 (foreground color: #f07a4f, background color: #fbf8"
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "mobile",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11.52px)."
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe color-contrast (serious, 3×): Elements must meet minimum color contrast ratio thresholds. Fix any of the following:   Element has insufficient color contrast of 2.6 (foreground color: #f07a4f, background color: #fbf8"
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        }
+      ]
+    },
+    "quality": {
+      "overall": 86,
+      "dimensions": {
+        "accessibility": 82,
+        "typography": 55,
+        "spacing": 100,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 60,
+        "originality": 100
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 100,
+      "findings": []
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": true,
+        "detail": "$\n12,$\n29,$\n89 | $\n10,$120,$\n24,$288,$\n74,$88 | $\n12,$\n29,$\n89"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "14 -> 20 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 19,
+      "fontFamilies": [
+        "Instrument Sans",
+        "Fraunces"
+      ],
+      "distinctFontSizes": 24,
+      "distinctRadii": 12,
+      "spacingSamples": 581,
+      "spacingOn4pxGrid": 0.719,
+      "sections": 9,
+      "h2": 10,
+      "imgs": 0,
+      "svgs": 3,
+      "textLength": 6302
+    },
+    "deadZonesByViewport": {
+      "desktop": 15,
+      "tablet": 18,
+      "mobile": 15
+    },
+    "evalSeconds": 46.1
+  },
+  "podhaven-engine": {
+    "source": {
+      "files": 5,
+      "bytes": {
+        "html": 47954,
+        "css": 67911,
+        "js": 4031,
+        "other": 0
+      },
+      "totalBytes": 119896,
+      "lines": 811
+    },
+    "audit": {
+      "passed": true,
+      "totals": {
+        "errors": 0,
+        "warnings": 0,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "7/7",
+          "pageHeight": 6776
+        },
+        {
+          "vp": "tablet",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 9101
+        },
+        {
+          "vp": "mobile",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 11179
+        }
+      ],
+      "issues": []
+    },
+    "quality": {
+      "overall": 95,
+      "dimensions": {
+        "accessibility": 100,
+        "typography": 100,
+        "spacing": 80,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 100,
+        "originality": 100
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 100,
+      "findings": []
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": true,
+        "detail": "$0,$19,$79 | $0,$15,$63 | $0,$19,$79"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "12 -> 18 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 16,
+      "fontFamilies": [
+        "Inter",
+        "Instrument Serif",
+        "JetBrains Mono"
+      ],
+      "distinctFontSizes": 9,
+      "distinctRadii": 6,
+      "spacingSamples": 589,
+      "spacingOn4pxGrid": 0.903,
+      "sections": 9,
+      "h2": 6,
+      "imgs": 0,
+      "svgs": 33,
+      "textLength": 5208
+    },
+    "deadZonesByViewport": {
+      "desktop": 21,
+      "tablet": 25,
+      "mobile": 17
+    },
+    "evalSeconds": 33.9
+  }
+}

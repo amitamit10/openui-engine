@@ -1,0 +1,250 @@
+[
+ {
+  "pair": "lumen-baseline-vs-engine-r1",
+  "brief": "lumen",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a distinctive editorial voice: a large serif headline, a tilted seed-packet card with a sowing chart and a frost-text SMS, and a deep green and rust palette. Y has richer illustrated product visuals, but its layout is closer to a standard SaaS template, with a centred feature grid, a stats band and card testimonials. A design director would ship X for its character, though the call is close."
+ },
+ {
+  "pair": "lumen-baseline-vs-engine-r2",
+  "brief": "lumen",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a rich illustrated hero (seed packet plus sowing calendar), distinct per-feature illustrations and a cohesive terracotta/green palette with a serif italic accent, feeling crafted. Y has a strong packet-and-frost-text hero but a bulky five-line headline, small generic icon features and a more standard section rhythm, making it the more template-like of the two."
+ },
+ {
+  "pair": "marlowe-baseline-vs-engine-r1",
+  "brief": "marlowe",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a confident editorial display serif, a navy and amber palette, and a specific weekly-report dashboard with a grade chart and topic bars, so it reads as a distinct brand. Y is clean and cohesive, but its sage and cream scheme, generic illustrated feature cards and plainer hero mock-up feel closer to a template, and its brand-name strip is uneven."
+ },
+ {
+  "pair": "marlowe-baseline-vs-engine-r2",
+  "brief": "marlowe",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 6
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y has a bold display serif, a navy and amber palette, and a specific dashboard with a mock-grade chart and topic bars. Its feature illustrations are small UI vignettes, and its final CTA band is strong. X is tidy and cohesive in cream and green, but its feature illustrations are generic, its pricing and FAQ are plainer, and its hero card has slight overlap issues. That makes X the more template-like of the two."
+ },
+ {
+  "pair": "plotline-baseline-vs-engine-r1",
+  "brief": "plotline",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y shows a convincing screenplay page in Courier with colour-coded beat cards and a waveform player, and its features, pricing and red CTA band are tightly paced. X has a nice italic-accent headline, but its hero mockup is cluttered with overlapping floating chips and its feature visuals are thin pastel placeholders. X's repeated pale cards and layout read more like a template."
+ },
+ {
+  "pair": "plotline-baseline-vs-engine-r2",
+  "brief": "plotline",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 5,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 5
+  },
+  "rationale": "X shows a specific, convincing product: a formatted screenplay page, colour-coded beat cards and an audio waveform. Its serif/mono type system and cream-and-red palette feel deliberate and craft-focused. Y's hero mockup has loose spacing and overlapping chips, its feature illustrations are abstract pastel placeholders, and the pink section and layout read as a generic SaaS template."
+ },
+ {
+  "pair": "saltmarsh-baseline-vs-engine-r1",
+  "brief": "saltmarsh",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y has a distinctive arched sunset hero with live-feeling booking slots, a warm terracotta and deep green palette, and an editorial serif with strong scale and specific copy. X is clean but sits in a muted, evenly weighted card-grid pattern with a flat illustration, and the 5-item feature grid leaves an orphaned row, so it reads as the more template-like site."
+ },
+ {
+  "pair": "saltmarsh-baseline-vs-engine-r2",
+  "brief": "saltmarsh",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 8,
+   "colour": 9,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 5
+  },
+  "rationale": "X has a distinctive high-contrast serif headline, a warm sunset-arch hero with live booking chips, and a rich earthy terracotta, forest and cream palette that fits the calm coastal brief. Y is clean but reads as a standard SaaS layout: a flat sage illustration, a 3+2 feature card grid, a uniform FAQ and pricing, and a muted palette. X is the site a design director would ship and Y is the more template-like."
+ }
+]

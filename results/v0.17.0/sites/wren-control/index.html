@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wren &amp; Paw Veterinary Clinic, Norwich</title>
+<meta name="description" content="Independent small-animal vets in Norwich. Same-day appointments, a cat-only waiting room, in-house lab results in about an hour and monthly care plans.">
+<meta name="theme-color" content="#17302A">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Hanken+Grotesk:wght@400..700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav container" aria-label="Main">
+    <a class="brand" href="#top" aria-label="Wren and Paw Veterinary Clinic, back to top">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="23" fill="#17302A"/>
+        <path d="M12 29c4-9 11-12 17-10l4-4 1 4c-1 4-4 8-10 11-4 2-9 2-12-1z" fill="#F4EEE2"/>
+        <circle cx="31" cy="20" r="1.6" fill="#17302A"/>
+        <path d="M34 22.5l3 1.2-3 1.1z" fill="#F0C46A"/>
+        <ellipse cx="18" cy="37" rx="2.6" ry="2.1" fill="#F0C46A"/>
+        <circle cx="13.5" cy="33.5" r="1.1" fill="#F0C46A"/><circle cx="16" cy="31" r="1.1" fill="#F0C46A"/><circle cx="20.5" cy="31" r="1.1" fill="#F0C46A"/>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-name">Wren &amp; Paw</span>
+        <span class="brand-sub">Veterinary Clinic &middot; Norwich</span>
+      </span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <span class="menu-toggle-label">Menu</span>
+      <span class="menu-toggle-icon" aria-hidden="true"></span>
+    </button>
+
+    <div class="nav-panel" id="site-menu">
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#plans">Care plans</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#emergencies">Emergencies</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-signin" href="#member">Member sign-in</a>
+        <a class="btn btn-primary btn-sm" href="#book">Book an appointment</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- 1. Hero -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Independent vets in Norwich since 2004</p>
+      <h1 id="hero-title">Same-day vet care, and <em>a plan you can actually follow.</em></h1>
+      <p class="lede">Wren &amp; Paw is a small-animal clinic for dogs and cats. Most people are seen on the day they ring, cats wait behind their own closed door, and our in-house lab tells you what is going on within the hour.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#book">Book an appointment</a>
+        <a class="btn btn-ghost" href="#plans">Compare care plans</a>
+      </div>
+      <p class="hero-note">Open Monday to Saturday, 8am to 7pm. Ring <a href="tel:01603960142">01603 960 142</a> before 10am for a slot the same day.</p>
+    </div>
+
+    <figure class="hero-visual" role="img" aria-label="Illustration of the clinic's work: an in-house lab result for a dog called Biscuit with every value in range, beside today's appointment list with a free same-day slot.">
+      <div class="hv-arch" aria-hidden="true"></div>
+      <svg class="hv-wren" viewBox="0 0 140 110" aria-hidden="true">
+        <path d="M18 70c0-26 20-42 46-42 16 0 28 8 34 20l22-6-8 14c2 8-2 16-10 20-16 8-44 8-62 0z" fill="#B5542C"/>
+        <path d="M24 74c-8 2-14 8-15 14 10-2 16-1 24 2z" fill="#17302A"/>
+        <path d="M52 40c10-4 22 0 26 10-10 2-20 0-26-10z" fill="#F4EEE2" opacity=".35"/>
+        <circle cx="90" cy="46" r="4.2" fill="#17302A"/>
+        <circle cx="91.4" cy="44.6" r="1.3" fill="#F4EEE2"/>
+        <path d="M106 52l14 4-14 4z" fill="#F0C46A"/>
+        <path d="M30 96h80" stroke="#17302A" stroke-width="3" stroke-linecap="round"/>
+        <path d="M70 85v11" stroke="#17302A" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+
+      <div class="hv-card hv-lab" aria-hidden="true">
+        <div class="hv-head"><span class="hv-kicker">In-house lab</span><span class="hv-chip">Ready in 44 min</span></div>
+        <p class="hv-title">Biscuit &middot; kidney and liver panel</p>
+        <ul class="hv-rows">
+          <li><span>Creatinine</span><span class="hv-track"><span class="hv-fill" style="--v:38%"></span></span><b>In range</b></li>
+          <li><span>Urea</span><span class="hv-track"><span class="hv-fill" style="--v:47%"></span></span><b>In range</b></li>
+          <li><span>ALT</span><span class="hv-track"><span class="hv-fill" style="--v:31%"></span></span><b>In range</b></li>
+          <li><span>Glucose</span><span class="hv-track"><span class="hv-fill" style="--v:58%"></span></span><b>In range</b></li>
+        </ul>
+        <p class="hv-foot">Texted to Priya at 10:42.</p>
+      </div>
+
+      <div class="hv-card hv-day" aria-hidden="true">
+        <div class="hv-head"><span class="hv-kicker hv-kicker-light">Today, Room 2</span><span class="hv-chip hv-chip-light">2 slots left</span></div>
+        <ol class="hv-slots">
+          <li><time>08:40</time><span>Mochi, cat &middot; nurse weight check</span></li>
+          <li><time>09:20</time><span>Rufus, puppy vaccine</span></li>
+          <li class="is-now"><time>10:00</time><span>Juniper, senior check</span></li>
+          <li class="is-free"><time>11:30</time><span>Free: same-day booking</span></li>
+        </ol>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- 2. Social proof -->
+<section class="partners" aria-label="Partners and neighbours">
+  <div class="container">
+    <p class="partners-label">Working alongside rescues, walkers and neighbours across Norwich</p>
+    <ul class="partners-list">
+      <li>Marsh Lane Rescue</li>
+      <li>Gorse Hill Dog Walkers</li>
+      <li>The Lantern Pet Food Co.</li>
+      <li>Hollis &amp; Vane Pet Insurance</li>
+      <li>Riverside Allotment Society</li>
+      <li>Kettle &amp; Crumb Café</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 3. Features -->
+<section id="services" class="section features" aria-labelledby="services-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">What we do</p>
+      <h2 id="services-title">Everything a worried owner needs, under one roof.</h2>
+      <p>Six things we are known for, and the reasons they matter when your pet has gone off their food.</p>
+    </header>
+
+    <ul class="feature-grid">
+      <li class="feature" style="--tint:#D5E0CF">
+        <div class="feature-art" aria-hidden="true">
+          <svg viewBox="0 0 160 104">
+            <rect x="34" y="12" width="92" height="82" rx="12" fill="#FBF8F1" stroke="#17302A" stroke-width="2"/>
+            <rect x="34" y="12" width="92" height="20" rx="12" fill="#2D5B4E"/>
+            <rect x="34" y="24" width="92" height="8" fill="#2D5B4E"/>
+            <g fill="#D8CDB8"><rect x="46" y="42" width="14" height="10" rx="3"/><rect x="66" y="42" width="14" height="10" rx="3"/><rect x="86" y="42" width="14" height="10" rx="3"/><rect x="46" y="58" width="14" height="10" rx="3"/><rect x="66" y="58" width="14" height="10" rx="3"/></g>
+            <rect x="86" y="58" width="14" height="10" rx="3" fill="#A94A24"/>
+            <rect x="46" y="74" width="34" height="8" rx="4" fill="#2D5B4E"/>
+          </svg>
+        </div>
+        <h3>Same-day appointments</h3>
+        <p>Ring by 10am and we will find you a slot that day. Emergencies never wait behind a booking, and we will tell you straight if your pet can wait until tomorrow.</p>
+      </li>
+
+      <li class="feature" style="--tint:#F0D9C6">
+        <div class="feature-art" aria-hidden="true">
+          <svg viewBox="0 0 160 104">
+            <path d="M50 96V30c0-12 10-22 30-22s30 10 30 22v66z" fill="#FBF8F1" stroke="#17302A" stroke-width="2"/>
+            <path d="M68 96V58c0-6 4-10 12-10s12 4 12 10v38z" fill="#D5E0CF"/>
+            <path d="M62 58l-3-18 9 6zM98 58l3-18-9 6z" fill="#17302A"/>
+            <circle cx="80" cy="60" r="0" fill="#17302A"/>
+            <path d="M74 66q6 4 12 0" stroke="#17302A" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <rect x="52" y="28" width="56" height="13" rx="4" fill="#17302A"/>
+            <text x="80" y="38" font-size="7.5" text-anchor="middle" fill="#F4EEE2" font-family="sans-serif" font-weight="700" letter-spacing="1">CATS ONLY</text>
+            <path d="M20 96h120" stroke="#17302A" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>A cat-only waiting room</h3>
+        <p>Cats wait behind a closed door, away from barking dogs, with covered carriers, a quiet corner and a nurse who knows which cat is which.</p>
+      </li>
+
+      <li class="feature" style="--tint:#F5E3B5">
+        <div class="feature-art" aria-hidden="true">
+          <svg viewBox="0 0 160 104">
+            <rect x="26" y="20" width="108" height="10" rx="5" fill="#17302A"/>
+            <g>
+              <rect x="40" y="36" width="16" height="50" rx="8" fill="#FBF8F1" stroke="#17302A" stroke-width="2"/>
+              <path d="M40 64h16v14a8 8 0 0 1-16 0z" fill="#2D5B4E"/>
+              <rect x="72" y="36" width="16" height="50" rx="8" fill="#FBF8F1" stroke="#17302A" stroke-width="2"/>
+              <path d="M72 50h16v28a8 8 0 0 1-16 0z" fill="#A94A24"/>
+              <rect x="104" y="36" width="16" height="50" rx="8" fill="#FBF8F1" stroke="#17302A" stroke-width="2"/>
+              <path d="M104 72h16v6a8 8 0 0 1-16 0z" fill="#E0A93B"/>
+            </g>
+          </svg>
+        </div>
+        <h3>In-house lab, results in about an hour</h3>
+        <p>Blood, urine and skin samples run on our own analyser while you wait, so the plan is decided in one visit instead of after a week of phone tag.</p>
+      </li>
+
+      <li class="feature" style="--tint:#DCE7EA">
+        <div class="feature-art" aria-hidden="true">
+          <svg viewBox="0 0 160 104">
+            <g fill="#17302A">
+              <ellipse cx="62" cy="72" rx="14" ry="11"/>
+              <circle cx="44" cy="50" r="6"/><circle cx="54" cy="42" r="6.5"/><circle cx="68" cy="42" r="6.5"/><circle cx="78" cy="50" r="6"/>
+            </g>
+            <g fill="#A94A24">
+              <ellipse cx="104" cy="50" rx="9" ry="7.5"/>
+              <circle cx="92" cy="34" r="4"/><circle cx="100" cy="28" r="4.2"/><circle cx="110" cy="28" r="4.2"/><circle cx="118" cy="34" r="4"/>
+            </g>
+          </svg>
+        </div>
+        <h3>Puppy and kitten clinic</h3>
+        <p>A twenty-minute first check designed around nervous young animals: vaccines, microchipping, worming and a plain-English feeding and training note.</p>
+      </li>
+
+      <li class="feature" style="--tint:#EBE2D0">
+        <div class="feature-art" aria-hidden="true">
+          <svg viewBox="0 0 160 104">
+            <path d="M54 26c-12 0-20 10-20 24 0 12 6 18 10 28 4 10 6 22 14 22 6 0 8-6 12-6s6 6 12 6c8 0 10-12 14-22 4-10 10-16 10-28 0-14-8-24-20-24-6 0-10 4-16 4s-10-4-16-4z" fill="#FBF8F1" stroke="#17302A" stroke-width="2"/>
+            <path d="M70 40c4 6 4 12 0 18" stroke="#A94A24" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M92 40c-4 6-4 12 0 18" stroke="#A94A24" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M124 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#E0A93B"/>
+          </svg>
+        </div>
+        <h3>Dental care you can understand</h3>
+        <p>Scale and polish under anaesthetic, with pre-op bloods first and a written note with photos of what we found and what happens next.</p>
+      </li>
+
+      <li class="feature" style="--tint:#D9D4E4">
+        <div class="feature-art" aria-hidden="true">
+          <svg viewBox="0 0 160 104">
+            <circle cx="82" cy="52" r="34" fill="#17302A"/>
+            <circle cx="98" cy="42" r="28" fill="#D9D4E4"/>
+            <circle cx="122" cy="26" r="2.4" fill="#E0A93B"/>
+            <circle cx="136" cy="48" r="1.8" fill="#E0A93B"/>
+            <circle cx="112" cy="58" r="1.6" fill="#F4EEE2"/>
+            <path d="M30 84c10-6 20-6 30 0s20 6 30 0" stroke="#2D5B4E" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Senior and palliative care</h3>
+        <p>Gentle mobility checks, pain plans reviewed every month, and honest conversations about quality of life at whatever stage you are at.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- 4. First visit + team -->
+<section id="visit" class="section visit" aria-labelledby="visit-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">Your first time with us</p>
+      <h2 id="visit-title">How a first visit works</h2>
+      <p>Most first visits take about forty minutes from the moment you walk in. Here is what happens, in order.</p>
+    </header>
+
+    <ol class="steps">
+      <li class="step">
+        <span class="step-num" aria-hidden="true">1</span>
+        <h3>Tell us about your pet</h3>
+        <p>Call or use the booking form. We ask for species, age, what has changed and any medicines they take. It takes about two minutes, and you can add a photo of the problem.</p>
+      </li>
+      <li class="step">
+        <span class="step-num" aria-hidden="true">2</span>
+        <h3>Meet a vet who listens</h3>
+        <p>A twenty-minute consultation, with a nurse to weigh your pet and settle them. We explain each option and its cost before anything is done, and nothing is charged for a quote.</p>
+      </li>
+      <li class="step">
+        <span class="step-num" aria-hidden="true">3</span>
+        <h3>Leave with a written plan</h3>
+        <p>You get a printed summary, medicine labels you can read in bad light, and a reminder for the next check. Lab results are texted to you the moment they are ready.</p>
+      </li>
+    </ol>
+
+    <div id="team" class="team" aria-labelledby="team-title">
+      <h3 id="team-title" class="team-title">Meet the team</h3>
+      <ul class="team-list">
+        <li class="member"><span class="avatar" aria-hidden="true">IM</span><div><strong>Dr Ines Marsh MRCVS</strong><span>Clinical director, small animal medicine</span></div></li>
+        <li class="member"><span class="avatar" aria-hidden="true">OF</span><div><strong>Dr Owen Feltham MRCVS</strong><span>Soft-tissue surgery and dentistry</span></div></li>
+        <li class="member"><span class="avatar" aria-hidden="true">SO</span><div><strong>Sam Okafor RVN</strong><span>Head nurse and lab lead</span></div></li>
+        <li class="member"><span class="avatar" aria-hidden="true">LB</span><div><strong>Lou Brennan</strong><span>Client care and care plans</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Metrics -->
+<section class="metrics" aria-label="The clinic in numbers">
+  <div class="container">
+    <dl class="metrics-grid">
+      <div class="metric">
+        <dt>Vets and nurses on our rota</dt>
+        <dd>14</dd>
+      </div>
+      <div class="metric">
+        <dt>Median time to an in-house lab result</dt>
+        <dd>47<span class="unit"> min</span></dd>
+      </div>
+      <div class="metric">
+        <dt>Years caring for Norwich pets</dt>
+        <dd>22</dd>
+      </div>
+      <div class="metric">
+        <dt>Same-day appointments kept as booked, 2025&ndash;26</dt>
+        <dd>96<span class="unit">%</span></dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<!-- 6. Testimonials -->
+<section class="section testimonials" aria-labelledby="testimonials-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">In their own words</p>
+      <h2 id="testimonials-title">Owners and volunteers who came in worried.</h2>
+    </header>
+    <ul class="quote-grid">
+      <li>
+        <figure class="quote">
+          <blockquote><p>We came in with Biscuit limping and left with a clear answer and a physio plan on one sheet of paper. The lab results arrived before we had finished our tea.</p></blockquote>
+          <figcaption><strong>Priya Anand</strong><span>Owner of Biscuit, a border collie</span></figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure class="quote">
+          <blockquote><p>Our rescue takes in around forty animals a year. Wren &amp; Paw sees every one within a day of arrival and never makes a volunteer feel silly for asking.</p></blockquote>
+          <figcaption><strong>Tom Hale</strong><span>Volunteer coordinator, Marsh Lane Rescue</span></figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure class="quote">
+          <blockquote><p>I had never owned a cat before. The nurse showed me how to give Juniper her tablet in two minutes flat, and did not laugh when I dropped the first one.</p></blockquote>
+          <figcaption><strong>Mae Okonkwo</strong><span>First-time cat owner, with Juniper</span></figcaption>
+        </figure>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- 7. Pricing -->
+<section id="plans" class="section plans" aria-labelledby="plans-title">
+  <div class="container">
+    <header class="section-head section-head-split">
+      <div>
+        <p class="eyebrow">Care plans</p>
+        <h2 id="plans-title">Care plans that fit the animal you have.</h2>
+      </div>
+      <div class="billing">
+        <div class="billing-toggle" role="group" aria-label="Billing period">
+          <button type="button" class="billing-btn" data-billing="monthly" aria-pressed="true">Per month</button>
+          <button type="button" class="billing-btn" data-billing="yearly" aria-pressed="false">Per year <span class="save">2 months free</span></button>
+        </div>
+        <p class="sr-only" id="billing-status" aria-live="polite">Showing monthly prices.</p>
+      </div>
+    </header>
+
+    <ul class="tiers">
+      <li class="tier">
+        <p class="tier-name">Puppy &amp; Kitten</p>
+        <p class="tier-for">For the first year, from eight weeks old</p>
+        <p class="price"><span class="amount js-price" data-monthly="£16" data-yearly="£160">£16</span> <span class="period js-price" data-monthly="a month" data-yearly="a year">a month</span></p>
+        <p class="price-note js-price" data-monthly="Billed monthly, cancel any time." data-yearly="Billed once a year.">Billed monthly, cancel any time.</p>
+        <ul class="tier-list">
+          <li>Vaccinations and boosters on schedule</li>
+          <li>Microchipping and registration</li>
+          <li>Two puppy or kitten classes a year</li>
+          <li>10% off neutering and dental bookings</li>
+        </ul>
+        <a class="btn btn-ghost tier-cta" href="#book">Join Puppy &amp; Kitten</a>
+      </li>
+
+      <li class="tier tier-featured">
+        <span class="badge">Most popular</span>
+        <p class="tier-name">Adult Care</p>
+        <p class="tier-for">For healthy adults, one to nine years</p>
+        <p class="price"><span class="amount js-price" data-monthly="£24" data-yearly="£240">£24</span> <span class="period js-price" data-monthly="a month" data-yearly="a year">a month</span></p>
+        <p class="price-note js-price" data-monthly="Billed monthly, cancel any time." data-yearly="Billed once a year.">Billed monthly, cancel any time.</p>
+        <ul class="tier-list">
+          <li>Annual health check with bloods</li>
+          <li>Vaccinations and parasite control</li>
+          <li>Priority same-day appointments</li>
+          <li>Discounted scale and polish</li>
+        </ul>
+        <a class="btn btn-primary tier-cta" href="#book">Join Adult Care</a>
+      </li>
+
+      <li class="tier">
+        <p class="tier-name">Senior Care</p>
+        <p class="tier-for">For pets aged ten and over</p>
+        <p class="price"><span class="amount js-price" data-monthly="£32" data-yearly="£320">£32</span> <span class="period js-price" data-monthly="a month" data-yearly="a year">a month</span></p>
+        <p class="price-note js-price" data-monthly="Billed monthly, cancel any time." data-yearly="Billed once a year.">Billed monthly, cancel any time.</p>
+        <ul class="tier-list">
+          <li>Check-ups twice a year with a quality-of-life review</li>
+          <li>Blood pressure and bloods at every visit</li>
+          <li>Pain and mobility plan, reviewed monthly</li>
+          <li>One home visit a year when travel is hard</li>
+        </ul>
+        <a class="btn btn-ghost tier-cta" href="#book">Join Senior Care</a>
+      </li>
+    </ul>
+    <p class="plans-footnote">Prices include VAT where it applies. Pause a plan for up to three months, or cancel with 30 days&rsquo; notice.</p>
+  </div>
+</section>
+
+<!-- 8. FAQ -->
+<section id="faq" class="section faq" aria-labelledby="faq-title">
+  <div class="container faq-grid">
+    <header class="faq-head">
+      <p class="eyebrow">Good to know</p>
+      <h2 id="faq-title">Questions owners ask us most</h2>
+      <p>Still stuck? Ring the front desk and a nurse will pick up.</p>
+    </header>
+
+    <div class="accordion">
+      <div class="acc-item">
+        <h3 class="acc-heading"><button class="acc-btn" type="button" id="faq-1-btn" aria-expanded="true" aria-controls="faq-1"><span>Do I need an appointment for an emergency?</span><span class="acc-icon" aria-hidden="true"></span></button></h3>
+        <div class="acc-panel" id="faq-1" role="region" aria-labelledby="faq-1-btn">
+          <p>No. If your pet has collapsed, is struggling to breathe or has swallowed something toxic, ring us straight away on 01603 960 142. We will tell you whether to come in or go to our partner emergency hospital, and we will call ahead.</p>
+        </div>
+      </div>
+      <div class="acc-item">
+        <h3 class="acc-heading"><button class="acc-btn" type="button" id="faq-2-btn" aria-expanded="false" aria-controls="faq-2"><span>Can my cat come in without a carrier?</span><span class="acc-icon" aria-hidden="true"></span></button></h3>
+        <div class="acc-panel" id="faq-2" role="region" aria-labelledby="faq-2-btn" hidden>
+          <p>Please bring a carrier, even for a calm cat. We keep clean spares at reception and will lend one free of charge, with a pheromone spray on the blanket to help them settle.</p>
+        </div>
+      </div>
+      <div class="acc-item">
+        <h3 class="acc-heading"><button class="acc-btn" type="button" id="faq-3-btn" aria-expanded="false" aria-controls="faq-3"><span>How quickly do lab results come back?</span><span class="acc-icon" aria-hidden="true"></span></button></h3>
+        <div class="acc-panel" id="faq-3" role="region" aria-labelledby="faq-3-btn" hidden>
+          <p>Blood chemistry and haematology usually take 40 to 60 minutes because we run them ourselves. Urine and skin samples can take a day. We text you as soon as each result is ready and note what it means.</p>
+        </div>
+      </div>
+      <div class="acc-item">
+        <h3 class="acc-heading"><button class="acc-btn" type="button" id="faq-4-btn" aria-expanded="false" aria-controls="faq-4"><span>What is included in a care plan?</span><span class="acc-icon" aria-hidden="true"></span></button></h3>
+        <div class="acc-panel" id="faq-4" role="region" aria-labelledby="faq-4-btn" hidden>
+          <p>Each plan bundles the routine care for one stage of life: vaccines, parasite control, health checks and discounts on procedures. Anything outside the plan is quoted to you in writing before we do it.</p>
+        </div>
+      </div>
+      <div class="acc-item">
+        <h3 class="acc-heading"><button class="acc-btn" type="button" id="faq-5-btn" aria-expanded="false" aria-controls="faq-5"><span>Can I pay in instalments without a care plan?</span><span class="acc-icon" aria-hidden="true"></span></button></h3>
+        <div class="acc-panel" id="faq-5" role="region" aria-labelledby="faq-5-btn" hidden>
+          <p>Yes. For bills over £250 we offer a 0% monthly payment plan, subject to a quick approval. Ask at reception or on the phone. Nothing is taken until you have agreed the schedule.</p>
+        </div>
+      </div>
+      <div class="acc-item">
+        <h3 class="acc-heading"><button class="acc-btn" type="button" id="faq-6-btn" aria-expanded="false" aria-controls="faq-6"><span>Do you see rescue animals and newly adopted pets?</span><span class="acc-icon" aria-hidden="true"></span></button></h3>
+        <div class="acc-panel" id="faq-6" role="region" aria-labelledby="faq-6-btn" hidden>
+          <p>Yes. Registered rescues get a fixed rate for first checks and vaccinations, and we will fit urgent cases in on the day where we can. Ask for our rescue liaison when you book, and bring any paperwork you have.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. Final CTA -->
+<section id="book" class="cta-band" aria-labelledby="cta-title">
+  <div class="container cta-inner">
+    <p class="eyebrow eyebrow-light">Booking</p>
+    <h2 id="cta-title">Worried about your pet today?</h2>
+    <p>Ring <a href="tel:01603960142">01603 960 142</a> before 10am for a same-day slot, or send a booking request and we will reply within an hour during opening hours.</p>
+    <div class="cta-actions">
+      <a class="btn btn-light" href="mailto:hello@wrenandpaw.example?subject=Appointment%20request">Book an appointment</a>
+      <a class="btn btn-outline-light" href="tel:01603960142">Call the front desk</a>
+    </div>
+    <div class="cta-slip" aria-hidden="true">
+      <p class="slip-kicker">Next free slots</p>
+      <ul>
+        <li><time>Today 14:20</time><span>Dr Ines Marsh, Room 2</span></li>
+        <li><time>Today 16:05</time><span>Nurse check, cat-only room</span></li>
+        <li><time>Tomorrow 08:30</time><span>Dr Owen Feltham, surgery</span></li>
+      </ul>
+      <p class="slip-foot">Held for 15 minutes while you book.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10. Emergency strip -->
+<section id="emergencies" class="emergency" aria-labelledby="emergency-title">
+  <div class="container emergency-inner">
+    <p id="emergency-title"><strong>Pet emergency?</strong> Ring us straight away and we will tell you what to do next.</p>
+    <a class="emergency-call" href="tel:01603960142">Call 01603 960 142</a>
+  </div>
+</section>
+
+</main>
+
+<!-- 11. Footer -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <p class="footer-name">Wren &amp; Paw</p>
+      <p>Independent small-animal vets. Unit 3, Harbour Yard, Norwich NR3 1DL.</p>
+      <p>Mon&ndash;Sat 8am&ndash;7pm &middot; Sun closed</p>
+    </div>
+    <nav class="footer-col" aria-labelledby="footer-clinic">
+      <h2 id="footer-clinic">The clinic</h2>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#visit">Opening hours</a></li>
+        <li><a href="#team">Our team</a></li>
+        <li><a href="#faq">Questions</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="footer-care">
+      <h2 id="footer-care">Care guides</h2>
+      <ul>
+        <li><a href="#plans">Puppy and kitten</a></li>
+        <li><a href="#plans">Senior care</a></li>
+        <li><a href="#services">Dental care</a></li>
+        <li><a href="#services">Lab results</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" id="member" aria-labelledby="footer-visit">
+      <h2 id="footer-visit">Visit and contact</h2>
+      <ul>
+        <li><a href="#book">Book an appointment</a></li>
+        <li><a href="#emergencies">Emergencies</a></li>
+        <li><a href="#member">Member sign-in</a></li>
+        <li><a href="tel:01603960142">01603 960 142</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="container">
+    <p class="legal">&copy; 2026 Wren &amp; Paw Veterinary Clinic Ltd. Registered in England, company no. 08812345. Clinical director Dr Ines Marsh MRCVS. Prices correct at 4 November 2026. Privacy, complaints and accessibility statements are available at reception.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

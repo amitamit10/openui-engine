@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ledgerleaf Bookkeeping: monthly books for freelancers</title>
+  <meta name="description" content="Monthly bookkeeping for freelancers, sole traders and very small limited companies. Receipts, VAT and self-assessment handled, with a named accountant who replies within a working day.">
+  <meta name="theme-color" content="#F4EFE4">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231E6B4F'/%3E%3Cpath d='M9 22C9 13 14 9 23 9c0 9-4 14-14 13z' fill='%23F4EFE4'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="leaf" viewBox="0 0 32 32">
+      <path d="M6 26C5 15 11 7 26 6c1 14-6 21-20 20z" fill="currentColor"/>
+      <path d="M7.5 24.5C12 18 16 14 21 10" stroke="var(--paper, #F4EFE4)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Main">
+      <a class="brand" href="#top" aria-label="Ledgerleaf Bookkeeping, back to top">
+        <svg class="brand-mark" width="28" height="28" aria-hidden="true"><use href="#leaf"/></svg>
+        <span>Ledgerleaf</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+      <div class="nav-panel" id="nav-panel" data-open="false">
+        <ul class="nav-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#accountants">Accountants</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="nav-signin" href="#sign-in">Member sign-in</a>
+          <a class="btn btn-primary btn-small" href="#final-cta">Get a free books check</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- 2. Hero -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Bookkeeping for freelancers, sole traders and small limited companies</p>
+          <h1 id="hero-title">Your books kept up to date, by a person who answers.</h1>
+          <p class="lede">Ledgerleaf matches every transaction each month, reads your receipts from a photo, and prepares your VAT and self-assessment. A named accountant replies within one working day.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#final-cta">Get a free books check</a>
+            <a class="btn btn-ghost" href="#how-it-works">See how it works</a>
+          </div>
+          <p class="fineprint">No card needed. We look at your last two months and send back a list of anything missing, miscoded or due.</p>
+        </div>
+
+        <div class="hero-art" role="img" aria-label="Preview of a Ledgerleaf monthly ledger for Juniper Print Studio, April 2026. Books are 88 percent ready, with a receipt for a coffee reconciled and attached to a transaction.">
+          <div class="ledger">
+            <div class="ledger-head">
+              <span class="ledger-client">Juniper Print Studio</span>
+              <span class="ledger-period">April 2026</span>
+            </div>
+            <div class="ledger-meter">
+              <span>Books ready for Thursday</span>
+              <span class="meter"><span class="meter-fill" style="width:88%"></span></span>
+              <b>88%</b>
+            </div>
+            <ul class="ledger-rows">
+              <li class="ledger-row ledger-row-head"><span>Date</span><span>Description</span><span class="col-cat">Category</span><span>Status</span><span class="amt">Amount</span></li>
+              <li class="ledger-row"><span>02 Apr</span><span>Hartline Stock</span><span class="col-cat">Materials</span><span><span class="chip chip-ok">Matched</span></span><span class="amt">&minus;412.00</span></li>
+              <li class="ledger-row"><span>03 Apr</span><span>Tidewater Coffee</span><span class="col-cat">Meals</span><span><span class="chip chip-ok">Receipt</span></span><span class="amt">&minus;9.70</span></li>
+              <li class="ledger-row"><span>05 Apr</span><span>Brightwell Books</span><span class="col-cat">Income</span><span><span class="chip chip-ok">Matched</span></span><span class="amt pos">+2,150.00</span></li>
+              <li class="ledger-row"><span>09 Apr</span><span>Fuel, Esso Hatfield</span><span class="col-cat">Travel</span><span><span class="chip chip-review">To review</span></span><span class="amt">&minus;58.23</span></li>
+              <li class="ledger-row"><span>11 Apr</span><span>Adobe, annual plan</span><span class="col-cat">Software</span><span><span class="chip chip-ok">Matched</span></span><span class="amt">&minus;239.88</span></li>
+            </ul>
+            <div class="ledger-foot">
+              <span>Profit to date</span>
+              <b>&pound;4,286.10</b>
+            </div>
+          </div>
+
+          <div class="receipt" aria-hidden="true">
+            <p class="receipt-shop">TIDEWATER COFFEE</p>
+            <p class="receipt-line"><span>Flat white x2</span><span>&pound;7.60</span></p>
+            <p class="receipt-line"><span>Oat flapjack</span><span>&pound;2.10</span></p>
+            <p class="receipt-total"><span>TOTAL</span><span>&pound;9.70</span></p>
+            <p class="receipt-line small"><span>VAT 20% incl.</span><span>&pound;1.62</span></p>
+            <span class="stamp">Reconciled</span>
+          </div>
+
+          <div class="note-card" aria-hidden="true">
+            <span class="note-avatar">DO</span>
+            <p>Fuel for the van is business travel. Logged against Travel, VAT reclaimed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Social proof -->
+    <section class="proof" aria-labelledby="proof-title">
+      <div class="wrap">
+        <h2 class="proof-title" id="proof-title">Kept current for 1,140 freelancers and very small firms across the UK, including</h2>
+        <ul class="proof-list">
+          <li><span class="wordmark wm-1">Harbour &amp; Finch</span><small>Architects</small></li>
+          <li><span class="wordmark wm-2">Marlow</span><small>Coffee Co.</small></li>
+          <li><span class="wordmark wm-3">Tidewater</span><small>Studio</small></li>
+          <li><span class="wordmark wm-4">Quillmark</span><small>Press</small></li>
+          <li><span class="wordmark wm-5">Brambleside</span><small>Dog Grooming</small></li>
+          <li><span class="wordmark wm-6">Northfold</span><small>Cycle Works</small></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. Features -->
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="kicker">What we do</p>
+          <h2 id="services-title">Everything a year of books needs, in one place.</h2>
+          <p class="section-sub">Six things we handle every month, so the only thing you have to do is photograph receipts and answer the odd question.</p>
+        </header>
+
+        <ul class="feature-grid">
+          <li class="feature">
+            <div class="feature-art tone-green">
+              <svg viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+                <rect x="30" y="12" width="100" height="74" rx="10" fill="#FFFDF8" stroke="#1E6B4F" stroke-width="2"/>
+                <rect x="30" y="12" width="100" height="18" rx="10" fill="#1E6B4F"/>
+                <g fill="#D7E7DC"><rect x="42" y="42" width="14" height="10" rx="3"/><rect x="62" y="42" width="14" height="10" rx="3"/><rect x="82" y="42" width="14" height="10" rx="3"/><rect x="102" y="42" width="14" height="10" rx="3"/><rect x="42" y="58" width="14" height="10" rx="3"/><rect x="62" y="58" width="14" height="10" rx="3"/></g>
+                <rect x="82" y="58" width="14" height="10" rx="3" fill="#D9952F"/>
+                <path d="M104 62l3 3 6-7" stroke="#17251F" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Monthly books, closed by working day five</h3>
+            <p>Every bank and card line categorised, reconciled and checked. You get a month that is finished, not a pile to catch up on.</p>
+          </li>
+
+          <li class="feature">
+            <div class="feature-art tone-ochre">
+              <svg viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+                <path d="M54 8h52v80l-6.5-4.5L94 88l-6.5-4.5L81 88l-6.5-4.5L68 88l-6.5-4.5L55 88z" fill="#FFFDF8" stroke="#17251F" stroke-width="2" stroke-linejoin="round"/>
+                <rect x="64" y="24" width="32" height="4" rx="2" fill="#D9D0BC"/>
+                <rect x="64" y="34" width="24" height="4" rx="2" fill="#D9D0BC"/>
+                <rect x="64" y="44" width="32" height="4" rx="2" fill="#D9D0BC"/>
+                <rect x="64" y="58" width="32" height="6" rx="2" fill="#17251F"/>
+                <path d="M26 30V18h12M122 30V18h-12M26 64v12h12M122 64v12h-12" stroke="#1E6B4F" stroke-width="3" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Receipts from your phone, read for you</h3>
+            <p>Photograph a receipt the moment you pay. We pull out the date, supplier and VAT, then attach it to the right transaction.</p>
+          </li>
+
+          <li class="feature">
+            <div class="feature-art tone-blue">
+              <svg viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+                <rect x="12" y="18" width="52" height="16" rx="8" fill="#FFFDF8" stroke="#17251F" stroke-width="1.6"/>
+                <rect x="12" y="42" width="52" height="16" rx="8" fill="#FFFDF8" stroke="#17251F" stroke-width="1.6"/>
+                <rect x="12" y="66" width="52" height="16" rx="8" fill="#FFFDF8" stroke="#D9D0BC" stroke-width="1.6"/>
+                <rect x="96" y="18" width="52" height="16" rx="8" fill="#1E6B4F"/>
+                <rect x="96" y="42" width="52" height="16" rx="8" fill="#1E6B4F"/>
+                <path d="M64 26 C80 26 80 26 96 26 M64 50 C80 50 80 50 96 50" stroke="#1E6B4F" stroke-width="2" fill="none"/>
+                <path d="M64 74 C80 74 80 50 96 50" stroke="#D9952F" stroke-width="2" fill="none" stroke-dasharray="3 4"/>
+                <circle cx="80" cy="74" r="4" fill="#D9952F"/>
+              </svg>
+            </div>
+            <h3>Bank feeds that match themselves</h3>
+            <p>Connect up to five accounts. Matches come from your own history, and anything unusual is flagged as a question, never guessed at.</p>
+          </li>
+
+          <li class="feature">
+            <div class="feature-art tone-green">
+              <svg viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+                <rect x="34" y="10" width="92" height="76" rx="12" fill="#FFFDF8" stroke="#1E6B4F" stroke-width="2"/>
+                <text x="80" y="60" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="32" font-weight="600" fill="#1E6B4F">20%</text>
+                <rect x="52" y="70" width="56" height="5" rx="2.5" fill="#D7E7DC"/>
+                <rect x="52" y="70" width="38" height="5" rx="2.5" fill="#1E6B4F"/>
+              </svg>
+            </div>
+            <h3>VAT returns, drafted for your approval</h3>
+            <p>Quarterly MTD returns prepared with a one-page summary you read first. Nothing is submitted without your yes.</p>
+          </li>
+
+          <li class="feature">
+            <div class="feature-art tone-ochre">
+              <svg viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+                <rect x="44" y="8" width="72" height="80" rx="6" fill="#FFFDF8" stroke="#17251F" stroke-width="2"/>
+                <rect x="58" y="22" width="30" height="4" rx="2" fill="#D9D0BC"/>
+                <rect x="58" y="34" width="44" height="4" rx="2" fill="#D9D0BC"/>
+                <rect x="58" y="46" width="36" height="4" rx="2" fill="#D9D0BC"/>
+                <circle cx="106" cy="66" r="13" fill="#D9952F"/>
+                <path d="M99 66l5 5 9-10" stroke="#17251F" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Self-assessment, without the January dread</h3>
+            <p>Income, expenses, allowances and payments on account gathered into one checked return, with time to spare before 31 January.</p>
+          </li>
+
+          <li class="feature">
+            <div class="feature-art tone-blue">
+              <svg viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+                <path d="M16 18h74a6 6 0 0 1 6 6v30a6 6 0 0 1-6 6H50l-14 11v-11h-20a6 6 0 0 1-6-6V24a6 6 0 0 1 6-6z" fill="#FFFDF8" stroke="#17251F" stroke-width="2" stroke-linejoin="round"/>
+                <rect x="28" y="30" width="46" height="4" rx="2" fill="#D9D0BC"/>
+                <rect x="28" y="40" width="30" height="4" rx="2" fill="#D9D0BC"/>
+                <path d="M92 46h44a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6h-30l-10 8v-8h-4a6 6 0 0 1-6-6V52a6 6 0 0 1 6-6z" fill="#1E6B4F"/>
+                <rect x="102" y="60" width="28" height="4" rx="2" fill="#D7E7DC"/>
+                <rect x="102" y="68" width="18" height="4" rx="2" fill="#D7E7DC"/>
+              </svg>
+            </div>
+            <h3>A human accountant, always named</h3>
+            <p>One accountant learns your business. You get a plain-English note each month, and questions get a real answer within a working day.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. How it works + accountants -->
+    <section class="section section-tint" id="how-it-works" aria-labelledby="how-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="kicker">How it works</p>
+          <h2 id="how-title">How your books get done</h2>
+        </header>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Connect</h3>
+            <p>Link your bank and card accounts and forward receipts to your Ledgerleaf inbox. Setup takes about ten minutes, and we sort the rest.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>We close your month</h3>
+            <p>Each Monday we categorise, reconcile and chase missing receipts. You are only asked about what we genuinely cannot work out.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>You get a clear answer</h3>
+            <p>A one-page summary: profit so far, what VAT or tax you owe, and how much to set aside. Your accountant is on the other end of the reply.</p>
+          </li>
+        </ol>
+
+        <div class="accountants" id="accountants">
+          <h3 class="accountants-title">Meet the accountants behind the books</h3>
+          <ul class="team">
+            <li class="person">
+              <span class="avatar av-1" aria-hidden="true">DO</span>
+              <div>
+                <p class="person-name">Dana Okafor, ACA</p>
+                <p class="person-role">Leads sole trader and freelancer books. Eleven years in practice.</p>
+              </div>
+            </li>
+            <li class="person">
+              <span class="avatar av-2" aria-hidden="true">TR</span>
+              <div>
+                <p class="person-name">Tom Reyes, ATT</p>
+                <p class="person-role">VAT and payroll specialist, and the person behind our quarterly returns.</p>
+              </div>
+            </li>
+            <li class="person">
+              <span class="avatar av-3" aria-hidden="true">ML</span>
+              <div>
+                <p class="person-name">Mei Lindqvist, ACCA</p>
+                <p class="person-role">Limited company accounts and year-end filing for our Full Books clients.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Metrics -->
+    <section class="metrics" aria-labelledby="metrics-title">
+      <div class="wrap">
+        <h2 class="metrics-title" id="metrics-title">What our clients see, measured across 2025/26</h2>
+        <dl class="metric-grid">
+          <div class="metric">
+            <dt>Clients on monthly books</dt>
+            <dd><span class="num">1,140</span></dd>
+          </div>
+          <div class="metric">
+            <dt>Hours saved per client, each month (median)</dt>
+            <dd><span class="num">3.5</span><span class="unit">hrs</span></dd>
+          </div>
+          <div class="metric">
+            <dt>Median reply time, in working hours</dt>
+            <dd><span class="num">5.2</span><span class="unit">hrs</span></dd>
+          </div>
+          <div class="metric">
+            <dt>Missed tax deadlines for our clients</dt>
+            <dd><span class="num">0</span></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 7. Testimonials -->
+    <section class="section" aria-labelledby="stories-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="kicker">Clients</p>
+          <h2 id="stories-title">What clients say</h2>
+        </header>
+        <div class="quotes">
+          <figure class="quote">
+            <blockquote>
+              <p>I used to shoebox receipts until my tax bill landed in January. Ledgerleaf turned that into a ten-minute habit on Monday mornings.</p>
+            </blockquote>
+            <figcaption><span class="q-name">Hannah Brisco</span><span class="q-role">Illustrator, Bristol</span></figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>
+              <p>Dana caught a VAT mistake in our second quarter that would have cost us about &pound;2,300. She explained it in two sentences and fixed it the same afternoon.</p>
+            </blockquote>
+            <figcaption><span class="q-name">Samir Oduya</span><span class="q-role">Co-founder, Northfold Cycle Works Ltd</span></figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>
+              <p>I am a plumber and I do not want to think about bookkeeping. I don't have to. When I have a question I get a real answer before lunch.</p>
+            </blockquote>
+            <figcaption><span class="q-name">Ruth Ferreira</span><span class="q-role">Sole trader, plumber, Leeds</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Pricing -->
+    <section class="section section-tint" id="pricing" aria-labelledby="pricing-title">
+      <div class="wrap">
+        <header class="section-head section-head-center">
+          <p class="kicker">Pricing</p>
+          <h2 id="pricing-title">Simple prices, no surprises.</h2>
+          <p class="section-sub">Every plan includes a named accountant and a reply within one working day. Cancel with 30 days' notice.</p>
+        </header>
+
+        <div class="billing">
+          <span class="billing-label" id="billing-label">Billing</span>
+          <div class="segmented" role="group" aria-labelledby="billing-label">
+            <button type="button" class="seg-btn" data-billing="monthly" aria-pressed="true">Monthly</button>
+            <button type="button" class="seg-btn" data-billing="annual" aria-pressed="false">Annual <span class="seg-save">save around 16%</span></button>
+          </div>
+        </div>
+
+        <div class="tiers">
+          <article class="tier">
+            <h3>Essentials</h3>
+            <p class="tier-for">For sole traders with straightforward income and fewer than 150 transactions a month.</p>
+            <p class="price"><span class="price-amount" data-monthly="39" data-annual="33">&pound;39</span><span class="price-per">/ month</span></p>
+            <p class="price-note" data-monthly-note="Billed monthly." data-annual-note="Billed yearly at &pound;396.">Billed monthly.</p>
+            <ul class="tier-list">
+              <li>Bank feeds and receipt capture</li>
+              <li>Monthly close by working day five</li>
+              <li>Self-assessment prepared each January</li>
+              <li>Named accountant, reply in one working day</li>
+            </ul>
+            <a class="btn btn-ghost tier-cta" href="#final-cta">Choose Essentials</a>
+          </article>
+
+          <article class="tier tier-featured">
+            <p class="tier-badge">Most chosen by freelancers</p>
+            <h3>Steady</h3>
+            <p class="tier-for">For active sole traders and partnerships, with up to 400 transactions a month.</p>
+            <p class="price"><span class="price-amount" data-monthly="89" data-annual="74">&pound;89</span><span class="price-per">/ month</span></p>
+            <p class="price-note" data-monthly-note="Billed monthly." data-annual-note="Billed yearly at &pound;888.">Billed monthly.</p>
+            <ul class="tier-list">
+              <li>Everything in Essentials</li>
+              <li>Unlimited receipts and up to 400 transactions</li>
+              <li>Quarterly MTD VAT returns, approved by you</li>
+              <li>A 30-minute review call each quarter</li>
+            </ul>
+            <a class="btn btn-primary tier-cta" href="#final-cta">Choose Steady</a>
+          </article>
+
+          <article class="tier">
+            <h3>Full Books</h3>
+            <p class="tier-for">For limited companies that need payroll, year-end accounts and filings handled.</p>
+            <p class="price"><span class="price-amount" data-monthly="179" data-annual="149">&pound;179</span><span class="price-per">/ month</span></p>
+            <p class="price-note" data-monthly-note="Billed monthly." data-annual-note="Billed yearly at &pound;1,788.">Billed monthly.</p>
+            <ul class="tier-list">
+              <li>Unlimited transactions and receipts</li>
+              <li>Payroll for up to five staff</li>
+              <li>Year-end accounts and Companies House filing</li>
+              <li>Monthly call with your accountant</li>
+            </ul>
+            <a class="btn btn-ghost tier-cta" href="#final-cta">Choose Full Books</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. FAQ -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap faq-wrap">
+        <header class="section-head">
+          <p class="kicker">Questions</p>
+          <h2 id="faq-title">Questions we hear most</h2>
+        </header>
+
+        <div class="accordion">
+          <h3 class="faq-item">
+            <button class="faq-q" type="button" id="faq-1-btn" aria-expanded="true" aria-controls="faq-1">Do I need to be VAT registered to use Ledgerleaf?<span class="faq-icon" aria-hidden="true"></span></button>
+          </h3>
+          <div class="faq-a" id="faq-1" role="region" aria-labelledby="faq-1-btn">
+            <p>No. Many of our clients are below the VAT threshold. If you are not registered, we simply skip the VAT returns and keep your receipts and expenses in order for your self-assessment.</p>
+          </div>
+
+          <h3 class="faq-item">
+            <button class="faq-q" type="button" id="faq-2-btn" aria-expanded="false" aria-controls="faq-2">Which banks can you connect to?<span class="faq-icon" aria-hidden="true"></span></button>
+          </h3>
+          <div class="faq-a" id="faq-2" role="region" aria-labelledby="faq-2-btn" hidden>
+            <p>Most UK high-street banks, Monzo, Starling, Wise and the major card providers. If your bank is missing, you can upload a CSV statement and we will import it in the same format.</p>
+          </div>
+
+          <h3 class="faq-item">
+            <button class="faq-q" type="button" id="faq-3-btn" aria-expanded="false" aria-controls="faq-3">What happens if my accountant is off sick?<span class="faq-icon" aria-hidden="true"></span></button>
+          </h3>
+          <div class="faq-a" id="faq-3" role="region" aria-labelledby="faq-3-btn" hidden>
+            <p>Every client has a named deputy who already knows their books. Your messages go to them, and your accountant picks everything up when they return. Nothing waits in a shared queue.</p>
+          </div>
+
+          <h3 class="faq-item">
+            <button class="faq-q" type="button" id="faq-4-btn" aria-expanded="false" aria-controls="faq-4">Will you file my VAT or tax return without asking me?<span class="faq-icon" aria-hidden="true"></span></button>
+          </h3>
+          <div class="faq-a" id="faq-4" role="region" aria-labelledby="faq-4-btn" hidden>
+            <p>Never. We draft every return and send you a summary in plain English. It is filed only after you approve it in your Ledgerleaf account.</p>
+          </div>
+
+          <h3 class="faq-item">
+            <button class="faq-q" type="button" id="faq-5-btn" aria-expanded="false" aria-controls="faq-5">Can I cancel, and what happens to my records?<span class="faq-icon" aria-hidden="true"></span></button>
+          </h3>
+          <div class="faq-a" id="faq-5" role="region" aria-labelledby="faq-5-btn" hidden>
+            <p>Give 30 days' notice at any time. You can download every transaction, receipt and report as a CSV or PDF before your access ends. We keep records for six years, as HMRC requires.</p>
+          </div>
+
+          <h3 class="faq-item">
+            <button class="faq-q" type="button" id="faq-6-btn" aria-expanded="false" aria-controls="faq-6">Where is my data kept?<span class="faq-icon" aria-hidden="true"></span></button>
+          </h3>
+          <div class="faq-a" id="faq-6" role="region" aria-labelledby="faq-6-btn" hidden>
+            <p>In UK data centres, encrypted in transit and at rest. Only your named accountant and their deputy can see your books, and you can see the full access log from your account.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Final CTA -->
+    <section class="final" id="final-cta" aria-labelledby="final-title">
+      <div class="wrap final-inner">
+        <div>
+          <p class="kicker kicker-light">Free books check</p>
+          <h2 id="final-title">Send us two months of statements. We will tell you where you stand.</h2>
+          <p class="final-sub">Within one working day you get back a list of anything missing, miscoded or due, and a fixed quote if you want us to take it on.</p>
+          <ul class="final-points">
+            <li>No card needed</li>
+            <li>A named accountant reads it</li>
+            <li>Cancel with 30 days' notice</li>
+          </ul>
+        </div>
+        <div class="final-actions">
+          <a class="btn btn-light" href="#pricing">Get a free books check</a>
+          <a class="btn btn-outline-light" href="#pricing">Compare prices</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 11. Footer -->
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top">
+          <svg class="brand-mark" width="28" height="28" aria-hidden="true"><use href="#leaf"/></svg>
+          <span>Ledgerleaf</span>
+        </a>
+        <p>Monthly books, receipts, VAT and self-assessment, handled by accountants you can name.</p>
+      </div>
+      <nav class="footer-col" aria-labelledby="fc-1">
+        <p class="footer-title" id="fc-1">Services</p>
+        <ul>
+          <li><a href="#services">Monthly books</a></li>
+          <li><a href="#services">Receipt capture</a></li>
+          <li><a href="#services">VAT returns</a></li>
+          <li><a href="#services">Self-assessment</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-labelledby="fc-2">
+        <p class="footer-title" id="fc-2">Company</p>
+        <ul>
+          <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#accountants">Accountants</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">Questions</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-labelledby="fc-3">
+        <p class="footer-title" id="fc-3">Help</p>
+        <ul>
+          <li><a href="#final-cta">Free books check</a></li>
+          <li><a href="#sign-in" id="sign-in">Member sign-in</a></li>
+          <li><a href="#faq">Support hours</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="wrap legal">
+      <p>&copy; 2026 Ledgerleaf Bookkeeping Ltd. Registered in England and Wales, company no. 12345678. Ledgerleaf is a fictional organisation used for this sample site. Bookkeeping and tax preparation only; we do not give investment advice.</p>
+    </div>
+  </footer>
+</body>
+</html>

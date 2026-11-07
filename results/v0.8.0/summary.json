@@ -1,0 +1,103 @@
+{
+  "release": "v0.8.0",
+  "note": "Controlled benchmark of the engine at commit 98cff9d (v0.7.0 plus the defect fixes, a curated two-tone colour layer, and five new art directions shadcn-mono, material-tonal, swiss-grid, noir-luxe, pastel-play with style routing). Haiku 5.5 without vs with the MCP, identical SPEC.md, same 60-call budget, four never-seen domains (tideline surf school, hollis architects, brightwater vet clinic, stockroom inventory app), engine frozen for the run. RESULT: engine 2/8, judged more template-like in 6/8: the best generator result so far but still a clear loss. Both engine wins were pages whose hero is a specific product UI mockup (brightwater clinic day sheet, stockroom stock screen). The new swiss-grid style was chosen by the matcher for the architects brief and LOST both pairs: judges called it a loud red-and-black startup look with a generic flat house drawing, a broken final CTA headline, a lopsided testimonials grid and an uneven hero. The spec forbids external images for both arms, so the photo, logo-prompt and placeholder tools were not exercised. COST: the MCP arm used about 17% more tokens, about 45% more tool calls and about 70% more wall-clock time than the baseline arm this run. DEFECTS named by agents and judges (to fix): swiss-grid CTA and testimonials layout; the schedule hero kind rendered empty; a duplicate id=features in the generated markup that the gate did not flag; last-section padding 31px against 104px elsewhere; brief_template has no good category for service businesses (surf school and services both returned the SaaS template, and search_design_references rejected the category); an agent could not find a logos caption field. CONFOUNDS: the Stockroom MCP agent made one failed send_message call to another session (nothing was sent); several agents deleted their own scratch files; the Stockroom MCP agent used the older field-notes style by its own patch, so the new styles were exercised only on Hollis. NOT deployed to Vercel (no VERCEL_TOKEN in this environment).",
+  "briefs": [
+    "brightwater",
+    "hollis",
+    "stockroom",
+    "tideline"
+  ],
+  "judgements": 8,
+  "wins": {
+    "baseline": 6,
+    "engine": 2
+  },
+  "engineWinRatePct": 25,
+  "engineJudgedMoreTemplateLike": 6,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 7.8,
+      "typography": 8,
+      "spacing": 7.4,
+      "colour": 7.8,
+      "product_visual": 7.9,
+      "mobile": 7.1,
+      "polish": 7.6,
+      "originality": 7.1
+    },
+    "engine": {
+      "hierarchy": 6.9,
+      "typography": 6.9,
+      "spacing": 6.1,
+      "colour": 6.6,
+      "product_visual": 6.8,
+      "mobile": 6.6,
+      "polish": 6.1,
+      "originality": 6
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.6,
+    "engine": 6.5
+  },
+  "automated": {
+    "baseline": {
+      "sites": 4,
+      "quality": 88.5,
+      "originalityScore": 95,
+      "slopScore": 95,
+      "slopFindings": 1.3,
+      "auditErrors": 5,
+      "auditWarnings": 3,
+      "neutralChecksPassed": "8/12",
+      "svgs": 7.5,
+      "fontFamilies": 2,
+      "distinctColors": 18.3,
+      "spacingOn4px": 84.7,
+      "sourceKB": 52.9
+    },
+    "engine": {
+      "sites": 4,
+      "quality": 94.8,
+      "originalityScore": 98.5,
+      "slopScore": 98.5,
+      "slopFindings": 0.3,
+      "auditErrors": 0,
+      "auditWarnings": 0,
+      "neutralChecksPassed": "8/12",
+      "svgs": 32,
+      "fontFamilies": 3,
+      "distinctColors": 14,
+      "spacingOn4px": 91.3,
+      "sourceKB": 105.1
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 4,
+    "tokens": "109,155-119,984 (baseline arm in the same run: 91,247-104,064)",
+    "toolCalls": "20-29 (baseline arm: 15-19)",
+    "seconds": "237-399 (baseline arm: 156-215)",
+    "perAgent": {
+      "tideline": {
+        "tokens": 109473,
+        "toolCalls": 25,
+        "seconds": 294
+      },
+      "hollis": {
+        "tokens": 119984,
+        "toolCalls": 27,
+        "seconds": 237
+      },
+      "brightwater": {
+        "tokens": 109155,
+        "toolCalls": 29,
+        "seconds": 399
+      },
+      "stockroom": {
+        "tokens": 118960,
+        "toolCalls": 20,
+        "seconds": 251
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+ "kelpline-control-vs-engine-r1": {
+  "brief": "kelpline",
+  "round": 1,
+  "X": "engine",
+  "Y": "control"
+ },
+ "kelpline-control-vs-engine-r2": {
+  "brief": "kelpline",
+  "round": 2,
+  "X": "control",
+  "Y": "engine"
+ },
+ "clearwater-control-vs-engine-r1": {
+  "brief": "clearwater",
+  "round": 1,
+  "X": "control",
+  "Y": "engine"
+ },
+ "clearwater-control-vs-engine-r2": {
+  "brief": "clearwater",
+  "round": 2,
+  "X": "engine",
+  "Y": "control"
+ },
+ "ines-control-vs-engine-r1": {
+  "brief": "ines",
+  "round": 1,
+  "X": "control",
+  "Y": "engine"
+ },
+ "ines-control-vs-engine-r2": {
+  "brief": "ines",
+  "round": 2,
+  "X": "engine",
+  "Y": "control"
+ },
+ "halden-control-vs-engine-r1": {
+  "brief": "halden",
+  "round": 1,
+  "X": "engine",
+  "Y": "control"
+ },
+ "halden-control-vs-engine-r2": {
+  "brief": "halden",
+  "round": 2,
+  "X": "control",
+  "Y": "engine"
+ },
+ "tilde-control-vs-engine-r1": {
+  "brief": "tilde",
+  "round": 1,
+  "X": "engine",
+  "Y": "control"
+ },
+ "tilde-control-vs-engine-r2": {
+  "brief": "tilde",
+  "round": 2,
+  "X": "control",
+  "Y": "engine"
+ },
+ "ember-control-vs-engine-r1": {
+  "brief": "ember",
+  "round": 1,
+  "X": "control",
+  "Y": "engine"
+ },
+ "ember-control-vs-engine-r2": {
+  "brief": "ember",
+  "round": 2,
+  "X": "engine",
+  "Y": "control"
+ }
+}

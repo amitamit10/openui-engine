@@ -1,0 +1,84 @@
+{
+  "release": "v0.3.1",
+  "note": "Deterministic REPLAY, not a new model run: the six briefs written by the v0.3.0 Haiku agents were rebuilt unchanged with the engine after two fixes (split hero respects its mobile breakpoint; feature section defaults to alternating rows so every product visual is on screen, instead of one-at-a-time tabs). No hand edits. It isolates the engine change but is NOT a fair estimate of a fresh agent run: the briefs were written while the agents looked at tab-based output, and the layout change was designed after reading the v0.3.0 judges' complaints about those same sites (tuning to the judged set).",
+  "briefs": [
+    "atelier",
+    "fieldnote",
+    "gridwise",
+    "kilnco",
+    "ledgerline",
+    "minutewise"
+  ],
+  "judgements": 12,
+  "wins": {
+    "baseline": 10,
+    "engine": 2
+  },
+  "engineWinRatePct": 17,
+  "engineJudgedMoreTemplateLike": 10,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 8,
+      "typography": 8.1,
+      "spacing": 7.8,
+      "colour": 7.8,
+      "product_visual": 7.5,
+      "mobile": 7.3,
+      "polish": 8,
+      "originality": 7.3
+    },
+    "engine": {
+      "hierarchy": 6.8,
+      "typography": 6.9,
+      "spacing": 6.3,
+      "colour": 6.4,
+      "product_visual": 7.2,
+      "mobile": 6.3,
+      "polish": 6.5,
+      "originality": 5.6
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.7,
+    "engine": 6.5
+  },
+  "automated": {
+    "baseline": {
+      "sites": 6,
+      "quality": 88.7,
+      "originalityScore": 95,
+      "slopScore": 95,
+      "slopFindings": 0.8,
+      "auditErrors": 1.8,
+      "auditWarnings": 7.2,
+      "neutralChecksPassed": "17/18",
+      "svgs": 6.8,
+      "fontFamilies": 2.3,
+      "distinctColors": 18.2,
+      "spacingOn4px": 85.6,
+      "sourceKB": 53.6
+    },
+    "engine": {
+      "sites": 6,
+      "quality": 94.7,
+      "originalityScore": 100,
+      "slopScore": 100,
+      "slopFindings": 0,
+      "auditErrors": 0,
+      "auditWarnings": 0,
+      "neutralChecksPassed": "18/18",
+      "svgs": 32,
+      "fontFamilies": 2.8,
+      "distinctColors": 12.5,
+      "spacingOn4px": 88.7,
+      "sourceKB": 82.5
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 0,
+    "tokens": "0 (deterministic replay)",
+    "toolCalls": "0",
+    "seconds": "about 30 per build",
+    "perAgent": null
+  }
+}

@@ -1,0 +1,5 @@
+{"pair": "ledgerleaf-3way-r1", "ranking": ["Z","Y","X"], "most_template_like_label": "X",
+"X": {"hierarchy": 7, "typography": 7, "spacing": 7, "colour": 7, "product_visual": 7, "mobile": 6, "polish": 7, "originality": 5},
+"Y": {"hierarchy": 7, "typography": 7, "spacing": 6, "colour": 7, "product_visual": 8, "mobile": 7, "polish": 6, "originality": 7},
+"Z": {"hierarchy": 8, "typography": 8, "spacing": 8, "colour": 8, "product_visual": 8, "mobile": 8, "polish": 8, "originality": 8},
+"rationale": "Z has the strongest hierarchy and the most specific product visual: a ledger-statement card with a closed stamp, tidy illustrated features, a plan comparison table and consistent spacing. Y has a vivid hero (statement, receipt and note) but looser spacing and a few overlap and clipping rough edges, such as the hero card text and the receipt. X is clean and competent but follows the standard SaaS layout of centred sections, card grids and a stat band, so it is the most template-like."}

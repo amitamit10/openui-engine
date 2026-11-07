@@ -1,0 +1,250 @@
+[
+ {
+  "pair": "fernwood-baseline-vs-engine-r1",
+  "brief": "fernwood",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 6
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y has a clearer hierarchy, a warm terracotta and forest palette, a convincing x-ray result card in the hero, and distinct illustrated feature cards. X has a clever app-UI hero and a weekly schedule table, but its hero is busy and its feature and pricing sections look flatter and sparser, with an all-cream palette. Y is more cohesive and shippable. X reads as more of a template, though Y's three-column layout is also fairly standard."
+ },
+ {
+  "pair": "fernwood-baseline-vs-engine-r2",
+  "brief": "fernwood",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "Y",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y's hero shows a specific, believable patient-app UI (visit card, anxiety scale, pause toggle, x-ray ready) and its feature sections use tailored mini-UIs such as the weekly slot table and pre-visit check-in, which feels bespoke. X is clean and warm with a nice serif and terracotta accent, but its hero is a tooth-on-dark-panel with sticky notes and its feature illustrations are a conventional three-by-two icon grid, so it reads as more template-like. Y has some thin spots (large empty areas, a small-text FAQ and a tight metrics band), but overall it is the one a design director would ship."
+ },
+ {
+  "pair": "heronfinch-baseline-vs-engine-r1",
+  "brief": "heronfinch",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 6
+  },
+  "rationale": "X has a confident editorial display serif, a warm green/terracotta palette and a bespoke illustrated room with a project card, so it reads as an interior studio. Y's project-dashboard mockup is specific and credible, but the SaaS-style UI chrome, floating chips, sparse feature blocks and a flatter palette make it feel more template-like and less polished."
+ },
+ {
+  "pair": "heronfinch-baseline-vs-engine-r2",
+  "brief": "heronfinch",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 5,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 6
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y has a confident editorial display serif, a cohesive green/terracotta palette, an illustrated living-room hero and a well-composed feature grid, pricing and footer. X has a clever app-window hero but a cramped, overlapping hero composition, sparse and uneven sections lower down, and a more generic SaaS-dashboard feel. Y is the one a design director would ship; X is more template-like."
+ },
+ {
+  "pair": "kinfolk-baseline-vs-engine-r1",
+  "brief": "kinfolk",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 7,
+   "product_visual": 8,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 6
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 7
+  },
+  "rationale": "Y has a more confident editorial display serif, a warmer terracotta, sage and cream palette, six illustrated feature cards and a strong dark featured pricing tier, so the page feels complete and cohesive. X has the more specific hero product UI (care note, mood dots, rota), but its hero CTAs stack awkwardly, its feature section is thinner and its lower sections are plainer and more generic."
+ },
+ {
+  "pair": "kinfolk-baseline-vs-engine-r2",
+  "brief": "kinfolk",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 8,
+   "mobile": 6,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a confident high-contrast serif display headline, a warm terracotta and green palette, and a specific care-note hero card with illustrated feature tiles, so it feels distinctive and ready to ship. Y has a good product mock with a handwritten-style note and mood dots, but the rest of the page is flatter and more conventional, with a sparse feature section and a standard centred layout, so it reads more like a template."
+ },
+ {
+  "pair": "skyplot-baseline-vs-engine-r1",
+  "brief": "skyplot",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "baseline",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 6
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 7
+  },
+  "rationale": "X has a specific, convincing NDVI field heatmap with legend and stat tiles in a restrained, coherent green palette, and clean consistent components, though its feature section is a conventional card grid. Y is more varied in layout and more distinctive with mono type and a light metrics band, but its hero mock is cluttered with overlapping floating chips and odd italic mono text, and the social-proof row wraps awkwardly, so it feels less finished."
+ },
+ {
+  "pair": "skyplot-baseline-vs-engine-r2",
+  "brief": "skyplot",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 7,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y has a specific, convincing hero visual (an NDVI field grid with stress markers and a legend), a restrained palette, clean sans type with mono accents, and feature cards each carrying a concrete visual such as code, a chart or a polygon. X relies on the common dark mode with neon green, monospace everywhere and glowing cards. Its hero card mixes italic and mono awkwardly, its logo strip is inconsistent, and it has more dead space. X is the more template-like of the two."
+ }
+]

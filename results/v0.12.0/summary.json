@@ -1,0 +1,103 @@
+{
+  "release": "v0.12.0",
+  "note": "Controlled benchmark of the engine at commit 9e385ca (v0.11.0 plus testimonialsTitle and faqTitle brief fields, key aliases and a note for every brief field the engine does not read). Haiku 5.5 without vs with the MCP, identical SPEC.md, same 60-call budget, four never-seen domains (larkspur language school, atlas removals, brewline craft brewery, payfold payroll software), engine frozen for the run. RESULT: engine 1/8 (baseline 7/8), judged more template-like in 6/8. The previous run's 3/8 therefore did not repeat: over the last four runs the engine won 4 of 32 judgements (0, 0, 3, 1), so v0.11.0 was most likely a favourable draw, not a step change. The single engine win was brewline r2 (bespoke illustrated feature cards, a refined serif with an italic accent). Recurring judge complaints about the engine pages: product-mockup heroes with awkward empty gaps and cramped wrapping (payfold, atlas), generic flat illustrations in place of a specific hero object, and the standard card-grid layout. The atlas MCP agent kept the engine's own style pick (warm-human) for the first time, which is the style matcher working. The spec forbids external images for both arms, so the photo, logo-prompt and placeholder tools were not exercised. COST: engine arm tokens 99k-124k vs baseline 102k-127k, tool calls 16-25 vs 12-22, time 206-368 s vs 188-442 s: comparable. DEFECTS named by agents and judges (to fix): ui-kind hero mockups stretch their first column to the height of the second, leaving large vertical gaps; brief_template returns the generic template for brewery and some outdoor-hire categories. CONFOUNDS: one MCP agent made a stray out-of-scope create_session call (denied by the permission system, nothing created); the same agent wrote its QA scripts into the session's shared scratchpad; several agents deleted their own scratch files. NOT deployed to Vercel (no VERCEL_TOKEN in this environment).",
+  "briefs": [
+    "atlas",
+    "brewline",
+    "larkspur",
+    "payfold"
+  ],
+  "judgements": 8,
+  "wins": {
+    "baseline": 7,
+    "engine": 1
+  },
+  "engineWinRatePct": 13,
+  "engineJudgedMoreTemplateLike": 6,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 7.9,
+      "typography": 8,
+      "spacing": 7.3,
+      "colour": 7.9,
+      "product_visual": 7.5,
+      "mobile": 7.3,
+      "polish": 7.8,
+      "originality": 7
+    },
+    "engine": {
+      "hierarchy": 6.9,
+      "typography": 7.1,
+      "spacing": 6.4,
+      "colour": 6.9,
+      "product_visual": 6.5,
+      "mobile": 6.9,
+      "polish": 6.5,
+      "originality": 6.3
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.6,
+    "engine": 6.7
+  },
+  "automated": {
+    "baseline": {
+      "sites": 4,
+      "quality": 87,
+      "originalityScore": 87,
+      "slopScore": 87,
+      "slopFindings": 2,
+      "auditErrors": 2.8,
+      "auditWarnings": 6.5,
+      "neutralChecksPassed": "7/12",
+      "svgs": 7.8,
+      "fontFamilies": 2.3,
+      "distinctColors": 19.8,
+      "spacingOn4px": 82.8,
+      "sourceKB": 52.6
+    },
+    "engine": {
+      "sites": 4,
+      "quality": 95,
+      "originalityScore": 100,
+      "slopScore": 100,
+      "slopFindings": 0,
+      "auditErrors": 0,
+      "auditWarnings": 0,
+      "neutralChecksPassed": "8/12",
+      "svgs": 30.8,
+      "fontFamilies": 3,
+      "distinctColors": 13.8,
+      "spacingOn4px": 92.2,
+      "sourceKB": 109.1
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 4,
+    "tokens": "99,128-124,032 (baseline arm in the same run: 101,869-126,500)",
+    "toolCalls": "16-25 (baseline arm: 12-22)",
+    "seconds": "206-368 (baseline arm: 188-442)",
+    "perAgent": {
+      "larkspur": {
+        "tokens": 124032,
+        "toolCalls": 25,
+        "seconds": 368
+      },
+      "atlas": {
+        "tokens": 103904,
+        "toolCalls": 20,
+        "seconds": 295
+      },
+      "brewline": {
+        "tokens": 111257,
+        "toolCalls": 17,
+        "seconds": 206
+      },
+      "payfold": {
+        "tokens": 99128,
+        "toolCalls": 16,
+        "seconds": 226
+      }
+    }
+  }
+}

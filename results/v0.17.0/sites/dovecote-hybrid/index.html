@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dovecote Studios | Coworking in a Sheffield spinning mill</title>
+  <meta name="description" content="Hot desks, resident desks, lockable studios, a podcast booth, a darkroom and a members' kitchen in a converted Victorian spinning mill in Sheffield.">
+  <meta name="theme-color" content="#F5EFE4">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Main">
+      <a class="brand" href="#top" aria-label="Dovecote Studios, back to top">
+        <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+          <path d="M20 4 L36 16 V35 H4 V16 Z" fill="#A4472E"/>
+          <path d="M20 14 a4 4 0 1 1 0 8 a4 4 0 1 1 0 -8 Z" fill="#F5EFE4"/>
+          <rect x="4" y="34" width="32" height="2.5" fill="#1F1B17"/>
+        </svg>
+        <span>Dovecote<span class="brand-sub"> Studios</span></span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+        <span class="nav-toggle-label">Menu</span>
+        <span class="nav-toggle-icon" aria-hidden="true"><i></i><i></i></span>
+      </button>
+
+      <div class="nav-panel" id="site-menu">
+        <ul class="nav-links">
+          <li><a href="#spaces">Spaces</a></li>
+          <li><a href="#membership">Membership</a></li>
+          <li><a href="#community">Community</a></li>
+          <li><a href="#visit">Visit</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="nav-signin" href="#visit">Member sign-in</a>
+          <a class="btn btn-primary btn-small" href="#visit">Book a tour</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- 2. Hero -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Coworking in a 1868 spinning mill, Sheffield</p>
+          <h1 id="hero-title">Work from a mill built for <em>making things.</em></h1>
+          <p class="hero-sub">Dovecote Studios has hot desks on the north-light floor, resident bays with a locking drawer, four lockable studios, a podcast booth, a darkroom and a kitchen where the tea is never stale.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#visit">Book a tour</a>
+            <a class="btn btn-ghost" href="#pricing">Compare memberships</a>
+          </div>
+          <ul class="hero-meta">
+            <li>Free 40-minute walk-round</li>
+            <li>Open 7am to 11pm, every day</li>
+            <li>Neepsend, Sheffield</li>
+          </ul>
+        </div>
+
+        <figure class="hero-visual">
+          <svg viewBox="0 0 640 500" role="img" aria-labelledby="plan-title plan-desc">
+            <title id="plan-title">Level 2 floor plan of Dovecote Mill</title>
+            <desc id="plan-desc">Hot desks in four rows, six resident bays with bay 14 highlighted, four numbered studios, a podcast booth, a darkroom, the kitchen, the hall and the stair.</desc>
+            <defs>
+              <g id="desk"><rect width="30" height="18" rx="2"/><circle cx="15" cy="28" r="5"/></g>
+              <g id="bay"><rect width="30" height="56" rx="2"/></g>
+              <g id="lock"><rect x="0" y="6" width="10" height="8" rx="1.5"/><path d="M2.5 6V4a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></g>
+              <g id="win"><rect width="28" height="6"/></g>
+            </defs>
+
+            <rect width="640" height="500" fill="#EFE6D6"/>
+            <rect x="28" y="28" width="584" height="424" fill="#FBF7EF" stroke="#1F1B17" stroke-width="3"/>
+
+            <g fill="#B9D3CF" stroke="none">
+              <use href="#win" x="64" y="22"/><use href="#win" x="112" y="22"/><use href="#win" x="160" y="22"/><use href="#win" x="208" y="22"/>
+              <use href="#win" x="256" y="22"/><use href="#win" x="304" y="22"/><use href="#win" x="352" y="22"/><use href="#win" x="400" y="22"/>
+              <use href="#win" x="448" y="22"/><use href="#win" x="496" y="22"/><use href="#win" x="544" y="22"/>
+              <use href="#win" x="64" y="446"/><use href="#win" x="112" y="446"/><use href="#win" x="160" y="446"/><use href="#win" x="208" y="446"/>
+              <use href="#win" x="256" y="446"/><use href="#win" x="304" y="446"/><use href="#win" x="352" y="446"/><use href="#win" x="400" y="446"/>
+            </g>
+
+            <path d="M28 14H612M28 9V19M612 9V19" stroke="#1F1B17" stroke-width="1"/>
+            <text x="320" y="10" text-anchor="middle" class="plan-dim">38.4 m</text>
+
+            <!-- Hot desk floor -->
+            <rect x="44" y="44" width="380" height="300" fill="#F6E6CF"/>
+            <text x="56" y="66" class="plan-lbl">HOT DESKS · 32</text>
+            <g stroke="#1F1B17" stroke-width="1.2">
+              <g fill="#B9784A" stroke="none">
+                <use href="#desk" x="64" y="92"/><use href="#desk" x="108" y="92"/><use href="#desk" x="196" y="92"/><use href="#desk" x="240" y="92"/><use href="#desk" x="284" y="92"/><use href="#desk" x="372" y="92"/>
+                <use href="#desk" x="64" y="152"/><use href="#desk" x="152" y="152"/><use href="#desk" x="196" y="152"/><use href="#desk" x="284" y="152"/><use href="#desk" x="328" y="152"/>
+                <use href="#desk" x="64" y="212"/><use href="#desk" x="108" y="212"/><use href="#desk" x="152" y="212"/><use href="#desk" x="240" y="212"/><use href="#desk" x="328" y="212"/><use href="#desk" x="372" y="212"/>
+                <use href="#desk" x="108" y="272"/><use href="#desk" x="196" y="272"/><use href="#desk" x="240" y="272"/><use href="#desk" x="284" y="272"/><use href="#desk" x="328" y="272"/>
+              </g>
+              <g fill="#FBF7EF">
+                <use href="#desk" x="152" y="92"/><use href="#desk" x="240" y="92"/><use href="#desk" x="328" y="92"/>
+                <use href="#desk" x="108" y="152"/><use href="#desk" x="240" y="152"/><use href="#desk" x="284" y="152"/><use href="#desk" x="372" y="152"/>
+                <use href="#desk" x="196" y="212"/><use href="#desk" x="284" y="212"/>
+                <use href="#desk" x="64" y="272"/><use href="#desk" x="152" y="272"/><use href="#desk" x="372" y="272"/>
+              </g>
+            </g>
+
+            <!-- Resident bays -->
+            <rect x="44" y="352" width="236" height="92" fill="#E3EAD9"/>
+            <text x="56" y="367" class="plan-lbl">RESIDENT BAYS · 24</text>
+            <use href="#bay" x="56" y="376" fill="#DCE6D6" stroke="#1F1B17" stroke-width="1.2"/>
+            <use href="#bay" x="92" y="376" fill="#A4472E" stroke="#1F1B17" stroke-width="1.2"/>
+            <use href="#bay" x="128" y="376" fill="#DCE6D6" stroke="#1F1B17" stroke-width="1.2"/>
+            <use href="#bay" x="164" y="376" fill="#DCE6D6" stroke="#1F1B17" stroke-width="1.2"/>
+            <use href="#bay" x="200" y="376" fill="#DCE6D6" stroke="#1F1B17" stroke-width="1.2"/>
+            <use href="#bay" x="236" y="376" fill="#DCE6D6" stroke="#1F1B17" stroke-width="1.2"/>
+            <text x="71" y="410" class="plan-num">13</text>
+            <text x="107" y="410" class="plan-num plan-num--light">14</text>
+            <text x="143" y="410" class="plan-num">15</text>
+            <text x="179" y="410" class="plan-num">16</text>
+            <text x="215" y="410" class="plan-num">17</text>
+            <text x="251" y="410" class="plan-num">18</text>
+
+            <!-- Studios -->
+            <rect x="440" y="44" width="78" height="72" fill="#FFFFFF" stroke="#1F1B17" stroke-width="1.5"/>
+            <rect x="522" y="44" width="78" height="72" fill="#FFFFFF" stroke="#1F1B17" stroke-width="1.5"/>
+            <rect x="440" y="120" width="78" height="72" fill="#FFFFFF" stroke="#1F1B17" stroke-width="1.5"/>
+            <rect x="522" y="120" width="78" height="72" fill="#FFFFFF" stroke="#1F1B17" stroke-width="1.5"/>
+            <text x="450" y="62" class="plan-lbl">STUDIO 1</text>
+            <text x="532" y="62" class="plan-lbl">STUDIO 2</text>
+            <text x="450" y="138" class="plan-lbl">STUDIO 3</text>
+            <text x="532" y="138" class="plan-lbl">STUDIO 4</text>
+            <use href="#lock" x="486" y="88" fill="#1F1B17" color="#1F1B17"/>
+            <use href="#lock" x="568" y="88" fill="#1F1B17" color="#1F1B17"/>
+            <use href="#lock" x="486" y="164" fill="#1F1B17" color="#1F1B17"/>
+            <use href="#lock" x="568" y="164" fill="#1F1B17" color="#1F1B17"/>
+
+            <!-- Podcast booth and darkroom -->
+            <rect x="440" y="200" width="78" height="72" fill="#EADCC6" stroke="#1F1B17" stroke-width="1.5"/>
+            <text x="450" y="218" class="plan-lbl">PODCAST</text>
+            <text x="450" y="230" class="plan-lbl">BOOTH</text>
+            <rect x="469" y="236" width="10" height="16" rx="5" fill="#1F1B17"/>
+            <path d="M462 246 q0 12 15 12 q15 0 15 -12" fill="none" stroke="#1F1B17" stroke-width="2"/>
+            <path d="M476 260 V266" stroke="#1F1B17" stroke-width="2"/>
+
+            <rect x="522" y="200" width="78" height="72" fill="#7A2F20" stroke="#1F1B17" stroke-width="1.5"/>
+            <text x="532" y="218" class="plan-lbl plan-lbl--light">DARKROOM</text>
+            <circle cx="561" cy="249" r="9" fill="#E9A25C"/>
+            <circle cx="561" cy="249" r="14" fill="#E9A25C" opacity="0.25"/>
+
+            <!-- Kitchen -->
+            <rect x="440" y="280" width="160" height="64" fill="#DDE6D4" stroke="#1F1B17" stroke-width="1.5"/>
+            <text x="450" y="298" class="plan-lbl">KITCHEN</text>
+            <rect x="456" y="306" width="128" height="12" rx="2" fill="#B9784A"/>
+            <g fill="#FBF7EF" stroke="#1F1B17" stroke-width="1">
+              <circle cx="470" cy="332" r="4.5"/><circle cx="500" cy="332" r="4.5"/><circle cx="530" cy="332" r="4.5"/><circle cx="560" cy="332" r="4.5"/>
+            </g>
+
+            <!-- The hall -->
+            <rect x="288" y="352" width="136" height="92" fill="#F3EADC" stroke="#1F1B17" stroke-width="1.5"/>
+            <text x="298" y="368" class="plan-lbl">THE HALL · 60</text>
+            <g fill="#FBF7EF" stroke="#1F1B17" stroke-width="1.2">
+              <circle cx="316" cy="396" r="8"/><circle cx="352" cy="396" r="8"/><circle cx="388" cy="396" r="8"/>
+              <circle cx="334" cy="424" r="8"/><circle cx="372" cy="424" r="8"/><circle cx="408" cy="424" r="8"/>
+            </g>
+
+            <!-- Stair and lift -->
+            <rect x="440" y="352" width="160" height="92" fill="#E6DCCB" stroke="#1F1B17" stroke-width="1.5"/>
+            <path d="M448 362H592M448 371H592M448 380H592M448 389H592M448 398H592M448 407H592" stroke="#1F1B17" stroke-width="0.8" opacity="0.5"/>
+            <rect x="450" y="420" width="92" height="16" fill="#FBF7EF"/>
+            <text x="456" y="432" class="plan-lbl">STAIR · LIFT</text>
+
+            <!-- Key and legend -->
+            <text x="40" y="482" class="plan-tb">DOVECOTE MILL · LEVEL 2 · GENERAL ARRANGEMENT</text>
+            <rect x="384" y="472" width="12" height="10" fill="#B9784A"/>
+            <text x="402" y="481" class="plan-tb">TAKEN</text>
+            <rect x="454" y="472" width="12" height="10" fill="#FBF7EF" stroke="#1F1B17"/>
+            <text x="472" y="481" class="plan-tb">FREE</text>
+            <rect x="514" y="472" width="12" height="10" fill="#A4472E"/>
+            <text x="532" y="481" class="plan-tb">YOUR BAY</text>
+          </svg>
+
+          <div class="member-card" aria-hidden="true">
+            <p class="mc-kicker">Resident desk</p>
+            <p class="mc-title">Bay 14, north light</p>
+            <dl>
+              <dt>Member since</dt><dd>March 2023</dd>
+              <dt>Fob</dt><dd>ending 0412</dd>
+              <dt>Next</dt><dd>Tuesday breakfast, 8:30</dd>
+            </dl>
+          </div>
+          <figcaption class="hero-caption">Level 2 at Dovecote Mill: 32 hot desks, 24 resident bays, four lockable studios, the hall and the darkroom.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3. Social proof strip -->
+    <section class="proof" aria-label="Members and partners">
+      <div class="wrap proof-inner">
+        <p class="proof-label">Home to makers, practices and small teams, including</p>
+        <ul class="proof-names">
+          <li>Wicker &amp; Wren</li>
+          <li>Attercliffe Bindery</li>
+          <li>Fulwood Field Recordings</li>
+          <li>Millrace Bakehouse</li>
+          <li>Hale &amp; Lowther Architects</li>
+          <li>Ember &amp; Tern Films</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. Features / offer -->
+    <section class="section" id="spaces" aria-labelledby="spaces-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Spaces</p>
+          <h2 id="spaces-title">Six rooms, one mill, and nothing you have to carry up the stairs twice.</h2>
+          <p class="lede">Everything at Dovecote is booked by the day, the month or the hour, so you pay for the room you use and nothing more.</p>
+        </div>
+
+        <ul class="feature-grid">
+          <li class="feature">
+            <svg viewBox="0 0 120 84" aria-hidden="true" focusable="false">
+              <rect x="10" y="58" width="100" height="6" rx="2" fill="#1F1B17"/>
+              <rect x="30" y="64" width="4" height="16" fill="#1F1B17"/><rect x="86" y="64" width="4" height="16" fill="#1F1B17"/>
+              <rect x="44" y="30" width="32" height="22" rx="2" fill="#1F1B17"/>
+              <rect x="50" y="34" width="20" height="14" fill="#E9B872"/>
+              <rect x="38" y="52" width="44" height="5" rx="2" fill="#B9784A"/>
+              <path d="M96 58 L100 30" stroke="#1F1B17" stroke-width="2.5" fill="none"/>
+              <path d="M92 30 L108 30 L100 20 Z" fill="#E9B872"/>
+              <rect x="10" y="50" width="14" height="8" rx="1.5" fill="#A4472E"/>
+              <path d="M17 50 V40 M17 40 q-8 -2 -9 -10 q8 0 9 10 q6 -8 9 -9 q-2 8 -9 9" stroke="#5C6B52" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </svg>
+            <h3>Hot desks</h3>
+            <p>Sit wherever the light is. Thirty-two hot desks on the north-light floor, bookable by the day or the month, each with a second screen and a lamp that works.</p>
+            <p class="tag">32 desks · from £24 a day</p>
+          </li>
+
+          <li class="feature">
+            <svg viewBox="0 0 120 84" aria-hidden="true" focusable="false">
+              <rect x="10" y="40" width="100" height="6" rx="2" fill="#1F1B17"/>
+              <rect x="22" y="46" width="34" height="30" rx="2" fill="#B9784A"/>
+              <path d="M22 56h34M22 66h34" stroke="#7A4A27" stroke-width="1.5"/>
+              <circle cx="39" cy="51" r="2" fill="#1F1B17"/>
+              <rect x="92" y="46" width="4" height="30" fill="#1F1B17"/>
+              <rect x="64" y="46" width="2" height="30" fill="#1F1B17"/>
+              <rect x="60" y="22" width="36" height="12" rx="2" fill="#FBF7EF" stroke="#1F1B17" stroke-width="1.5"/>
+              <rect x="66" y="27" width="24" height="2" fill="#1F1B17"/>
+            </svg>
+            <h3>Resident desks</h3>
+            <p>A bay that stays yours. Each has a locking pedestal drawer, your name on the nameplate and a mailbox for post that actually arrives on time.</p>
+            <p class="tag">24 bays · from £262 a month</p>
+          </li>
+
+          <li class="feature">
+            <svg viewBox="0 0 120 84" aria-hidden="true" focusable="false">
+              <rect x="30" y="8" width="60" height="70" rx="3" fill="#FBF7EF" stroke="#1F1B17" stroke-width="2"/>
+              <rect x="40" y="18" width="40" height="22" fill="none" stroke="#1F1B17" stroke-width="1.5"/>
+              <rect x="40" y="46" width="40" height="22" fill="none" stroke="#1F1B17" stroke-width="1.5"/>
+              <circle cx="80" cy="50" r="3" fill="#E9B872"/>
+              <rect x="96" y="40" width="16" height="14" rx="2" fill="#A4472E"/>
+              <path d="M99 40 v-6 a5 5 0 0 1 10 0 v6" fill="none" stroke="#A4472E" stroke-width="3"/>
+            </svg>
+            <h3>Private studios</h3>
+            <p>Four lockable rooms for one to four people, with sound-treated walls, a door that shuts properly and keyfob access at any hour for late deadlines.</p>
+            <p class="tag">4 studios · from £476 a month</p>
+          </li>
+
+          <li class="feature">
+            <svg viewBox="0 0 120 84" aria-hidden="true" focusable="false">
+              <rect x="10" y="10" width="100" height="64" rx="6" fill="#EADCC6"/>
+              <rect x="50" y="22" width="20" height="28" rx="10" fill="#1F1B17"/>
+              <path d="M40 40 q0 16 20 16 q20 0 20 -16" fill="none" stroke="#1F1B17" stroke-width="2.5"/>
+              <path d="M60 56 V68" stroke="#1F1B17" stroke-width="2.5"/>
+              <path d="M30 26 q-6 10 0 20 M90 26 q6 10 0 20" fill="none" stroke="#A4472E" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <h3>Podcast booth</h3>
+            <p>A treated booth with two microphones, a small mixing desk and a sofa for guests. Recording sessions are booked in half-hour blocks, so no one waits.</p>
+            <p class="tag">Booked by the half hour</p>
+          </li>
+
+          <li class="feature">
+            <svg viewBox="0 0 120 84" aria-hidden="true" focusable="false">
+              <rect x="8" y="4" width="104" height="76" rx="6" fill="#3B1A14"/>
+              <circle cx="96" cy="18" r="7" fill="#E9A25C"/>
+              <path d="M44 14 H76 L70 30 H50 Z" fill="#F5EFE4"/>
+              <rect x="58" y="30" width="4" height="18" fill="#F5EFE4"/>
+              <path d="M50 30 L40 50 H76 L70 30 Z" fill="#E9A25C" opacity="0.2"/>
+              <rect x="30" y="50" width="60" height="14" rx="2" fill="#F5EFE4"/>
+              <rect x="40" y="54" width="40" height="6" fill="#B98C7A"/>
+            </svg>
+            <h3>Darkroom</h3>
+            <p>A working black-and-white darkroom with two enlargers, a wet bench and red safelight. A thirty-minute induction comes before your first session.</p>
+            <p class="tag">2 enlargers · induction required</p>
+          </li>
+
+          <li class="feature">
+            <svg viewBox="0 0 120 84" aria-hidden="true" focusable="false">
+              <rect x="6" y="6" width="108" height="72" rx="6" fill="#DDE6D4"/>
+              <path d="M26 66 V40 Q26 24 42 24 Q58 24 58 40 V66 Z" fill="#A4472E"/>
+              <path d="M58 56 L72 44" stroke="#A4472E" stroke-width="5" stroke-linecap="round"/>
+              <path d="M30 30 Q42 14 54 30" stroke="#1F1B17" stroke-width="3" fill="none"/>
+              <rect x="20" y="66" width="44" height="4" fill="#1F1B17"/>
+              <rect x="76" y="50" width="14" height="16" rx="2" fill="#FBF7EF" stroke="#1F1B17" stroke-width="1.5"/>
+              <rect x="94" y="50" width="14" height="16" rx="2" fill="#FBF7EF" stroke="#1F1B17" stroke-width="1.5"/>
+              <path d="M81 44 q-3 -4 0 -8 M99 44 q-3 -4 0 -8" stroke="#5C6B52" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </svg>
+            <h3>Members' kitchen</h3>
+            <p>A long table, proper milk and a tea shelf restocked every morning. The Friday cake is the reason half the building comes in before nine.</p>
+            <p class="tag">Open 7am to 11pm, seven days</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. How membership works -->
+    <section class="section section-alt" id="membership" aria-labelledby="membership-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Membership</p>
+          <h2 id="membership-title">How membership works, in three steps</h2>
+          <p class="lede">Most people are settled in within a week. You never need a contract to come and look.</p>
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Walk the floor</h3>
+            <p>Book a 40-minute tour with Maren or Tomasz at the front desk. We show you the darkroom and the booth too, even if you only came for a desk.</p>
+            <div class="step-meter" aria-hidden="true"><span style="--start: 0%; --len: 3%"></span></div>
+            <p class="step-when"><strong>40 minutes</strong> at 10am, 2pm or 5pm</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>Choose your room</h3>
+            <p>A hot desk, a resident bay or one of the four studios. Moving between them is free in your first 30 days, and a resident bay can be paused for up to two months.</p>
+            <div class="step-meter" aria-hidden="true"><span style="--start: 3%; --len: 97%"></span></div>
+            <p class="step-when"><strong>Up to 30 days</strong> free to change your mind</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Collect your fob</h3>
+            <p>Your fob and kitchen key are ready within one working day. Bring your laptop; the Tuesday breakfast rota and the wifi password are on the wall by the lift.</p>
+            <div class="step-meter" aria-hidden="true"><span style="--start: 3%; --len: 4%"></span></div>
+            <p class="step-when"><strong>1 working day</strong> from signing to your first morning</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 6. Metrics band -->
+    <section class="metrics" aria-labelledby="metrics-title">
+      <div class="wrap">
+        <h2 class="visually-hidden" id="metrics-title">Dovecote in numbers</h2>
+        <ul class="metric-grid">
+          <li>
+            <p class="metric-value">60</p>
+            <p class="metric-label">desks, bays and studios across two floors</p>
+            <div class="dots" data-dots="60" data-lit="60" aria-hidden="true"></div>
+          </li>
+          <li>
+            <p class="metric-value">340</p>
+            <p class="metric-label">members, from sole traders to teams of twelve</p>
+            <div class="dots dots--fine" data-dots="340" data-lit="340" aria-hidden="true"></div>
+          </li>
+          <li>
+            <p class="metric-value">7</p>
+            <p class="metric-label">days of fresh tea a week, brewed by 7am</p>
+            <div class="days" data-days aria-hidden="true"></div>
+          </li>
+          <li>
+            <p class="metric-value">16</p>
+            <p class="metric-label">hours a day open, from 7am to 11pm</p>
+            <div class="hours" data-hours aria-hidden="true"></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7. Testimonials -->
+    <section class="section" id="community" aria-labelledby="community-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Community</p>
+          <h2 id="community-title">Members on the mill floor</h2>
+          <p class="lede">Three people who have been here long enough to hold opinions about the biscuits.</p>
+        </div>
+        <ul class="quotes">
+          <li>
+            <figure class="quote">
+              <blockquote>
+                <p>The darkroom is why I came to look at the building. The top floor is why I stayed: nobody talks before ten, and the light off the north windows is extraordinary.</p>
+              </blockquote>
+              <figcaption><strong>Ines Carrow</strong>, documentary photographer<br>Resident desk since 2022</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="quote">
+              <blockquote>
+                <p>We are a four-person practice. The studio gives us a door that closes and a table that doesn't wobble, and the front desk remembers all our names.</p>
+              </blockquote>
+              <figcaption><strong>Rosie Hale</strong>, founder, Hale &amp; Lowther Architects<br>Private Studio since 2024</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="quote">
+              <blockquote>
+                <p>I booked a day desk in January to finish a script and recorded my first episode in the booth by March. Tomasz set up the microphones before I had finished my tea.</p>
+              </blockquote>
+              <figcaption><strong>Tom Ashdown</strong>, host, Fulwood Field Recordings<br>Day Desk, then Podcast booth regular</figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8. Pricing -->
+    <section class="section section-alt" id="pricing" aria-labelledby="pricing-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pricing</p>
+          <h2 id="pricing-title">Three ways to work here</h2>
+          <p class="lede">Prices are per space, per month, before VAT. Switch to annual billing to save 15% on every tier.</p>
+        </div>
+
+        <div class="billing" role="group" aria-label="Billing period">
+          <button type="button" data-billing="monthly" aria-pressed="true">Monthly</button>
+          <button type="button" data-billing="annual" aria-pressed="false">Annual <span class="save">save 15%</span></button>
+        </div>
+        <p class="visually-hidden" id="billing-status" aria-live="polite"></p>
+
+        <ul class="tiers">
+          <li class="tier">
+            <h3>Day Desk</h3>
+            <p class="tier-desc">A hot desk on the north-light floor, Monday to Friday.</p>
+            <div class="tier-viz tier-viz--days" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span class="off">Sat</span><span class="off">Sun</span></div>
+            <p class="price"><span class="price-amount" data-monthly="195" data-annual="165">£195</span><span class="price-unit">/ month</span></p>
+            <p class="price-note" data-monthly-note="Rolling monthly, cancel with 30 days' notice." data-annual-note="Billed £1,980 a year, fixed for 12 months."></p>
+            <ul>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Hot desk, 8am to 8pm, Monday to Friday</li>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Kitchen, fast wifi and a personal locker</li>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Two booth or darkroom hours a month</li>
+            </ul>
+            <a class="btn btn-ghost" href="#visit">Start with Day Desk</a>
+          </li>
+
+          <li class="tier tier--featured">
+            <span class="tier-badge">Most members choose this</span>
+            <h3>Resident Desk</h3>
+            <p class="tier-desc">Your own bay with a locking drawer, and 24-hour access.</p>
+            <div class="tier-viz tier-viz--bays" aria-hidden="true"><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span></div>
+            <p class="price"><span class="price-amount" data-monthly="310" data-annual="262">£310</span><span class="price-unit">/ month</span></p>
+            <p class="price-note" data-monthly-note="Rolling monthly, cancel with 30 days' notice." data-annual-note="Billed £3,144 a year, fixed for 12 months."></p>
+            <ul>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bay 13 to 18 on the north-light floor</li>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Locking pedestal drawer and a monthly mailbox</li>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Four studio hours and the hall table</li>
+            </ul>
+            <a class="btn btn-light" href="#visit">Start with Resident Desk</a>
+          </li>
+
+          <li class="tier">
+            <h3>Private Studio</h3>
+            <p class="tier-desc">A lockable room for one to four people, with its own key.</p>
+            <div class="tier-viz tier-viz--studios" aria-hidden="true"><span>Studio 1</span><span>Studio 2</span><span>Studio 3</span><span>Studio 4</span></div>
+            <p class="price"><span class="price-amount" data-monthly="560" data-annual="476">£560</span><span class="price-unit">/ month</span></p>
+            <p class="price-note" data-monthly-note="Rolling monthly, cancel with 30 days' notice." data-annual-note="Billed £5,712 a year, fixed for 12 months."></p>
+            <ul>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Studio 1, 2, 3 or 4, with 24-hour keyfob access</li>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Podcast booth included at no extra charge</li>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Two guest passes and bike store access</li>
+            </ul>
+            <a class="btn btn-ghost" href="#visit">Start with Private Studio</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 9. FAQ -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap faq-wrap">
+        <div class="section-head">
+          <p class="eyebrow">Questions</p>
+          <h2 id="faq-title">What the front desk gets asked most</h2>
+        </div>
+
+        <div class="faq">
+          <div class="faq-item">
+            <h3 class="faq-q"><button class="faq-btn" type="button" id="faq-btn-1" aria-expanded="true" aria-controls="faq-panel-1"><span>Can I come in for a single day?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3>
+            <div class="faq-panel" id="faq-panel-1" role="region" aria-labelledby="faq-btn-1">
+              <p>Yes. Day passes are £24 and bookable in the members' app or at the front desk. They cover any hot desk that is free that day, from 8am to 8pm.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q"><button class="faq-btn" type="button" id="faq-btn-2" aria-expanded="false" aria-controls="faq-panel-2"><span>How do I get in outside opening hours?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3>
+            <div class="faq-panel" id="faq-panel-2" role="region" aria-labelledby="faq-btn-2" hidden>
+              <p>Resident and studio members get a fob for the street door and their own room, both working around the clock. Day Desk fobs open the street door from 7am to 11pm.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q"><button class="faq-btn" type="button" id="faq-btn-3" aria-expanded="false" aria-controls="faq-panel-3"><span>Is there a minimum term?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3>
+            <div class="faq-panel" id="faq-panel-3" role="region" aria-labelledby="faq-btn-3" hidden>
+              <p>Monthly memberships roll and need 30 days' notice to end. Annual plans are billed up front and fixed for twelve months, which is what most resident members choose.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q"><button class="faq-btn" type="button" id="faq-btn-4" aria-expanded="false" aria-controls="faq-panel-4"><span>Can I book the darkroom and the podcast booth?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3>
+            <div class="faq-panel" id="faq-panel-4" role="region" aria-labelledby="faq-btn-4" hidden>
+              <p>Both are booked by the hour through the members' app. Resident and studio members use them free for their included hours; Day Desk members pay £8 an hour. The darkroom needs a thirty-minute induction first, usually on a Thursday evening.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q"><button class="faq-btn" type="button" id="faq-btn-5" aria-expanded="false" aria-controls="faq-panel-5"><span>Where do I park and store my bike?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3>
+            <div class="faq-panel" id="faq-panel-5" role="region" aria-labelledby="faq-btn-5" hidden>
+              <p>There is no car park on site. Street parking on the roads around the mill is free after 6pm. A secure store in the lower yard holds 40 bikes, and every member gets a space.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q"><button class="faq-btn" type="button" id="faq-btn-6" aria-expanded="false" aria-controls="faq-panel-6"><span>Can I bring a client or a dog?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3>
+            <div class="faq-panel" id="faq-panel-6" role="region" aria-labelledby="faq-btn-6" hidden>
+              <p>Clients are welcome in the hall and the kitchen, and studio members get two guest passes a month. Well-behaved dogs are welcome on the ground floor, but not in the darkroom or the studios.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Final CTA -->
+    <section class="final" id="visit" aria-labelledby="visit-title">
+      <div class="wrap final-grid">
+        <div>
+          <p class="eyebrow eyebrow--light">Visit</p>
+          <h2 id="visit-title">Come and sit in the room first.</h2>
+          <p class="final-lede">Tours take 40 minutes, run at 10am, 2pm and 5pm on weekdays, and finish with a cup of tea in the kitchen. No pitch and no lock-in.</p>
+          <div class="cta-row">
+            <a class="btn btn-forest" href="#visit">Book a tour</a>
+            <a class="btn btn-ghost btn-ghost--light" href="tel:+441140000142">Call the front desk</a>
+          </div>
+        </div>
+        <div class="visit-side">
+        <div class="week-ticket" aria-labelledby="week-title">
+          <p class="wt-kicker">This week at the mill</p>
+          <h3 id="week-title">Four things on the calendar</h3>
+          <ol class="wt-list">
+            <li><time>Mon 10:00</time><span>Walk-round tour with Maren<small>40 minutes, meet at the front desk</small></span></li>
+            <li><time>Tue 08:30</time><span>Members' breakfast<small>In the kitchen, bring a cake if you can</small></span></li>
+            <li><time>Thu 18:00</time><span>Darkroom induction<small>30 minutes, then your first session is free</small></span></li>
+            <li><time>Fri 15:00</time><span>Cake and show-and-tell<small>In the hall, open to every member</small></span></li>
+          </ol>
+        </div>
+        <dl class="visit-details">
+          <div>
+            <dt>Address</dt>
+            <dd>Dovecote Mill, Neepsend, Sheffield</dd>
+          </div>
+          <div>
+            <dt>Opening hours</dt>
+            <dd>Members in daily, 7am to 11pm. Front desk 8am to 6pm, Monday to Friday.</dd>
+          </div>
+          <div>
+            <dt>Phone</dt>
+            <dd>0114 000 0142</dd>
+          </div>
+          <div>
+            <dt>Already a member?</dt>
+            <dd>Sign in with your fob code at the front desk or in the members' app.</dd>
+          </div>
+        </dl>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand brand--light" href="#top">
+          <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <path d="M20 4 L36 16 V35 H4 V16 Z" fill="#A4472E"/>
+            <path d="M20 14 a4 4 0 1 1 0 8 a4 4 0 1 1 0 -8 Z" fill="#F5EFE4"/>
+            <rect x="4" y="34" width="32" height="2.5" fill="#F5EFE4"/>
+          </svg>
+          <span>Dovecote Studios</span>
+        </a>
+        <p>Coworking in a converted spinning mill in Sheffield, open every day for the people who make things here.</p>
+      </div>
+      <nav class="footer-col" aria-labelledby="foot-spaces">
+        <h2 id="foot-spaces" class="footer-title">Spaces</h2>
+        <ul>
+          <li><a href="#spaces">Hot desks</a></li>
+          <li><a href="#spaces">Resident desks</a></li>
+          <li><a href="#spaces">Private studios</a></li>
+          <li><a href="#spaces">Podcast booth</a></li>
+          <li><a href="#spaces">Darkroom</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-labelledby="foot-membership">
+        <h2 id="foot-membership" class="footer-title">Membership</h2>
+        <ul>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#membership">How membership works</a></li>
+          <li><a href="#faq">Questions</a></li>
+          <li><a href="#community">Member stories</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-labelledby="foot-visit">
+        <h2 id="foot-visit" class="footer-title">Visit</h2>
+        <ul>
+          <li><a href="#visit">Book a tour</a></li>
+          <li><a href="#visit">Getting here</a></li>
+          <li><a href="#visit">Member sign-in</a></li>
+          <li><a href="#top">Back to top</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="wrap legal">
+      <p>© 2026 Dovecote Studios Ltd. Registered in England and Wales, company no. 08123456. Dovecote Mill, Neepsend, Sheffield.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

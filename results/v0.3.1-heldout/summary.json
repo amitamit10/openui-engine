@@ -1,0 +1,103 @@
+{
+  "release": "v0.3.1-heldout",
+  "note": "FRESH, HELD-OUT run: four briefs the engine was never tuned on (pawpath vet network, summitworks climbing gym, freightly freight tracking, parlato Italian tutoring), new Haiku 5.5 builders for both arms using the original builder prompts verbatim, the engine as of the feature-rows commit, then blind pairwise judging. This is the cleanest evidence in the repo. CONFOUNDS: (1) the parlato and freightly engine agents hit a real bug (feature-rows silently dropped the 5th feature, which the spec requires) and hand-added it (parlato in HTML; freightly via page.json plus rebuild_project and a manual copy of dist/ into site/; freightly also swapped one chart visual for a table after a renderer crash); parlato also hand-edited the features heading. (2) I rebuilt the engine dist while the summitworks engine agent was still running, so part of that run used a newer build. (3) The fixes for the dropped feature, the chart crash and rebuild_project deploy are in later commits and are NOT reflected in these sites. (4) The shared scratchpad let one baseline agent's check script be overwritten by another's.",
+  "briefs": [
+    "freightly",
+    "parlato",
+    "pawpath",
+    "summitworks"
+  ],
+  "judgements": 8,
+  "wins": {
+    "baseline": 7,
+    "engine": 1
+  },
+  "engineWinRatePct": 13,
+  "engineJudgedMoreTemplateLike": 5,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 7.9,
+      "typography": 7.6,
+      "spacing": 7.1,
+      "colour": 7.9,
+      "product_visual": 7.8,
+      "mobile": 7.1,
+      "polish": 7.5,
+      "originality": 7
+    },
+    "engine": {
+      "hierarchy": 6.1,
+      "typography": 6.4,
+      "spacing": 5.6,
+      "colour": 6.4,
+      "product_visual": 6.6,
+      "mobile": 6,
+      "polish": 5.8,
+      "originality": 5.6
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.5,
+    "engine": 6.1
+  },
+  "automated": {
+    "baseline": {
+      "sites": 4,
+      "quality": 85.5,
+      "originalityScore": 94.5,
+      "slopScore": 94.5,
+      "slopFindings": 1.5,
+      "auditErrors": 4,
+      "auditWarnings": 5.3,
+      "neutralChecksPassed": "10/12",
+      "svgs": 10.5,
+      "fontFamilies": 2,
+      "distinctColors": 18,
+      "spacingOn4px": 74.1,
+      "sourceKB": 59.3
+    },
+    "engine": {
+      "sites": 4,
+      "quality": 95,
+      "originalityScore": 100,
+      "slopScore": 100,
+      "slopFindings": 0,
+      "auditErrors": 0,
+      "auditWarnings": 0,
+      "neutralChecksPassed": "12/12",
+      "svgs": 31.3,
+      "fontFamilies": 3,
+      "distinctColors": 13.3,
+      "spacingOn4px": 89,
+      "sourceKB": 83.4
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 4,
+    "tokens": "80,420-95,448",
+    "toolCalls": "21-29",
+    "seconds": "263-488",
+    "perAgent": {
+      "pawpath": {
+        "tokens": 80420,
+        "toolCalls": 21,
+        "seconds": 263
+      },
+      "parlato": {
+        "tokens": 95448,
+        "toolCalls": 26,
+        "seconds": 279
+      },
+      "freightly": {
+        "tokens": 91242,
+        "toolCalls": 29,
+        "seconds": 364
+      },
+      "summitworks": {
+        "tokens": 87330,
+        "toolCalls": 29,
+        "seconds": 488
+      }
+    }
+  }
+}

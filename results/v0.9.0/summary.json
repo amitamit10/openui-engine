@@ -1,0 +1,103 @@
+{
+  "release": "v0.9.0",
+  "note": "Controlled benchmark of the engine at commit fe2959d (v0.8.0 plus swiss-grid, testimonial-wall, schedule and category fixes, a deeper two-tone secondary accent, and gate checks for invisible text and empty grid holes). Haiku 5.5 without vs with the MCP, identical SPEC.md, same 60-call budget, four never-seen domains (foxglove florist, kestrel credit union, cadenza music academy, podhaven podcast hosting), engine frozen for the run. RESULT: engine 0/8, judged more template-like in 8/8; a regression from v0.8.0 (2/8) and the worst since v0.5.1. Judges' recurring words for the engine pages: centred hero plus browser-frame mockup, beige and green palette, card grids, weak spacing and empty gaps (a hero card with a dead empty lower strip), abstract or blob feature illustrations; for the baselines: bolder serif headline, richer and more specific palette per brief (plum and apricot for the florist, green and amber for the credit union), a specific hero object (practice card with staff and keys, balance and loan cards, an episode dashboard). The agents again chose the older field-notes or editorial-paper styles by patch, so the new styles were barely exercised. The spec forbids external images for both arms, so the photo, logo-prompt and placeholder tools were not exercised. COST: engine arm tokens 105k-129k vs baseline 103k-120k, tool calls 18-40 vs 15-26. DEFECTS named by agents (to fix): features[].art given as an object was silently ignored (only a plain SVG string worked); the florist category fell through to the SaaS template; the engine tints alternate feature cards in a different hue (the new two-tone layer) which an agent read as inconsistent; a hero schedule visual rendered empty on a first attempt. CONFOUNDS: several agents deleted their own scratch files. NOT deployed to Vercel (no VERCEL_TOKEN in this environment).",
+  "briefs": [
+    "cadenza",
+    "foxglove",
+    "kestrel",
+    "podhaven"
+  ],
+  "judgements": 8,
+  "wins": {
+    "baseline": 8,
+    "engine": 0
+  },
+  "engineWinRatePct": 0,
+  "engineJudgedMoreTemplateLike": 8,
+  "judgeScores": {
+    "baseline": {
+      "hierarchy": 8,
+      "typography": 8.3,
+      "spacing": 7.5,
+      "colour": 8,
+      "product_visual": 7.9,
+      "mobile": 7,
+      "polish": 7.6,
+      "originality": 7.5
+    },
+    "engine": {
+      "hierarchy": 6.6,
+      "typography": 6.8,
+      "spacing": 6.5,
+      "colour": 6.5,
+      "product_visual": 6.8,
+      "mobile": 6.5,
+      "polish": 6.3,
+      "originality": 5.5
+    }
+  },
+  "judgeMeanOverall": {
+    "baseline": 7.7,
+    "engine": 6.4
+  },
+  "automated": {
+    "baseline": {
+      "sites": 4,
+      "quality": 86.3,
+      "originalityScore": 95.3,
+      "slopScore": 95.3,
+      "slopFindings": 1,
+      "auditErrors": 6,
+      "auditWarnings": 2.8,
+      "neutralChecksPassed": "9/12",
+      "svgs": 7.8,
+      "fontFamilies": 2,
+      "distinctColors": 18.8,
+      "spacingOn4px": 85.4,
+      "sourceKB": 55.4
+    },
+    "engine": {
+      "sites": 4,
+      "quality": 94,
+      "originalityScore": 95.5,
+      "slopScore": 95.5,
+      "slopFindings": 0.5,
+      "auditErrors": 0,
+      "auditWarnings": 0.3,
+      "neutralChecksPassed": "10/12",
+      "svgs": 30,
+      "fontFamilies": 3,
+      "distinctColors": 14.8,
+      "spacingOn4px": 89.6,
+      "sourceKB": 109.9
+    }
+  },
+  "engineAgentUsage": {
+    "agents": 4,
+    "tokens": "105,389-129,433 (baseline arm in the same run: 102,811-119,752)",
+    "toolCalls": "18-40 (baseline arm: 15-26)",
+    "seconds": "186-352 (baseline arm: 201-224)",
+    "perAgent": {
+      "foxglove": {
+        "tokens": 119956,
+        "toolCalls": 29,
+        "seconds": 324
+      },
+      "kestrel": {
+        "tokens": 106030,
+        "toolCalls": 18,
+        "seconds": 186
+      },
+      "cadenza": {
+        "tokens": 129433,
+        "toolCalls": 40,
+        "seconds": 352
+      },
+      "podhaven": {
+        "tokens": 105389,
+        "toolCalls": 25,
+        "seconds": 253
+      }
+    }
+  }
+}

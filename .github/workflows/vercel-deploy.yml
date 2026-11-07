@@ -1,0 +1,16 @@
+# Optional: deploy a generated static site (e.g. examples/saas-landing/dist) to Vercel.
+# Requires repository secrets VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID.
+name: Deploy to Vercel
+on: { workflow_dispatch: { inputs: { dir: { description: "Directory containing the static site", default: "examples/saas-landing/dist" } } } }
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npx vercel@latest deploy "${{ inputs.dir }}" --prod --yes --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

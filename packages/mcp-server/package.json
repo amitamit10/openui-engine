@@ -1,0 +1,31 @@
+{
+  "name": "@openui-engine/mcp-server",
+  "version": "0.6.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": "Amit Elgabsi <https://github.com/amitamit10>",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "bin": {
+    "openui-engine-mcp": "dist/cli.js",
+    "openui-engine-call": "dist/call.js"
+  },
+  "dependencies": {
+    "@openui-engine/core": "workspace:*",
+    "@openui-engine/verify": "workspace:*",
+    "@openui-engine/editor": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
+  }
+}

@@ -1,0 +1,5 @@
+{"pair":"wren-3way-r2","ranking":["Z","Y","X"],"most_template_like_label":"X",
+"X":{"hierarchy":7,"typography":7,"spacing":7,"colour":7,"product_visual":7,"mobile":7,"polish":7,"originality":5},
+"Y":{"hierarchy":8,"typography":8,"spacing":7,"colour":8,"product_visual":7,"mobile":7,"polish":7,"originality":8},
+"Z":{"hierarchy":8,"typography":8,"spacing":8,"colour":8,"product_visual":9,"mobile":8,"polish":8,"originality":9},
+"rationale":"Z has the most specific, data-rich product visuals (lab range sliders, visit timeline, booked/seen/home strips) and a strong editorial type pairing, making it the most distinctive and shippable. Y has a lovely serif italic voice and warm terracotta palette with a charming wren illustration, but its hero cards overlap awkwardly and the visuals are lighter. X is clean and competent but follows the familiar card-grid SaaS pattern with a tilted app card, making it the most template-like."}

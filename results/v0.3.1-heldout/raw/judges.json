@@ -1,0 +1,250 @@
+[
+ {
+  "pair": "freightly-baseline-vs-engine-r1",
+  "brief": "freightly",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "baseline",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 5
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 7,
+   "spacing": 5,
+   "colour": 8,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 7
+  },
+  "rationale": "X delivers a strong, polished hero with a specific live-board UI and clear hierarchy, but the dark navy with orange accent and card grids is a familiar SaaS template. Y has a more distinctive warm cream and green serif identity, but its hero mockup is broken, with cramped wrapped text in narrow cards, a large empty area and a clipped alert, and the layout is uneven. A design director would ship X for its polish, though Y is more original."
+ },
+ {
+  "pair": "freightly-baseline-vs-engine-r2",
+  "brief": "freightly",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "baseline",
+  "engine": {
+   "hierarchy": 5,
+   "typography": 6,
+   "spacing": 4,
+   "colour": 7,
+   "product_visual": 5,
+   "mobile": 5,
+   "polish": 4,
+   "originality": 7
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 7,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 6
+  },
+  "rationale": "Y has a strong hero with a convincing live-board visual (route map, shipment rows, alert), a clear hierarchy, consistent spacing and a well-executed dark/orange palette with illustrated feature cards. X has a warm, distinctive serif and cream palette, but its hero product card is cramped with awkwardly wrapping text, and spacing and feature visuals are weaker, so it looks less finished. Y is the more conventional dark SaaS look, but it is the one a design director would ship."
+ },
+ {
+  "pair": "parlato-baseline-vs-engine-r1",
+  "brief": "parlato",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 5,
+   "colour": 5,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 4
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 8
+  },
+  "rationale": "Y has a confident serif headline, a bold green/terracotta/ochre palette, overlapping lesson and notebook cards in the hero, varied feature illustrations, and a dark metrics band and red CTA that give the page rhythm. X is a restrained beige and green layout with small, flat sections, empty gaps, a hero card with uneven spacing, and a more generic SaaS feel. Y's hero cards overlap awkwardly and clip text, but it is still clearly the one a design director would ship."
+ },
+ {
+  "pair": "parlato-baseline-vs-engine-r2",
+  "brief": "parlato",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "rationale": "X has a bold, distinctive serif headline, a warm cream/green/terracotta palette and a layered lesson-plus-notebook hero, with a dark metrics band and a gradient CTA that give the page rhythm. Y is clean and competent, with a good alternating feature mockup layout, but its monochrome beige and green is flat and generic. Its hero panel has awkward empty space, it has weak section contrast and an overall template feel. X is the one a design director would ship, though its hero cards overlap slightly awkwardly. Y is the more template-like."
+ },
+ {
+  "pair": "pawpath-baseline-vs-engine-r1",
+  "brief": "pawpath",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "baseline": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X uses a restrained cream and green palette with specific, believable product UI across hero and every feature (slot table, shared history, triage chat, cost chart), which gives it a distinctive editorial feel. Y is warm and well coloured, but its emoji avatar, paw logo, small abstract feature thumbnails, dark metrics band and terracotta CTA follow the familiar SaaS template. X has some empty space in the hero card and a sparse chart, but it is the one I would ship."
+ },
+ {
+  "pair": "pawpath-baseline-vs-engine-r2",
+  "brief": "pawpath",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "rationale": "X has a bold serif headline, a warm terracotta and forest palette, a rich phone-style product card with floating slot and sync chips, and a dark metrics band that gives the page rhythm. Y is calmer but flatter and more generic: beige on beige, a zigzag feature list with mini-window mockups, and a hero that leaves empty space under the card. Its product windows are specific, but the page overall reads more like a standard SaaS template."
+ },
+ {
+  "pair": "summitworks-baseline-vs-engine-r1",
+  "brief": "summitworks",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "rationale": "X has a bold, climbing-specific identity: a heavy headline, a dark wall visual with holds and a route, a strong orange and charcoal palette, and a dark metrics band. Y is a softer cream and coral SaaS-dashboard look with a smaller headline, empty areas in its mockups, and per-feature widgets that read as a generic template, though its app UI mockups are specific. X is the one a design director would ship."
+ },
+ {
+  "pair": "summitworks-baseline-vs-engine-r2",
+  "brief": "summitworks",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 5,
+   "originality": 4
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 8
+  },
+  "rationale": "Y has a bold, distinctive identity: heavy display type, a dark climbing-wall hero visual with route and holds, a dark metrics band, and a dark Member pricing card with an orange CTA band. X is a competent but soft peach SaaS template with a mostly empty dashboard hero card, small feature mockups and a generic look. Y's mobile layout is stronger, though its hero headline is very large and the trust strip is a little sparse."
+ }
+]

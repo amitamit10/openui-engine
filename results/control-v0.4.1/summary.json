@@ -1,0 +1,102 @@
+{
+  "release": "control-v0.4.1",
+  "comparisons": {
+    "control vs hybrid": {
+      "judgements": 8,
+      "wins": {
+        "control": 4,
+        "hybrid": 4
+      },
+      "templateLike": {
+        "control": 5,
+        "hybrid": 3
+      },
+      "scores": {
+        "control": {
+          "hierarchy": 7.5,
+          "typography": 7.63,
+          "spacing": 7.38,
+          "colour": 7.5,
+          "product_visual": 7.38,
+          "mobile": 7,
+          "polish": 7.38,
+          "originality": 6.63
+        },
+        "hybrid": {
+          "hierarchy": 7.5,
+          "typography": 7.75,
+          "spacing": 6.88,
+          "colour": 7.5,
+          "product_visual": 7.5,
+          "mobile": 6.88,
+          "polish": 7,
+          "originality": 7
+        }
+      },
+      "mean": {
+        "control": 7.3,
+        "hybrid": 7.25
+      }
+    },
+    "baseline vs control": {
+      "judgements": 8,
+      "wins": {
+        "baseline": 4,
+        "control": 4
+      },
+      "templateLike": {
+        "baseline": 4,
+        "control": 4
+      },
+      "scores": {
+        "baseline": {
+          "hierarchy": 7.5,
+          "typography": 7.63,
+          "spacing": 7.25,
+          "colour": 7.5,
+          "product_visual": 6.88,
+          "mobile": 7,
+          "polish": 7.13,
+          "originality": 6.5
+        },
+        "control": {
+          "hierarchy": 7.5,
+          "typography": 7.75,
+          "spacing": 7.25,
+          "colour": 7.5,
+          "product_visual": 7.63,
+          "mobile": 6.88,
+          "polish": 7.38,
+          "originality": 6.75
+        }
+      },
+      "mean": {
+        "baseline": 7.17,
+        "control": 7.33
+      }
+    }
+  },
+  "automated": {
+    "baseline": {
+      "sites": 4,
+      "auditErrors": 11,
+      "auditWarnings": 16,
+      "quality": 88.25,
+      "slop": 92.75
+    },
+    "control": {
+      "sites": 4,
+      "auditErrors": 7,
+      "auditWarnings": 0,
+      "quality": 90.5,
+      "slop": 93.75
+    },
+    "hybrid": {
+      "sites": 4,
+      "auditErrors": 0,
+      "auditWarnings": 0,
+      "quality": 92.75,
+      "slop": 96.75
+    }
+  }
+}

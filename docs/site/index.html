@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" data-motion="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenUI Engine — design intelligence for coding agents</title>
+<meta name="description" content="An open-source MCP server that gives inexpensive coding models curated components, design systems, a visual editor and real-browser QA.">
+<meta name="theme-color" content="#07070c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%237c6cff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="overrides.css">
+</head>
+<body data-style="aurora-dark" data-mode-ui="dark">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" data-openui-section="nav" data-openui-variant="navbar-glass" data-openui-id="nav">
+  <div class="container nav__row">
+    <a class="brand" href="#top" aria-label="OpenUI Engine home" data-openui-id="nav.brand"><span class="brand__mark" aria-hidden="true" data-i="O"></span>OpenUI Engine</a>
+    <nav class="nav__links" aria-label="Primary"><a href="#features" data-openui-id="nav.link0">Tools</a><a href="#architecture" data-openui-id="nav.link1">Architecture</a><a href="results/" data-openui-id="nav.link2">Results</a><a href="#install" data-openui-id="nav.link3">Install</a></nav>
+    <div class="nav__actions"><a class="btn btn--ghost" href="https://github.com/amitamit10/openui-engine/tree/main/docs" data-openui-id="nav.signin">Docs</a><a class="btn btn--primary" href="https://github.com/amitamit10/openui-engine" data-openui-id="nav.cta">GitHub</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu" data-nav-toggle><svg class="ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button></div>
+  </div>
+  <div class="nav__sheet" id="nav-sheet" hidden><a href="#features">Tools</a><a href="#architecture">Architecture</a><a href="results/">Results</a><a href="#install">Install</a><a href="https://github.com/amitamit10/openui-engine/tree/main/docs">Docs</a><a class="btn btn--primary" href="https://github.com/amitamit10/openui-engine" data-openui-id="nav.sheetcta">GitHub</a></div>
+</header>
+<main id="main">
+
+<section class="hero hero--centered" data-openui-section="hero" data-openui-variant="hero-centered-product" data-openui-id="hero" id="top">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero__copy">
+      <a class="badge" href="#" data-openui-id="hero.badge"><b>MCP</b>13 tools · stdio + Streamable HTTP · Apache-2.0</a>
+      <h1 class="h-display" data-openui-id="hero.title">Stop making cheap models <em>invent</em> UI design</h1>
+      <p class="lead" data-openui-id="hero.subtitle">OpenUI Engine hands your coding agent curated components, a WCAG-checked design system, a visual editor and a real-browser QA loop — so it composes and verifies instead of improvising.</p>
+      <div class="cta-row"><a class="btn btn--primary btn--lg" href="#install" data-openui-id="hero.cta">Install the MCP<svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a><a class="btn btn--ghost btn--lg" href="https://github.com/amitamit10/openui-engine" data-openui-id="hero.cta2">View on GitHub</a></div>
+      <p class="hero__note" data-openui-id="hero.note">Open source · local-first · no API keys</p>
+    </div>
+    <div class="hero__visual"><div class="frame frame--float" data-openui-id="hero.frame" role="img" aria-label="Preview of a validate_design result with zero errors and full token compliance">
+  <div class="frame__bar"><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__dot"></span><span class="frame__url">mcp://openui-engine/validate_design</span></div>
+  <div class="dash" aria-hidden="true">
+    <div class="dash__side"><div class="item is-active"><i></i>Tools</div><div class="item"><i></i>Registry</div><div class="item"><i></i>Tokens</div><div class="item"><i></i>Editor</div><div class="item"><i></i>Reports</div></div>
+    <div class="dash__main">
+      <div class="dash__top"><span class="title">validate_design</span><span class="pill">desktop · mobile</span></div>
+      <div class="kpis"><div class="kpi"><small>Errors</small><strong>0</strong><em>passed</em></div><div class="kpi"><small>Token compliance</small><strong>100%</strong></div><div class="kpi"><small>Interactions</small><strong>11/11</strong></div></div>
+      <div class="chart"><svg viewBox="0 0 560 150" preserveAspectRatio="none">
+        <defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-accent)" stop-opacity=".35"/><stop offset="1" stop-color="var(--c-accent)" stop-opacity="0"/></linearGradient></defs>
+        <g class="grid"><line x1="0" x2="560" y1="37" y2="37"/><line x1="0" x2="560" y1="75" y2="75"/><line x1="0" x2="560" y1="112" y2="112"/></g>
+        <path class="area" d="M0 93.0 C21.5 93.0, 21.5 87.0, 43.1 87.0 C64.6 87.0, 64.6 99.0, 86.2 99.0 C107.7 99.0, 107.7 78.0, 129.2 78.0 C150.8 78.0, 150.8 90.0, 172.3 90.0 C193.8 90.0, 193.8 66.0, 215.4 66.0 C236.9 66.0, 236.9 75.0, 258.5 75.0 C280.0 75.0, 280.0 57.0, 301.5 57.0 C323.1 57.0, 323.1 69.0, 344.6 69.0 C366.2 69.0, 366.2 45.0, 387.7 45.0 C409.2 45.0, 409.2 54.0, 430.8 54.0 C452.3 54.0, 452.3 33.0, 473.8 33.0 C495.4 33.0, 495.4 42.0, 516.9 42.0 C538.5 42.0, 538.5 21.0, 560.0 21.0 L560 150 L0 150 Z"/><path class="line2" d="M0 120.0 C21.5 120.0, 21.5 117.0, 43.1 117.0 C64.6 117.0, 64.6 123.0, 86.2 123.0 C107.7 123.0, 107.7 108.0, 129.2 108.0 C150.8 108.0, 150.8 114.0, 172.3 114.0 C193.8 114.0, 193.8 102.0, 215.4 102.0 C236.9 102.0, 236.9 105.0, 258.5 105.0 C280.0 105.0, 280.0 93.0, 301.5 93.0 C323.1 93.0, 323.1 99.0, 344.6 99.0 C366.2 99.0, 366.2 87.0, 387.7 87.0 C409.2 87.0, 409.2 90.0, 430.8 90.0 C452.3 90.0, 452.3 78.0, 473.8 78.0 C495.4 78.0, 495.4 84.0, 516.9 84.0 C538.5 84.0, 538.5 69.0, 560.0 69.0"/><path class="line" d="M0 93.0 C21.5 93.0, 21.5 87.0, 43.1 87.0 C64.6 87.0, 64.6 99.0, 86.2 99.0 C107.7 99.0, 107.7 78.0, 129.2 78.0 C150.8 78.0, 150.8 90.0, 172.3 90.0 C193.8 90.0, 193.8 66.0, 215.4 66.0 C236.9 66.0, 236.9 75.0, 258.5 75.0 C280.0 75.0, 280.0 57.0, 301.5 57.0 C323.1 57.0, 323.1 69.0, 344.6 69.0 C366.2 69.0, 366.2 45.0, 387.7 45.0 C409.2 45.0, 409.2 54.0, 430.8 54.0 C452.3 54.0, 452.3 33.0, 473.8 33.0 C495.4 33.0, 495.4 42.0, 516.9 42.0 C538.5 42.0, 538.5 21.0, 560.0 21.0"/></svg></div>
+    </div>
+  </div>
+</div></div>
+  </div>
+</section>
+<section class="logos" data-openui-section="logos" data-openui-variant="logo-cloud" data-openui-id="logos" aria-label="Customers">
+  <div class="container reveal"><p class="logos__label" data-openui-id="logos.label">Works with any MCP client</p>
+  <div class="logos__row"><span class="logo-word"><i></i>Claude Code</span><span class="logo-word"><i></i>Codex</span><span class="logo-word"><i></i>Cursor</span><span class="logo-word"><i></i>Windsurf</span><span class="logo-word"><i></i>VS Code</span><span class="logo-word"><i></i>Zed</span></div></div>
+</section>
+<section class="section " id="features" data-openui-section="features" data-openui-variant="feature-bento" data-openui-id="features">
+  <div class="container"><div class="section-head reveal">
+    <span class="eyebrow" data-openui-id="features.eyebrow">Tools</span>
+    <h2 class="h2" data-openui-id="features.title">Everything an agent needs to ship a <em>designed</em> page</h2>
+    <p class="lead" data-openui-id="features.subtitle">Short ranked answers, not registry dumps. Source is fetched only when asked for.</p>
+  </div>
+  <div class="bento"><article class="card span-4 reveal" data-openui-id="features.card0">
+    <div class="viz viz--list" aria-hidden="true"><div class="row"><b></b><span>Deploy to production</span><span>2m ago</span></div><div class="row"><b></b><span>Review required</span><span>14m ago</span></div><div class="row"><b></b><span>Sync completed</span><span>1h ago</span></div></div>
+    <div class="card__text"><h3 class="h4" data-openui-id="features.card0.title">discover_components → get_component</h3><p data-openui-id="features.card0.body">A ranked shortlist with fit scores and reasons, then metadata or live registry source on demand.</p></div></article><article class="card span-2 reveal" data-openui-id="features.card1">
+    <div class="viz viz--code" aria-hidden="true"><code><span class="c">// one call, typed end to end</span>
+<span class="k">const</span> run = <span class="k">await</span> client.flows.<span class="k">start</span>({
+  name: <span class="s">"onboarding"</span>,
+  retries: <span class="s">3</span>,
+});</code></div>
+    <div class="card__text"><h3 class="h4" data-openui-id="features.card1.title">generate_design_system</h3><p data-openui-id="features.card1.body">Art direction, tokens and a DESIGN.md that passes Google's linter.</p></div></article><article class="card span-2 reveal" data-openui-id="features.card2">
+    <div class="viz viz--toggle" aria-hidden="true"><div class="t"><span>Auto-approve under $500</span><i class="sw on"></i></div><div class="t"><span>Notify finance</span><i class="sw on"></i></div><div class="t"><span>Require 2nd reviewer</span><i class="sw"></i></div></div>
+    <div class="card__text"><h3 class="h4" data-openui-id="features.card2.title">validate_design</h3><p data-openui-id="features.card2.body">Chromium: overflow, axe, console, interactions, token compliance.</p></div></article><article class="card span-2 reveal" data-openui-id="features.card3">
+    <div class="viz viz--bars" aria-hidden="true"><span style="height:38%"></span><span style="height:52%"></span><span style="height:44%"></span><span style="height:70%"></span><span style="height:58%"></span><span style="height:86%"></span><span style="height:74%"></span><span style="height:96%"></span></div>
+    <div class="card__text"><h3 class="h4" data-openui-id="features.card3.title">analyze_visual_quality</h3><p data-openui-id="features.card3.body">Measured scores with evidence, honest about what it cannot judge.</p></div></article><article class="card span-2 reveal" data-openui-id="features.card4">
+    <div class="viz viz--avatars" aria-hidden="true"><span>AK</span><span>MJ</span><span>SL</span><span>RD</span><em>+24 teammates online</em></div>
+    <div class="card__text"><h3 class="h4" data-openui-id="features.card4.title">create_review_session</h3><p data-openui-id="features.card4.body">Click, comment, tweak, ask — persisted as id-keyed CSS overrides.</p></div></article></div></div>
+</section>
+<section class="section  section--tint" id="metrics" data-openui-section="metrics" data-openui-variant="metrics" data-openui-id="metrics">
+  <div class="container"><div class="metrics reveal"><div class="metric"><strong data-openui-id="metrics.m0">13</strong><span>MCP tools</span></div><div class="metric"><strong data-openui-id="metrics.m1">6</strong><span>WCAG-checked art directions</span></div><div class="metric"><strong data-openui-id="metrics.m2">32</strong><span>curated components</span></div><div class="metric"><strong data-openui-id="metrics.m3">0</strong><span>third-party files vendored</span></div></div></div>
+</section>
+<section class="section  section--tint" id="install" data-openui-section="steps" data-openui-variant="steps" data-openui-id="steps">
+  <div class="container"><div class="section-head reveal">
+    
+    <h2 class="h2" data-openui-id="steps.title">Install in one minute</h2>
+    <p class="lead" data-openui-id="steps.subtitle">Node 20+ and a Chromium (or let Playwright download one).</p>
+  </div><div class="steps"><div class="step card reveal" data-openui-id="steps.step0"><h3 class="h3">Build</h3><p>git clone, pnpm install, pnpm build.</p></div><div class="step card reveal" data-openui-id="steps.step1"><h3 class="h3">Register</h3><p>Add the stdio command to Claude Code, Codex or Cursor.</p></div><div class="step card reveal" data-openui-id="steps.step2"><h3 class="h3">Ask</h3><p>“Build a landing page for …” — the agent now has tools to do it well.</p></div></div></div>
+</section>
+<section class="section" id="architecture" data-openui-section="architecture"><div class="container"><div class="section-head"><span class="eyebrow">Architecture</span><h2 class="h2">How the pieces fit</h2><p class="lead">An MCP server in front of a component registry, design intelligence, a composer, a Playwright QA gate and a browser editor.</p></div><div class="docs-fig"><picture><source media="(prefers-color-scheme: dark)" srcset="diagrams/architecture-dark.png"><img src="diagrams/architecture.png" alt="OpenUI Engine system architecture diagram" loading="lazy" width="1000" height="680"></picture></div><div class="docs-fig"><picture><source media="(prefers-color-scheme: dark)" srcset="diagrams/quality-loop-dark.png"><img src="diagrams/quality-loop.png" alt="Generate, render, inspect, correct, verify loop diagram" loading="lazy" width="1000" height="560"></picture></div></div></section>
+<section class="section " id="faq" data-openui-section="faq" data-openui-variant="faq" data-openui-id="faq">
+  <div class="container"><div class="section-head reveal">
+    <span class="eyebrow" data-openui-id="faq.eyebrow">FAQ</span>
+    <h2 class="h2" data-openui-id="faq.title">Honest answers</h2>
+    
+  </div><div class="faq reveal"><details open data-openui-id="faq.item0"><summary>Does it replace a designer?<svg class="ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><div class="ans">No. It removes avoidable mistakes (contrast, overflow, inconsistency) and gives models a coherent starting point. Taste still needs a human, which is why the editor exists.</div></details><details data-openui-id="faq.item1"><summary>Are third-party components bundled?<svg class="ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><div class="ans">No. Registries (shadcn, Fluid Functionalism, Magic UI, Aceternity, React Bits) are fetched live; licence status per source is published.</div></details><details data-openui-id="faq.item2"><summary>Is the benchmark a proof?<svg class="ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><div class="ans">It is a small, disclosed experiment, not a proof. The report lists every confound.</div></details><details data-openui-id="faq.item3"><summary>Can it run remotely?<svg class="ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><div class="ans">Yes: Streamable HTTP with a mandatory bearer token; the editor is loopback-only unless you opt in.</div></details></div></div>
+</section>
+<section class="section " id="cta" data-openui-section="cta" data-openui-variant="cta-band" data-openui-id="cta">
+  <div class="container"><div class="cta-band reveal" data-openui-id="cta.band">
+    <h2 class="h1" data-openui-id="cta.title">Give your agent a <em>design system</em></h2>
+    <p class="lead" data-openui-id="cta.subtitle" style="max-width:52ch">Apache-2.0. Built by Amit Elgabsi.</p>
+    <div class="cta-row"><a class="btn btn--primary btn--lg" href="#install" data-openui-id="cta.cta">Get started<svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a><a class="btn btn--ghost btn--lg" href="#architecture" data-openui-id="cta.cta2">Read the architecture</a></div>
+  </div></div>
+</section>
+
+</main>
+<footer class="footer" data-openui-section="footer" data-openui-variant="footer-columns" data-openui-id="footer">
+  <div class="container"><div class="footer__grid">
+    <div class="footer__brand"><a class="brand" href="#top"><span class="brand__mark" aria-hidden="true" data-i="O"></span>OpenUI Engine</a><p class="muted small" data-openui-id="footer.tagline">Design intelligence and visual QA for AI coding agents.</p></div>
+    <nav aria-label="Project"><h3>Project</h3><ul><li><a href="https://github.com/amitamit10/openui-engine">GitHub</a></li><li><a href="https://github.com/amitamit10/openui-engine/issues">Issues</a></li><li><a href="https://github.com/amitamit10/openui-engine/blob/main/CONTRIBUTING.md">Contributing</a></li></ul></nav><nav aria-label="Docs"><h3>Docs</h3><ul><li><a href="https://github.com/amitamit10/openui-engine/blob/main/docs/MCP_SETUP.md">MCP setup</a></li><li><a href="https://github.com/amitamit10/openui-engine/blob/main/docs/SOURCES.md">Sources audit</a></li><li><a href="https://github.com/amitamit10/openui-engine/blob/main/docs/SKILLS_AUDIT.md">Skills audit</a></li></ul></nav><nav aria-label="Author"><h3>Author</h3><ul><li><a href="https://github.com/amitamit10">Amit Elgabsi</a></li></ul></nav>
+  </div>
+  <div class="footer__legal"><span>© 2026 Amit Elgabsi · Apache-2.0</span><span>Diagrams made with stack-diagram (MIT).</span></div></div>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>

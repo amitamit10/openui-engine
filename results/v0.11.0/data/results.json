@@ -1,0 +1,1108 @@
+{
+  "copperline-baseline": {
+    "source": {
+      "files": 3,
+      "bytes": {
+        "html": 27022,
+        "css": 25140,
+        "js": 3393,
+        "other": 0
+      },
+      "totalBytes": 55555,
+      "lines": 1674
+    },
+    "audit": {
+      "passed": false,
+      "totals": {
+        "errors": 6,
+        "warnings": 3,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 2,
+          "warnings": 1,
+          "interactions": "2/3",
+          "pageHeight": 6436
+        },
+        {
+          "vp": "tablet",
+          "errors": 2,
+          "warnings": 1,
+          "interactions": "2/3",
+          "pageHeight": 8952
+        },
+        {
+          "vp": "mobile",
+          "errors": 2,
+          "warnings": 1,
+          "interactions": "2/3",
+          "pageHeight": 11578
+        }
+      ],
+      "issues": [
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (10.88px)."
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 2×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "tablet",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (10.88px)."
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 2×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "mobile",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (10.88px)."
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 2×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        }
+      ]
+    },
+    "quality": {
+      "overall": 86,
+      "dimensions": {
+        "accessibility": 82,
+        "typography": 45,
+        "spacing": 100,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 80,
+        "originality": 93
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 93,
+      "findings": [
+        {
+          "rule": "icon-card-grids",
+          "severity": "info",
+          "message": "One grid of identical icon-cards; fine once, a tell when repeated.",
+          "evidence": "1"
+        },
+        {
+          "rule": "glow-overuse",
+          "severity": "info",
+          "message": "5 large coloured glows.",
+          "evidence": "5"
+        }
+      ]
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": false,
+        "detail": "prices identical in monthly and yearly modes"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "13 -> 19 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 18,
+      "fontFamilies": [
+        "Manrope",
+        "Fraunces"
+      ],
+      "distinctFontSizes": 26,
+      "distinctRadii": 8,
+      "spacingSamples": 456,
+      "spacingOn4pxGrid": 0.647,
+      "sections": 9,
+      "h2": 8,
+      "imgs": 0,
+      "svgs": 10,
+      "textLength": 6448
+    },
+    "deadZonesByViewport": {
+      "desktop": 15,
+      "tablet": 22,
+      "mobile": 19
+    },
+    "evalSeconds": 44.8
+  },
+  "copperline-engine": {
+    "source": {
+      "files": 5,
+      "bytes": {
+        "html": 33254,
+        "css": 67911,
+        "js": 4031,
+        "other": 0
+      },
+      "totalBytes": 105196,
+      "lines": 809
+    },
+    "audit": {
+      "passed": true,
+      "totals": {
+        "errors": 0,
+        "warnings": 0,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "7/7",
+          "pageHeight": 6826
+        },
+        {
+          "vp": "tablet",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 9235
+        },
+        {
+          "vp": "mobile",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 10433
+        }
+      ],
+      "issues": []
+    },
+    "quality": {
+      "overall": 95,
+      "dimensions": {
+        "accessibility": 100,
+        "typography": 100,
+        "spacing": 80,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 100,
+        "originality": 100
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 100,
+      "findings": []
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": false,
+        "detail": "prices identical in monthly and yearly modes"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "13 -> 19 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 12,
+      "fontFamilies": [
+        "Inter",
+        "Instrument Serif",
+        "JetBrains Mono"
+      ],
+      "distinctFontSizes": 9,
+      "distinctRadii": 6,
+      "spacingSamples": 482,
+      "spacingOn4pxGrid": 0.936,
+      "sections": 9,
+      "h2": 6,
+      "imgs": 0,
+      "svgs": 31,
+      "textLength": 4711
+    },
+    "deadZonesByViewport": {
+      "desktop": 20,
+      "tablet": 24,
+      "mobile": 17
+    },
+    "evalSeconds": 32.6
+  },
+  "pagebound-baseline": {
+    "source": {
+      "files": 3,
+      "bytes": {
+        "html": 25489,
+        "css": 19596,
+        "js": 3868,
+        "other": 0
+      },
+      "totalBytes": 48953,
+      "lines": 1298
+    },
+    "audit": {
+      "passed": false,
+      "totals": {
+        "errors": 4,
+        "warnings": 3,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 2,
+          "warnings": 1,
+          "interactions": "2/2",
+          "pageHeight": 6895
+        },
+        {
+          "vp": "tablet",
+          "errors": 1,
+          "warnings": 1,
+          "interactions": "2/2",
+          "pageHeight": 8312
+        },
+        {
+          "vp": "mobile",
+          "errors": 1,
+          "warnings": 1,
+          "interactions": "2/2",
+          "pageHeight": 11754
+        }
+      ],
+      "issues": [
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "console",
+          "msg": "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (10.5px)."
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 1×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "tablet",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (10.5px)."
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 1×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "mobile",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (10.5px)."
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 1×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        }
+      ]
+    },
+    "quality": {
+      "overall": 85,
+      "dimensions": {
+        "accessibility": 82,
+        "typography": 40,
+        "spacing": 100,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 80,
+        "originality": 94
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 94,
+      "findings": [
+        {
+          "rule": "icon-card-grids",
+          "severity": "info",
+          "message": "One grid of identical icon-cards; fine once, a tell when repeated.",
+          "evidence": "1"
+        }
+      ]
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": false,
+        "detail": "prices identical in monthly and yearly modes"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "9 -> 15 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 19,
+      "fontFamilies": [
+        "Inter",
+        "Fraunces",
+        "Arial"
+      ],
+      "distinctFontSizes": 27,
+      "distinctRadii": 9,
+      "spacingSamples": 328,
+      "spacingOn4pxGrid": 0.491,
+      "sections": 9,
+      "h2": 10,
+      "imgs": 0,
+      "svgs": 8,
+      "textLength": 5790
+    },
+    "deadZonesByViewport": {
+      "desktop": 22,
+      "tablet": 20,
+      "mobile": 17
+    },
+    "evalSeconds": 28.4
+  },
+  "pagebound-engine": {
+    "source": {
+      "files": 7,
+      "bytes": {
+        "html": 43870,
+        "css": 67935,
+        "js": 4031,
+        "other": 0
+      },
+      "totalBytes": 115836,
+      "lines": 875
+    },
+    "audit": {
+      "passed": true,
+      "totals": {
+        "errors": 0,
+        "warnings": 0,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "7/7",
+          "pageHeight": 6657
+        },
+        {
+          "vp": "tablet",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 8985
+        },
+        {
+          "vp": "mobile",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 10406
+        }
+      ],
+      "issues": []
+    },
+    "quality": {
+      "overall": 95,
+      "dimensions": {
+        "accessibility": 100,
+        "typography": 100,
+        "spacing": 80,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 100,
+        "originality": 100
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 100,
+      "findings": []
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": false,
+        "detail": "prices identical in monthly and yearly modes"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "10 -> 16 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 12,
+      "fontFamilies": [
+        "Inter",
+        "Fraunces",
+        "JetBrains Mono"
+      ],
+      "distinctFontSizes": 9,
+      "distinctRadii": 5,
+      "spacingSamples": 471,
+      "spacingOn4pxGrid": 0.938,
+      "sections": 9,
+      "h2": 6,
+      "imgs": 0,
+      "svgs": 27,
+      "textLength": 4215
+    },
+    "deadZonesByViewport": {
+      "desktop": 19,
+      "tablet": 22,
+      "mobile": 16
+    },
+    "evalSeconds": 33
+  },
+  "saffron-baseline": {
+    "source": {
+      "files": 3,
+      "bytes": {
+        "html": 28057,
+        "css": 18156,
+        "js": 2797,
+        "other": 0
+      },
+      "totalBytes": 49010,
+      "lines": 939
+    },
+    "audit": {
+      "passed": false,
+      "totals": {
+        "errors": 7,
+        "warnings": 5,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 3,
+          "warnings": 2,
+          "interactions": "2/3",
+          "pageHeight": 7319
+        },
+        {
+          "vp": "tablet",
+          "errors": 2,
+          "warnings": 2,
+          "interactions": "2/3",
+          "pageHeight": 9294
+        },
+        {
+          "vp": "mobile",
+          "errors": 2,
+          "warnings": 1,
+          "interactions": "2/3",
+          "pageHeight": 11618
+        }
+      ],
+      "issues": [
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "console",
+          "msg": "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "layout",
+          "msg": "Large empty hole inside a 50% unfilled grid or column layout (uneven or missing cards)."
+        },
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 1×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "tablet",
+          "sev": "warning",
+          "cat": "layout",
+          "msg": "Large empty hole inside a 31% unfilled grid or column layout (uneven or missing cards)."
+        },
+        {
+          "vp": "tablet",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 1×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "mobile",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "a11y",
+          "msg": "axe label-content-name-mismatch (serious, 1×): Elements must have their visible text as part of their accessible name. Fix any of the following:   Text inside the element is not included in the accessible name"
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        }
+      ]
+    },
+    "quality": {
+      "overall": 85,
+      "dimensions": {
+        "accessibility": 82,
+        "typography": 55,
+        "spacing": 100,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 60,
+        "originality": 94
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 94,
+      "findings": [
+        {
+          "rule": "icon-card-grids",
+          "severity": "info",
+          "message": "One grid of identical icon-cards; fine once, a tell when repeated.",
+          "evidence": "1"
+        }
+      ]
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": false,
+        "detail": "prices identical in monthly and yearly modes"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "15 -> 20 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 13,
+      "fontFamilies": [
+        "Inter",
+        "Fraunces"
+      ],
+      "distinctFontSizes": 22,
+      "distinctRadii": 5,
+      "spacingSamples": 392,
+      "spacingOn4pxGrid": 0.796,
+      "sections": 9,
+      "h2": 9,
+      "imgs": 0,
+      "svgs": 8,
+      "textLength": 5610
+    },
+    "deadZonesByViewport": {
+      "desktop": 22,
+      "tablet": 18,
+      "mobile": 15
+    },
+    "evalSeconds": 45.2
+  },
+  "saffron-engine": {
+    "source": {
+      "files": 5,
+      "bytes": {
+        "html": 30566,
+        "css": 67911,
+        "js": 4031,
+        "other": 0
+      },
+      "totalBytes": 102508,
+      "lines": 809
+    },
+    "audit": {
+      "passed": true,
+      "totals": {
+        "errors": 0,
+        "warnings": 0,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "7/7",
+          "pageHeight": 6683
+        },
+        {
+          "vp": "tablet",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 9062
+        },
+        {
+          "vp": "mobile",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 10044
+        }
+      ],
+      "issues": []
+    },
+    "quality": {
+      "overall": 95,
+      "dimensions": {
+        "accessibility": 100,
+        "typography": 100,
+        "spacing": 80,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 100,
+        "originality": 100
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 100,
+      "findings": []
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": false,
+        "detail": "prices identical in monthly and yearly modes"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "12 -> 18 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 12,
+      "fontFamilies": [
+        "Inter",
+        "Instrument Serif",
+        "JetBrains Mono"
+      ],
+      "distinctFontSizes": 9,
+      "distinctRadii": 6,
+      "spacingSamples": 473,
+      "spacingOn4pxGrid": 0.939,
+      "sections": 9,
+      "h2": 6,
+      "imgs": 0,
+      "svgs": 29,
+      "textLength": 4231
+    },
+    "deadZonesByViewport": {
+      "desktop": 22,
+      "tablet": 24,
+      "mobile": 16
+    },
+    "evalSeconds": 32.7
+  },
+  "tempo-baseline": {
+    "source": {
+      "files": 3,
+      "bytes": {
+        "html": 26125,
+        "css": 23680,
+        "js": 4122,
+        "other": 0
+      },
+      "totalBytes": 53927,
+      "lines": 1506
+    },
+    "audit": {
+      "passed": false,
+      "totals": {
+        "errors": 3,
+        "warnings": 6,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 1,
+          "warnings": 2,
+          "interactions": "2/3",
+          "pageHeight": 6725
+        },
+        {
+          "vp": "tablet",
+          "errors": 1,
+          "warnings": 2,
+          "interactions": "2/3",
+          "pageHeight": 7037
+        },
+        {
+          "vp": "mobile",
+          "errors": 1,
+          "warnings": 2,
+          "interactions": "2/3",
+          "pageHeight": 12057
+        }
+      ],
+      "issues": [
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "desktop",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (10px)."
+        },
+        {
+          "vp": "desktop",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "tablet",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "tablet",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (10px)."
+        },
+        {
+          "vp": "tablet",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        },
+        {
+          "vp": "mobile",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (11px)."
+        },
+        {
+          "vp": "mobile",
+          "sev": "warning",
+          "cat": "typography",
+          "msg": "Text smaller than 12px (10px)."
+        },
+        {
+          "vp": "mobile",
+          "sev": "error",
+          "cat": "interaction",
+          "msg": "Interaction failed — pricing toggle updates prices: locator.textContent: Timeout 5000ms exceeded."
+        }
+      ]
+    },
+    "quality": {
+      "overall": 88,
+      "dimensions": {
+        "accessibility": 100,
+        "typography": 60,
+        "spacing": 100,
+        "color": 70,
+        "layout": 88,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 80,
+        "originality": 94
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 94,
+      "findings": [
+        {
+          "rule": "icon-card-grids",
+          "severity": "info",
+          "message": "One grid of identical icon-cards; fine once, a tell when repeated.",
+          "evidence": "1"
+        }
+      ]
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": true,
+        "detail": "$4,860,$2,$\n12,$\n29,$\n59 | $4,860,$2,$\n10,$120,$\n24,$28 | $4,860,$2,$\n12,$\n29,$\n59"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "11 -> 17 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 16,
+      "fontFamilies": [
+        "Inter",
+        "Bricolage Grotesque",
+        "JetBrains Mono"
+      ],
+      "distinctFontSizes": 17,
+      "distinctRadii": 6,
+      "spacingSamples": 402,
+      "spacingOn4pxGrid": 0.9,
+      "sections": 9,
+      "h2": 11,
+      "imgs": 0,
+      "svgs": 9,
+      "textLength": 5199
+    },
+    "deadZonesByViewport": {
+      "desktop": 19,
+      "tablet": 17,
+      "mobile": 20
+    },
+    "evalSeconds": 44
+  },
+  "tempo-engine": {
+    "source": {
+      "files": 5,
+      "bytes": {
+        "html": 30171,
+        "css": 67911,
+        "js": 4031,
+        "other": 0
+      },
+      "totalBytes": 102113,
+      "lines": 809
+    },
+    "audit": {
+      "passed": true,
+      "totals": {
+        "errors": 0,
+        "warnings": 0,
+        "infos": 0
+      },
+      "perViewport": [
+        {
+          "vp": "desktop",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "7/7",
+          "pageHeight": 6698
+        },
+        {
+          "vp": "tablet",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 8888
+        },
+        {
+          "vp": "mobile",
+          "errors": 0,
+          "warnings": 0,
+          "interactions": "4/4",
+          "pageHeight": 10343
+        }
+      ],
+      "issues": []
+    },
+    "quality": {
+      "overall": 95,
+      "dimensions": {
+        "accessibility": 100,
+        "typography": 100,
+        "spacing": 80,
+        "color": 70,
+        "layout": 100,
+        "whitespace": 100,
+        "responsive": 100,
+        "robustness": 100,
+        "originality": 100
+      },
+      "deadZones": []
+    },
+    "slop": {
+      "score": 100,
+      "findings": []
+    },
+    "neutral": [
+      {
+        "name": "pricing toggle changes displayed prices",
+        "viewport": 1440,
+        "passed": true,
+        "detail": "$975,$450,$112,$115,$4,600,$ | $975,$450,$112,$115,$4,600,$ | $975,$450,$112,$115,$4,600,$"
+      },
+      {
+        "name": "FAQ accordion toggles",
+        "viewport": 1440,
+        "passed": true
+      },
+      {
+        "name": "mobile menu opens",
+        "viewport": 390,
+        "passed": true,
+        "detail": "11 -> 17 visible nav links"
+      }
+    ],
+    "discipline": {
+      "distinctTextColorsAndFills": 17,
+      "fontFamilies": [
+        "Inter",
+        "Instrument Serif",
+        "JetBrains Mono"
+      ],
+      "distinctFontSizes": 9,
+      "distinctRadii": 6,
+      "spacingSamples": 544,
+      "spacingOn4pxGrid": 0.925,
+      "sections": 9,
+      "h2": 6,
+      "imgs": 0,
+      "svgs": 30,
+      "textLength": 4607
+    },
+    "deadZonesByViewport": {
+      "desktop": 21,
+      "tablet": 20,
+      "mobile": 16
+    },
+    "evalSeconds": 32.9
+  }
+}

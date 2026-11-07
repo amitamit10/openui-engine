@@ -1,0 +1,374 @@
+[
+ {
+  "pair": "atelier-baseline-vs-engine-r1",
+  "brief": "atelier",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 5,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 4
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y reads as an editorial architecture studio: a serif display type, a drawn tiled facade, bespoke line-art capability illustrations, a navy and terracotta palette and a considered rhythm. X is a software-style dashboard mock-up with SaaS card, toggle and pill components, which suits an architecture practice poorly, and its mid-page spacing is looser. X is clearly more template-like."
+ },
+ {
+  "pair": "atelier-baseline-vs-engine-r2",
+  "brief": "atelier",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "rationale": "X has a distinctive editorial identity: serif headline, an azulejo-tiled facade illustration, bespoke line-drawn capability visuals and a confident navy/terracotta palette that suits an architecture studio. Y reads as a SaaS template (app-window mockups, pill buttons, checkmark feature rows, a generic orange-red CTA) with uneven hero card layout and a mixed-font logo strip, though its UI mockups are specific and well written. X is the one a design director would ship."
+ },
+ {
+  "pair": "fieldnote-baseline-vs-engine-r1",
+  "brief": "fieldnote",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 6,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a distinctive high-contrast display serif, a terracotta/forest palette and a warm journal-card hero with a specific therapist prompt, feeling human and editorial. Y has strong feature-specific UI mockups (mood chart, sharing table, permissions matrix) but its green-on-cream palette, alternating zigzag feature rows and standard layout read more like a generic SaaS template."
+ },
+ {
+  "pair": "fieldnote-baseline-vs-engine-r2",
+  "brief": "fieldnote",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 7,
+   "product_visual": 8,
+   "mobile": 6,
+   "polish": 7,
+   "originality": 6
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y has a bolder editorial serif headline, a warm terracotta and deep green palette, a tilted journal card with a floating share toggle, and a more rhythmic section flow with a dark metrics band and green final CTA. X has the richer product UI (multiple feature mockups, mood chart, consent table) but its beige-and-green layout is flatter and more conventional, with a cramped hero panel and sparse, uneven spacing in places. Y is the one a design director would ship; X reads as more template-like."
+ },
+ {
+  "pair": "gridwise-baseline-vs-engine-r1",
+  "brief": "gridwise",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 6,
+   "spacing": 7,
+   "colour": 6,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 5
+  },
+  "rationale": "X pairs an editorial serif display face with mono data accents and a warm orange/cream/ink palette, and has a distinct pipeline-plus-Slack hero and bespoke feature illustrations, so it reads as a deliberate brand. Y has strong, specific product UIs (drift table, lineage, incident board), but its dark near-black with neon-green mono styling is the familiar dev-tool SaaS template and its hero fold has a large empty gap. Neither is flawless, but X is the one a design director would ship."
+ },
+ {
+  "pair": "gridwise-baseline-vs-engine-r2",
+  "brief": "gridwise",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 5,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 5,
+   "polish": 6,
+   "originality": 4
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y pairs a serif display face with mono data and an orange accent on a dark/cream rhythm, and gives each feature its own illustrated card. X is the familiar dark-mode neon-green SaaS look with a monospace headline and alternating text/mock rows that leave large gaps, and its mobile page is very long. X's hero incident card is specific, but Y's pipeline-chain hero plus Slack alert and its feature illustrations are more convincing and distinctive."
+ },
+ {
+  "pair": "kilnco-baseline-vs-engine-r1",
+  "brief": "kilnco",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y has a crafted illustrated ceramic hero, varied section backgrounds, a dark metrics band, a dark featured pricing card and a terracotta CTA band, which give it rhythm and a warm tactile feel. X is a cleaner but flatter beige SaaS layout with a dashboard-style UI mock that feels more like software than ceramics and very uniform sections. Y is the one a design director would ship; X is the more template-like."
+ },
+ {
+  "pair": "kilnco-baseline-vs-engine-r2",
+  "brief": "kilnco",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 6,
+   "typography": 6,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "rationale": "X has a warm, tactile palette with a rendered plate and bowl hero, an italic terracotta headline accent, a dark metrics band and a featured dark pricing card, so it feels like a ceramics brand. Y reads as a SaaS template: a dashboard-style hero, a tiny stock-feeling feature mockup, a generic checklist and column layout, and sparse, repetitive spacing. Y's UI mockups are specific but cold and unrelated to the craft tone."
+ },
+ {
+  "pair": "ledgerline-baseline-vs-engine-r1",
+  "brief": "ledgerline",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "Y",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 6,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 5
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y has a stronger hero with a specific invoice plus dark forecast chart, a bold serif headline, a dark metrics band for rhythm, and richer feature illustrations. X is tidy and cohesive but its cream/green palette, alternating feature rows with small mock cards, and sparse empty areas feel more like a standard SaaS template. Y is the one a design director would ship."
+ },
+ {
+  "pair": "ledgerline-baseline-vs-engine-r2",
+  "brief": "ledgerline",
+  "round": 2,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "baseline",
+  "more_template_like": "engine",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 6,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 6,
+   "originality": 5
+  },
+  "rationale": "X has a bold serif headline, a specific invoice plus dark 90-day forecast chart hero with a reminder toast, per-feature mini illustrations, a dark metrics band and a full three-tier pricing section, giving a confident and distinctive finish. Y is clean but uses the familiar beige and green SaaS look with a softer hero mock-up, alternating feature rows and a weaker pricing layout, so it reads more like a template. Y's hero mock-up is plausible but cramped, with wrapped client names."
+ },
+ {
+  "pair": "minutewise-baseline-vs-engine-r1",
+  "brief": "minutewise",
+  "round": 1,
+  "X_is": "baseline",
+  "Y_is": "engine",
+  "winner_label": "Y",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 5
+  },
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y has a distinctive warm paper-and-vermilion palette, a condensed serif headline with an italic accent, and a specific product UI in every feature row (call review, action table, objections chart, pipeline board) that reads as real data. X is clean and competent but follows the familiar green-serif SaaS layout, with small feature cards and a standard dark-green metrics band. Y would ship, and X is more template-like."
+ },
+ {
+  "pair": "minutewise-baseline-vs-engine-r2",
+  "brief": "minutewise",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "baseline",
+  "winner_label": "X",
+  "winner": "engine",
+  "more_template_like": "baseline",
+  "engine": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 9
+  },
+  "baseline": {
+   "hierarchy": 8,
+   "typography": 7,
+   "spacing": 8,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 8,
+   "polish": 8,
+   "originality": 5
+  },
+  "rationale": "X has a distinctive editorial serif and terracotta-on-cream identity, with specific product UIs (call review, action table, pipeline board, objection chart) and a sharp, specific hero copy, so it reads as designed rather than generated. Y is clean and well-spaced with a solid waveform hero card and a dark green metrics band, but its card grid, dark Team pricing tier and centred section headings follow the familiar SaaS template. X has some uneven whitespace and an empty hero card area, but a design director would still ship it."
+ }
+]

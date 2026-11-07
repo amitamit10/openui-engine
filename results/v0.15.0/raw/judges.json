@@ -1,0 +1,374 @@
+[
+ {
+  "pair": "clearwater-control-vs-engine-r1",
+  "brief": "clearwater",
+  "round": 1,
+  "X_is": "control",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "control",
+  "more_template_like": "engine",
+  "control": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 9
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 5
+  },
+  "rationale": "X has a distinctive field-survey sheet hero with specific data, an expressive serif and italic headline and a cohesive earthy palette, which reads as a designed identity. Y is clean and competent but its flat landscape illustration, mustard CTA and standard card, step and pricing layout feel like a typical SaaS template. X is the one a design director would ship."
+ },
+ {
+  "pair": "clearwater-control-vs-engine-r2",
+  "brief": "clearwater",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "control",
+  "winner_label": "Y",
+  "winner": "control",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 5
+  },
+  "control": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y's hero is a field-survey sheet with annotated cross-section, monospace data and a RESTORED stamp. It reads as specific, ownable product UI, and the serif/italic headline and green-and-ochre palette feel deliberate. X is clean and competent, but its flat landscape illustration, floating stat card and standard card grid look like a typical SaaS template."
+ },
+ {
+  "pair": "ember-control-vs-engine-r1",
+  "brief": "ember",
+  "round": 1,
+  "X_is": "control",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "control",
+  "more_template_like": "engine",
+  "control": {
+   "hierarchy": 8,
+   "typography": 9,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a more distinctive high-contrast display serif and a striking hero with a table ticket over the fire, with tighter editorial restraint and the pricing tiers in the specified order. Y has richer feature illustrations and booking form and gift card visuals, but its hero headline and card grids feel more generic and its pricing order is odd (Private Room in the middle as featured). Overall X is the one a design director would ship, and Y reads more like a template."
+ },
+ {
+  "pair": "ember-control-vs-engine-r2",
+  "brief": "ember",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "control",
+  "winner_label": "Y",
+  "winner": "control",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 6,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 6,
+   "polish": 6,
+   "originality": 6
+  },
+  "control": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 7
+  },
+  "rationale": "Y has a tighter, more editorial feel: a high-contrast display serif, a docket-style order ticket over a live fire illustration, an orange final CTA band and a consistent dark/cream rhythm. X is competent, but its hero fish with floating tags and its repeated card grids read more like a template. X also has weaker spacing, including a cramped press strip that clips at the fold and a small, dense booking form."
+ },
+ {
+  "pair": "halden-control-vs-engine-r1",
+  "brief": "halden",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "control",
+  "winner_label": "X",
+  "winner": "engine",
+  "more_template_like": "control",
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "control": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a distinctive condensed serif headline with an italic accent, a drafting-sheet hero with annotated U-values and a data strip, and a bold black metrics band, so it reads as an architect's own site. Y is competent and cohesive, with a good annotated elevation and a green band. Its serif headline, card grid and dark-green pricing card follow a more familiar premium-template pattern, and its hero headline is long and heavy."
+ },
+ {
+  "pair": "halden-control-vs-engine-r2",
+  "brief": "halden",
+  "round": 2,
+  "X_is": "control",
+  "Y_is": "engine",
+  "winner_label": "Y",
+  "winner": "engine",
+  "more_template_like": "control",
+  "control": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y has a sharper, more distinctive drafting-sheet hero (grid paper, leader-line annotations, spec table), a tighter condensed serif headline, and a stronger dark studio band with larger numbers plus bespoke per-feature illustrations. X is competent and warm with a nice elevation drawing, but its long headline wraps heavily, and its section structure and green metrics band feel more like a standard editorial template."
+ },
+ {
+  "pair": "ines-control-vs-engine-r1",
+  "brief": "ines",
+  "round": 1,
+  "X_is": "control",
+  "Y_is": "engine",
+  "winner_label": "Y",
+  "winner": "engine",
+  "more_template_like": "control",
+  "control": {
+   "hierarchy": 7,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 6,
+   "polish": 7,
+   "originality": 6
+  },
+  "engine": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Both are warm, editorial and well typeset, but Y has a richer hero with a framed photo plus contact-sheet thumbnails, more varied section treatments (dark metrics band, vermilion CTA, journal sidebar) and distinctive line-art feature icons. X is clean and elegant, with a strong tile-and-window hero illustration, but its layout follows a more predictable stacked-section pattern and its mobile hero pushes the visual below the fold. Y is the one a design director would ship; X is the more template-like."
+ },
+ {
+  "pair": "ines-control-vs-engine-r2",
+  "brief": "ines",
+  "round": 2,
+  "X_is": "engine",
+  "Y_is": "control",
+  "winner_label": "Y",
+  "winner": "control",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "control": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y has a richer, more specific hero illustration (azulejo tile, wine glasses, scan tag), richer per-offer illustrations, and a deliberate blue/ochre/cream palette with a dark final CTA. X is clean and competent with a good serif headline, but its icon-style feature visuals and red CTA band feel more like a familiar editorial template."
+ },
+ {
+  "pair": "kelpline-control-vs-engine-r1",
+  "brief": "kelpline",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "control",
+  "winner_label": "Y",
+  "winner": "control",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 6,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 5
+  },
+  "control": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "rationale": "Y has a dark, committed palette with a sonar-style transect hero showing depth scale, readouts and monospace data, plus a distinct green steps band and orange CTA. X is clean and competent but follows the cream/rounded-card SaaS pattern, with a flatter hero illustration and a dark-blue partner strip that feels generic."
+ },
+ {
+  "pair": "kelpline-control-vs-engine-r2",
+  "brief": "kelpline",
+  "round": 2,
+  "X_is": "control",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "control",
+  "more_template_like": "engine",
+  "control": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 7,
+   "polish": 8,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 7,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 6,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 5
+  },
+  "rationale": "X has a bold dark-teal and orange identity with a specific transect hero (depth gauge, ROV, live readout card) and a large editorial serif, which makes it feel designed rather than assembled. Y is clean and competent but follows a familiar cream, forest-green and rust SaaS pattern, with a simpler hero illustration and a standard card grid. X is the one a design director would ship, and Y is more template-like."
+ },
+ {
+  "pair": "tilde-control-vs-engine-r1",
+  "brief": "tilde",
+  "round": 1,
+  "X_is": "engine",
+  "Y_is": "control",
+  "winner_label": "Y",
+  "winner": "control",
+  "more_template_like": "engine",
+  "engine": {
+   "hierarchy": 7,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "control": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 8,
+   "colour": 8,
+   "product_visual": 8,
+   "mobile": 8,
+   "polish": 7,
+   "originality": 8
+  },
+  "rationale": "Y has a more distinctive hero (expressive italic accent headline, tilted progress report with stamp and skill bars over a live class UI), a warmer terracotta/navy/ochre palette, and more varied, specific feature illustrations (script tiles, timezone clock, pitch contour). X is clean and cohesive with a strong serif and a good class mock, but its green-and-cream palette, uniform icon cards and stacked sections feel more like a polished template, and its hero report card is cropped at the fold."
+ },
+ {
+  "pair": "tilde-control-vs-engine-r2",
+  "brief": "tilde",
+  "round": 2,
+  "X_is": "control",
+  "Y_is": "engine",
+  "winner_label": "X",
+  "winner": "control",
+  "more_template_like": "engine",
+  "control": {
+   "hierarchy": 8,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 8,
+   "product_visual": 9,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 8
+  },
+  "engine": {
+   "hierarchy": 7,
+   "typography": 8,
+   "spacing": 7,
+   "colour": 7,
+   "product_visual": 7,
+   "mobile": 7,
+   "polish": 7,
+   "originality": 6
+  },
+  "rationale": "X has a more distinctive, witty hero with an italic accent, a layered live-class UI with a rotated progress report and stamp, and richer varied feature illustrations plus a warm terracotta/navy palette. Y is clean and competent with a good class mock and a form CTA, but its hero card is cropped by the fold, its icons are more generic and its green-on-cream layout reads as a more standard template."
+ }
+]
