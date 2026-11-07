@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lowtide Audio: podcast production in Bristol</title>
+<meta name="description" content="Lowtide Audio records, edits, scores and publishes podcasts for charities, publishers and independent hosts, and posts a remote recording kit to every guest.">
+<meta name="theme-color" content="#1D3B4A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231D3B4A'/%3E%3Cpath d='M5 17Q9 9 13 17T21 17T27 17' fill='none' stroke='%23F5F0E6' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Instrument+Sans:wght@400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="top">
+  <div class="wrap nav-bar">
+    <a class="brand" href="#top" aria-label="Lowtide Audio, back to top">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="8" fill="#1D3B4A"/>
+        <path d="M5 17Q9 9 13 17T21 17T27 17" fill="none" stroke="#F5F0E6" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M5 23Q9 16 13 23T21 23T27 23" fill="none" stroke="#E0A43A" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-name">Lowtide <span>Audio</span></span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Main">
+      <ul class="nav-links">
+        <li><a href="#shows">Shows</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#studio">Studio</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <a class="nav-signin" href="mailto:clients@lowtideaudio.example?subject=Client%20sign-in">Client sign-in</a>
+      <a class="btn btn-primary btn-sm nav-cta" href="#plan">Plan your show</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <ul class="mobile-links">
+      <li><a href="#shows">Shows</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#studio">Studio</a></li>
+      <li><a href="#faq">Questions</a></li>
+      <li><a href="mailto:clients@lowtideaudio.example?subject=Client%20sign-in">Client sign-in</a></li>
+    </ul>
+    <div class="mobile-cta"><a class="btn btn-primary" href="#plan">Plan your show</a></div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 1. HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Podcast production &middot; Bristol</p>
+      <h1 id="hero-title">Recorded properly, cut tight, out on the day we said.</h1>
+      <p class="lede">Lowtide Audio records, edits, scores and publishes podcasts for charities, publishers and independent hosts. We post a remote kit to every guest, check their levels before anyone presses record, and hand back a master you would be happy to play to your board.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#plan">Plan your show</a>
+        <a class="btn btn-ghost" href="#process">See how an episode is made</a>
+      </div>
+      <ul class="facts">
+        <li><strong>48 h</strong><span>to post a kit after booking</span></li>
+        <li><strong>&minus;16 LUFS</strong><span>masters, as platforms expect</span></li>
+        <li><strong>5 days</strong><span>to a timed rough cut</span></li>
+      </ul>
+    </div>
+
+    <div class="hero-art" role="img" aria-label="Illustration of a multitrack edit for episode 31, The Allotment Years. Host, guest and music bed tracks are shown with a sponsor read slot. The master is marked ready to publish.">
+      <div class="sheet" aria-hidden="true">
+        <div class="sheet-head">
+          <span class="mono">EP 031 &middot; Master v3</span>
+          <span class="sheet-title">The Allotment Years</span>
+        </div>
+        <div class="ruler mono">
+          <span>00:00</span><span>05:00</span><span>10:00</span><span>15:00</span><span>20:00</span><span>25:00</span>
+        </div>
+        <div class="tracks">
+          <div class="track">
+            <span class="track-label">Host<small>Bristol, Studio B</small></span>
+            <svg class="wave" data-seed="3" viewBox="0 0 600 56" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="track">
+            <span class="track-label">Guest<small>Leeds, kit A-212</small></span>
+            <svg class="wave" data-seed="11" viewBox="0 0 600 56" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="track track-music">
+            <span class="track-label">Music bed<small>Original, &minus;24 dB</small></span>
+            <svg class="wave" data-seed="27" viewBox="0 0 600 56" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="track track-ad">
+            <span class="track-label">Sponsor read<small>Slot 2 &middot; 00:58</small></span>
+            <div class="clip"><span>Read B &middot; Saltmarsh Press</span></div>
+          </div>
+        </div>
+        <div class="playhead" style="--x: 62%"></div>
+        <div class="sheet-foot">
+          <span class="mono">Integrated &minus;16.0 LUFS</span>
+          <span class="ok"><i></i> Ready to publish</span>
+        </div>
+      </div>
+      <div class="stamp" aria-hidden="true"><span>Approved</span><strong>3.5 days</strong><span>to feed</span></div>
+      <div class="kit-note" aria-hidden="true">
+        <span class="mono">Kit A-212 &middot; posted Tue</span>
+        <p>Level check on the call, 15 min. Backup audio records to the kit&rsquo;s SD card.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SOCIAL PROOF -->
+<section class="proof" aria-label="Clients">
+  <div class="wrap">
+    <p class="proof-label">Production teams we work with</p>
+    <ul class="proof-list">
+      <li class="pw-1">Tidewater Housing Trust</li>
+      <li class="pw-2">Saltmarsh Press</li>
+      <li class="pw-3">Ferris &amp; Wren</li>
+      <li class="pw-4">Hollin Lodge Hospice Fund</li>
+      <li class="pw-5">Quayside Mutual</li>
+      <li class="pw-6">Marlow Lane Radio</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 3. FEATURES -->
+<section id="shows" class="section" aria-labelledby="shows-title">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow">What we make</p>
+      <h2 id="shows-title">Everything between the first call and the feed.</h2>
+      <p class="section-intro">Six services come with every show we take on. The pricing table says what they cost; this is what arrives.</p>
+    </header>
+
+    <ul class="feature-grid">
+      <li class="feature">
+        <div class="ill-wrap">
+          <svg class="ill" viewBox="0 0 200 120" aria-hidden="true">
+            <rect x="34" y="44" width="132" height="54" rx="6" class="s"/>
+            <path d="M34 58H166" class="s"/>
+            <path d="M84 44V30Q100 14 116 30V44" class="s"/>
+            <circle cx="74" cy="80" r="9" class="f-rust"/>
+            <circle cx="126" cy="80" r="9" class="f-rust"/>
+            <path d="M100 73V87" class="s"/>
+            <path d="M22 102H178" class="s-soft"/>
+            <rect x="150" y="66" width="20" height="14" rx="2" class="f-ochre"/>
+          </svg>
+        </div>
+        <h3>Remote kits, posted to the guest</h3>
+        <p>A dual-mic kit in a foam case with a one-page guide and a return label, posted within 48 hours of booking. We run a 15-minute level check on the call before anyone presses record. Backup audio records to the kit&rsquo;s SD card.</p>
+      </li>
+
+      <li class="feature">
+        <div class="ill-wrap">
+          <svg class="ill" viewBox="0 0 200 120" aria-hidden="true">
+            <path class="w" d="M12 60V40M21 60V22M30 60V50M39 60V30M48 60V44M57 60V16M66 60V36M75 60V50M84 60V28"/>
+            <path class="cut-line" d="M100 8V112"/>
+            <path class="w" d="M118 60V46M127 60V30M136 60V52M145 60V22M154 60V40M163 60V26M172 60V48M181 60V34"/>
+          </svg>
+        </div>
+        <h3>Cutting to the point, not to the bone</h3>
+        <p>We cut for pace and leave breaths in unless they distract. You get a timed rough cut within five working days and a note for every edit we made, with the reason beside it.</p>
+      </li>
+
+      <li class="feature">
+        <div class="ill-wrap">
+          <svg class="ill" viewBox="0 0 200 120" aria-hidden="true">
+            <path class="staff" d="M20 40H180M20 52H180M20 64H180M20 76H180M20 88H180"/>
+            <path class="s" d="M52 76V40M92 64V26M132 52V16M168 40V6"/>
+            <ellipse cx="48" cy="78" rx="7" ry="5" class="f-rust" transform="rotate(-18 48 78)"/>
+            <ellipse cx="88" cy="66" rx="7" ry="5" class="f-rust" transform="rotate(-18 88 66)"/>
+            <ellipse cx="128" cy="54" rx="7" ry="5" class="f-rust" transform="rotate(-18 128 54)"/>
+            <ellipse cx="164" cy="42" rx="7" ry="5" class="f-rust" transform="rotate(-18 164 42)"/>
+          </svg>
+        </div>
+        <h3>An original theme, written for the show</h3>
+        <p>Theme, stingers and beds written or licensed for your show, in a key that does not fight your host. Stems come with the master, so the theme can be re-cut for a trailer or a social clip.</p>
+      </li>
+
+      <li class="feature">
+        <div class="ill-wrap">
+          <svg class="ill" viewBox="0 0 200 120" aria-hidden="true">
+            <circle cx="34" cy="86" r="6" class="f-rust"/>
+            <path d="M34 70a16 16 0 0 1 16 16M34 56a30 30 0 0 1 30 30M34 42a44 44 0 0 1 44 44" class="s"/>
+            <g class="s">
+              <rect x="100" y="36" width="14" height="12" rx="2"/><rect x="118" y="36" width="14" height="12" rx="2"/><rect x="136" y="36" width="14" height="12" rx="2"/><rect x="154" y="36" width="14" height="12" rx="2"/>
+              <rect x="100" y="54" width="14" height="12" rx="2"/><rect x="118" y="54" width="14" height="12" rx="2"/><rect x="136" y="54" width="14" height="12" rx="2"/><rect x="154" y="54" width="14" height="12" rx="2"/>
+              <rect x="100" y="72" width="14" height="12" rx="2"/><rect x="118" y="72" width="14" height="12" rx="2"/><rect x="136" y="72" width="14" height="12" rx="2"/><rect x="154" y="72" width="14" height="12" rx="2"/>
+            </g>
+            <rect x="136" y="54" width="14" height="12" rx="2" class="f-ochre"/>
+            <rect x="100" y="94" width="68" height="0" class="s-soft"/>
+          </svg>
+        </div>
+        <h3>Feeds that behave on the day</h3>
+        <p>We host the feed or deliver into yours, submit to the major directories and schedule each drop against your calendar. Downloads are reported from the feed itself, so the numbers in your board pack match the numbers on the platform.</p>
+      </li>
+
+      <li class="feature">
+        <div class="ill-wrap">
+          <svg class="ill" viewBox="0 0 200 120" aria-hidden="true">
+            <rect x="18" y="22" width="30" height="10" rx="5" class="f-sea"/>
+            <path class="s-soft" d="M58 27H150"/>
+            <rect x="18" y="46" width="30" height="10" rx="5" class="f-sea"/>
+            <path class="s-soft" d="M58 51H130"/>
+            <rect x="18" y="70" width="30" height="10" rx="5" class="f-sea"/>
+            <path class="s-soft" d="M58 75H164"/>
+            <rect x="18" y="94" width="30" height="10" rx="5" class="f-rust"/>
+            <path class="s-soft" d="M58 99H112"/>
+          </svg>
+        </div>
+        <h3>Transcripts and show notes</h3>
+        <p>Timestamped transcripts, chapter markers and show notes drafted from the episode, for accessibility and search. A person reads every one before it goes anywhere, and the transcript ships as a file you own.</p>
+      </li>
+
+      <li class="feature">
+        <div class="ill-wrap">
+          <svg class="ill" viewBox="0 0 200 120" aria-hidden="true">
+            <path class="s" d="M16 60H184"/>
+            <path class="tick" d="M16 52V68M56 52V68M96 52V68M136 52V68M176 52V68"/>
+            <rect x="16" y="46" width="78" height="28" rx="4" class="f-sea-soft"/>
+            <rect x="96" y="46" width="30" height="28" rx="4" class="f-ochre"/>
+            <rect x="128" y="46" width="48" height="28" rx="4" class="f-sea-soft"/>
+            <path class="s-soft" d="M96 80V92M126 80V92"/>
+          </svg>
+        </div>
+        <h3>Sponsor reads, slotted and logged</h3>
+        <p>We place sponsor reads at natural breaks, record them separately so a sponsor can be swapped without a re-edit, and keep a log of every slot, time and read for your sales team to check against the invoice.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- 4. PROCESS -->
+<section id="process" class="section section-alt" aria-labelledby="process-title">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow">How an episode gets made</p>
+      <h2 id="process-title">Three steps. About three weeks from brief to feed.</h2>
+      <p class="section-intro">Most of the waiting happens while a guest is travelling, which is why we start the kit before we start the edit.</p>
+    </header>
+
+    <ol class="steps">
+      <li class="step">
+        <span class="step-num" aria-hidden="true">01</span>
+        <div class="step-body">
+          <h3>Brief and booking</h3>
+          <p>You send a short brief. We send back a two-page session sheet with the guests, the running order and the three questions the episode must answer. Kits go out within 48 hours of booking.</p>
+          <p class="artefact mono">Hands you: session sheet</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num" aria-hidden="true">02</span>
+        <div class="step-body">
+          <h3>Record and cut</h3>
+          <p>Remote or in our Bristol studio. Levels are checked in the first two minutes of every track, then we cut a rough version within five working days. You receive timed notes, not a folder of unlabelled files.</p>
+          <p class="artefact mono">Hands you: timed rough cut and notes</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num" aria-hidden="true">03</span>
+        <div class="step-body">
+          <h3>Score, master and publish</h3>
+          <p>Theme, bed and stingers added, then mastered to &minus;16 LUFS for podcast platforms. We publish on the date you choose, which on average is 3.5 working days after you approve the master.</p>
+          <p class="artefact mono">Hands you: master, stems and feed</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 5. METRICS -->
+<section id="studio" class="metrics" aria-labelledby="studio-title">
+  <div class="wrap">
+    <header class="section-head on-dark">
+      <p class="eyebrow">The studio, in numbers</p>
+      <h2 id="studio-title">Twelve years in Bristol, one room at a time.</h2>
+      <p class="section-intro">Figures for the twelve months to 31 October 2026. Downloads come from client feed analytics, not our estimates.</p>
+    </header>
+    <dl class="metric-grid">
+      <div class="metric">
+        <dt>Episodes produced</dt>
+        <dd>1,840</dd>
+      </div>
+      <div class="metric">
+        <dt>Shows on the books this year</dt>
+        <dd>62</dd>
+      </div>
+      <div class="metric">
+        <dt>Downloads across client feeds</dt>
+        <dd>4.7M</dd>
+      </div>
+      <div class="metric">
+        <dt>Working days, approved master to publish</dt>
+        <dd>3.5</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<!-- 6. TESTIMONIALS -->
+<section id="quotes" class="section" aria-labelledby="quotes-title">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow">Clients, in their own words</p>
+      <h2 id="quotes-title">What people say when we are not in the room.</h2>
+    </header>
+    <div class="quote-grid">
+      <figure class="quote">
+        <blockquote>
+          <p>We had been publishing late for two years. Lowtide wrote a publishing date into the brief and met it every time, including the week our host lost her voice.</p>
+        </blockquote>
+        <figcaption><strong>Asha Brennan</strong><span>Head of Content, Tidewater Housing Trust</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote>
+          <p>The kit arrived on Tuesday, my guest had it set up by Wednesday, and I did not have to explain what a gain knob was. That is most of the job, really.</p>
+        </blockquote>
+        <figcaption><strong>Tom Okafor-Reid</strong><span>Host, Slow Lanes</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote>
+          <p>They cut out my filler words and left my jokes alone, which tells you most of what you need to know about their judgement.</p>
+        </blockquote>
+        <figcaption><strong>Ruth Keane</strong><span>Audio Editor, Saltmarsh Press</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 7. PRICING -->
+<section id="pricing" class="section section-alt" aria-labelledby="pricing-title">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow">Pricing</p>
+      <h2 id="pricing-title">Pay per episode, or commit to a season and pay less.</h2>
+      <p class="section-intro">All prices exclude VAT. Sponsor reads, music licences longer than 12 months and travel outside the UK are quoted separately.</p>
+    </header>
+
+    <div class="billing">
+      <div class="segmented" role="group" aria-label="Show prices per">
+        <button type="button" class="seg" data-billing="episode" aria-pressed="true">Per episode</button>
+        <button type="button" class="seg" data-billing="season" aria-pressed="false">Per season (8 episodes)</button>
+      </div>
+      <p class="billing-status" id="billing-status" aria-live="polite">Showing prices per episode.</p>
+    </div>
+
+    <div class="tiers">
+      <article class="tier" data-episode="720" data-season="5760">
+        <header>
+          <h3>Single Episode</h3>
+          <p class="tier-lede">For a one-off, a pilot, or a show still finding its feet.</p>
+        </header>
+        <p class="price"><span class="amount">£720</span> <span class="unit">per episode</span></p>
+        <p class="note" data-when="episode">Booked when you need it. No minimum.</p>
+        <p class="note" data-when="season" hidden>Eight bookings at £720 each. No discount, no commitment.</p>
+        <ul class="tier-list">
+          <li>One recording session, up to two hosts and two guests</li>
+          <li>Remote kits for each guest</li>
+          <li>Edited master with scored theme and bed</li>
+          <li>Publishing to your feed or ours</li>
+        </ul>
+        <a class="btn btn-ghost btn-block" href="#plan">Book an episode</a>
+      </article>
+
+      <article class="tier tier-featured" data-episode="580" data-season="4640">
+        <span class="badge">Most booked</span>
+        <header>
+          <h3>Season Pack</h3>
+          <p class="tier-lede">Eight episodes on one brief, with one producer who knows your show.</p>
+        </header>
+        <p class="price"><span class="amount">£580</span> <span class="unit">per episode</span></p>
+        <p class="note" data-when="episode">Eight episodes on one brief and one running order.</p>
+        <p class="note" data-when="season" hidden>Saves £1,120 against eight single bookings.</p>
+        <ul class="tier-list">
+          <li>Season planning session and show bible</li>
+          <li>Themes and stingers reused across the season</li>
+          <li>Timestamped transcripts and show notes included</li>
+          <li>Named producer, with a fixed weekly drop slot</li>
+        </ul>
+        <a class="btn btn-primary btn-block" href="#plan">Plan a season</a>
+      </article>
+
+      <article class="tier" data-episode="490" data-season="3920">
+        <header>
+          <h3>Network Retainer</h3>
+          <p class="tier-lede">For organisations with several shows, or a release schedule that does not move.</p>
+        </header>
+        <p class="price"><span class="amount">£490</span> <span class="unit">per episode</span></p>
+        <p class="note" data-when="episode">Minimum two seasons (16 episodes) a year.</p>
+        <p class="note" data-when="season" hidden>Invoiced per season, two-season minimum.</p>
+        <ul class="tier-list">
+          <li>Up to three shows on one shared calendar</li>
+          <li>Priority scheduling and a named producer</li>
+          <li>Monthly review of downloads and drop timings</li>
+          <li>Kits, transcripts and sponsor logs included</li>
+        </ul>
+        <a class="btn btn-ghost btn-block" href="#plan">Talk about a retainer</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FAQ -->
+<section id="faq" class="section" aria-labelledby="faq-title">
+  <div class="wrap faq-wrap">
+    <header class="section-head">
+      <p class="eyebrow">Questions</p>
+      <h2 id="faq-title">Things people ask before they book.</h2>
+    </header>
+
+    <div class="accordion">
+      <h3 class="acc-item">
+        <button class="acc-trigger" type="button" id="faq1-btn" aria-expanded="false" aria-controls="faq1-panel">
+          <span>How long from booking to a published episode?</span><span class="acc-icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      <div class="acc-panel" id="faq1-panel" role="region" aria-labelledby="faq1-btn" hidden>
+        <p>Three working weeks is typical: one week for the kit to arrive and be tested, a recording day, then five working days to a rough cut. The final publish is 3.5 working days after you approve the master, on average.</p>
+      </div>
+
+      <h3 class="acc-item">
+        <button class="acc-trigger" type="button" id="faq2-btn" aria-expanded="false" aria-controls="faq2-panel">
+          <span>What does a guest need to record remotely?</span><span class="acc-icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      <div class="acc-panel" id="faq2-panel" role="region" aria-labelledby="faq2-btn" hidden>
+        <p>Nothing beyond a quiet room and a phone charger. The kit is a dual-mic recorder in a foam case with a one-page guide and a return label. We post it, test the signal on a 15-minute call, and collect it afterwards.</p>
+      </div>
+
+      <h3 class="acc-item">
+        <button class="acc-trigger" type="button" id="faq3-btn" aria-expanded="false" aria-controls="faq3-panel">
+          <span>Who owns the recordings and the music?</span><span class="acc-icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      <div class="acc-panel" id="faq3-panel" role="region" aria-labelledby="faq3-btn" hidden>
+        <p>You own the masters, the raw recordings and the stems. Original theme and bed music transfer to you on final payment. Licensed library music is licensed in your name for the term you agree, and we say so in the session sheet.</p>
+      </div>
+
+      <h3 class="acc-item">
+        <button class="acc-trigger" type="button" id="faq4-btn" aria-expanded="false" aria-controls="faq4-panel">
+          <span>What if a guest&rsquo;s kit fails part way through?</span><span class="acc-icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      <div class="acc-panel" id="faq4-panel" role="region" aria-labelledby="faq4-btn" hidden>
+        <p>Every kit records a local backup to its SD card at the same time as the call. If the live feed drops, we pull the backup and align it to the session, and there is no extra charge for that.</p>
+      </div>
+
+      <h3 class="acc-item">
+        <button class="acc-trigger" type="button" id="faq5-btn" aria-expanded="false" aria-controls="faq5-panel">
+          <span>Can you work with our existing host or presenter?</span><span class="acc-icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      <div class="acc-panel" id="faq5-panel" role="region" aria-labelledby="faq5-btn" hidden>
+        <p>Yes, and most of our work is with hosts who already have a voice. We listen to two earlier episodes before the first session, so our cuts keep their pace and their habits, including the ones you would rather keep.</p>
+      </div>
+
+      <h3 class="acc-item">
+        <button class="acc-trigger" type="button" id="faq6-btn" aria-expanded="false" aria-controls="faq6-panel">
+          <span>Do you host the feed, or only produce the show?</span><span class="acc-icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      <div class="acc-panel" id="faq6-panel" role="region" aria-labelledby="faq6-btn" hidden>
+        <p>Either. We can host on our feed for a monthly fee, or deliver into a host you already use. Both routes include submission to the main directories and a drop schedule, and we keep the feed live for 12 months after the last episode.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. FINAL CTA -->
+<section id="plan" class="cta-band" aria-labelledby="cta-title">
+  <div class="wrap cta-inner">
+    <div>
+      <h2 id="cta-title">Tell us what the show is for, and who it is for.</h2>
+      <p>Send a paragraph and a rough episode count. We reply within one working day with a session sheet, a price, and a publish date we can keep.</p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn btn-ink" href="mailto:hello@lowtideaudio.example?subject=Plan%20your%20show">Plan your show</a>
+      <a class="btn btn-outline-ink" href="mailto:hello@lowtideaudio.example?subject=20-minute%20call">Book a 20-minute call</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="brand brand-light" href="#top" aria-label="Lowtide Audio, back to top">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="#F5F0E6"/>
+          <path d="M5 17Q9 9 13 17T21 17T27 17" fill="none" stroke="#1D3B4A" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M5 23Q9 16 13 23T21 23T27 23" fill="none" stroke="#E0A43A" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">Lowtide <span>Audio</span></span>
+      </a>
+      <p>Podcast production for charities, publishers and independent hosts. Studio at Parry Yard, Bristol BS5 0XQ.</p>
+    </div>
+    <nav class="footer-col" aria-labelledby="foot-services">
+      <p class="foot-title" id="foot-services">Services</p>
+      <ul>
+        <li><a href="#shows">What we make</a></li>
+        <li><a href="#pricing">Single episodes</a></li>
+        <li><a href="#pricing">Season packs</a></li>
+        <li><a href="#pricing">Network retainers</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="foot-studio">
+      <p class="foot-title" id="foot-studio">Studio</p>
+      <ul>
+        <li><a href="#process">How an episode is made</a></li>
+        <li><a href="#studio">The studio in numbers</a></li>
+        <li><a href="#faq">Questions</a></li>
+        <li><a href="mailto:clients@lowtideaudio.example?subject=Client%20sign-in">Client sign-in</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="foot-contact">
+      <p class="foot-title" id="foot-contact">Contact</p>
+      <ul>
+        <li><a href="mailto:hello@lowtideaudio.example">hello@lowtideaudio.example</a></li>
+        <li><a href="#plan">Plan your show</a></li>
+        <li><a href="#top">Back to top</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap legal">
+    <p>&copy; 2026 Lowtide Audio Ltd. Lowtide Audio is a fictional organisation used for this brief.</p>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{
+ "pixelmoth-3way-r1": {
+  "brief": "pixelmoth",
+  "round": 1,
+  "X": "hybrid",
+  "Y": "engine",
+  "Z": "control"
+ },
+ "pixelmoth-3way-r2": {
+  "brief": "pixelmoth",
+  "round": 2,
+  "X": "engine",
+  "Y": "control",
+  "Z": "hybrid"
+ },
+ "wren-3way-r1": {
+  "brief": "wren",
+  "round": 1,
+  "X": "hybrid",
+  "Y": "engine",
+  "Z": "control"
+ },
+ "wren-3way-r2": {
+  "brief": "wren",
+  "round": 2,
+  "X": "engine",
+  "Y": "control",
+  "Z": "hybrid"
+ },
+ "dovecote-3way-r1": {
+  "brief": "dovecote",
+  "round": 1,
+  "X": "control",
+  "Y": "engine",
+  "Z": "hybrid"
+ },
+ "dovecote-3way-r2": {
+  "brief": "dovecote",
+  "round": 2,
+  "X": "engine",
+  "Y": "hybrid",
+  "Z": "control"
+ },
+ "ledgerleaf-3way-r1": {
+  "brief": "ledgerleaf",
+  "round": 1,
+  "X": "engine",
+  "Y": "control",
+  "Z": "hybrid"
+ },
+ "ledgerleaf-3way-r2": {
+  "brief": "ledgerleaf",
+  "round": 2,
+  "X": "control",
+  "Y": "hybrid",
+  "Z": "engine"
+ },
+ "lowtide-3way-r1": {
+  "brief": "lowtide",
+  "round": 1,
+  "X": "engine",
+  "Y": "control",
+  "Z": "hybrid"
+ },
+ "lowtide-3way-r2": {
+  "brief": "lowtide",
+  "round": 2,
+  "X": "control",
+  "Y": "hybrid",
+  "Z": "engine"
+ },
+ "brightwater-3way-r1": {
+  "brief": "brightwater",
+  "round": 1,
+  "X": "control",
+  "Y": "engine",
+  "Z": "hybrid"
+ },
+ "brightwater-3way-r2": {
+  "brief": "brightwater",
+  "round": 2,
+  "X": "engine",
+  "Y": "hybrid",
+  "Z": "control"
+ }
+}

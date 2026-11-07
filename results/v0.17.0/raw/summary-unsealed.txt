@@ -1,0 +1,58 @@
+{
+ "judgements": 12,
+ "perArm": {
+  "control": {
+   "firsts": 4,
+   "lasts": 0,
+   "meanRank": 1.67,
+   "templateLike": 0,
+   "dims": {
+    "hierarchy": 7.67,
+    "typography": 8,
+    "spacing": 7.08,
+    "colour": 7.83,
+    "product_visual": 7.42,
+    "mobile": 7.17,
+    "polish": 7,
+    "originality": 7.42
+   }
+  },
+  "engine": {
+   "firsts": 0,
+   "lasts": 10,
+   "meanRank": 2.83,
+   "templateLike": 12,
+   "dims": {
+    "hierarchy": 7.08,
+    "typography": 7,
+    "spacing": 7.08,
+    "colour": 6.92,
+    "product_visual": 6.75,
+    "mobile": 6.83,
+    "polish": 7.17,
+    "originality": 5.08
+   }
+  },
+  "hybrid": {
+   "firsts": 8,
+   "lasts": 2,
+   "meanRank": 1.5,
+   "templateLike": 0,
+   "dims": {
+    "hierarchy": 7.75,
+    "typography": 8.25,
+    "spacing": 7.42,
+    "colour": 7.83,
+    "product_visual": 8.42,
+    "mobile": 7.25,
+    "polish": 7.33,
+    "originality": 8.25
+   }
+  }
+ },
+ "pairwise": {
+  "control beats engine": "12-0",
+  "control beats hybrid": "4-8",
+  "engine beats hybrid": "2-10"
+ }
+}

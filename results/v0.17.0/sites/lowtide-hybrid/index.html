@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lowtide Audio | Podcast production in Bristol</title>
+  <meta name="description" content="Lowtide Audio records, edits, scores and publishes podcasts for charities, publishers and independent hosts, and posts recording kits to guests.">
+  <meta name="theme-color" content="#F4EFE4">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231D1B17'/%3E%3Cpath d='M6 12c3 0 3 4 6 4s3-4 6-4 3 4 6 4 3-4 4-4' fill='none' stroke='%23F4EFE4' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M6 20c3 0 3 4 6 4s3-4 6-4 3 4 6 4 3-4 4-4' fill='none' stroke='%23E0A17F' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="top" data-open="false">
+  <div class="wrap nav-row">
+    <a class="brand" href="#top">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="9" fill="#1D1B17"/>
+        <path d="M6 12c3 0 3 4 6 4s3-4 6-4 3 4 6 4 3-4 4-4" fill="none" stroke="#F4EFE4" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M6 20c3 0 3 4 6 4s3-4 6-4 3 4 6 4 3-4 4-4" fill="none" stroke="#E0A17F" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-word">Lowtide<span>Audio</span></span>
+    </a>
+
+    <nav class="primary-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-links">
+        <li><a href="#shows">Shows</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#studio">Studio</a></li>
+        <li><a class="nav-member" href="#member">Client sign-in</a></li>
+      </ul>
+      <a class="btn btn-primary nav-cta" href="#plan">Plan your show</a>
+    </nav>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <span class="menu-bars" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- 2. Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Podcast production &middot; Stokes Croft, Bristol</p>
+        <h1 id="hero-title">Shows that go live on the day we said, <em>with the guest still sounding like themselves.</em></h1>
+        <p class="lede">We record, cut, score and publish podcasts for charities, publishers and independent hosts. Every guest gets a recording kit posted to their door, every cut goes into a timecoded log, and nothing reaches a feed until it has passed a legal read.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#plan">Plan your show</a>
+          <a class="btn btn-ghost" href="#process">See how an episode gets made</a>
+        </div>
+        <p class="fine">Median 3.4 working days from final cut to live. Guest kits leave our door within 48 hours.</p>
+      </div>
+
+      <div class="hero-visual">
+        <div class="sheet" role="group" aria-label="Example session sheet: The Damp Season, episode 6">
+          <div class="sheet-head">
+            <div>
+              <p class="mono kicker">Session 14 &middot; Studio B + remote kit</p>
+              <p class="sheet-title">The Damp Season, episode 6</p>
+            </div>
+            <span class="status">1 claim held</span>
+          </div>
+
+          <ol class="tracks">
+            <li class="track">
+              <span class="track-label"><b>Host</b>Dana, mic 1</span>
+              <div class="wave" data-seed="3"></div>
+              <span class="mono track-time">41:07</span>
+            </li>
+            <li class="track">
+              <span class="track-label"><b>Guest</b>T. Ojo, kit RK-208</span>
+              <div class="wave wave-accent" data-seed="11"></div>
+              <span class="mono track-time">38:52</span>
+            </li>
+            <li class="track">
+              <span class="track-label"><b>Bed</b>Cold Stairwell, scored</span>
+              <div class="wave wave-soft" data-seed="27"></div>
+              <span class="mono track-time">ducked</span>
+            </li>
+            <li class="track">
+              <span class="track-label"><b>VO</b>Charity line, 0:14</span>
+              <div class="wave wave-moss" data-seed="41"></div>
+              <span class="mono track-time">0:14</span>
+            </li>
+          </ol>
+
+          <ul class="edit-log" aria-label="Edit log">
+            <li><span class="mono">00:04:12</span><span>Cut 9 s of kettle. Dana approved.</span></li>
+            <li><span class="mono">00:17:48</span><span>Guest up 3 dB. Room tone patched from the kit check.</span></li>
+            <li><span class="mono">00:31:05</span><span>Bed ducks 6 dB under host reads.</span></li>
+            <li class="flag"><span class="mono">00:42:50</span><span>&ldquo;Landlord&rdquo; claim needs a source before it can publish.</span></li>
+          </ul>
+
+          <div class="sheet-foot">
+            <span class="mono">Scheduled Thu 06:00</span>
+            <span class="chips"><span>4 feeds</span><span>24-bit master</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Social proof -->
+  <section class="partners" aria-labelledby="partners-title">
+    <div class="wrap partners-row">
+      <h2 id="partners-title" class="partners-lead mono">Shows made with</h2>
+      <ul class="partner-list">
+        <li>Tallow Street Press</li>
+        <li>Northgate Tenants&rsquo; Trust</li>
+        <li>The Saltmarsh Review</li>
+        <li>Greyfriars Hospice Appeal</li>
+        <li>Marrow Lane Books</li>
+        <li>Quayside Co-op Radio</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4. Features / offer -->
+  <section class="section" id="shows" aria-labelledby="shows-title">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="eyebrow">What we make</p>
+        <h2 id="shows-title">Six jobs we do for every show, and one we refuse to skip.</h2>
+        <p class="section-lede">Most production houses bill the recording and leave the rest to you. We take on the parts that usually slip: guest audio, the legal read, the feed set-up and the paper trail.</p>
+      </header>
+
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="feature-art">
+            <svg viewBox="0 0 240 120" aria-hidden="true">
+              <rect x="34" y="26" width="112" height="72" rx="12" fill="#1D1B17"/>
+              <rect x="50" y="42" width="30" height="40" rx="15" fill="#E8DCC4"/>
+              <path d="M146 60h36" stroke="#A8401A" stroke-width="4" stroke-linecap="round"/>
+              <path d="M180 60c10 0 10 26 22 26" fill="none" stroke="#A8401A" stroke-width="3" stroke-linecap="round"/>
+              <rect x="100" y="48" width="36" height="8" rx="4" fill="#3D5A3A"/>
+              <rect x="100" y="64" width="22" height="8" rx="4" fill="#625A4B"/>
+              <circle cx="206" cy="92" r="10" fill="#A8401A"/>
+            </svg>
+          </div>
+          <h3>Remote recording kits</h3>
+          <p>A dynamic mic, a small interface and a pre-addressed return box, posted within 48 hours. We call the guest, line-check them and stay on the line until the first answer is clean.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature-art">
+            <svg viewBox="0 0 240 120" aria-hidden="true">
+              <g fill="#1E5C60">
+                <rect x="14" y="52" width="5" height="16" rx="2.5"/>
+                <rect x="23" y="40" width="5" height="40" rx="2.5"/>
+                <rect x="32" y="48" width="5" height="24" rx="2.5"/>
+                <rect x="41" y="30" width="5" height="60" rx="2.5"/>
+                <rect x="50" y="44" width="5" height="32" rx="2.5"/>
+                <rect x="59" y="36" width="5" height="48" rx="2.5"/>
+                <rect x="68" y="50" width="5" height="20" rx="2.5"/>
+                <rect x="77" y="26" width="5" height="68" rx="2.5"/>
+                <rect x="86" y="42" width="5" height="36" rx="2.5"/>
+                <rect x="140" y="46" width="5" height="28" rx="2.5"/>
+                <rect x="149" y="34" width="5" height="52" rx="2.5"/>
+                <rect x="158" y="22" width="5" height="76" rx="2.5"/>
+                <rect x="167" y="40" width="5" height="40" rx="2.5"/>
+                <rect x="176" y="50" width="5" height="20" rx="2.5"/>
+                <rect x="185" y="36" width="5" height="48" rx="2.5"/>
+                <rect x="194" y="46" width="5" height="28" rx="2.5"/>
+                <rect x="203" y="56" width="5" height="10" rx="2.5"/>
+              </g>
+              <rect x="106" y="14" width="26" height="92" fill="#E8DCC4"/>
+              <path d="M119 14v92" stroke="#A8401A" stroke-width="2" stroke-dasharray="4 4"/>
+              <path d="M106 24l-6-6M132 24l6-6" stroke="#A8401A" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Editing that keeps the breath</h3>
+          <p>We cut for meaning and leave the human pauses in. Every removal is logged with a timecode, so you can hear what changed and why before you approve the draft.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature-art">
+            <svg viewBox="0 0 240 120" aria-hidden="true">
+              <g stroke="#625A4B" stroke-width="1.5">
+                <line x1="20" y1="40" x2="220" y2="40"/>
+                <line x1="20" y1="52" x2="220" y2="52"/>
+                <line x1="20" y1="64" x2="220" y2="64"/>
+                <line x1="20" y1="76" x2="220" y2="76"/>
+                <line x1="20" y1="88" x2="220" y2="88"/>
+              </g>
+              <g fill="#A8401A">
+                <ellipse cx="56" cy="82" rx="7" ry="5" transform="rotate(-20 56 82)"/>
+                <ellipse cx="98" cy="70" rx="7" ry="5" transform="rotate(-20 98 70)"/>
+                <ellipse cx="140" cy="76" rx="7" ry="5" transform="rotate(-20 140 76)"/>
+                <ellipse cx="184" cy="58" rx="7" ry="5" transform="rotate(-20 184 58)"/>
+              </g>
+              <g stroke="#A8401A" stroke-width="2">
+                <line x1="62" y1="82" x2="62" y2="32"/>
+                <line x1="104" y1="70" x2="104" y2="20"/>
+                <line x1="146" y1="76" x2="146" y2="26"/>
+                <line x1="190" y1="58" x2="190" y2="8"/>
+              </g>
+            </svg>
+          </div>
+          <h3>Scoring and music beds</h3>
+          <p>Original beds and stings written in our room, or library music cleared for your licence. Nothing generated, nothing unlicensed, and the bed is mixed to duck under the host.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature-art">
+            <svg viewBox="0 0 240 120" aria-hidden="true">
+              <rect x="70" y="18" width="110" height="28" rx="8" fill="#E8DCC4"/>
+              <rect x="56" y="48" width="110" height="28" rx="8" fill="#D8CDB6"/>
+              <rect x="42" y="78" width="110" height="28" rx="8" fill="#1E5C60"/>
+              <circle cx="164" cy="28" r="4" fill="#3D5A3A"/>
+              <circle cx="150" cy="58" r="4" fill="#3D5A3A"/>
+              <circle cx="136" cy="88" r="4" fill="#F4EFE4"/>
+              <path d="M186 26a40 40 0 0 1 30 30M186 40a26 26 0 0 1 16 16" fill="none" stroke="#A8401A" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Feed set-up and publishing</h3>
+          <p>We build the RSS feed, artwork and metadata for each show, then publish to four directories on a morning you agree. You get the feed link, not a login to someone else&rsquo;s platform.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature-art">
+            <svg viewBox="0 0 240 120" aria-hidden="true">
+              <g font-family="IBM Plex Mono, monospace" font-size="13" fill="#625A4B">
+                <text x="18" y="34">00:04:12</text>
+                <text x="18" y="58">00:17:48</text>
+                <text x="18" y="82">00:31:05</text>
+                <text x="18" y="106">00:42:50</text>
+              </g>
+              <g fill="#D8CDB6">
+                <rect x="92" y="26" width="120" height="6" rx="3"/>
+                <rect x="92" y="50" width="96" height="6" rx="3"/>
+                <rect x="92" y="74" width="128" height="6" rx="3"/>
+                <rect x="92" y="98" width="72" height="6" rx="3"/>
+              </g>
+              <rect x="88" y="46" width="134" height="14" rx="4" fill="none" stroke="#1E5C60" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Transcripts and show notes</h3>
+          <p>Timestamped transcripts and notes, checked by a person against the audio, so the search on your site finds the moment a guest said the thing you quote.</p>
+        </article>
+
+        <article class="feature feature-wide">
+          <div class="feature-art">
+            <svg viewBox="0 0 240 120" aria-hidden="true">
+              <rect x="50" y="14" width="96" height="92" rx="8" fill="#FBF8F1" stroke="#D8CDB6" stroke-width="2"/>
+              <rect x="64" y="30" width="60" height="6" rx="3" fill="#D8CDB6"/>
+              <rect x="64" y="46" width="68" height="6" rx="3" fill="#D8CDB6"/>
+              <rect x="60" y="60" width="78" height="14" rx="3" fill="#A8401A" opacity=".18"/>
+              <rect x="64" y="80" width="50" height="6" rx="3" fill="#D8CDB6"/>
+              <circle cx="168" cy="72" r="22" fill="#3D5A3A"/>
+              <path d="M158 72l7 7 13-14" fill="none" stroke="#FBF8F1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <h3>Safeguarding and legal read, on every script</h3>
+            <p>Every charity and publisher script gets a read for named individuals, factual claims and consent. If a claim has no source, the episode waits in the log until someone answers it. We would rather be late by a day than correct a feed for a month.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. How an episode gets made -->
+  <section class="section band-alt" id="process" aria-labelledby="process-title">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="eyebrow">Process</p>
+        <h2 id="process-title">How an episode gets made</h2>
+        <p class="section-lede">Ten working days from the planning call to a live episode, with a log at every step.</p>
+      </header>
+
+      <div class="day-bars" aria-hidden="true">
+        <div class="day-row">
+          <span class="day-name">Brief and kit</span>
+          <span class="day-track"><i style="--s:0;--w:50%">5 days</i></span>
+        </div>
+        <div class="day-row">
+          <span class="day-name">Record and edit</span>
+          <span class="day-track"><i style="--s:50%;--w:30%" class="alt">3 days</i></span>
+        </div>
+        <div class="day-row">
+          <span class="day-name">Score, check, publish</span>
+          <span class="day-track"><i style="--s:80%;--w:20%" class="moss">2 days</i></span>
+        </div>
+        <div class="day-ruler mono"><span></span><span><span>Day 0</span><span>Day 5</span><span>Day 10</span></span></div>
+      </div>
+
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num" aria-hidden="true">01</span>
+          <p class="step-days mono">Days 0 to 5</p>
+          <h3>Brief and kit</h3>
+          <p>We agree the cut, the guest list and the date on a 30-minute call. If a guest needs a kit, it leaves Bristol within 48 hours with a tracked label and a line-check booked.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">02</span>
+          <p class="step-days mono">Days 5 to 8</p>
+          <h3>Record and edit</h3>
+          <p>Hosts record in Studio B, guests from their kits. We send a first-pass cut within two working days of the session, with the edit log alongside, so every change is one you can question.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">03</span>
+          <p class="step-days mono">Days 8 to 10</p>
+          <h3>Score, check, publish</h3>
+          <p>The bed is written or cleared, the legal read is signed off, and the master goes to your feeds on the morning you chose. You keep the masters, the log and the transcript.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6. Metrics band -->
+  <section class="metrics" aria-labelledby="metrics-title">
+    <div class="wrap">
+      <h2 id="metrics-title" class="metrics-title">Eleven years of working days, counted</h2>
+      <dl class="metric-grid">
+        <div class="metric">
+          <dt>Episodes produced</dt>
+          <dd>1,140</dd>
+        </div>
+        <div class="metric">
+          <dt>Shows in production</dt>
+          <dd>37</dd>
+        </div>
+        <div class="metric">
+          <dt>Downloads across hosted shows</dt>
+          <dd>2.6m</dd>
+        </div>
+        <div class="metric">
+          <dt>Working days, final cut to live</dt>
+          <dd>3.4</dd>
+        </div>
+      </dl>
+      <div class="metric-scale" aria-hidden="true">
+        <span class="metric-scale-bar"><i style="width:34%"></i></span>
+        <span class="metric-scale-labels mono"><span>0</span><span>3.4 median</span><span>10 days</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Testimonials -->
+  <section class="section" id="studio" aria-labelledby="studio-title">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="eyebrow">Studio notes</p>
+        <h2 id="studio-title">What clients say when we are not in the room</h2>
+      </header>
+
+      <div class="quote-grid">
+        <figure class="quote">
+          <blockquote>
+            <p>They caught a claim in episode three that would have cost us a fortnight of corrections. The log they keep is the reason we trust the next draft.</p>
+          </blockquote>
+          <p class="log-stamp mono"><b>0</b> corrections issued &middot; claim held 2 days &middot; log NT-0391</p>
+          <figcaption><strong>Dana Okafor</strong><span>Head of communications, Northgate Tenants&rsquo; Trust</span></figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote>
+            <p>We have used three studios. Lowtide was the only one that told us a deadline was impossible before we agreed it, and then hit the one after.</p>
+          </blockquote>
+          <p class="log-stamp mono"><b>0</b> missed deadlines &middot; one date moved 1 day &middot; log SR-0112</p>
+          <figcaption><strong>Tom Brennan</strong><span>Managing editor, The Saltmarsh Review</span></figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote>
+            <p>The kit arrived on a Tuesday. My neighbour&rsquo;s dog barked through the whole session and the file was still clean. I have stopped asking how.</p>
+          </blockquote>
+          <p class="log-stamp mono"><b>1</b> kit check, <b>0</b> retakes needed &middot; log LW-0067</p>
+          <figcaption><strong>Ilse Mercer</strong><span>Host, Low Water (independent)</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Pricing -->
+  <section class="section band-alt" id="pricing" aria-labelledby="pricing-title">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="eyebrow">Pricing</p>
+        <h2 id="pricing-title">Three ways to book. Cancel up to 10 working days out at no charge.</h2>
+        <p class="section-lede">Prices exclude VAT. A season is eight episodes booked together, on one calendar, with one producer.</p>
+      </header>
+
+      <div class="pricing-toolbar">
+        <div class="toggle" role="group" aria-label="Show prices per episode or per season">
+          <button type="button" class="toggle-btn" aria-pressed="true" data-basis="episode">Per episode</button>
+          <button type="button" class="toggle-btn" aria-pressed="false" data-basis="season">Per season</button>
+        </div>
+        <p class="toggle-note" aria-live="polite" id="price-note">Showing the price of one episode.</p>
+      </div>
+
+      <div class="tiers">
+        <article class="tier">
+          <h3>Single Episode</h3>
+          <p class="tier-blurb">One episode from recording to publish. Suits a pilot, a one-off appeal or a show that is still finding its feet.</p>
+          <p class="price">
+            <span class="amount" data-episode="640" data-season="4900">&pound;640</span>
+            <span class="unit">per episode</span>
+          </p>
+          <ul class="tier-list">
+            <li>Studio or remote session, up to 90 minutes</li>
+            <li>Edit with timecoded log</li>
+            <li>Bed from our library, cleared for your use</li>
+            <li>Publishing to four directories</li>
+            <li>One round of edits within 14 days</li>
+          </ul>
+          <a class="btn btn-ghost btn-block" href="#plan">Book a single episode</a>
+        </article>
+
+        <article class="tier tier-featured">
+          <span class="tier-flag">Most booked</span>
+          <h3>Season Pack</h3>
+          <p class="tier-blurb">Eight episodes on a fixed calendar, with an original score written once for the whole run. Most of our shows are booked this way.</p>
+          <p class="price">
+            <span class="amount" data-episode="520" data-season="4160">&pound;520</span>
+            <span class="unit">per episode</span>
+          </p>
+          <ul class="tier-list">
+            <li>Everything in Single Episode</li>
+            <li>Original score written once for the season</li>
+            <li>Remote kits for up to three guests per episode</li>
+            <li>Transcripts and show notes on every episode</li>
+            <li>Safeguarding and legal read on every script</li>
+          </ul>
+          <a class="btn btn-primary btn-block" href="#plan">Book a season</a>
+        </article>
+
+        <article class="tier">
+          <h3>Network Retainer</h3>
+          <p class="tier-blurb">Up to three shows, one production team and one calendar. For publishers and charities with a running slate.</p>
+          <p class="price">
+            <span class="amount" data-episode="430" data-season="3440">&pound;430</span>
+            <span class="unit">per episode</span>
+          </p>
+          <ul class="tier-list">
+            <li>Everything in Season Pack</li>
+            <li>Shared guest kit pool across all three shows</li>
+            <li>A named producer and a standing Thursday slot</li>
+            <li>Quarterly planning day on site</li>
+            <li>Monthly report on downloads and corrections</li>
+          </ul>
+          <a class="btn btn-ghost btn-block" href="#plan">Talk about a retainer</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. FAQ -->
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq-layout">
+      <header class="faq-intro">
+        <p class="eyebrow">Questions</p>
+        <h2 id="faq-title">Questions we hear before the first call</h2>
+        <p class="section-lede">If yours is not here, write to <a href="mailto:hello@lowtide.example">hello@lowtide.example</a> and a producer will answer it.</p>
+      </header>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3 class="faq-q"><button type="button" id="faq-1" aria-expanded="true" aria-controls="faq-1-panel">How long from final cut to live?</button></h3>
+          <div class="faq-a" id="faq-1-panel" role="region" aria-labelledby="faq-1">
+            <p>The median is 3.4 working days. Scheduled publishing is free, and we will not put a date on a feed that the legal read has not reached yet.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q"><button type="button" id="faq-2" aria-expanded="false" aria-controls="faq-2-panel">Can our guests record from home?</button></h3>
+          <div class="faq-a" id="faq-2-panel" role="region" aria-labelledby="faq-2" hidden>
+            <p>Yes. We post a kit with a dynamic mic, a small interface, headphones and a return box. A producer calls the guest for a ten-minute line check, and the session starts only after the level test passes.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q"><button type="button" id="faq-3" aria-expanded="false" aria-controls="faq-3-panel">Do you work with stories that need protecting?</button></h3>
+          <div class="faq-a" id="faq-3-panel" role="region" aria-labelledby="faq-3" hidden>
+            <p>Often. We can anonymise voices and strip identifying metadata from files, and our contract sets out how source material is held and deleted. Those terms are written into the planning call, not the small print.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q"><button type="button" id="faq-4" aria-expanded="false" aria-controls="faq-4-panel">Who owns the finished episodes?</button></h3>
+          <div class="faq-a" id="faq-4-panel" role="region" aria-labelledby="faq-4" hidden>
+            <p>You do. We hand over 24-bit WAV masters, MP3 deliveries with tagged metadata and the edit log. We keep our session files for 12 months, then delete them on request.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q"><button type="button" id="faq-5" aria-expanded="false" aria-controls="faq-5-panel">Can you score music for us?</button></h3>
+          <div class="faq-a" id="faq-5-panel" role="region" aria-labelledby="faq-5" hidden>
+            <p>We write beds and stings in-house, and we clear library music against your licence. We do not use generated music, and we will tell you the source of every bed in the episode notes.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q"><button type="button" id="faq-6" aria-expanded="false" aria-controls="faq-6-panel">What if something needs changing after it goes live?</button></h3>
+          <div class="faq-a" id="faq-6-panel" role="region" aria-labelledby="faq-6" hidden>
+            <p>Every tier includes one round of edits within 14 days of publishing. After that, changes are billed at the studio day rate, and we re-issue the feed the same morning.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Final CTA -->
+  <section class="final-cta" id="plan" aria-labelledby="plan-title">
+    <div class="wrap">
+      <div class="final-panel">
+        <p class="eyebrow eyebrow-light">Planning call, 30 minutes</p>
+        <h2 id="plan-title">Send us the show, the guest count and the date.</h2>
+        <p class="final-lede">We reply within one working day with a quote and a studio slot. If the date is too tight, we will say so before anyone has promised it.</p>
+        <p class="slots-label mono">Open planning slots, November</p>
+        <ul class="slots mono" aria-label="Open planning slots">
+          <li><b>Tue 10</b> 10:00 Studio B</li>
+          <li><b>Thu 12</b> 14:00 remote</li>
+          <li><b>Tue 17</b> 09:30 Studio B</li>
+          <li><b>Thu 19</b> 11:00 remote</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn btn-invert" href="mailto:plan@lowtide.example?subject=Plan%20my%20show">Plan your show</a>
+          <a class="btn btn-ghost-invert" href="#pricing">Compare the tiers</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 11. Footer -->
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <nav class="foot-col" aria-labelledby="foot-services">
+      <h2 id="foot-services">Services</h2>
+      <ul>
+        <li><a href="#pricing">Single episodes</a></li>
+        <li><a href="#pricing">Season packs</a></li>
+        <li><a href="#pricing">Network retainers</a></li>
+        <li><a href="#shows">Remote recording kits</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-labelledby="foot-studio">
+      <h2 id="foot-studio">The studio</h2>
+      <ul>
+        <li><a href="#process">How we work</a></li>
+        <li><a href="#studio">Client notes</a></li>
+        <li><a href="#faq">Questions</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-labelledby="member">
+      <h2 id="member">Clients and contact</h2>
+      <ul>
+        <li><a href="#member">Client sign-in</a></li>
+        <li><a href="mailto:hello@lowtide.example">hello@lowtide.example</a></li>
+        <li>Studio B, 14 Stokes Croft, Bristol BS1 3QY</li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap legal">
+    <p>&copy; 2026 Lowtide Audio Ltd. Registered in England and Wales, company no. 09874321. Recording kits are insured for transit loss up to &pound;1,500. Prices exclude VAT.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

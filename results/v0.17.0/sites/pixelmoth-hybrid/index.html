@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moss &amp; Lantern by Pixelmoth Games | Cosy lighthouse puzzler for PC and Switch</title>
+  <meta name="description" content="Moss &amp; Lantern is a cosy puzzle game by four-person studio Pixelmoth Games. Restore a drowned island lighthouse on PC and Switch. Demo, soundtrack and Collector's Edition.">
+  <meta name="theme-color" content="#0C171C">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,400..600&family=Figtree:wght@400..800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230C171C'/%3E%3Crect x='11' y='13' width='10' height='14' fill='%23F3E9D2'/%3E%3Cpath d='M9 13 L12 7 H20 L23 13Z' fill='%23F3E9D2'/%3E%3Crect x='13' y='3' width='6' height='4' fill='%23F2B134'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect x="11" y="13" width="10" height="14" fill="#F3E9D2"/>
+          <path d="M9 13 L12 7 H20 L23 13Z" fill="#F3E9D2"/>
+          <rect x="13" y="3" width="6" height="4" fill="#F2B134"/>
+          <rect x="14" y="16" width="4" height="4" fill="#0C171C"/>
+          <path d="M3 27 Q8 24 13 27 T23 27 T31 27" fill="none" stroke="#8FB476" stroke-width="2"/>
+        </svg>
+        <span>Pixelmoth<span class="brand-sub">Games</span></span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#game">The game</a></li>
+          <li><a href="#demo">Demo</a></li>
+          <li><a href="#press">Press kit</a></li>
+          <li><a href="#community">Community</a></li>
+          <li><a href="#community" class="nav-member">Keeper sign-in</a></li>
+        </ul>
+        <a class="btn btn-primary btn-nav" href="#wishlist">Wishlist on Steam</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 2. Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Moss &amp; Lantern &middot; PC and Switch &middot; Spring 2027</p>
+          <h1 id="hero-title">Light the lighthouse <em>the sea forgot.</em></h1>
+          <p class="lede">Moss &amp; Lantern is a cosy puzzle game about Nettle Rock, an island whose lighthouse went dark forty winters ago. Turn the rusted lens rings, time the tides that open the causeway, and carry the lamp back up one hand-drawn room at a time.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#wishlist">Wishlist on Steam</a>
+            <a class="btn btn-ghost" href="#demo">Play the 40-minute demo</a>
+          </div>
+          <p class="fine">Launch-week prices run until 22 November 2026. Demo on PC and Switch.</p>
+        </div>
+
+        <figure class="sheet-figure">
+          <svg class="sheet" viewBox="0 0 640 520" role="img" aria-labelledby="sheet-title sheet-desc">
+            <title id="sheet-title">Nettle Rock lighthouse, east elevation drawing</title>
+            <desc id="sheet-desc">A hand-drawn technical elevation of a tapered lighthouse on a rocky island, with numbered callouts for the lens rings, the stair, the tide causeway and the keeper's cottage.</desc>
+            <defs>
+              <pattern id="sea-lines" width="48" height="14" patternUnits="userSpaceOnUse">
+                <path d="M0 7 q12 -9 24 0 t24 0" fill="none" stroke="#2C6F7E" stroke-width="1.6"/>
+              </pattern>
+              <radialGradient id="lamp-glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#F2B134" stop-opacity=".9"/>
+                <stop offset="1" stop-color="#F2B134" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <rect x="8" y="8" width="624" height="504" fill="#EFE4CB" stroke="#1F3A46" stroke-width="3"/>
+            <rect x="18" y="18" width="604" height="484" fill="none" stroke="#1F3A46" stroke-width="1"/>
+            <path d="M60 18V502M120 18V502M180 18V502M240 18V502M400 18V502M460 18V502M520 18V502M580 18V502M18 60H622M18 120H622M18 180H622M18 240H622M18 300H622M18 360H622" stroke="#1F3A46" stroke-opacity=".1" stroke-width="1"/>
+            <text x="34" y="44" font-size="12" letter-spacing="2" fill="#1F3A46">PIXELMOTH &middot; ELEVATION E-01</text>
+
+            <circle class="lamp-glow" cx="320" cy="138" r="78" fill="url(#lamp-glow)"/>
+
+            <rect x="18" y="452" width="604" height="50" fill="url(#sea-lines)"/>
+            <path d="M70 448 Q120 398 210 404 Q262 384 330 396 Q420 382 480 404 Q548 410 590 446 Z" fill="#D9C7A0" stroke="#1F3A46" stroke-width="2"/>
+            <path d="M110 430 Q140 398 200 404 Q236 392 262 402 Q228 414 214 424 Q160 428 110 430Z" fill="#6F9456" stroke="#1F3A46" stroke-width="1.5"/>
+            <path d="M420 398 Q460 384 500 396 Q480 408 430 408Z" fill="#6F9456" stroke="#1F3A46" stroke-width="1.5"/>
+            <path d="M70 452 Q150 440 260 436" fill="none" stroke="#1F3A46" stroke-width="2" stroke-dasharray="6 5"/>
+
+            <polygon points="276,410 364,410 340,160 300,160" fill="#F7F0DE" stroke="#1F3A46" stroke-width="3"/>
+            <polygon points="293.28,230 346.72,230 348.64,250 291.36,250" fill="#1F3A46"/>
+            <polygon points="287.52,290 352.48,290 354.4,310 285.6,310" fill="#1F3A46"/>
+            <polygon points="281.76,350 358.24,350 360.16,370 279.84,370" fill="#1F3A46"/>
+            <rect x="315" y="196" width="10" height="16" fill="#1F3A46"/>
+            <path d="M310 410 V384 a10 10 0 0 1 20 0 V410Z" fill="#1F3A46"/>
+
+            <path d="M282 150H358M282 150V158M300 150V158M320 150V158M340 150V158M358 150V158" fill="none" stroke="#1F3A46" stroke-width="2"/>
+            <rect x="296" y="118" width="48" height="32" fill="#F2B134" fill-opacity=".55" stroke="#1F3A46" stroke-width="2.5"/>
+            <path d="M312 118V150M328 118V150" stroke="#1F3A46" stroke-width="2"/>
+            <circle cx="320" cy="134" r="12" fill="none" stroke="#1F3A46" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <path d="M290 118 Q320 88 350 118 Z" fill="#1F3A46"/>
+            <path d="M320 88V76" stroke="#1F3A46" stroke-width="2"/>
+            <circle cx="320" cy="72" r="3" fill="#1F3A46"/>
+
+            <path d="M396 410 V372 L436 340 L476 372 V410Z" fill="#F7F0DE" stroke="#1F3A46" stroke-width="2.5"/>
+            <rect x="422" y="380" width="12" height="12" fill="#1F3A46"/>
+
+            <path d="M250 118V410M244 118H256M244 410H256" fill="none" stroke="#1F3A46" stroke-width="1.2"/>
+            <text transform="translate(236 268) rotate(-90)" font-size="12" text-anchor="middle" fill="#1F3A46">38.0 m</text>
+
+            <g class="callout-lines" fill="none" stroke="#1F3A46" stroke-width="1.2">
+              <path d="M162 110 L296 134"/>
+              <path d="M162 200 L290 262"/>
+              <path d="M162 380 L200 444"/>
+              <path d="M430 312 L436 340"/>
+            </g>
+            <g class="callouts" font-family="Figtree, sans-serif" fill="#1F3A46">
+              <circle cx="150" cy="110" r="12" fill="#F3E9D2" stroke="#1F3A46" stroke-width="1.5"/>
+              <text x="150" y="114" font-size="13" font-weight="700" text-anchor="middle">1</text>
+              <text x="150" y="138" font-size="13" text-anchor="middle">Lens: 3 rings</text>
+
+              <circle cx="150" cy="200" r="12" fill="#F3E9D2" stroke="#1F3A46" stroke-width="1.5"/>
+              <text x="150" y="204" font-size="13" font-weight="700" text-anchor="middle">2</text>
+              <text x="150" y="228" font-size="13" text-anchor="middle">Stair: 121 steps</text>
+
+              <circle cx="150" cy="380" r="12" fill="#F3E9D2" stroke="#1F3A46" stroke-width="1.5"/>
+              <text x="150" y="384" font-size="13" font-weight="700" text-anchor="middle">3</text>
+              <text x="134" y="385" font-size="13" text-anchor="end">Causeway: 2 tides</text>
+
+              <circle cx="430" cy="300" r="12" fill="#F3E9D2" stroke="#1F3A46" stroke-width="1.5"/>
+              <text x="430" y="304" font-size="13" font-weight="700" text-anchor="middle">4</text>
+              <text x="448" y="304" font-size="13">Cottage: base camp</text>
+            </g>
+
+            <rect x="412" y="424" width="200" height="72" fill="#EFE4CB" stroke="#1F3A46" stroke-width="2"/>
+            <text x="422" y="442" font-size="13" letter-spacing="1.2" fill="#1F3A46" font-family="Figtree, sans-serif" font-weight="700">NETTLE ROCK LIGHT</text>
+            <text x="422" y="458" font-size="12" fill="#1F3A46" font-family="Figtree, sans-serif">East elevation, survey</text>
+            <text x="422" y="474" font-size="12" fill="#1F3A46" font-family="Figtree, sans-serif">Sheet NR-01 &middot; Scale 1:200</text>
+            <text x="422" y="488" font-size="12" fill="#1F3A46" font-family="Figtree, sans-serif">Rev C &middot; drawn by keepers</text>
+          </svg>
+          <figcaption class="sheet-caption">
+            <ol class="callout-key">
+              <li><span>1</span> Lens: three rotating rings, one turned per puzzle</li>
+              <li><span>2</span> Stair: 121 steps, each one a room you can redraw</li>
+              <li><span>3</span> Causeway: open at low tide, drowned at high</li>
+              <li><span>4</span> Cottage: your base camp and the logbook</li>
+            </ol>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3. Social proof strip -->
+    <section class="proof" aria-label="Kind words from partners and press">
+      <div class="container proof-inner">
+        <p class="proof-label">Shown to, and loved by</p>
+        <ul class="proof-list">
+          <li>Harbourline Weekly</li>
+          <li>The Quiet Console</li>
+          <li>Pocketwick Press</li>
+          <li>Kettle Hour Live</li>
+          <li>Gullmoor Review</li>
+          <li>Ninefold Streamers</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. Features -->
+    <section class="section" id="game" aria-labelledby="game-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="kicker">The game</p>
+          <h2 id="game-title">Six things that make Nettle Rock feel lived in</h2>
+          <p>Every mechanic grows out of the island itself: the weather, the birds and the slow work of getting a lamp to shine again.</p>
+        </header>
+
+        <ul class="feature-grid">
+          <li class="feature">
+            <svg class="feat-art" viewBox="0 0 120 96" aria-hidden="true" focusable="false">
+              <circle cx="60" cy="48" r="36" fill="none" stroke="#F2B134" stroke-width="8" stroke-dasharray="40 16"/>
+              <circle cx="60" cy="48" r="20" fill="none" stroke="#8FB476" stroke-width="6" stroke-dasharray="18 10 30 12"/>
+              <circle cx="60" cy="48" r="6" fill="#F3E9D2"/>
+            </svg>
+            <h3>Rings that turn</h3>
+            <p>Rotate three rusted lens rings until the beams line up with the glass. Each ring hides a different hinge, so the same ring can open two rooms.</p>
+          </li>
+          <li class="feature">
+            <svg class="feat-art" viewBox="0 0 120 96" aria-hidden="true" focusable="false">
+              <path d="M6 70 q9 -7 18 0 t18 0 t18 0 t18 0 t18 0" fill="none" stroke="#5FA8B8" stroke-width="3"/>
+              <path d="M6 84 q9 -7 18 0 t18 0 t18 0 t18 0 t18 0" fill="none" stroke="#5FA8B8" stroke-width="2" stroke-opacity=".6"/>
+              <ellipse cx="34" cy="50" rx="10" ry="6" fill="#F3E9D2"/>
+              <ellipse cx="62" cy="40" rx="10" ry="6" fill="#F3E9D2"/>
+              <ellipse cx="90" cy="30" rx="10" ry="6" fill="#8FB476"/>
+            </svg>
+            <h3>Tides that open paths</h3>
+            <p>The causeway floods and drains on a readable tide table. Plan a crossing by the chart, then wait out the water if you must. Nothing ever times out.</p>
+          </li>
+          <li class="feature">
+            <svg class="feat-art" viewBox="0 0 120 96" aria-hidden="true" focusable="false">
+              <path d="M18 34 q7 -8 14 0 q7 -8 14 0" fill="none" stroke="#F3E9D2" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M58 22 q6 -7 12 0 q6 -7 12 0" fill="none" stroke="#F3E9D2" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M80 50 q5 -6 10 0 q5 -6 10 0" fill="none" stroke="#F3E9D2" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M30 62 q5 -6 10 0 q5 -6 10 0" fill="none" stroke="#F3E9D2" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="48" y="60" width="24" height="18" rx="3" fill="#F2B134"/>
+            </svg>
+            <h3>Birds that nest in your rooms</h3>
+            <p>Gulls and puffins move into rooms you have restored. Their nests change the puzzles nearby, so a finished room is never quite finished.</p>
+          </li>
+          <li class="feature">
+            <svg class="feat-art" viewBox="0 0 120 96" aria-hidden="true" focusable="false">
+              <rect x="22" y="12" width="76" height="72" rx="4" fill="#F3E9D2"/>
+              <path d="M34 30 H86 M34 42 H86 M34 54 H72" stroke="#1F3A46" stroke-opacity=".5" stroke-width="2"/>
+              <path d="M34 72 q8 -10 14 -2 t14 -2 t18 -6" fill="none" stroke="#F2B134" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <h3>A logbook in your own hand</h3>
+            <p>Every keeper writes in the logbook. Sketch the rooms, pin notes to the tide and trace the birds. Export pages as the game's own postcards.</p>
+          </li>
+          <li class="feature">
+            <svg class="feat-art" viewBox="0 0 120 96" aria-hidden="true" focusable="false">
+              <rect x="16" y="50" width="8" height="26" rx="2" fill="#8FB476"/>
+              <rect x="30" y="34" width="8" height="42" rx="2" fill="#F2B134"/>
+              <rect x="44" y="20" width="8" height="56" rx="2" fill="#F3E9D2"/>
+              <rect x="58" y="40" width="8" height="36" rx="2" fill="#8FB476"/>
+              <rect x="72" y="28" width="8" height="48" rx="2" fill="#F2B134"/>
+              <rect x="86" y="56" width="8" height="20" rx="2" fill="#F3E9D2"/>
+            </svg>
+            <h3>A score that follows the weather</h3>
+            <p>Fourteen cues by the composer Iwa Dunmore swell with wind and fade with fog. The soundtrack changes with the room you are in, not the level you have reached.</p>
+          </li>
+          <li class="feature">
+            <svg class="feat-art" viewBox="0 0 120 96" aria-hidden="true" focusable="false">
+              <circle cx="60" cy="44" r="30" fill="#F2B134" fill-opacity=".18"/>
+              <path d="M46 34 H74 L70 60 H50Z" fill="#F3E9D2"/>
+              <rect x="44" y="28" width="32" height="6" rx="2" fill="#8FB476"/>
+              <path d="M52 66 H68 V72 H52Z" fill="#8FB476"/>
+            </svg>
+            <h3>Hints that never shout</h3>
+            <p>Hold the lantern button for two seconds and the nearest thing that matters glows. The lantern shows where to look, never the answer itself.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. How a night plays -->
+    <section class="section section-alt" id="demo" aria-labelledby="demo-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="kicker">Demo</p>
+          <h2 id="demo-title">How a night on the island plays</h2>
+          <p>A full night takes about forty minutes in the demo and two to three hours in the game. Here is the shape of one.</p>
+        </header>
+
+        <div class="night" role="group" aria-label="Typical night in the demo, by minutes">
+          <p class="night-caption">A typical night in the demo, in minutes (40 in total)</p>
+          <ol class="night-list">
+            <li class="night-row">
+              <span class="night-n" aria-hidden="true">01</span>
+              <div class="night-text">
+                <p class="step-time">Dusk</p>
+                <h3>Read the island</h3>
+                <p>Walk the shore with the logbook open. Note which causeway stones are wet, which rooms the gulls have claimed and where the lens rings are stuck.</p>
+              </div>
+              <div class="night-bar" aria-hidden="true"><i style="width: 22.5%"></i></div>
+              <span class="night-min">9 min</span>
+            </li>
+            <li class="night-row">
+              <span class="night-n" aria-hidden="true">02</span>
+              <div class="night-text">
+                <p class="step-time">Night</p>
+                <h3>Turn the lens</h3>
+                <p>Climb the stair, one room at a time. Line up the three rings against the storm glass until the beam finally sweeps across the water.</p>
+              </div>
+              <div class="night-bar" aria-hidden="true"><i style="width: 60%"></i></div>
+              <span class="night-min">24 min</span>
+            </li>
+            <li class="night-row">
+              <span class="night-n" aria-hidden="true">03</span>
+              <div class="night-text">
+                <p class="step-time">Dawn</p>
+                <h3>Open the log</h3>
+                <p>Draw what you restored into the logbook. The island answers in the morning: a new bird, a path that was not there, a song you can hum.</p>
+              </div>
+              <div class="night-bar" aria-hidden="true"><i style="width: 17.5%"></i></div>
+              <span class="night-min">7 min</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="demo-cta">
+          <p>The demo covers the shore, the first two lens rings and the cottage.</p>
+          <a class="btn btn-ghost" href="#wishlist">Get the demo on Steam</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Metrics band -->
+    <section class="metrics" aria-label="The game in numbers">
+      <div class="container">
+        <ul class="metric-list">
+          <li class="metric"><span class="metric-num">140</span><span class="metric-label">hand-drawn rooms, each inked on paper and scanned</span></li>
+          <li class="metric"><span class="metric-num">96</span><span class="metric-label">puzzles, from a single bolt to the whole tide</span></li>
+          <li class="metric"><span class="metric-num">30</span><span class="metric-label">hours of play for a full first light</span></li>
+          <li class="metric"><span class="metric-num">12</span><span class="metric-label">languages, with subtitles that name the speaker</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7. Testimonials -->
+    <section class="section section-paper" id="press" aria-labelledby="press-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="kicker">Press kit and kind words</p>
+          <h2 id="press-title">What the first readers wrote</h2>
+          <p>Logo pack, screenshots and the two-minute trailer are available on request. Write to <a href="mailto:press@pixelmoth.example">press@pixelmoth.example</a>.</p>
+        </header>
+
+        <div class="letters">
+          <blockquote class="letter">
+            <svg class="seal" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="21" fill="none" stroke="#7a4f00" stroke-width="2" stroke-dasharray="3 3"/><circle cx="24" cy="24" r="14" fill="#f2b134"/><path d="M21 18h6l1 10h-8z" fill="#1b3038"/><rect x="21" y="29" width="6" height="4" fill="#1b3038"/></svg>
+            <p class="letter-date">Early access review, 2 October 2026</p>
+            <p class="letter-body">I was ready to give up on the third lens ring. Then I sat with the gulls for ten minutes and the puzzle simply clicked. It feels like a game that trusts you.</p>
+            <footer>
+              <p class="letter-name">Ruth Abernethy-Cole</p>
+              <p class="letter-role">Late Shift Puzzle Club</p>
+              <p class="letter-outcome"><span class="fig">42</span> minutes to finish the first lens</p>
+            </footer>
+          </blockquote>
+          <blockquote class="letter">
+            <svg class="seal" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="21" fill="none" stroke="#7a4f00" stroke-width="2" stroke-dasharray="3 3"/><circle cx="24" cy="24" r="14" fill="#f2b134"/><path d="M21 18h6l1 10h-8z" fill="#1b3038"/><rect x="21" y="29" width="6" height="4" fill="#1b3038"/></svg>
+            <p class="letter-date">Stream recap, 19 October 2026</p>
+            <p class="letter-body">Moss &amp; Lantern is the first cosy puzzler my chat has asked me to revisit on a second night. The tide puzzles make genuinely great moments for an audience.</p>
+            <footer>
+              <p class="letter-name">Dario Venn</p>
+              <p class="letter-role">Kettle Hour Live</p>
+              <p class="letter-outcome"><span class="fig">2h 36m</span> average session on stream</p>
+            </footer>
+          </blockquote>
+          <blockquote class="letter">
+            <svg class="seal" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="21" fill="none" stroke="#7a4f00" stroke-width="2" stroke-dasharray="3 3"/><circle cx="24" cy="24" r="14" fill="#f2b134"/><path d="M21 18h6l1 10h-8z" fill="#1b3038"/><rect x="21" y="29" width="6" height="4" fill="#1b3038"/></svg>
+            <p class="letter-date">Review, Gullmoor Review, 28 October 2026</p>
+            <p class="letter-body">The hand-drawn rooms look like someone's sketchbook that you are allowed to walk through. It is calm and clever, and a little eerie in the best possible way.</p>
+            <footer>
+              <p class="letter-name">Sunniva Pell</p>
+              <p class="letter-role">Critic, Gullmoor Review</p>
+              <p class="letter-outcome"><span class="fig">9/10</span> for atmosphere in the review</p>
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Pricing -->
+    <section class="section" id="pricing" aria-labelledby="pricing-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="kicker">Editions</p>
+          <h2 id="pricing-title">Pick how deep you want to climb</h2>
+          <p>Launch-week prices apply until 22 November 2026. Regular prices apply from 23 November.</p>
+        </header>
+
+        <div class="price-toggle-wrap">
+          <div class="segmented" role="group" aria-label="Price period">
+            <button type="button" class="seg-btn" data-mode="launch" aria-pressed="true">Launch week</button>
+            <button type="button" class="seg-btn" data-mode="regular" aria-pressed="false">Regular</button>
+          </div>
+          <p class="price-status" aria-live="polite" id="price-status">Showing launch-week prices.</p>
+        </div>
+
+        <div class="tiers">
+          <article class="tier">
+            <svg class="tier-art" viewBox="0 0 160 64" aria-hidden="true" focusable="false">
+              <rect x="52" y="4" width="56" height="56" rx="8" fill="#0C171C" stroke="#8FB476" stroke-width="2"/>
+              <rect x="58" y="10" width="44" height="44" rx="3" fill="#1B3038"/>
+              <path d="M76 46 L78 22 H82 L84 46Z" fill="#F3E9D2"/>
+              <rect x="77" y="16" width="4" height="5" fill="#F2B134"/>
+            </svg>
+            <h3>Digital</h3>
+            <p class="tier-tag">The whole island, on your device.</p>
+            <p class="price">
+              <span class="amount" data-launch="&pound;16.99" data-regular="&pound;21.99">&pound;16.99</span>
+              <s class="old-price" data-old-launch="&pound;21.99" data-old-regular="" hidden>&pound;21.99</s>
+            </p>
+            <ul class="tier-list">
+              <li>Full game on PC or Nintendo Switch</li>
+              <li>Original soundtrack, streamed</li>
+              <li>Digital logbook with 40 sketch pages</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#wishlist">Choose Digital</a>
+          </article>
+
+          <article class="tier tier-featured">
+            <p class="tier-badge">Keeper's pick</p>
+            <svg class="tier-art" viewBox="0 0 160 64" aria-hidden="true" focusable="false">
+              <rect x="22" y="36" width="68" height="20" rx="2" fill="#8FB476"/>
+              <rect x="28" y="20" width="60" height="14" rx="2" fill="#F2B134"/>
+              <circle cx="120" cy="32" r="24" fill="#0C171C" stroke="#F3E9D2" stroke-width="2"/>
+              <circle cx="120" cy="32" r="6" fill="#F2B134"/>
+            </svg>
+            <h3>Deluxe</h3>
+            <p class="tier-tag">For the keeper who wants the whole story.</p>
+            <p class="price">
+              <span class="amount" data-launch="&pound;29.99" data-regular="&pound;36.99">&pound;29.99</span>
+              <s class="old-price" data-old-launch="&pound;36.99" data-old-regular="" hidden>&pound;36.99</s>
+            </p>
+            <ul class="tier-list">
+              <li>Everything in Digital</li>
+              <li>FLAC soundtrack with a 24-page composer's score</li>
+              <li>Art book of 60 hand-drawn room studies</li>
+              <li>Three bonus rooms, drawn by the community</li>
+            </ul>
+            <a class="btn btn-primary btn-block" href="#wishlist">Choose Deluxe</a>
+          </article>
+
+          <article class="tier">
+            <svg class="tier-art" viewBox="0 0 160 64" aria-hidden="true" focusable="false">
+              <rect x="44" y="18" width="72" height="40" rx="3" fill="#1B3038" stroke="#F3E9D2" stroke-width="2"/>
+              <rect x="38" y="8" width="84" height="12" rx="2" fill="#F2B134"/>
+              <circle cx="80" cy="40" r="9" fill="none" stroke="#F2B134" stroke-width="2"/>
+              <path d="M80 35 V45" stroke="#F2B134" stroke-width="2"/>
+            </svg>
+            <h3>Collector</h3>
+            <p class="tier-tag">3,000 numbered copies, shipped from March 2027.</p>
+            <p class="price">
+              <span class="amount" data-launch="&pound;89.00" data-regular="&pound;109.00">&pound;89.00</span>
+              <s class="old-price" data-old-launch="&pound;109.00" data-old-regular="" hidden>&pound;109.00</s>
+            </p>
+            <ul class="tier-list">
+              <li>Physical game for PC or Switch</li>
+              <li>96-page hardbound logbook, sewn by hand</li>
+              <li>Enamel lighthouse pin and soundtrack vinyl</li>
+              <li>Certificate of keeper, numbered by hand</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#wishlist">Reserve Collector</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. FAQ -->
+    <section class="section section-alt" id="faq" aria-labelledby="faq-title">
+      <div class="container faq-layout">
+        <header class="section-head faq-head">
+          <p class="kicker">Questions</p>
+          <h2 id="faq-title">Asked by keepers, answered plainly</h2>
+          <p>Still curious? Our community is answering questions in the open, from the first lens to the last.</p>
+          <div class="community" id="community">
+            <h3>Keeper community</h3>
+            <p>Join the logbook club on Discord and send drawings from your own rooms. Every fortnight the studio picks one to become a bonus room.</p>
+            <p><a href="mailto:hello@pixelmoth.example">hello@pixelmoth.example</a></p>
+          </div>
+        </header>
+
+        <div class="accordion">
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button class="acc-trigger" type="button" aria-expanded="true" aria-controls="faq-1" id="faq-1-btn">
+                <span>Does Moss &amp; Lantern play the same on PC and Switch?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-1" role="region" aria-labelledby="faq-1-btn">
+              <p>Yes. Both versions share the same island and puzzles. The Switch build runs at a steady 30 frames per second with handheld controls, and PC runs at 60 with mouse and controller support.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-2" id="faq-2-btn">
+                <span>How long is the demo, and does my progress carry over?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-2" role="region" aria-labelledby="faq-2-btn" hidden>
+              <p>The demo lasts about forty minutes and covers the shore, the first two lens rings and the cottage. Progress carries over to the full game on the same platform.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-3" id="faq-3-btn">
+                <span>Are there hints, and do I have to read the tide table?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-3" role="region" aria-labelledby="faq-3-btn" hidden>
+              <p>The lantern hint shows the nearest important thing and never the solution. You can read the tide table if you like, but the causeway also shows its state on the stones, so you can skip the chart entirely.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-4" id="faq-4-btn">
+                <span>Is there a timer or any way to fail?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-4" role="region" aria-labelledby="faq-4-btn" hidden>
+              <p>No. There are no timers and no game-over screen. A puzzle that frustrates you can be left for the birds to rearrange, then picked up again whenever you like.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-5" id="faq-5-btn">
+                <span>What is in the Collector's Edition, and when does it ship?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-5" role="region" aria-labelledby="faq-5-btn" hidden>
+              <p>There are 3,000 numbered copies: the physical game, a 96-page hardbound logbook sewn by hand, an enamel lighthouse pin, the soundtrack on vinyl and a numbered keeper's certificate. Pre-orders close on 22 November 2026, and copies ship from March 2027.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <h3 class="acc-heading">
+              <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-6" id="faq-6-btn">
+                <span>How accessible is the game?</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="acc-panel" id="faq-6" role="region" aria-labelledby="faq-6-btn" hidden>
+              <p>Lens rings can be tinted for colour-blind players, subtitles name each speaker, text can switch to a dyslexia-friendly face, and every control can be remapped on both platforms. Reduced motion turns off the lamp's breathing glow.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Final CTA -->
+    <section class="final-cta" id="wishlist" aria-labelledby="final-title">
+      <div class="container final-inner">
+        <svg class="final-lamp" viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+          <circle cx="40" cy="40" r="34" fill="#F2B134" fill-opacity=".14"/>
+          <rect x="32" y="30" width="16" height="22" fill="#F3E9D2"/>
+          <path d="M28 30 L36 16 H44 L52 30Z" fill="#F3E9D2"/>
+          <rect x="36" y="8" width="8" height="5" fill="#F2B134"/>
+          <rect x="36" y="36" width="8" height="8" fill="#0C171C"/>
+        </svg>
+        <div>
+          <h2 id="final-title">The lamp needs one more keeper.</h2>
+          <p>Wishlist Moss &amp; Lantern on Steam to hear about the demo, the launch date and the Collector's Edition first. Wishlists are free and easy to remove.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#wishlist">Wishlist on Steam</a>
+            <a class="btn btn-ghost" href="#demo">Play the demo first</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 11. Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <p class="brand footer-brand-name">Pixelmoth<span class="brand-sub">Games</span></p>
+        <p>Four people, one lighthouse, and a lot of sketchbooks. Based in a converted boathouse, and making Moss &amp; Lantern since 2023.</p>
+      </div>
+      <nav class="footer-col" aria-label="The game">
+        <h2>The game</h2>
+        <ul>
+          <li><a href="#game">Features</a></li>
+          <li><a href="#demo">How a night plays</a></li>
+          <li><a href="#pricing">Editions and prices</a></li>
+          <li><a href="#wishlist">Wishlist on Steam</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Studio">
+        <h2>Studio</h2>
+        <ul>
+          <li><a href="#press">Press kit</a></li>
+          <li><a href="#community">Keeper community</a></li>
+          <li><a href="mailto:jobs@pixelmoth.example">Work with us</a></li>
+          <li><a href="mailto:press@pixelmoth.example">Press contact</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Help">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="#faq">Questions</a></li>
+          <li><a href="mailto:hello@pixelmoth.example">Email the studio</a></li>
+          <li><a href="#faq">Accessibility options</a></li>
+          <li><a href="#top">Back to top</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container legal">
+      <p>&copy; 2026 Pixelmoth Games. Pixelmoth Games, Moss &amp; Lantern, Nettle Rock and all characters are fictional. Store prices shown are launch-week offers for this demonstration.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

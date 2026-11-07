@@ -1,0 +1,530 @@
+[
+ {
+  "pair": "brightwater-3way-r1",
+  "brief": "brightwater",
+  "round": 1,
+  "ranking": [
+   "hybrid",
+   "control",
+   "engine"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "control": {
+    "hierarchy": 7,
+    "typography": 8,
+    "spacing": 6,
+    "colour": 7,
+    "product_visual": 6,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 7
+   },
+   "engine": {
+    "hierarchy": 7,
+    "typography": 6,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 6,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 5
+   },
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 9,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 8
+   }
+  },
+  "rationale": "Z has the most convincing and specific product visuals (live monitoring dashboard, quote tag, timeline chart, brick-roof mounting illustration) and a bold navy and amber palette, so it is the most shippable. X has a distinctive editorial serif and warm palette but a sparse hero visual and uneven vertical rhythm. Y is clean and competent but the cream, green and orange house-illustration, icon-card grid layout is the most generic SaaS template."
+ },
+ {
+  "pair": "brightwater-3way-r2",
+  "brief": "brightwater",
+  "round": 2,
+  "ranking": [
+   "hybrid",
+   "control",
+   "engine"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "engine": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 6,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 5
+   },
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 9,
+    "mobile": 8,
+    "polish": 8,
+    "originality": 8
+   },
+   "control": {
+    "hierarchy": 7,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 6,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 7
+   }
+  },
+  "rationale": "Y has the strongest, most specific product visual (a live monitoring dashboard with real data, plus detailed feature illustrations and a timeline), and a bold, coherent dark and amber identity. Z has elegant serif typography and a warm palette, but its hero illustration is simpler and the hero headline spacing is loose. X is clean but follows the generic cream, serif and card-grid SaaS pattern with simple icon tiles, so it is the most template-like."
+ },
+ {
+  "pair": "dovecote-3way-r1",
+  "brief": "dovecote",
+  "round": 1,
+  "ranking": [
+   "control",
+   "engine",
+   "hybrid"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "control": {
+    "hierarchy": 8,
+    "typography": 9,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 7,
+    "mobile": 8,
+    "polish": 8,
+    "originality": 8
+   },
+   "engine": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 8,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 8,
+    "polish": 8,
+    "originality": 5
+   },
+   "hybrid": {
+    "hierarchy": 7,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 5,
+    "originality": 8
+   }
+  },
+  "rationale": "X has the strongest hero: a large tight serif headline, a clean floor-plan card and tilted info cards, all with a consistent warm palette. Y is tidy and complete, with a booking form and a live floor plan, but its card grids and dark bands follow the usual SaaS template. Z is the most inventive, with its metric dot-grids, day chips and event calendar, but its hero card overlaps and hides the floor-plan caption and clips 'Darkroom', which hurts polish."
+ },
+ {
+  "pair": "dovecote-3way-r2",
+  "brief": "dovecote",
+  "round": 2,
+  "ranking": [
+   "control",
+   "engine",
+   "hybrid"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "engine": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 6
+   },
+   "hybrid": {
+    "hierarchy": 7,
+    "typography": 8,
+    "spacing": 6,
+    "colour": 8,
+    "product_visual": 7,
+    "mobile": 6,
+    "polish": 5,
+    "originality": 8
+   },
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 7,
+    "mobile": 8,
+    "polish": 7,
+    "originality": 7
+   }
+  },
+  "rationale": "Z has a clean hero with a clear floor-plan card, strong colour rhythm (dark, terracotta and green bands) and tidy mobile stacking, though the Resident price looks slightly garbled. X is a polished, consistent cream, rust and slate page with a believable live floor plan, but its layout is the most conventional. Y is the most inventive (dot-grid metrics, weekday chips, tilted resident card), but the hero overlay collides with the caption text and clips 'Darkroom', and mobile is very long with weaker polish."
+ },
+ {
+  "pair": "ledgerleaf-3way-r1",
+  "brief": "ledgerleaf",
+  "round": 1,
+  "ranking": [
+   "hybrid",
+   "control",
+   "engine"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "engine": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 6,
+    "polish": 7,
+    "originality": 5
+   },
+   "control": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 6,
+    "colour": 7,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 6,
+    "originality": 7
+   },
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 8,
+    "polish": 8,
+    "originality": 8
+   }
+  },
+  "rationale": "Z has the strongest hierarchy and the most specific product visual: a ledger-statement card with a closed stamp, tidy illustrated features, a plan comparison table and consistent spacing. Y has a vivid hero (statement, receipt and note) but looser spacing and a few overlap and clipping rough edges, such as the hero card text and the receipt. X is clean and competent but follows the standard SaaS layout of centred sections, card grids and a stat band, so it is the most template-like."
+ },
+ {
+  "pair": "ledgerleaf-3way-r2",
+  "brief": "ledgerleaf",
+  "round": 2,
+  "ranking": [
+   "control",
+   "hybrid",
+   "engine"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 9,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 8
+   },
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 8,
+    "colour": 7,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 7
+   },
+   "engine": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 5
+   }
+  },
+  "rationale": "X has the most specific and characterful hero (statement table, receipt slip, accountant note) and a distinctive serif voice, though a few elements overlap awkwardly. Y is the cleanest and best spaced, with a ledger-sheet hero and plan comparison table, but it is a little safer. Z is competent but reads most like the standard SaaS pattern: card grids, a tidy dashboard mock and logo tiles."
+ },
+ {
+  "pair": "lowtide-3way-r1",
+  "brief": "lowtide",
+  "round": 1,
+  "ranking": [
+   "hybrid",
+   "control",
+   "engine"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "engine": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 6,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 5
+   },
+   "control": {
+    "hierarchy": 7,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 6,
+    "originality": 7
+   },
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 9,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 9,
+    "mobile": 8,
+    "polish": 8,
+    "originality": 9
+   }
+  },
+  "rationale": "Z has the most specific and convincing product UI (multitrack session with a timecoded edit log and a held legal claim), a distinctive italic-accent serif headline, and the richest page structure, including a Gantt-style process visual and a dark planning-call band. Y has a strong tilted mixer visual and a bold terracotta and navy palette, but the hero headline wraps awkwardly and the stamp and sticky-note details feel slightly overworked. X is clean and competent, but its single teal accent on cream, standard card grid and simple progress-card visual read as the most template-like."
+ },
+ {
+  "pair": "lowtide-3way-r2",
+  "brief": "lowtide",
+  "round": 2,
+  "ranking": [
+   "hybrid",
+   "control",
+   "engine"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 8
+   },
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 9,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 9,
+    "mobile": 8,
+    "polish": 8,
+    "originality": 9
+   },
+   "engine": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 5
+   }
+  },
+  "rationale": "Y has the most specific, convincing product UI (multitrack waveforms, timecoded edit log with a held legal claim), an expressive italic serif headline, and a warm, cohesive palette with distinctive extras such as the timeline bar and the dark planning-call CTA. X is bold and characterful with a tilted master-console visual and a stamp, but it is slightly busier and its pricing and feature cards are denser. Z is clean and competent but reads as the standard teal-and-cream SaaS layout with a generic card-and-timeline hero and uniform sections, so it is the most template-like."
+ },
+ {
+  "pair": "pixelmoth-3way-r1",
+  "brief": "pixelmoth",
+  "round": 1,
+  "ranking": [
+   "hybrid",
+   "control",
+   "engine"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 9,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 9,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 9
+   },
+   "engine": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 6,
+    "polish": 7,
+    "originality": 5
+   },
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 7
+   }
+  },
+  "rationale": "X stands out with its architectural survey-sheet lighthouse elevation, annotated callouts, and a night-timeline with durations, giving a specific and original product visual with refined serif typography. Z is a cohesive, polished dark page with a nice tilted room card and illustrated lighthouse but follows a more familiar card-grid structure. Y is the most template-like: a cream and green alternating-band layout, a generic tile-grid game card (which also overlaps awkwardly on mobile), and a standard SaaS section rhythm."
+ },
+ {
+  "pair": "pixelmoth-3way-r2",
+  "brief": "pixelmoth",
+  "round": 2,
+  "ranking": [
+   "hybrid",
+   "control",
+   "engine"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "engine": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 6,
+    "mobile": 6,
+    "polish": 7,
+    "originality": 5
+   },
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 7
+   },
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 9,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 9,
+    "mobile": 7,
+    "polish": 8,
+    "originality": 9
+   }
+  },
+  "rationale": "Z has the most specific, original hero (an annotated lighthouse survey drawing), plus rich concrete data throughout, including timeline bars, dated testimonials with stats and a carefully set serif and italic type pairing. Y is a polished dark cozy design with a nicely tilted puzzle card, but its sections follow the standard SaaS card grid. X is clean and competent, but its light cream blocks, uniform card grids and the hero's puzzle card overlapping the scene (which looks awkward on mobile) make it the most template-like."
+ },
+ {
+  "pair": "wren-3way-r1",
+  "brief": "wren",
+  "round": 1,
+  "ranking": [
+   "control",
+   "hybrid",
+   "engine"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "hybrid": {
+    "hierarchy": 7,
+    "typography": 8,
+    "spacing": 6,
+    "colour": 7,
+    "product_visual": 8,
+    "mobile": 6,
+    "polish": 6,
+    "originality": 7
+   },
+   "engine": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 5
+   },
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 8,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 8
+   }
+  },
+  "rationale": "Z has the most distinctive identity: a terracotta and forest palette, an italic serif accent, a wren illustration, and a layered lab and schedule card. X has a striking lab-slider hero and rich feature visuals, but its social-proof strip wraps awkwardly and its hero cards and spacing feel a little uneven. Y is clean and competent but follows the familiar SaaS pattern of icon cards, three steps and a stats band, so it is the most template-like."
+ },
+ {
+  "pair": "wren-3way-r2",
+  "brief": "wren",
+  "round": 2,
+  "ranking": [
+   "hybrid",
+   "control",
+   "engine"
+  ],
+  "template_like": "engine",
+  "scores": {
+   "engine": {
+    "hierarchy": 7,
+    "typography": 7,
+    "spacing": 7,
+    "colour": 7,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 5
+   },
+   "control": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 7,
+    "colour": 8,
+    "product_visual": 7,
+    "mobile": 7,
+    "polish": 7,
+    "originality": 8
+   },
+   "hybrid": {
+    "hierarchy": 8,
+    "typography": 8,
+    "spacing": 8,
+    "colour": 8,
+    "product_visual": 9,
+    "mobile": 8,
+    "polish": 8,
+    "originality": 9
+   }
+  },
+  "rationale": "Z has the most specific, data-rich product visuals (lab range sliders, visit timeline, booked/seen/home strips) and a strong editorial type pairing, making it the most distinctive and shippable. Y has a lovely serif italic voice and warm terracotta palette with a charming wren illustration, but its hero cards overlap awkwardly and the visuals are lighter. X is clean and competent but follows the familiar card-grid SaaS pattern with a tilted app card, making it the most template-like."
+ }
+]
